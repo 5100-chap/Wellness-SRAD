@@ -1,0 +1,25 @@
+{
+  "name": "wellness-srad",
+  "version": "1.0.0",
+  "description": "Proyecto para administrar los espacios administrativos del Wellness Center",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/5100-chap/Wellness-SRAD.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/5100-chap/Wellness-SRAD/issues"
+  },
+  "homepage": "https://github.com/5100-chap/Wellness-SRAD#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
