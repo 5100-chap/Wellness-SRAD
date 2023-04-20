@@ -12,8 +12,8 @@
   <div class="sticky-top"> <nav class="navbar bg-body-tertiary">
     <div class="container-fluid">
   
-      <a class="navbar-brand" href="#">
-        <img src="https://javier.rodriguez.org.mx/itesm/borregos/borrego-blue-small.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+      <a class="navbar-brand" [routerLink]="'inicio'">
+        <img src="https://javier.rodriguez.org.mx/itesm/borregos/borrego-blue-small.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top" >
         | Rec Sports
       </a>
   
@@ -24,7 +24,7 @@
         </li>
   
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Gimnasio</a>
+          <a class="nav-link active" aria-current="page" [routerLink]="'gimnasio'">Gimnasio</a>
         </li>
   
         <li class="nav-item">

@@ -1,4 +1,9 @@
 import { NgModule } from '@angular/core';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { BrowserModule } from '@angular/platform-browser';
 
 import { QRCodeModule } from 'angularx-qrcode';
@@ -13,6 +18,11 @@ import { IdDigitalComponent } from './id-digital/id-digital.component';
 
 
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { GimnasioComponent } from './gimnasio/gimnasio.component';
+import { DropdownBasicComponent } from './dropdown-basic/dropdown-basic.component';
+
+
 
 
 const router: Routes = [
@@ -31,9 +41,20 @@ const router: Routes = [
   {
     path: 'idDigital',
     component: IdDigitalComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+
+  },
+  {
+    path: '', redirectTo: '/login', pathMatch: 'full' 
+  },
+  {
+    path: 'gimnasio',
+    component: GimnasioComponent
+ 
   }
-
-
 
 ];
 
@@ -45,16 +66,20 @@ const router: Routes = [
     ListaAreasComponent,
     ListaReservasComponent,
     CalendarioComponent,
-    IdDigitalComponent
+    IdDigitalComponent,
+    GimnasioComponent,
+    DropdownBasicComponent,
+    
   ],
   imports: [
+    FormsModule,
     BrowserModule,
+    BrowserAnimationsModule,
+    NgbModule,
+    ReactiveFormsModule,
     NoopAnimationsModule,
     QRCodeModule,
-    RouterModule.forRoot(router),
-    
-    
-    
+    RouterModule.forRoot(router),    
 
   ],
   providers: [],
