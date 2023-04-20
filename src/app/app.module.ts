@@ -6,9 +6,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { BrowserModule } from '@angular/platform-browser';
 
+
 import { QRCodeModule } from 'angularx-qrcode';
 import { AppComponent } from './app.component';
-
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ListaAreasComponent } from './lista-areas/lista-areas.component';
@@ -94,7 +96,8 @@ const router: Routes = [
     RouterModule.forRoot(router),    
 
   ],
+
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
