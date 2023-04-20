@@ -8,6 +8,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { QRCodeModule } from 'angularx-qrcode';
 import { AppComponent } from './app.component';
+
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ListaAreasComponent } from './lista-areas/lista-areas.component';
@@ -15,6 +16,11 @@ import { ListaReservasComponent } from './lista-reservas/lista-reservas.componen
 import { CalendarioComponent } from './calendario/calendario.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IdDigitalComponent } from './id-digital/id-digital.component';
+import { EsportsComponent } from './esports/esports.component';
+import { CrossfitComponent } from './crossfit/crossfit.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 
 import { RouterModule, Routes } from '@angular/router';
@@ -58,6 +64,7 @@ const router: Routes = [
 
 ];
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,7 +76,12 @@ const router: Routes = [
     IdDigitalComponent,
     GimnasioComponent,
     DropdownBasicComponent,
-    
+    EsportsComponent,
+    CrossfitComponent,
+    HeaderComponent,
+    FooterComponent,
+    CalendarComponent
+
   ],
   imports: [
     FormsModule,
