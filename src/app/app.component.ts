@@ -1,6 +1,8 @@
 import { NgClass } from '@angular/common';
 import { Component, NgModule } from '@angular/core';
 import { Router } from '@angular/router';
+import { Reservas } from './models/reservas';
+
 
 @Component({
   selector: 'app-root',
@@ -16,3 +18,5 @@ export class AppComponent {
     this.router = _router.url;
   }
 }
+
+
