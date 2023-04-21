@@ -48,25 +48,50 @@
                   </h4>
   
                   <div class="btn-group me-2" role="group" aria-label="First group">
-                    <button type="button" class="btn btn-primary" href="#">Marcar llegada</button>
-            
+                    
+                    <button id = "confirmar" class="btn btn-primary" (click)="open(mymodal)"> Marcar llegada </button>
+                        <ng-template #mymodal let-modal>
+                          <div class="modal-header">
+                            <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+                            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                              <span  aria-hidden="true">×</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            Tu llegada ha sido registrada exitosamente!
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
+                          </div>
+                        </ng-template>
                   </div>
   
                   <div class="btn-group me-2" role="group" aria-label="Second group">
                     <button type="button" class="btn btn-warning" href="#">Reagendar</button>
-                  </div>
-  
-  
+                  </div>  
                   <div class="btn-group me-2" role="group" aria-label="Second group">
-                    <button type="button" class="btn btn-danger" href="#">Cancelar reserva</button>
+                    <button id = "confirmar" class="btn btn-danger" (click)="open(cancel)"> Cancelar reserva</button>
+                    <ng-template #cancel let-modal>
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                          <span  aria-hidden="true">×</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Se ha cancelado tu reservación exitosamente!
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
+                      </div>
+                    </ng-template>
                   </div>
                 </div>
               </div>
             </div>
 
-            <br>
 
-            <div class="card w-100">
+            <div class="card w-100 mt-3">
               <div class="card">
                 
                 <div class="card-body">
@@ -90,6 +115,51 @@
   
                   <div class="btn-group me-2" role="group" aria-label="Second group">
                     <button type="button" class="btn btn-warning" href="#">Reagendar</button>
+                  </div>  
+                </div>
+              </div>
+            </div>
+
+
+            <div class="card w-100 mt-3">
+              <div class="card">
+                
+                <div class="card-body">
+                  
+                  <h4>
+                    Fecha:
+                    <small class="text-muted">Martes 21 de Marzo</small>
+                  </h4>
+                  <h4>
+                    Hora:
+                    <small class="text-muted"> 3:00 PM</small>
+                  </h4>
+                  <h4>
+                    Instructor:
+                    <small class="text-muted"> Sylvester Stallone </small>
+                  </h4>
+                  <h4>
+                    Estado:
+                    <small class="text-primary"> En curso </small>
+                  </h4>
+  
+                  <div class="btn-group me-2" role="group" aria-label="Second group">
+                    
+                    <button id = "confirmar" class="btn btn-primary" (click)="open(salida)"> Marcar salida</button>
+                    <ng-template #salida let-modal>
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                          <span  aria-hidden="true">×</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Se ha registrado su salida exitosamente!
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
+                      </div>
+                    </ng-template>
                   </div>  
                 </div>
               </div>

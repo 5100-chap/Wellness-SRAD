@@ -1,5 +1,6 @@
 import { NgClass } from '@angular/common';
 import { Component, NgModule } from '@angular/core';
+import { Reservas } from './models/reservas';
 
 
 @Component({
@@ -8,6 +9,10 @@ import { Component, NgModule } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'prueba1';
- 
+  
+
+
+
 }
+
+
