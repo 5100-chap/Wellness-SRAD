@@ -58,7 +58,6 @@ const router: Routes = [
   {
     path: 'gimnasio',
     component: GimnasioComponent
- 
   }
 
 ];
