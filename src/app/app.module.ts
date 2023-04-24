@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,15 +17,13 @@ import { ListaReservasComponent } from './lista-reservas/lista-reservas.componen
 import { CalendarioComponent } from './calendario/calendario.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IdDigitalComponent } from './id-digital/id-digital.component';
-import { EsportsComponent } from './esports/esports.component';
-import { CrossfitComponent } from './crossfit/crossfit.component';
-import { CalendarComponent } from './calendar/calendar.component';
 
 
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { GimnasioComponent } from './gimnasio/gimnasio.component';
 import { DropdownBasicComponent } from './dropdown-basic/dropdown-basic.component';
+import { TendenciasComponent } from './tendencias/tendencias.component';
 
 
 
@@ -57,11 +56,15 @@ const router: Routes = [
   {
     path: 'gimnasio',
     component: GimnasioComponent
+  },
+  {
+    path: 'tendencias',
+    component: TendenciasComponent
  
   }
 
-];
 
+];
 
 @NgModule({
   declarations: [
@@ -74,12 +77,8 @@ const router: Routes = [
     IdDigitalComponent,
     GimnasioComponent,
     DropdownBasicComponent,
-    EsportsComponent,
-    CrossfitComponent,
-    HeaderComponent,
-    FooterComponent,
-    CalendarComponent
-
+    TendenciasComponent,
+    
   ],
   imports: [
     FormsModule,
