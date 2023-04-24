@@ -4,7 +4,7 @@
   "scripts": {
     "backend_start": "nodemon api.js",
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --open",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
