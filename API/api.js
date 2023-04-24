@@ -1,8 +1,12 @@
 //Configutacion e inclucion de librerias y archivos para la base de datos
 const express = require('express');
-const sql = require('mssql');
-require('dotenv').config();
 const app = express();
+
+const sql = require('mssql');
+
+const dotenv = require('dotenv');
+dotenv.config();
+
 // Cargar la configuración de .env
 const database = require('./database');
 // Importar las consultas desde el archivo queries.js
@@ -19,8 +23,12 @@ const handleGeneralErrors = (err, req, res, next) => {
     console.log('Error:', err);
     res.status(500).send('Error general, favor de checar API: ' + err.message);
 };
+// Configuración de los middleware
+app.use(handleDatabaseErrors);
+app.use(handleGeneralErrors);
 
-// Conexión a la base de datos
+// Conexión a la base de datos usando credenciales de database
+/*
 const connectToDatabase = async () => {
     try {
         await sql.connect(database.config);
@@ -29,6 +37,7 @@ const connectToDatabase = async () => {
         console.log('Error al conectar a la base de datos:' + err.message + '\n', err);
     }
 };
+*/
 
 
 // Ruta de ejemplo que obtiene todos los datos de una tabla
@@ -46,4 +55,5 @@ app.get('/', async (req, res, next) => {
 // Iniciar el servidor
 app.listen(process.env.PORT, function () {
     console.log(`Servidor iniciado en el puerto ${process.env.PORT}`);
+    console.log(database.config);
 });
