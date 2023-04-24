@@ -9,6 +9,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { QRCodeModule } from 'angularx-qrcode';
 import { AppComponent } from './app.component';
+
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ListaAreasComponent } from './lista-areas/lista-areas.component';

@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "backend_test": "echo 'Asegurese de haber creado el archivo .env para las credenciales, para mayor informacion cheque ./API/readme.txt' && nodemon ./API/api.js",
-    "start": "ng serve",
+    "ng": "ng",
+    "start": "ng serve --open",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
