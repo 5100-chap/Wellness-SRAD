@@ -23,6 +23,7 @@ import { LoginComponent } from './login/login.component';
 import { GimnasioComponent } from './gimnasio/gimnasio.component';
 import { DropdownBasicComponent } from './dropdown-basic/dropdown-basic.component';
 import { TendenciasComponent } from './tendencias/tendencias.component';
+import { InicioAdminComponent } from './inicio-admin/inicio-admin.component';
 
 
 
@@ -60,6 +61,11 @@ const router: Routes = [
     path: 'tendencias',
     component: TendenciasComponent
  
+  },
+  {
+    path: 'inicioAdmin',
+    component: InicioAdminComponent
+ 
   }
 
 
@@ -77,6 +83,7 @@ const router: Routes = [
     GimnasioComponent,
     DropdownBasicComponent,
     TendenciasComponent,
+    InicioAdminComponent,
     
   ],
   imports: [
