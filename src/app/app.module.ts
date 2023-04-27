@@ -24,6 +24,7 @@ import { LoginComponent } from './login/login.component';
 import { GimnasioComponent } from './gimnasio/gimnasio.component';
 import { DropdownBasicComponent } from './dropdown-basic/dropdown-basic.component';
 import { TendenciasComponent } from './tendencias/tendencias.component';
+import { LockersComponent } from './lockers/lockers.component';
 
 
 
@@ -51,7 +52,8 @@ const router: Routes = [
 
   },
   {
-    path: '', redirectTo: '/login', pathMatch: 'full' 
+    path: 'lockers',
+    component: LockersComponent
   },
   {
     path: 'gimnasio',
@@ -78,6 +80,7 @@ const router: Routes = [
     GimnasioComponent,
     DropdownBasicComponent,
     TendenciasComponent,
+    LockersComponent,
     
   ],
   imports: [
