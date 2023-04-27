@@ -13,8 +13,12 @@ dotenv.config();
 //Cargar la configuración de .env
 const database = require('./config/database');
 
+// Importar las consultas desde el archivo queries.js
+const queries = require('./queries');
+
 //Declaracion para el puerto
 const port = (process.env.PORT || 8080)
+
 
 //Middleware para manejar errores de la base de datos
 const handleDatabaseErrors = (err, req, res, next) => {
@@ -41,9 +45,19 @@ const connectToDatabase = async () => {
     }
 };
 
-//Configuración de las rutas a usar en la API
-app.use('/api',require('./rutas'));
+app.get('/api', function (req, res) {
+    res.send('api works!')
+})
 
+app.get('/api/getAllAlumni', async (req, res, next) => {
+    try {
+        const request = new sql.Request();
+        const result = await request.query(queries.getAllAlumni);
+        res.send(result.recordset);
+    } catch (err) {
+        next(err);
+    }
+});
 
 //Iniciar el servidor
 app.set('port', port);
