@@ -9,4 +9,6 @@ PORT=4200
 -----------------------------------------------
 Fig. 1 estructura de .env
 
+El .env no debe de contener nombre alguno simplemente debe de llamarse ".env"
+
 - Otterwise Soft &. Co.
