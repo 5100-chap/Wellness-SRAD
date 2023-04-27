@@ -1,12 +1,14 @@
-Poner las credenciales para el uso de la base de datos aqui.
-el archivo deve de llamarse '.env'
+El .env debe de estar en el mismo lugar que packages.json, ya que ese archivo contiene las credenciales para conectarse a la BD
+El .env debe de tener esta estructura de ejemplo como se muestra aqui abajo
+----------------------------------------------
+DB_SERVER=127.0.0.1
+DB_DATABASE=Nombre_DB
+DB_USER=Usuario
+DB_PASSWORD=Contraseña
+PORT=4200
+-----------------------------------------------
+Fig. 1 estructura de .env
 
-String de ejemplo que se puede copiar
-
-SQL_CONNECTION_STRING=Server=127.0.0.1;
-Database=nombre_de_la_base_de_datos;
-User Id=nombre_del_Usuario;
-Password=llave;
-PORT=3000
+El .env no debe de contener nombre alguno simplemente debe de llamarse ".env"
 
 - Otterwise Soft &. Co.

@@ -1,5 +1,5 @@
 const queries = {
-    getAll: 'SELECT * FROM tabla',
+    getAllAlumni: 'SELECT * FROM Alumno;',
     getById: 'SELECT * FROM tabla WHERE id = @id',
     create: 'INSERT INTO tabla (campo1, campo2) VALUES (@campo1, @campo2)',
     update: 'UPDATE tabla SET campo1 = @campo1, campo2 = @campo2 WHERE id = @id',
