@@ -9,6 +9,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { QRCodeModule } from 'angularx-qrcode';
 import { AppComponent } from './app.component';
+
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ListaAreasComponent } from './lista-areas/lista-areas.component';
@@ -23,6 +24,7 @@ import { LoginComponent } from './login/login.component';
 import { GimnasioComponent } from './gimnasio/gimnasio.component';
 import { DropdownBasicComponent } from './dropdown-basic/dropdown-basic.component';
 import { TendenciasComponent } from './tendencias/tendencias.component';
+import { LockersComponent } from './lockers/lockers.component';
 import { InicioAdminComponent } from './inicio-admin/inicio-admin.component';
 import { NuevaAreaComponent } from './nueva-area/nueva-area.component';
 import { EditarAforoComponent } from './editar-aforo/editar-aforo.component';
@@ -56,7 +58,8 @@ const router: Routes = [
 
   },
   {
-    path: '', redirectTo: '/login', pathMatch: 'full' 
+    path: 'lockers',
+    component: LockersComponent
   },
   {
     path: 'gimnasio',
@@ -111,6 +114,7 @@ const router: Routes = [
     GimnasioComponent,
     DropdownBasicComponent,
     TendenciasComponent,
+    LockersComponent,
     InicioAdminComponent,
     NuevaAreaComponent,
     EditarAforoComponent,
