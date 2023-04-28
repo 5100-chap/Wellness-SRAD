@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
-
 @Component({
-  selector: 'app-inicio-admin',
-  templateUrl: './inicio-admin.component.html',
-  styleUrls: ['./inicio-admin.component.css']
+  selector: 'app-crear-anuncio',
+  templateUrl: './crear-anuncio.component.html',
+  styleUrls: ['./crear-anuncio.component.css']
 })
-export class InicioAdminComponent {
+export class CrearAnuncioComponent {
 
   title = 'appBootstrap';
     
@@ -49,7 +48,5 @@ export class InicioAdminComponent {
       return  `with: ${reason}`;
     }
   }
-  
-
 
 }

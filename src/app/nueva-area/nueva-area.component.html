@@ -46,15 +46,15 @@
 </div>
 
 
- <div class="form-check input-group" style="margin-left: 4%;">
-    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-    <label class="form-check-label" for="flexCheckDefault">
-           &nbsp; ¿El nuevo espacio requiere materiales?
-    </label>
-  </div>
+
 
   <div class="row" style="margin-left: 1.5%;">
     <div class = "col-md-11 mt-2" >
+      <div class="form-check input-group mb-2">
+  
+        <input class="form-check-input" type="checkbox" id="check1" name="option1" value="something" style="border-color: rgba(128, 128, 128, 0.413);" >
+        <label class="form-check-label"> &nbsp; ¿El nuevo espacio requiere materiales?</label>
+      </div>
     
       <div class="input-group mb-3">
         <span class="input-group-text" id="title">Material disponible</span>
@@ -80,25 +80,43 @@
 
 
 
-<div class="vstack gap-4 col-md-2 mx-auto">
-    <div class="col-md-8 mt-4 input-group">
-        <button id = "title" class="btn btn-primary" (click)="open(mymodal) "> <strong>Crear área</strong> </button>
-        <ng-template #mymodal let-modal>
-          <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
-            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-              <span  aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            Área deportiva creada exitosamente!
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
-          </div>
-        </ng-template>
+ <div class="row">
+
+  <div  class="col-md-3 mt-1" id="align"></div>
+  <div  class="col-md-3 mt-1" id="align">
+      <div class="input-group">
+          <button class="btn btn-danger btn-lg " style="font-size: 1.4rem;" routerLink="/inicioAdmin"> <strong> Cancelar </strong> </button>
+      </div>
+  </div>
+
+  <div  class="col-md-1 mt-1" id="align"></div>
+  
+
+  <div  class="col-md-3 mt-1 " id="align">
+
+      <div class="input-group">
+
+
+      <button class="btn btn-success btn-lg" style="font-size: 1.4rem;" (click)="open(mymodal) "> <strong>Crear</strong> </button>
+      <ng-template #mymodal let-modal>
+      <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span  aria-hidden="true">×</span>
+          </button>
+      </div>
+      <div class="modal-body">
+        Área deportiva creada exitosamente!
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
+      </div>
+      </ng-template>
+
+  </div>
+
       
-    </div>
+  </div>
 
 </div>
 

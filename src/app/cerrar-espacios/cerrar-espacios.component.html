@@ -1,0 +1,114 @@
+<div class="img-fluid" class = "opacity-30"  >
+    <div class=" text-white">
+      <img src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="130" class="card-img" alt="...">
+      <div class="card-img-overlay">
+        <h5 class="card-title">&nbsp;</h5>
+        <h5 class="card-title">&nbsp;</h5>
+        <h5 class="card-title">&nbsp;</h5>
+        <h5 class="card-title">&nbsp;</h5>
+  
+        <h1 class="card-title" class = "text-center"> Cerrar espacio</h1>
+      </div>
+    </div>
+</div>
+
+
+<form class="row mb-3" style="margin-left: 2.5%;">
+    <!-- 2 column grid layout with text inputs for the first and last names -->
+    <div class="row mb-4">
+      <div class="col">
+        <div class="form-outline">
+
+            <div class="card col-md-12 mt-4" style="margin-left: 2.5%;">
+                <h5 class="card-header text-center" id="title">Lapso de tiempo</h5>
+            
+                <div class="row">
+            
+                    <div class=" col-md-6 mt-4 mb-4" style="margin-left:5%;">
+                        <h5 style="font-size: 1.7rem ">Fecha de inicio</h5>
+                        <input style="font-size: 1.7rem;" type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31">
+            
+                    </div>
+            
+                    <div class=" col-md-5 mt-4 mb-4" >
+                        <h5 style="font-size: 1.7rem">Fecha de final</h5>
+                        <input style="font-size: 1.7rem" type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31">
+                    </div>
+            
+                </div>    
+            </div>
+          
+          
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-outline">
+          
+            <div class="card col-md-11 mt-4" style="margin-left: 2.5%;">
+                <h5 class="card-header text-center" id="title">Número de días de cierre</h5>
+    
+                <h4 class="text-center mt-5 mb-5" style="font-size: 2rem;">10</h4>      
+            </div>
+            
+        </div>
+      </div>
+    </div>
+</form>
+    
+<div class="card col-md-11"  style="margin-left: 4%;">
+
+        <h4 class=" card-header text-center" id="title"> Motivo de cierre</h4>
+
+        <input type="text"  placeholder="El area deportiva ha sido cerrada por..."  style="font-size: 1.5rem; width: 100%; height: 100%;" class="mt-4 mb-5">
+        
+</div>
+
+
+
+    <div class="row">
+
+        <div  class="col-md-3 mt-5" id="align"></div>
+
+        <div  class="col-md-3 mt-5" id="align">
+            <div class="input-group">
+            <button class="btn btn-danger btn-lg " style="font-size: 1.7rem;" routerLink="/inicioAdmin"> <strong> Cancelar </strong> </button>
+            </div>
+        </div>
+     
+        <div  class="col-md-1 mt-5" id="align"></div>
+        
+
+        <div  class="col-md-3 mt-5 " id="align">
+
+            <div class="input-group">
+
+
+            <button class="btn btn-success btn-lg" style="font-size: 1.7rem;" (click)="open(mymodal) "> <strong>Guardar</strong> </button>
+            <ng-template #mymodal let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span  aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Area cerrada correctamente!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" routerLink="/inicioAdmin">OK</button>
+            </div>
+            </ng-template>
+
+        </div>
+
+            
+        </div>
+
+    </div>
+    <br>
+    <br>
+    <br>
+
+
+
+

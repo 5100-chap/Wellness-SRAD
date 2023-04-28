@@ -54,19 +54,19 @@
 
                 <div  class="col-md-2 " id="align">
                     
-                    <button class="btn btn-primary btn-lg" > Estadísticas </button>
+                     <button class="btn btn-primary btn-lg" routerLink="/estadisticas" > Estadísticas </button>
             
                 </div>
 
                 <div  class="col-md-2 " id="align">
                     
-                    <button class="btn btn-primary btn-lg"  > Editar aforo </button>
+                    <button class="btn btn-primary btn-lg" routerLink="/editarAforo" > Editar aforo </button>
             
                 </div>
 
                 <div  class="col-md-2" id="align">
                     
-                    <button class="btn btn-primary btn-lg" >Cerrar área </button>
+                    <button class="btn btn-primary btn-lg" routerLink="/cerrarEspacios"> Cerrar área </button>
             
                 </div>
 
@@ -109,19 +109,19 @@
 
                 <div  class="col-md-2 " id="align">
                     
-                    <button class="btn btn-primary btn-lg" > Estadísticas </button>
+                     <button class="btn btn-primary btn-lg" routerLink="/estadisticas" > Estadísticas </button>
             
                 </div>
 
                 <div  class="col-md-2 " id="align">
                     
-                    <button class="btn btn-primary btn-lg"  > Editar aforo </button>
+                    <button class="btn btn-primary btn-lg" routerLink="/editarAforo" > Editar aforo </button>
             
                 </div>
 
                 <div  class="col-md-2" id="align">
                     
-                    <button class="btn btn-primary btn-lg" >Cerrar área</button>
+                    <button class="btn btn-primary btn-lg" routerLink="/cerrarEspacios"> Cerrar área </button>
             
                 </div>
 
@@ -164,19 +164,19 @@
 
                 <div  class="col-md-2 " id="align">
                     
-                    <button class="btn btn-primary btn-lg" > Estadísticas </button>
+                    <button class="btn btn-primary btn-lg" routerLink="/estadisticas" > Estadísticas </button>
             
                 </div>
 
                 <div  class="col-md-2 " id="align">
                     
-                    <button class="btn btn-primary btn-lg"  > Editar aforo </button>
+                    <button class="btn btn-primary btn-lg" routerLink="/editarAforo" > Editar aforo </button>
             
                 </div>
 
                 <div  class="col-md-2" id="align">
                     
-                    <button class="btn btn-primary btn-lg" >Cerrar área</button>
+                    <button class="btn btn-primary btn-lg" routerLink="/cerrarEspacios"> Cerrar área </button>
             
                 </div>
 
@@ -219,19 +219,35 @@
 
                 <div  class="col-md-2 " id="align">
                     
-                    <button class="btn btn-primary btn-lg" > Estadísticas </button>
+                     <button class="btn btn-primary btn-lg" routerLink="/estadisticas" > Estadísticas </button>
             
                 </div>
 
                 <div  class="col-md-2 " id="align">
                     
-                    <button class="btn btn-primary btn-lg"  > Editar aforo </button>
+                    <button class="btn btn-primary btn-lg" routerLink="/editarAforo" > Editar aforo </button>
             
                 </div>
 
                 <div  class="col-md-2" id="align">
                     
-                    <button class="btn btn-primary btn-lg" >Cerrar área </button>
+                    
+
+                    <button class="btn btn-primary btn-lg" (click)="open(mymodal) "> Abrir área </button>
+                    <ng-template #mymodal let-modal>
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                        <span  aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Área abierta correctamente!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
+                    </div>
+                    </ng-template>
             
                 </div>
 
@@ -254,11 +270,11 @@
         </div>
 
         <div  class="col-md-4 mt-5" id="align">
-            <button class="btn btn-primary btn-lg" id="btn"> <strong>  Encuesta de satisfacción </strong> </button>
+            <button class="btn btn-primary btn-lg" id="btn" routerLink="/crearAnuncio"> <strong>  Crear anuncio </strong> </button>
         </div>
 
         <div  class="col-md-4 mt-5" id="align">
-            <button class="btn btn-primary btn-lg" id="btn" > <strong> + Añadir área deportiva </strong> </button>
+            <button class="btn btn-primary btn-lg" id="btn" routerLink="/crearArea"> <strong> + Añadir área deportiva </strong> </button>
         </div>
 
         </div>
