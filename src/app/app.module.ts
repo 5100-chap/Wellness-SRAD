@@ -63,6 +63,9 @@ const router: Routes = [
     path: 'tendencias',
     component: TendenciasComponent
  
+  },
+  {
+    path: '', redirectTo: '/login', pathMatch: 'full' 
   }
 
 
