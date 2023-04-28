@@ -26,6 +26,10 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { RouterModule, Routes } from '@angular/router';
 import { GimnasioComponent } from './gimnasio/gimnasio.component';
 import { DropdownBasicComponent } from './dropdown-basic/dropdown-basic.component';
+import { ArenaComponent } from './arena/arena.component';
+import { CitasentrenadorComponent } from './citasentrenador/citasentrenador.component';
+import { CitasnutriologoComponent } from './citasnutriologo/citasnutriologo.component';
+import { HorarioAsesorComponent } from './horario-asesor/horario-asesor.component';
 
 
 
@@ -59,8 +63,31 @@ const router: Routes = [
     path: 'gimnasio',
     component: GimnasioComponent
  
+  },
+  {
+    path: 'esports',
+    component: EsportsComponent
+  },
+  {
+    path: 'crossfit',
+    component: CrossfitComponent
+  },
+  {
+    path: 'arena',
+    component: ArenaComponent
+  },
+  {
+    path:'citas_entrenador',
+    component:CitasentrenadorComponent
+  },
+  {
+    path:'citas_nutriologo',
+    component:CitasnutriologoComponent
+  },
+  {
+    path:'horario-asesor',
+    component:HorarioAsesorComponent
   }
-
 ];
 
 
@@ -79,7 +106,11 @@ const router: Routes = [
     CrossfitComponent,
     HeaderComponent,
     FooterComponent,
-    CalendarComponent
+    CalendarComponent,
+    ArenaComponent,
+    CitasentrenadorComponent,
+    CitasnutriologoComponent,
+    HorarioAsesorComponent
 
   ],
   imports: [
