@@ -25,6 +25,12 @@ import { GimnasioComponent } from './gimnasio/gimnasio.component';
 import { DropdownBasicComponent } from './dropdown-basic/dropdown-basic.component';
 import { TendenciasComponent } from './tendencias/tendencias.component';
 import { LockersComponent } from './lockers/lockers.component';
+import { InicioAdminComponent } from './inicio-admin/inicio-admin.component';
+import { NuevaAreaComponent } from './nueva-area/nueva-area.component';
+import { EditarAforoComponent } from './editar-aforo/editar-aforo.component';
+import { CerrarEspaciosComponent } from './cerrar-espacios/cerrar-espacios.component';
+import { CrearAnuncioComponent } from './crear-anuncio/crear-anuncio.component';
+import { StatsAdminComponent } from './stats-admin/stats-admin.component';
 
 
 
@@ -63,8 +69,36 @@ const router: Routes = [
     path: 'tendencias',
     component: TendenciasComponent
  
-  }
+  },
+  {
+    path: 'inicioAdmin',
+    component: InicioAdminComponent
+ 
+  },
+  {
+    path: 'crearArea',
+    component: NuevaAreaComponent
+  },
+  {
+    path: 'editarAforo',
+    component: EditarAforoComponent
+  },
+  {
+    path: 'cerrarEspacios',
+    component: CerrarEspaciosComponent
 
+  },
+  {
+    path: 'crearAnuncio',
+    component: CrearAnuncioComponent
+
+  },
+  {
+    path: 'estadisticas',
+    component: StatsAdminComponent
+
+  }
+  
 
 ];
 
@@ -81,6 +115,12 @@ const router: Routes = [
     DropdownBasicComponent,
     TendenciasComponent,
     LockersComponent,
+    InicioAdminComponent,
+    NuevaAreaComponent,
+    EditarAforoComponent,
+    CerrarEspaciosComponent,
+    CrearAnuncioComponent,
+    StatsAdminComponent,
     
   ],
   imports: [
