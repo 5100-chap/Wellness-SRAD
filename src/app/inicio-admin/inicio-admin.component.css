@@ -12,6 +12,20 @@
 	
 }
 
+#cerrado {
+	
+	background: #bb0707;
+    color: white;
+	font-size: 1.8rem;
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	
+}
+
 #card {
 	
 	background: #003399;

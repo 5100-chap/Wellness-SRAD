@@ -25,6 +25,8 @@ import { GimnasioComponent } from './gimnasio/gimnasio.component';
 import { DropdownBasicComponent } from './dropdown-basic/dropdown-basic.component';
 import { TendenciasComponent } from './tendencias/tendencias.component';
 import { InicioAdminComponent } from './inicio-admin/inicio-admin.component';
+import { NuevaAreaComponent } from './nueva-area/nueva-area.component';
+import { EditarAforoComponent } from './editar-aforo/editar-aforo.component';
 
 
 
@@ -67,8 +69,15 @@ const router: Routes = [
     path: 'inicioAdmin',
     component: InicioAdminComponent
  
+  },
+  {
+    path: 'nuevaArea',
+    component: NuevaAreaComponent
+  },
+  {
+    path: 'editarAforo',
+    component: EditarAforoComponent
   }
-
 
 ];
 
@@ -85,6 +94,8 @@ const router: Routes = [
     DropdownBasicComponent,
     TendenciasComponent,
     InicioAdminComponent,
+    NuevaAreaComponent,
+    EditarAforoComponent,
     
   ],
   imports: [
