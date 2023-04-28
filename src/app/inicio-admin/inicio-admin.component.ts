@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
+
 @Component({
-  selector: 'app-lista-reservas',
-  templateUrl: './lista-reservas.component.html',
-  styleUrls: ['./lista-reservas.component.css']
+  selector: 'app-inicio-admin',
+  templateUrl: './inicio-admin.component.html',
+  styleUrls: ['./inicio-admin.component.css']
 })
-export class ListaReservasComponent {
+export class InicioAdminComponent {
 
   title = 'appBootstrap';
     
@@ -30,14 +31,16 @@ export class ListaReservasComponent {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
-  } 
+
+}
+
      
   /**
    * Write code on Method
    *
    * @return response()
    */
-  private getDismissReason(reason: any): string {
+   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
@@ -46,5 +49,7 @@ export class ListaReservasComponent {
       return  `with: ${reason}`;
     }
   }
+  
+
 
 }

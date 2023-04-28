@@ -4,26 +4,25 @@ import 'chartjs-plugin-labels';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { Reservas } from '../models/reservas';
 
+
+
 declare var window: any
 
 
 @Component({
-  selector: 'app-gimnasio',
-  templateUrl: './gimnasio.component.html',
-  styleUrls: ['./gimnasio.component.css'],
+  selector: 'app-lockers',
+  templateUrl: './lockers.component.html',
+  styleUrls: ['./lockers.component.css'],
 
 })
-export class GimnasioComponent {
+export class LockersComponent {
 
   reservaArray : Reservas[] = [
-    {id:1, id_matricula_alumno: "A00960720", id_area_deportiva:7, fecha: "17-04-2023 6:00 - 8:00 AM", hora: "6:00 - 8:00 AM", estado: "", id_instructor: ""},
-    {id:2, id_matricula_alumno: "A00952209", id_area_deportiva:6, fecha: "18-04-2023 8:00 - 10:00 AM ", hora: "8:00 - 10:00 AM", estado: "", id_instructor: ""},
-    {id:2, id_matricula_alumno: "A00952209", id_area_deportiva:6, fecha: "18-04-2023 10:00 - 12:00 AM", hora: "10:00 - 12:00 AM", estado: "", id_instructor: ""},
-    {id:3, id_matricula_alumno: "A00149174", id_area_deportiva:8, fecha: "19-04-2023 12:00 - 2:00 PM", hora: "12:00 - 2:00 PM", estado: "", id_instructor: ""},
-    {id:4, id_matricula_alumno: "A00640163", id_area_deportiva:7, fecha: "20-04-2023 2:00 - 4:00 PM ", hora: "2:00 - 4:00 PM", estado: "", id_instructor: ""},
-    {id:5, id_matricula_alumno: "A00773407", id_area_deportiva:8, fecha: "21-04-2023 4:00 - 6:00 PM", hora: "4:00 - 6:00 PM", estado: "", id_instructor: ""},
-    {id:5, id_matricula_alumno: "A00773407", id_area_deportiva:8, fecha: "21-04-2023 6:00 - 8:00 PM", hora: "6:00 - 8:00 PM", estado: "", id_instructor: ""},
-    {id:5, id_matricula_alumno: "A00773407", id_area_deportiva:8, fecha: "21-04-2023 8:00 - 10:00 PM", hora: "8:00 - 10:00 PM", estado: "", id_instructor: ""}
+    {id:1, id_matricula_alumno: "A00960720", id_area_deportiva:7, fecha: "Locker 1", hora: "Locker 1", estado: "", id_instructor: ""},
+    {id:2, id_matricula_alumno: "A00952209", id_area_deportiva:6, fecha: "Locker 2", hora: "Locker 2", estado: "", id_instructor: ""},
+    {id:3, id_matricula_alumno: "A00952209", id_area_deportiva:6, fecha: "Locker 3", hora: "Locker 3", estado: "", id_instructor: ""},
+    {id:4, id_matricula_alumno: "A00149174", id_area_deportiva:8, fecha: "Locker 4", hora: "Locker 4", estado: "", id_instructor: ""},
+    {id:5, id_matricula_alumno: "A00960720", id_area_deportiva:7, fecha: "Locker 5", hora: "Locker 5", estado: "", id_instructor: ""}
 
   ]
   seleReserva: Reservas = new Reservas();

@@ -1,70 +1,48 @@
 <div class="img-fluid" class = "opacity-30"  >
     <div class=" text-white">
-      <!-- <img src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="130" class="card-img" alt="..."> -->
-      <div class="img-banner">
-        <img src="../assets/img/Gimnasio.jpeg" height="130" class="card-img" alt="..." style="opacity: 0.3;" >
-      </div>
+      <img src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="130" class="card-img" alt="...">
       <div class="card-img-overlay">
         <h5 class="card-title">&nbsp;</h5>
         <h5 class="card-title">&nbsp;</h5>
         <h5 class="card-title">&nbsp;</h5>
         <h5 class="card-title">&nbsp;</h5>
   
-        <h1 class="card-title" class = "text-center"> Gimnasio </h1>
+        <h1 class="card-title" class = "text-center"> Lockers </h1>
       </div>
     </div>
   </div>
   
-
   <br>
     <div class="row">
       <div class=" col-md-4 mt-1">
-        <h3> &nbsp; &nbsp; <strong>Aforo en tiempo real </strong> </h3>
+        <h3> &nbsp; &nbsp; <strong> Lockers Disponibles </strong> </h3>
       </div>
       </div>
   <br>
-
-  
 
   <div class="vstack gap-4 col-md-11 mx-auto">
 
-  <div class="card w-100 border border-black border border-2">
-    <h5 class="card-header">18 de Abril de 2023</h5>
-    
-    
-    <div class="row">
+    <div class="card w-100 border border-black border border-2">
+
       
-      <div class="col-md-7 mt-4">
-        <div class="chart-container">
-          <canvas  id="MyChart" >{{ chart }}</canvas>
+      
+      <div class="row">
+
+        <div class="col-md-5 mt-5">
           <br>
+         <h1 class="text-body-secondary" class="text-center" id="cantidadLocker"> &nbsp; 98/280</h1>
+         <br>
+         
         </div>
       </div>
-
-      <div class="col-md-5 mt-5">
-        <br>
-       <h1> Aforo actual </h1> 
-       <h1 class="text-body-secondary "> &nbsp; 230/280</h1>
-       <br>
-
-       <p > <a href="http://localhost:4200/tendencias" class="btn btn-primary">&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;Estadísticas &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</a> </p>
-       
-      </div>
+  
+    </div>
     </div>
 
-  </div>
-  </div>
+    <br>
 
-  <br>
-
-  
-<h3> &nbsp; &nbsp; <strong>Reservación</strong> </h3>     
-  
-
-
-
-
-  <br>
+    <h3> &nbsp; &nbsp; <strong>Reservación</strong> </h3>   
+    <br>
 
 
   <div class="vstack gap-4 col-md-11 mx-auto">
@@ -75,24 +53,18 @@
         <div class="container">
           <div class="row">
     
-          <div class = "mt-1"id ="circulo"> </div>
+          <div class = "mt-1"> </div>
 
             <div class=" col-md-2 mt-1">
 
-              <h4>Estado: <small class="text-success">Abierto</small></h4> 
+              <h4>Filtrar por reservación</h4> 
 
             </div>
             
             <div class="col-md-4 mt-1">
     
-              <div ngbDropdown>
-                <button class="btn btn-primary" id="gfg" 
-                        ngbDropdownToggle>Semana 20 - 26 de Marzo 2023</button>
-                <div ngbDropdownMenu="gfg">
-                  <button ngbDropdownItem>Semana 20 - 26 de Marzo 2023</button>
-                  <button ngbDropdownItem>Semana 20 - 26 de Marzo 2023</button>
-                  <button ngbDropdownItem>Semana 20 - 26 de Marzo 2023</button>
-                </div>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="switchFiltro">
               </div>
             </div>
             </div>
@@ -103,32 +75,23 @@
 
         <br>
       
-
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col" class="text-center"> Lunes</th>
-            <th scope="col" class="text-center"> Martes</th>
-            <th scope="col" class="text-center"> Miercoles</th>
-            <th scope="col" class="text-center"> Jueves</th>
-            <th scope="col" class="text-center"> Viernes</th>
-            <th scope="col" class="text-center"> Sábado</th>
-            <th scope="col" class="text-center"> Domingo</th>
-            
-          </tr>
-        </thead>
+      
+      <table class="table-responsive">
+        
         <tbody>
           
 
           <tr *ngFor="let al of reservaArray" (click)="openForEdit(al)" [class.active] = "al == seleReserva">
     
-            <td class="text-center"> <button class="btn btn-primary" > {{al.hora}}  </button></td>
-            <td class="text-center"> <button class="btn btn-primary"> {{al.hora}} </button></td>
-            <td class="text-center"> <button class="btn btn-primary"> {{al.hora}} </button></td>
-            <td class="text-center"> <button class="btn btn-primary"> {{al.hora}} </button></td>
-            <td class="text-center"> <button class="btn btn-primary"> {{al.hora}} </button></td>
-            <td class="text-center"> <button class="btn btn-primary"> {{al.hora}} </button></td>
-            <td class="text-center"> <button class="btn btn-primary" > {{al.hora}} </button></td>
+            <td class="text-center"> <button class="btn btn-primary"> <img src="https://drive.google.com/uc?export=view&id=1lBoZK4_lFRNr-N_k7Nw5u6Hh9PNHCiuq" style="width:4rem" alt="LockerPNG"> </button></td>
+            <td class="text-center"> <button class="btn btn-primary"> <img src="https://drive.google.com/uc?export=view&id=1lBoZK4_lFRNr-N_k7Nw5u6Hh9PNHCiuq" style="width:4rem" alt="LockerPNG"> </button></td>
+            <td class="text-center"> <button class="btn btn-primary"> <img src="https://drive.google.com/uc?export=view&id=1lBoZK4_lFRNr-N_k7Nw5u6Hh9PNHCiuq" style="width:4rem" alt="LockerPNG"> </button></td>
+            <td class="text-center"> <button class="btn btn-primary"> <img src="https://drive.google.com/uc?export=view&id=1lBoZK4_lFRNr-N_k7Nw5u6Hh9PNHCiuq" style="width:4rem" alt="LockerPNG"> </button></td>
+            <td class="text-center"> <button class="btn btn-primary"> <img src="https://drive.google.com/uc?export=view&id=1lBoZK4_lFRNr-N_k7Nw5u6Hh9PNHCiuq" style="width:4rem" alt="LockerPNG"> </button></td>
+            <td class="text-center"> <button class="btn btn-primary"> <img src="https://drive.google.com/uc?export=view&id=1lBoZK4_lFRNr-N_k7Nw5u6Hh9PNHCiuq" style="width:4rem" alt="LockerPNG"> </button></td>
+            <td class="text-center"> <button class="btn btn-primary"> <img src="https://drive.google.com/uc?export=view&id=1lBoZK4_lFRNr-N_k7Nw5u6Hh9PNHCiuq" style="width:4rem" alt="LockerPNG"> </button></td>
+            <td class="text-center"> <button class="btn btn-primary"> <img src="https://drive.google.com/uc?export=view&id=1lBoZK4_lFRNr-N_k7Nw5u6Hh9PNHCiuq" style="width:4rem" alt="LockerPNG"> </button></td>
+            <td class="text-center"> <button class="btn btn-primary"> <img src="https://drive.google.com/uc?export=view&id=1lBoZK4_lFRNr-N_k7Nw5u6Hh9PNHCiuq" style="width:4rem" alt="LockerPNG"> </button></td>
             
           </tr>
 
@@ -141,9 +104,6 @@
 
     
 
-
-     
-
     <div class="vstack gap-4 col-md-11 mx-auto">
 
       <div id= "reserve" class="card w-100 border border-gray border border-2">
@@ -154,13 +114,13 @@
             <div class="row">
       
               <div class=" col-md-10 ">
-                <h4> <strong> &nbsp; Horario Seleccionado: </strong></h4> 
+                <h4> <strong> &nbsp; Locker Seleccionado: </strong></h4> 
                 <input [(ngModel)]="seleReserva.fecha" type="text" class="form-control" disabled id= "reserve"> 
     
               </div>
 
               <div class=" col-md-2 mt-3">
-                <button id = "confirmar" class="btn" (click)="open(mymodal)"> Reservar </button>
+                <button id = "confirmar" class="btn" (click)="open(mymodal)"> Pagar </button>
                 <ng-template #mymodal let-modal>
                   <div class="modal-header">
                     <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
@@ -169,7 +129,7 @@
                     </button>
                   </div>
                   <div class="modal-body">
-                    Tu reservación ha sido exitosa!
+                    Tu pago se ha realizado exitosamente!
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
