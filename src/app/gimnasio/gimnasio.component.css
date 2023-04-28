@@ -1,0 +1,44 @@
+#circulo {
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+	background: green;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+#reserve {
+	
+	background: #003399;
+    color: white;
+	border-color: transparent;
+	font-size: 1.2rem;
+    
+	
+}
+
+#confirmar {
+	
+	background: #ffffff;
+    color: rgb(0, 0, 0);
+    font-size: 1.3rem;
+}
+
+#badge{
+    font-size: 1.3rem;
+}
+
+#circulo > p {
+	font-family: sans-serif;
+	color: white;
+	font-size: 1rem;
+	font-weight: bold;
+}
+
+button:hover {
+    text-decoration: none;
+    color: #003366 !important;
+    
+}

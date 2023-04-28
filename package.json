@@ -1,29 +1,17 @@
 {
   "name": "wellness-srad",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
-    "backend_start": "nodemon api.js",
+    "backend_test": "echo 'Asegurese de haber creado el archivo .env para las credenciales, para mayor informacion cheque ./API/readme.txt' && nodemon ./API/api.js",
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --open",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Marcelo91216/Practie-Angular-NodeJS.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Marcelo91216/Practie-Angular-NodeJS/issues"
-  },
-  "homepage": "https://github.com/Marcelo91216/Practie-Angular-NodeJS#readme",
+  "private": true,
   "dependencies": {
     "@angular/animations": "^15.2.0",
-    "@angular/cli": "^15.2.5",
     "@angular/common": "^15.2.0",
     "@angular/compiler": "^15.2.0",
     "@angular/core": "^15.2.0",
@@ -31,22 +19,24 @@
     "@angular/platform-browser": "^15.2.0",
     "@angular/platform-browser-dynamic": "^15.2.0",
     "@angular/router": "^15.2.0",
-    "body-parser": "^1.20.2",
-    "constants": "^0.0.2",
-    "cors": "^2.8.5",
+    "@ng-bootstrap/ng-bootstrap": "^14.1.0",
+    "@popperjs/core": "^2.11.7",
+    "angularx-qrcode": "^15.0.1",
+    "chart.js": "^4.2.1",
+    "chartjs-plugin-labels": "^1.1.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "jquery": "^3.6.4",
     "mssql": "^9.1.1",
-    "mysql": "^2.18.1",
-    "path": "^0.12.7",
+    "ngx-barcode-qrcode-sdk": "^1.0.1",
+    "popper.js": "^1.16.1",
     "rxjs": "~7.8.0",
-    "sqlite3": "^5.1.6",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^15.2.5",
-    "@angular/cli": "~15.2.5",
+    "@angular-devkit/build-angular": "^15.2.6",
+    "@angular/cli": "~15.2.6",
     "@angular/compiler-cli": "^15.2.0",
     "@types/jasmine": "~4.3.0",
     "jasmine-core": "~4.5.0",
@@ -57,6 +47,5 @@
     "karma-jasmine-html-reporter": "~2.0.0",
     "nodemon": "^2.0.22",
     "typescript": "~4.9.4"
-  },
-  "description": ""
+  }
 }
