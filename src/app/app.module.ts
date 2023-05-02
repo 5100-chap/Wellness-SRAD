@@ -23,7 +23,16 @@ import { TendenciasComponent } from './tendencias/tendencias.component';
 import { InicioAdminComponent } from './inicio-admin/inicio-admin.component';
 import { NuevaAreaComponent } from './nueva-area/nueva-area.component';
 import { EditarAforoComponent } from './editar-aforo/editar-aforo.component';
-
+import { LockersComponent } from './lockers/lockers.component';
+import { CerrarEspaciosComponent } from './cerrar-espacios/cerrar-espacios.component';
+import { CrearAnuncioComponent } from './crear-anuncio/crear-anuncio.component';
+import { StatsAdminComponent } from './stats-admin/stats-admin.component';
+import { ArenaComponent } from './arena/arena.component';
+import { CitasentrenadorComponent } from './citasentrenador/citasentrenador.component';
+import { CitasnutriologoComponent } from './citasnutriologo/citasnutriologo.component';
+import { HorarioAsesorComponent } from './horario-asesor/horario-asesor.component';
+import { CrossfitComponent } from './crossfit/crossfit.component';
+import { EsportsComponent } from './esports/esports.component';
 import { authGuard } from './auth.guard';
 
 
@@ -66,7 +75,8 @@ const router: Routes = [
     
   },
   {
-    path: '', redirectTo: '/login', pathMatch: 'full' 
+    path: 'lockers',
+    component: LockersComponent
   },
   {
     path: 'gimnasio',
@@ -85,6 +95,9 @@ const router: Routes = [
     }
   },
   {
+    path: '', redirectTo: '/login', pathMatch: 'full' 
+  },
+  {
     path: 'inicioAdmin',
     component: InicioAdminComponent,
         canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
@@ -93,7 +106,7 @@ const router: Routes = [
     }
   },
   {
-    path: 'nuevaArea',
+    path: 'crearArea',
     component: NuevaAreaComponent,
         canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
     data: {
@@ -106,6 +119,80 @@ const router: Routes = [
         canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
     data: {
       allowedRoles: ['Director', 'Administrador', 'Instructor']
+    }
+  },
+  {
+    path: 'cerrarEspacios',
+    component: CerrarEspaciosComponent,
+    canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
+    data: {
+      allowedRoles: ['Director', 'Administrador', 'Instructor']
+    }
+
+  },
+  {
+    path: 'crearAnuncio',
+    component: CrearAnuncioComponent,
+    canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
+    data: {
+      allowedRoles: ['Director', 'Administrador', 'Instructor']
+    }
+
+  },
+  {
+    path: 'estadisticas',
+    component: StatsAdminComponent,
+    canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
+    data: {
+      allowedRoles: ['Director', 'Administrador', 'Instructor']
+    }
+  },
+  {
+    path: 'esports',
+    component: EsportsComponent,
+    canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
+  },
+  {
+    path: 'crossfit',
+    component: CrossfitComponent,
+    canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
+  },
+  {
+    path: 'arena',
+    component: ArenaComponent,
+    canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
+  },
+  {
+    path:'citas_entrenador',
+    component:CitasentrenadorComponent,
+    canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
+  },
+  {
+    path:'citas_nutriologo',
+    component:CitasnutriologoComponent,
+    canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
+  },
+  {
+    path:'horario-asesor',
+    component:HorarioAsesorComponent,
+    canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
     }
   }
 
@@ -126,6 +213,16 @@ const router: Routes = [
     InicioAdminComponent,
     NuevaAreaComponent,
     EditarAforoComponent,
+    LockersComponent,
+    CerrarEspaciosComponent,
+    CrearAnuncioComponent,
+    StatsAdminComponent,
+    ArenaComponent,
+    CitasentrenadorComponent,
+    CitasnutriologoComponent,
+    HorarioAsesorComponent,
+    CrossfitComponent,
+    EsportsComponent,
     LoginComponent,
   ],
   imports: [

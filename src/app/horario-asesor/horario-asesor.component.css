@@ -65,9 +65,3 @@ button:hover {
     color: #003366 !important;
     
 }
-
-.img-banner{
-    background: #003366;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #003399, #003366);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #003399, #003366); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
