@@ -27,6 +27,7 @@ import { TendenciasComponent } from './tendencias/tendencias.component';
 import { InicioAdminComponent } from './inicio-admin/inicio-admin.component';
 import { NuevaAreaComponent } from './nueva-area/nueva-area.component';
 import { EditarAforoComponent } from './editar-aforo/editar-aforo.component';
+import { LockersComponent } from './lockers/lockers.component';
 
 
 
@@ -54,7 +55,8 @@ const router: Routes = [
 
   },
   {
-    path: '', redirectTo: '/login', pathMatch: 'full' 
+    path: 'lockers',
+    component: LockersComponent
   },
   {
     path: 'gimnasio',
@@ -64,6 +66,9 @@ const router: Routes = [
     path: 'tendencias',
     component: TendenciasComponent
  
+  },
+  {
+    path: '', redirectTo: '/login', pathMatch: 'full' 
   },
   {
     path: 'inicioAdmin',
@@ -96,6 +101,7 @@ const router: Routes = [
     InicioAdminComponent,
     NuevaAreaComponent,
     EditarAforoComponent,
+    LockersComponent,
     
   ],
   imports: [
