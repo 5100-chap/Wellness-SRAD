@@ -23,3 +23,51 @@ li{
     border:solid;
 }
 
+#circulo {
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+	background: green;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+#reserve {
+	
+	background: #003399;
+    color: white;
+    
+	
+}
+
+#confirmar {
+	
+	background: #ffffff;
+    color: rgb(0, 0, 0);
+    font-size: 1.3rem;
+}
+
+#badge{
+    font-size: 1.3rem;
+}
+
+#circulo > p {
+	font-family: sans-serif;
+	color: white;
+	font-size: 1rem;
+	font-weight: bold;
+}
+
+button:hover {
+    text-decoration: none;
+    color: #003366 !important;
+    
+}
+
+.img-banner{
+    background: #003366;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #003399, #003366);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #003399, #003366); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}

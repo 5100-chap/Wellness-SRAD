@@ -1,79 +1,251 @@
-<div class="banner">
-<br>
-<div class="img-fluid">
-    <img src="https://cdn-3.expansion.mx/6e/5f/8656ed584447b935426e507f9b35/dsc0353.JPG" height="250" class="card-img" alt="...">
-</div>
+<!--Header incluido-->
+<!--Banner de la aréa-->
+<div class="img-fluid" class = "opacity-30"  >
+    <div class=" text-white">
+        <!-- <img src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="130" class="card-img" alt="..."> -->
+        <div class="img-banner">
+            <img src="../assets/img/Esports-banner.jpg" height="130" class="card-img" alt="..." style="opacity:0.3;">
+        </div>
+        <div class="card-img-overlay">
+        <h5 class="card-title">&nbsp;</h5>
+        <h5 class="card-title">&nbsp;</h5>
+        <h5 class="card-title">&nbsp;</h5>
+        <h5 class="card-title">&nbsp;</h5>
 
-<br>
-</div>
-<h2 style="font-weight:bolder"> Equipos Disponibles </h2>
-<div class="disp">
-    <ul class="lugar-disp">
-        <!-- Crear un Modulo global de espacios disponbiles de la base de datos y tomar de cada área-->
-        <li>PC Gamer <br>  98/100 </li>
-        <li>Nintendo Ness <br>  98/100</li>
-        <li>Nintendo Switch <br>  98/100</li>
-    </ul>
-</div>
-
-<div>
-    <h3>Reservacion</h3>
-    <!-- Filtrar por disponibilidad: Boton-->
-    <div class="boton-filtro">
-        <h4>Filtrar por disponibilidad: </h4>
-        <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-            <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+        <h1 class="card-title" class = "text-center"> E-Sports </h1>
         </div>
     </div>
-    <!-- Calendario por semana-->
-    <div class="body-container">
-        <div class="stack-semanal">
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    Semana: 20 - 26 Marzo 2023
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Semana: 27 - 2 Abril 2023</a></li>
-                    <li><a class="dropdown-item" href="#">Semana: 2 - 9 Abril 2023</a></li>
-                    <li><a class="dropdown-item" href="#">Semana: 9 - 15 Abril 2023</a></li>
-                    <li><a class="dropdown-item" href="#">Semana: 2 - 9 Abril 2023</a></li>
-                </ul>
+</div>
+
+<div class="vstack gap-4 col-md-11 mx-auto">
+    <div class="card mt-4">
+        <h4 class="card-header" style="text-align: center;" ><span  style="text-align: center;"> PC Gamer </span>  <span style="padding: 0px 29% 0px;"> Nintendo Ness </span> <span style="float:right;"> Nintendo Switch </span> <br> </h4>
+        <div class="card-body" style="padding: 0px 25% 0px;">
+            <span style="float:left;">98/100 </span> <span style="padding: 0px 38% 0px;"> 98/100 </span> <span style="float:right;"> 98/100 </span>
+        </div>
+    </div>
+    
+
+
+</div>
+
+<!--Reservación-->
+<h3 > &nbsp; &nbsp; <strong>Reservación</strong> </h3>     
+
+<br>
+<div class="vstack gap-4 col-md-11 mx-auto">
+
+    <div class="card w-100  border border-2">
+        <div class="col mt-2 ">
+
+        <div class="container">
+            <div class="row">
+
+            <div class = "mt-1"id ="circulo"> </div>
+
+            <div class=" col-md-2 mt-1">
+
+                <h3>Estado: <small class="text-success">Abierto</small></h3> 
+
+            </div>
+            
+            <div class="col-md-4 mt-1">
+
+                <div ngbDropdown>
+                <button class="btn btn-primary" id="gfg" 
+                        ngbDropdownToggle>Semana 20 - 26 de Marzo 2023</button>
+                <div ngbDropdownMenu="gfg">
+                    <button ngbDropdownItem>Semana 20 - 26 de Marzo 2023</button>
+                    <button ngbDropdownItem>Semana 20 - 26 de Marzo 2023</button>
+                    <button ngbDropdownItem>Semana 20 - 26 de Marzo 2023</button>
+                </div>
+                </div>
+            </div>
+            </div>
             </div>
         </div>
-        <!--Calendario-->
+
+        
+
+        <br>
+        
+        <!--Tabla-->
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col" class="text-center"> Lunes</th>
+                <th scope="col" class="text-center"> Martes</th>
+                <th scope="col" class="text-center"> Miercoles</th>
+                <th scope="col" class="text-center"> Jueves</th>
+                <th scope="col" class="text-center"> Viernes</th>
+                <th scope="col" class="text-center"> Sábado</th>
+                <th scope="col" class="text-center"> Domingo</th>
+                
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td class="text-center"> <button class="btn btn-primary"> 6:00 - 8:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 6:00 - 8:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 6:00 - 8:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 6:00 - 8:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 6:00 - 8:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary" disabled> 6:00 - 8:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary" disabled> 6:00 - 8:00</button></td>
+                </tr>
+                <tr>
+                <td class="text-center"> <button class="btn btn-primary"> 9:00 - 11:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 9:00 - 11:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 9:00 - 11:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 9:00 - 11:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 9:00 - 11:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 9:00 - 11:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 9:00 - 11:00</button></td>
+                </tr>
+                <tr>
+                <td class="text-center"> <button class="btn btn-primary"> 11:00 - 1:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 11:00 - 1:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 11:00 - 1:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 11:00 - 1:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 11:00 - 1:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 11:00 - 1:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 11:00 - 1:00</button></td>
+                </tr>
+                <tr>
+                <td class="text-center"> <button class="btn btn-primary"> 1:00 - 3:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 1:00 - 3:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 1:00 - 3:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 1:00 - 3:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 1:00 - 3:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 1:00 - 3:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 1:00 - 3:00</button></td>
+                </tr>
+                <tr>
+                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
+                </tr>
+                <tr>
+                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
+                </tr>
+
+                <tr>
+                <td class="text-center"> <button class="btn btn-primary"> 5:00 - 7:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 5:00 - 7:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 5:00 - 7:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 5:00 - 7:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 5:00 - 7:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 5:00 - 7:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 5:00 - 7:00</button></td>
+                </tr>
+
+                <tr>
+                <td class="text-center"> <button class="btn btn-primary"> 7:00 - 9:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 7:00 - 9:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 7:00 - 9:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 7:00 - 9:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 7:00 - 9:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 7:00 - 9:00</button></td>
+                <td class="text-center"> <button class="btn btn-primary"> 7:00 - 9:00</button></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+    <br>
+
+<!--Reserva seleccionada-->
+<div class="vstack gap-4 col-md-11 mx-auto">
+
+<div id= "reserve" class="card w-100 border border-gray border border-2">
+    <br>
+
+
+    <div class="container">
+        <div class="row">
+
+        <div class=" col-md-10 mt-1">
+
+            <h4> <strong>Horario Seleccionado: </strong></h4> 
+            <span id="badge"> Lunes 20 de Marzo 1:00 - 2:00 PM</span>  
+
+        </div>
+        <div class=" col-md-2 mt-3">
+
+            <button id = "confirmar" class="btn"> Reservar </button>
+        </div>
+        </div>
+
+        <br>
+    
+    </div>
+</div>
+
+<!--Ubicación y Reseña-->
+<div class="row">
+    <div class="col-md-5 mt-4">
+        <h3> <strong>Ubicación</strong> </h3> 
+        <div class = "card border border-black border border-2">
+
+        <h5>Primer piso - 102</h5>
+        </div>
+    </div>
+
+    <div class="col-md-7 mt-4">
+        <h3> <strong>Reseñas</strong> </h3> 
+        <div class = "card border border-black border border-2">
+        <div class="row">
+
+            <div class="col-md-10 mt-2">
+                <h5> &nbsp; Limpieza</h5>
+            </div>
+
+            <div class="col-md-2 mt-2">
+            ★★★★☆ 4
+            
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-10 mt-2">
+                <h5> &nbsp; Calidad del equipo</h5>
+            </div>
+
+            <div class="col-md-2 mt-2">
+            ★★★★★ 5
+            
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-10 mt-2">
+                <h5> &nbsp; Ambiente</h5>
+            </div>
+
+            <div class="col-md-2 mt-2">
+            ★★★☆☆ 3
+            
+            </div>
+        </div>
+        
+        </div>
         
     </div>
-
-
-    
-    <!-- Ubicación-->
-    <!--  Modulo -->
-    <h4>Ubicación:</h4>
-    <div class="body-container">
-        <div class="ubicacion">
-            <p> Ubicación en piso 1</p>
-        </div>
-    </div>
-
-    <!-- Reseñas-->
-    <!--  Modulo -->
-    <h4>Reseñas:</h4>
-    <div class="body-container">
-        <!--Que reseña sea un componente-->
-        <div class="reseña">
-            <ul>
-                <li>Limpieza</li>
-                <li>Calidad del equipo</li>
-                <li>Ambiente</li>
-            </ul>
-        </div>
-    </div>
-
-    <!--Boton
-    Stack
-    Tabla
-    Ubicación
-    Reseñas
-    -->
 </div>
+<!--Foot Incluido-->
+    
