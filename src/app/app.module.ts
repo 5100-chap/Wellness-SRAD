@@ -31,7 +31,12 @@ import { LockersComponent } from './lockers/lockers.component';
 import { CerrarEspaciosComponent } from './cerrar-espacios/cerrar-espacios.component';
 import { CrearAnuncioComponent } from './crear-anuncio/crear-anuncio.component';
 import { StatsAdminComponent } from './stats-admin/stats-admin.component';
-
+import { ArenaComponent } from './arena/arena.component';
+import { CitasentrenadorComponent } from './citasentrenador/citasentrenador.component';
+import { CitasnutriologoComponent } from './citasnutriologo/citasnutriologo.component';
+import { HorarioAsesorComponent } from './horario-asesor/horario-asesor.component';
+import { CrossfitComponent } from './crossfit/crossfit.component';
+import { EsportsComponent } from './esports/esports.component';
 
 
 
@@ -99,9 +104,31 @@ const router: Routes = [
   {
     path: 'estadisticas',
     component: StatsAdminComponent
-
+  },
+  {
+    path: 'esports',
+    component: EsportsComponent
+  },
+  {
+    path: 'crossfit',
+    component: CrossfitComponent
+  },
+  {
+    path: 'arena',
+    component: ArenaComponent
+  },
+  {
+    path:'citas_entrenador',
+    component:CitasentrenadorComponent
+  },
+  {
+    path:'citas_nutriologo',
+    component:CitasnutriologoComponent
+  },
+  {
+    path:'horario-asesor',
+    component:HorarioAsesorComponent
   }
-  
 
 ];
 
@@ -124,7 +151,12 @@ const router: Routes = [
     CerrarEspaciosComponent,
     CrearAnuncioComponent,
     StatsAdminComponent,
-    
+    ArenaComponent,
+    CitasentrenadorComponent,
+    CitasnutriologoComponent,
+    HorarioAsesorComponent,
+    CrossfitComponent,
+    EsportsComponent,
   ],
   imports: [
     FormsModule,
