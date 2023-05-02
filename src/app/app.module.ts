@@ -9,6 +9,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { QRCodeModule } from 'angularx-qrcode';
 import { AppComponent } from './app.component';
+
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ListaAreasComponent } from './lista-areas/lista-areas.component';
@@ -26,6 +27,7 @@ import { TendenciasComponent } from './tendencias/tendencias.component';
 import { InicioAdminComponent } from './inicio-admin/inicio-admin.component';
 import { NuevaAreaComponent } from './nueva-area/nueva-area.component';
 import { EditarAforoComponent } from './editar-aforo/editar-aforo.component';
+import { LockersComponent } from './lockers/lockers.component';
 import { CerrarEspaciosComponent } from './cerrar-espacios/cerrar-espacios.component';
 import { CrearAnuncioComponent } from './crear-anuncio/crear-anuncio.component';
 import { StatsAdminComponent } from './stats-admin/stats-admin.component';
@@ -56,7 +58,8 @@ const router: Routes = [
 
   },
   {
-    path: '', redirectTo: '/login', pathMatch: 'full' 
+    path: 'lockers',
+    component: LockersComponent
   },
   {
     path: 'gimnasio',
@@ -66,6 +69,9 @@ const router: Routes = [
     path: 'tendencias',
     component: TendenciasComponent
  
+  },
+  {
+    path: '', redirectTo: '/login', pathMatch: 'full' 
   },
   {
     path: 'inicioAdmin',
@@ -114,6 +120,7 @@ const router: Routes = [
     InicioAdminComponent,
     NuevaAreaComponent,
     EditarAforoComponent,
+    LockersComponent,
     CerrarEspaciosComponent,
     CrearAnuncioComponent,
     StatsAdminComponent,
