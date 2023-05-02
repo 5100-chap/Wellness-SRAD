@@ -28,6 +28,9 @@ import { InicioAdminComponent } from './inicio-admin/inicio-admin.component';
 import { NuevaAreaComponent } from './nueva-area/nueva-area.component';
 import { EditarAforoComponent } from './editar-aforo/editar-aforo.component';
 import { LockersComponent } from './lockers/lockers.component';
+import { CerrarEspaciosComponent } from './cerrar-espacios/cerrar-espacios.component';
+import { CrearAnuncioComponent } from './crear-anuncio/crear-anuncio.component';
+import { StatsAdminComponent } from './stats-admin/stats-admin.component';
 
 
 
@@ -76,13 +79,29 @@ const router: Routes = [
  
   },
   {
-    path: 'nuevaArea',
+    path: 'crearArea',
     component: NuevaAreaComponent
   },
   {
     path: 'editarAforo',
     component: EditarAforoComponent
+  },
+  {
+    path: 'cerrarEspacios',
+    component: CerrarEspaciosComponent
+
+  },
+  {
+    path: 'crearAnuncio',
+    component: CrearAnuncioComponent
+
+  },
+  {
+    path: 'estadisticas',
+    component: StatsAdminComponent
+
   }
+  
 
 ];
 
@@ -102,6 +121,9 @@ const router: Routes = [
     NuevaAreaComponent,
     EditarAforoComponent,
     LockersComponent,
+    CerrarEspaciosComponent,
+    CrearAnuncioComponent,
+    StatsAdminComponent,
     
   ],
   imports: [
