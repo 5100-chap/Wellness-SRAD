@@ -1,15 +1,3 @@
-#title {
-	
-	background: #003399;
-    color: white;
-	font-size: 1.5rem;
-    
-    align-items: center;
-    justify-content: center;
-    border-color: transparent;
-	
-}
-
 #btn {
 
     background: #003399;
@@ -24,10 +12,11 @@
 #btn2 {
 
     background: #ffffff;
-    border-color: #003399;
+    border-color: #ffffff;
     color: #003399;
     display: flex;
     align-items: center;
     justify-content: center;
 	
 }
+

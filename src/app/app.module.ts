@@ -29,6 +29,15 @@ import { EditarAforoComponent } from './editar-aforo/editar-aforo.component';
 import { CerrarEspaciosComponent } from './cerrar-espacios/cerrar-espacios.component';
 import { CrearAnuncioComponent } from './crear-anuncio/crear-anuncio.component';
 import { StatsAdminComponent } from './stats-admin/stats-admin.component';
+import { StatsGymAdminComponent } from './stats-gym-admin/stats-gym-admin.component';
+import { MonitorIngresosComponent } from './monitor-ingresos/monitor-ingresos.component';
+import { ExportarDatosComponent } from './exportar-datos/exportar-datos.component';
+import { AnunciosComponent } from './anuncios/anuncios.component';
+import { CitasentrenadorComponent } from './citasentrenador/citasentrenador.component';
+import { CitasnutriologoComponent } from './citasnutriologo/citasnutriologo.component';
+import { HorarioAsesorComponent } from './horario-asesor/horario-asesor.component';
+
+
 
 
 
@@ -94,8 +103,39 @@ const router: Routes = [
     path: 'estadisticas',
     component: StatsAdminComponent
 
+  },
+  {
+    path: 'estadisticasGimnasio',
+    component: StatsGymAdminComponent
+    
+  },
+  {
+    path: 'monitorIngresos',
+    component: MonitorIngresosComponent
+  },
+  {
+    path: 'exportarDatos',
+    component: ExportarDatosComponent
+  },
+  {
+    path: 'anuncios',
+    component: AnunciosComponent
+  },
+  {
+    path: 'entrenadores',
+    component: CitasentrenadorComponent
+  },
+  {
+    path: 'nutriologos',
+    component: CitasnutriologoComponent
+  },
+  {
+    path: 'horarioAsesor',
+    component: HorarioAsesorComponent
+
   }
-  
+
+
 
 ];
 
@@ -117,6 +157,15 @@ const router: Routes = [
     CerrarEspaciosComponent,
     CrearAnuncioComponent,
     StatsAdminComponent,
+    StatsGymAdminComponent,
+    MonitorIngresosComponent,
+    ExportarDatosComponent,
+    AnunciosComponent,
+    CitasentrenadorComponent,
+    CitasnutriologoComponent,
+    HorarioAsesorComponent,
+  
+    
     
   ],
   imports: [

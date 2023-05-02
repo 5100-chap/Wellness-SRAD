@@ -1,7 +1,7 @@
 #abierto {
 	
-	background: #067604;
-    color: white;
+	background: white;
+    color: #003399;
 	font-size: 1.8rem;
     border-radius: 10px;
     height: 100%;
@@ -28,8 +28,8 @@
 
 #card {
 	
-	background: #003399;
-    color: white;
+	background: white;
+    color: #003399;
 	font-size: 1.8rem;
     border-radius: 10px;
     height: 100%;
@@ -43,8 +43,8 @@
 #text {
 	
 	
-    color: white;
-	font-size: 2rem;
+    color: #003399;
+	font-size: 1.3rem;
     height: 100%;
     width: 100%;
     display: flex;
@@ -84,7 +84,3 @@
     justify-content: center;
 	
 }
-
-
-
-

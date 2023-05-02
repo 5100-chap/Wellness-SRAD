@@ -3,5 +3,8 @@
     background: #003399;
     border-color: transparent;
     color: white;
-   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	
 }
