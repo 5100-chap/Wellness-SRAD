@@ -1,0 +1,30 @@
+label {
+    font: 4rem 'Fira Sans', sans-serif;
+}
+
+input,
+label {
+    margin: 0.4rem 0;
+    font: 1rem 'Fira Sans', sans-serif;
+    border-color: transparent;
+}
+
+#title{
+    background-color: #003399;
+    color: white;
+}
+
+
+
+#btn {
+
+    background: #003399;
+    border-color: transparent;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	
+}
+
+

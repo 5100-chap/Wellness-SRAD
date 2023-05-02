@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
 
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { BrowserModule } from '@angular/platform-browser';
 
-
 import { QRCodeModule } from 'angularx-qrcode';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
+
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ListaAreasComponent } from './lista-areas/lista-areas.component';
@@ -18,14 +17,20 @@ import { ListaReservasComponent } from './lista-reservas/lista-reservas.componen
 import { CalendarioComponent } from './calendario/calendario.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IdDigitalComponent } from './id-digital/id-digital.component';
-import { EsportsComponent } from './esports/esports.component';
-import { CrossfitComponent } from './crossfit/crossfit.component';
-import { CalendarComponent } from './calendar/calendar.component';
 
 
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './login/login.component';
 import { GimnasioComponent } from './gimnasio/gimnasio.component';
 import { DropdownBasicComponent } from './dropdown-basic/dropdown-basic.component';
+import { TendenciasComponent } from './tendencias/tendencias.component';
+import { InicioAdminComponent } from './inicio-admin/inicio-admin.component';
+import { NuevaAreaComponent } from './nueva-area/nueva-area.component';
+import { EditarAforoComponent } from './editar-aforo/editar-aforo.component';
+import { LockersComponent } from './lockers/lockers.component';
+import { CerrarEspaciosComponent } from './cerrar-espacios/cerrar-espacios.component';
+import { CrearAnuncioComponent } from './crear-anuncio/crear-anuncio.component';
+import { StatsAdminComponent } from './stats-admin/stats-admin.component';
 import { ArenaComponent } from './arena/arena.component';
 import { CitasentrenadorComponent } from './citasentrenador/citasentrenador.component';
 import { CitasnutriologoComponent } from './citasnutriologo/citasnutriologo.component';
@@ -33,7 +38,8 @@ import { HorarioAsesorComponent } from './horario-asesor/horario-asesor.componen
 import { CodigoQrComponent } from './codigo-qr/codigo-qr.component';
 import { EncuestaComponent } from './encuesta/encuesta.component';
 
-
+import { CrossfitComponent } from './crossfit/crossfit.component';
+import { EsportsComponent } from './esports/esports.component';
 
 
 const router: Routes = [
@@ -59,12 +65,47 @@ const router: Routes = [
 
   },
   {
-    path: '', redirectTo: '/login', pathMatch: 'full' 
+    path: 'lockers',
+    component: LockersComponent
   },
   {
     path: 'gimnasio',
     component: GimnasioComponent
+  },
+  {
+    path: 'tendencias',
+    component: TendenciasComponent
  
+  },
+  {
+    path: '', redirectTo: '/login', pathMatch: 'full' 
+  },
+  {
+    path: 'inicioAdmin',
+    component: InicioAdminComponent
+ 
+  },
+  {
+    path: 'crearArea',
+    component: NuevaAreaComponent
+  },
+  {
+    path: 'editarAforo',
+    component: EditarAforoComponent
+  },
+  {
+    path: 'cerrarEspacios',
+    component: CerrarEspaciosComponent
+
+  },
+  {
+    path: 'crearAnuncio',
+    component: CrearAnuncioComponent
+
+  },
+  {
+    path: 'estadisticas',
+    component: StatsAdminComponent
   },
   {
     path: 'esports',
@@ -98,8 +139,8 @@ const router: Routes = [
     path:'encuesta',
     component:EncuestaComponent
   }
-];
 
+];
 
 @NgModule({
   declarations: [
@@ -112,18 +153,22 @@ const router: Routes = [
     IdDigitalComponent,
     GimnasioComponent,
     DropdownBasicComponent,
-    EsportsComponent,
-    CrossfitComponent,
-    HeaderComponent,
-    FooterComponent,
-    CalendarComponent,
+    TendenciasComponent,
+    InicioAdminComponent,
+    NuevaAreaComponent,
+    EditarAforoComponent,
+    LockersComponent,
+    CerrarEspaciosComponent,
+    CrearAnuncioComponent,
+    StatsAdminComponent,
     ArenaComponent,
     CitasentrenadorComponent,
     CitasnutriologoComponent,
     HorarioAsesorComponent,
     CodigoQrComponent,
-    EncuestaComponent
-
+    EncuestaComponent,
+    CrossfitComponent,
+    EsportsComponent,
   ],
   imports: [
     FormsModule,
@@ -136,8 +181,7 @@ const router: Routes = [
     RouterModule.forRoot(router),    
 
   ],
-
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
