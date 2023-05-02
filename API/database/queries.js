@@ -1,5 +1,5 @@
 const queries = {
-    getAllAlumni: 'SELECT * FROM Administrador;',
+    getAllAlumni: 'SELECT * FROM Alumno;',
     searchDirAdmInsAl: 'SELECT * FROM remp_tabla WHERE numero_nomina = \' remp_nomina \';',
     getById: 'SELECT * FROM tabla WHERE id = @id',
     create: 'INSERT INTO tabla (campo1, campo2) VALUES (@campo1, @campo2)',
