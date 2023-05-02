@@ -8,3 +8,15 @@ a:hover {
 #body{
     background-color: rgb(139, 138, 138);
 }
+
+#btn {
+
+    background: #003399;
+    
+    border-color: transparent;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	
+}

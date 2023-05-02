@@ -38,6 +38,7 @@ import { AnunciosComponent } from './anuncios/anuncios.component';
 import { CitasentrenadorComponent } from './citasentrenador/citasentrenador.component';
 import { CitasnutriologoComponent } from './citasnutriologo/citasnutriologo.component';
 import { HorarioAsesorComponent } from './horario-asesor/horario-asesor.component';
+import { EsportsComponent } from './esports/esports.component';
 
 
 
@@ -139,7 +140,13 @@ const router: Routes = [
     path: 'horarioAsesor',
     component: HorarioAsesorComponent
 
+  },
+  {
+    path: 'eSports',
+    component: EsportsComponent
+
   }
+  
 
 
 
