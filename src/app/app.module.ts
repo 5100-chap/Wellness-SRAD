@@ -30,6 +30,8 @@ import { ArenaComponent } from './arena/arena.component';
 import { CitasentrenadorComponent } from './citasentrenador/citasentrenador.component';
 import { CitasnutriologoComponent } from './citasnutriologo/citasnutriologo.component';
 import { HorarioAsesorComponent } from './horario-asesor/horario-asesor.component';
+import { CodigoQrComponent } from './codigo-qr/codigo-qr.component';
+import { EncuestaComponent } from './encuesta/encuesta.component';
 
 
 
@@ -87,6 +89,14 @@ const router: Routes = [
   {
     path:'horario-asesor',
     component:HorarioAsesorComponent
+  },
+  {
+    path:'codigo-qr',
+    component:CodigoQrComponent
+  },
+  {
+    path:'encuesta',
+    component:EncuestaComponent
   }
 ];
 
@@ -110,7 +120,9 @@ const router: Routes = [
     ArenaComponent,
     CitasentrenadorComponent,
     CitasnutriologoComponent,
-    HorarioAsesorComponent
+    HorarioAsesorComponent,
+    CodigoQrComponent,
+    EncuestaComponent
 
   ],
   imports: [
