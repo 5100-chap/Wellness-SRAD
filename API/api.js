@@ -68,33 +68,54 @@ app.get("/api/getAllAlumni", async (req, res, next) => {
 //Consigue los datos necesarios para las credenciales
 app.get("/api/getXCredentials", async (req, res, next) => {
     try {
-        //Configuracion del request de sql
+        // Get the authorization header
+        const authHeader = req.headers.authorization;
+        
+        // Check if the header is present and contains Basic authentication
+        if (!authHeader || !authHeader.startsWith('Basic ')) {
+            res.status(401).send('Unauthorized');
+            return;
+        }
+        
+        // Decode the base64-encoded credentials
+        const encodedCredentials = authHeader.slice('Basic '.length);
+        const decodedCredentials = Buffer.from(encodedCredentials, 'base64').toString();
+        
+        // Parse the credentials into username and password
+        const [username, password] = decodedCredentials.split(':');
+        
+        // Configuracion del request de sql
         const request = new sql.Request();
-        //Creacion de variables de query para buscar
+        // Creacion de variables de query para buscar
         var search;
         var result;
-        //El codigo buscara si corresponde a una nomina o matricula, el cual
-        //Buscara primero al alumno y despues dentro de los roles que contienen nomina
+        // El codigo buscara si corresponde a una nomina o matricula, el cual
+        // Buscara primero al alumno y despues dentro de los roles que contienen nomina
         rangoArray = ["Alumno", "Director", "Administrador", "Instructor"];
         for (let i = 0; i < rangoArray.length; i++) {
-            //Modifica el query base acorde a los roles
+            // Modifica el query base acorde a los roles
             search = queries.searchDirAdmInsAl.replace("remp_tabla", rangoArray[i]);
             if (rangoArray[i] === "Alumno") {
                 search = search.replace("numero_nomina", "matricula");
             }
-            search = search.replace(" remp_nomina ", req.query.mat_nom);
+            search = search.replace(" remp_nomina ", username);
             result = await request.query(search);
             if (result.recordset.length === 1) {
                 result.recordset.push(rangoArray[i]);
-                if (!(result.recordset[0].contrasena === req.query.pswd)) {
+                if (!(result.recordset[0].contrasena === password)) {
                     console.log("Triggered password error");
                     result.recordset = null;
+                    res.status(401).send('Unauthorized');
+                    return;
                 }
                 break;
             } else if (i === rangoArray.length - 1) {
                 console.log("Triggered illegal instruction");
                 result.recordset = null;
+                res.status(401).send('Unauthorized');
+                return;
             }
+        
         }
         res.send(result.recordset);
     } catch (err) {
