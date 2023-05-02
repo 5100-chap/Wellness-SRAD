@@ -9,68 +9,54 @@
       <h5 class="card-title">&nbsp;</h5>
       <h5 class="card-title">&nbsp;</h5>
 
-      <h1 class="card-title" class="text-center"> Lockers </h1>
+      <h1 class="card-title" class="text-center"> Reserva de casilleros </h1>
     </div>
   </div>
 </div>
 
 <br>
-<div class="row">
-  <div class=" col-md-4 mt-1">
-    <h3> &nbsp; &nbsp; <strong> Lockers Disponibles </strong> </h3>
-  </div>
-</div>
-<br>
 
 <div class="vstack gap-4 col-md-11 mx-auto">
 
-  <div class="card w-100 border border-black border border-2">
-
-
-
+  <div class="card w-100 border border-gray border border-2">
     <div class="row">
 
       <div class="col-md-5 mt-5">
-        <br>
-        <h1 class="text-body-secondary" class="text-center" id="cantidadLocker"> &nbsp; 98/280</h1>
-        <br>
+        <h2 class="text-body-secondary" class="text-center" id="cantidadLocker"> &nbsp;  <strong> Casilleros disponibles</strong> </h2>
+        <h2 class="text-body-secondary" class="text-center" id="cantidadLocker" style="color: grey;"> &nbsp; 98/280</h2>
+      
 
       </div>
     </div>
-
   </div>
 </div>
 
 <br>
 
-<h3> &nbsp; &nbsp; <strong>Reservación</strong> </h3>
-<br>
+<h2 style="margin-left: 4%; margin-top: 2%; margin-bottom: 0.5%;">  <strong> Reservación </strong> </h2>
 
+<br>
 
 <div class="vstack gap-4 col-md-11 mx-auto">
 
-  <div class="card w-100 border border-black border border-2">
-    <div class="col mt-2 card-header">
+  <div class="card w-100 border border-gray border border-2">
+    <div class="card-header">
 
-      <div class="container">
         <div class="row">
+          <div class=" col-md-3 mt-1">
 
-          <div class="mt-1"> </div>
-
-          <div class=" col-md-2 mt-1">
-
-            <h4>Filtrar por reservación</h4>
+            <h4>Filtrar por disponibilidad</h4>
 
           </div>
 
-          <div class="col-md-4 mt-1">
+          <div class="col-md-1 mt-1">
 
             <div class="form-check form-switch">
               <input class="form-check-input" type="checkbox" role="switch" id="switchFiltro">
             </div>
           </div>
         </div>
-      </div>
+   
     </div>
 
 
@@ -81,66 +67,61 @@
     <table class="table-responsive">
 
       <tbody>
-
-
         <tr *ngFor="let al of reservaArray" (click)="openForEdit(al)" [class.active]="al == seleReserva">
 
-          <td class="text-center"> <button class="btn btn-primary"> <img
-                src="https://drive.google.com/uc?export=view&id=1lBoZK4_lFRNr-N_k7Nw5u6Hh9PNHCiuq" style="width:4rem"
+          <td class="text-center"> <button class="btn btn-primary" id="btn"> <img
+                src="../assets/img/armario.png" style="width:4rem"
                 alt="LockerPNG"> </button></td>
-          <td class="text-center"> <button class="btn btn-primary"> <img
-                src="https://drive.google.com/uc?export=view&id=1lBoZK4_lFRNr-N_k7Nw5u6Hh9PNHCiuq" style="width:4rem"
+          <td class="text-center"> <button class="btn btn-primary" id="btn"> <img
+                src="../assets/img/armario.png" style="width:4rem"
                 alt="LockerPNG"> </button></td>
-          <td class="text-center"> <button class="btn btn-primary"> <img
-                src="https://drive.google.com/uc?export=view&id=1lBoZK4_lFRNr-N_k7Nw5u6Hh9PNHCiuq" style="width:4rem"
+          <td class="text-center"> <button class="btn btn-primary" id="btn"> <img
+                src="../assets/img/armario.png" style="width:4rem"
                 alt="LockerPNG"> </button></td>
-          <td class="text-center"> <button class="btn btn-primary"> <img
-                src="https://drive.google.com/uc?export=view&id=1lBoZK4_lFRNr-N_k7Nw5u6Hh9PNHCiuq" style="width:4rem"
+          <td class="text-center"> <button class="btn btn-primary" id="btn"> <img
+                src="../assets/img/armario.png" style="width:4rem"
                 alt="LockerPNG"> </button></td>
-          <td class="text-center"> <button class="btn btn-primary"> <img
-                src="https://drive.google.com/uc?export=view&id=1lBoZK4_lFRNr-N_k7Nw5u6Hh9PNHCiuq" style="width:4rem"
+          <td class="text-center"> <button class="btn btn-primary" id="btn"> <img
+                src="../assets/img/armario.png" style="width:4rem"
                 alt="LockerPNG"> </button></td>
-          <td class="text-center"> <button class="btn btn-primary"> <img
-                src="https://drive.google.com/uc?export=view&id=1lBoZK4_lFRNr-N_k7Nw5u6Hh9PNHCiuq" style="width:4rem"
+          <td class="text-center"> <button class="btn btn-primary" id="btn"> <img
+                src="../assets/img/armario.png" style="width:4rem"
                 alt="LockerPNG"> </button></td>
-          <td class="text-center"> <button class="btn btn-primary"> <img
-                src="https://drive.google.com/uc?export=view&id=1lBoZK4_lFRNr-N_k7Nw5u6Hh9PNHCiuq" style="width:4rem"
+          <td class="text-center"> <button class="btn btn-primary" id="btn"> <img
+                src="../assets/img/armario.png" style="width:4rem"
                 alt="LockerPNG"> </button></td>
-          <td class="text-center"> <button class="btn btn-primary"> <img
-                src="https://drive.google.com/uc?export=view&id=1lBoZK4_lFRNr-N_k7Nw5u6Hh9PNHCiuq" style="width:4rem"
+          <td class="text-center"> <button class="btn btn-primary" id="btn"> <img
+                src="../assets/img/armario.png" style="width:4rem"
                 alt="LockerPNG"> </button></td>
-          <td class="text-center"> <button class="btn btn-primary"> <img
-                src="https://drive.google.com/uc?export=view&id=1lBoZK4_lFRNr-N_k7Nw5u6Hh9PNHCiuq" style="width:4rem"
+          <td class="text-center"> <button class="btn btn-primary" id="btn"> <img
+                src="../assets/img/armario.png" style="width:4rem"
                 alt="LockerPNG"> </button></td>
 
         </tr>
 
 
       </tbody>
+      <br>
     </table>
 
   </div>
 </div>
 
+<br>
 
 
 <div class="vstack gap-4 col-md-11 mx-auto">
 
   <div id="reserve" class="card w-100 border border-gray border border-2">
-    <br>
-
-
-    <div class="container">
+    
       <div class="row">
-
         <div class=" col-md-10 ">
-          <h4> <strong> &nbsp; Locker Seleccionado: </strong></h4>
-          <input [(ngModel)]="seleReserva.fecha" type="text" class="form-control" disabled id="reserve">
-
+          <h4 style="margin-top: 1.5%; margin-left: 1%"> <strong>Casillero Seleccionado: </strong></h4>
+          <input [(ngModel)]="seleReserva.fecha" type="text" class="form-control" disabled id="reserve" style="margin-bottom: 1%; font-size: 1.3rem;">
         </div>
 
-        <div class=" col-md-2 mt-3">
-          <button id="confirmar" class="btn" (click)="open(mymodal)"> Pagar </button>
+        <div class=" col-md-2 mt-3" >
+          <button style = "font-size: 1.5rem; margin-top: 8%;" id="btn2" class="btn" (click)="open(mymodal)"> Pagar </button>
           <ng-template #mymodal let-modal>
             <div class="modal-header">
               <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
@@ -156,14 +137,7 @@
             </div>
           </ng-template>
         </div>
-
-      </div>
-
-
-
-      <br>
-
-    </div>
+      </div>   
   </div>
 
   <div class="row">

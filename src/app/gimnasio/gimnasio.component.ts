@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component,  ElementRef,  Input,  OnInit,  SimpleChanges,  ViewChild } from '@angular/core';
 import Chart, { Legend, plugins } from 'chart.js/auto';
 import 'chartjs-plugin-labels';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { Reservas } from '../models/reservas';
+
+
 
 declare var window: any
 
@@ -13,17 +15,18 @@ declare var window: any
   styleUrls: ['./gimnasio.component.css'],
 
 })
-export class GimnasioComponent {
+export class GimnasioComponent implements OnInit {
+  
 
   reservaArray : Reservas[] = [
-    {id:1, id_matricula_alumno: "A00960720", id_area_deportiva:7, fecha: "17-04-2023 6:00 - 8:00 AM", hora: "6:00 - 8:00 AM", estado: "", id_instructor: ""},
-    {id:2, id_matricula_alumno: "A00952209", id_area_deportiva:6, fecha: "18-04-2023 8:00 - 10:00 AM ", hora: "8:00 - 10:00 AM", estado: "", id_instructor: ""},
-    {id:2, id_matricula_alumno: "A00952209", id_area_deportiva:6, fecha: "18-04-2023 10:00 - 12:00 AM", hora: "10:00 - 12:00 AM", estado: "", id_instructor: ""},
-    {id:3, id_matricula_alumno: "A00149174", id_area_deportiva:8, fecha: "19-04-2023 12:00 - 2:00 PM", hora: "12:00 - 2:00 PM", estado: "", id_instructor: ""},
-    {id:4, id_matricula_alumno: "A00640163", id_area_deportiva:7, fecha: "20-04-2023 2:00 - 4:00 PM ", hora: "2:00 - 4:00 PM", estado: "", id_instructor: ""},
-    {id:5, id_matricula_alumno: "A00773407", id_area_deportiva:8, fecha: "21-04-2023 4:00 - 6:00 PM", hora: "4:00 - 6:00 PM", estado: "", id_instructor: ""},
-    {id:5, id_matricula_alumno: "A00773407", id_area_deportiva:8, fecha: "21-04-2023 6:00 - 8:00 PM", hora: "6:00 - 8:00 PM", estado: "", id_instructor: ""},
-    {id:5, id_matricula_alumno: "A00773407", id_area_deportiva:8, fecha: "21-04-2023 8:00 - 10:00 PM", hora: "8:00 - 10:00 PM", estado: "", id_instructor: ""}
+    {id:1, id_matricula_alumno: "A00960720", id_area_deportiva:7, fecha: "17-04-2023 6:00 - 8:00", hora: "6:00 - 8:00", estado: "", id_instructor: ""},
+    {id:2, id_matricula_alumno: "A00952209", id_area_deportiva:6, fecha: "18-04-2023 8:00 - 10:00 ", hora: "8:00 - 10:00", estado: "", id_instructor: ""},
+    {id:2, id_matricula_alumno: "A00952209", id_area_deportiva:6, fecha: "18-04-2023 10:00 - 12:00", hora: "10:00 - 12:00", estado: "", id_instructor: ""},
+    {id:3, id_matricula_alumno: "A00149174", id_area_deportiva:8, fecha: "19-04-2023 12:00 - 14:00", hora: "12:00 - 14:00", estado: "", id_instructor: ""},
+    {id:4, id_matricula_alumno: "A00640163", id_area_deportiva:7, fecha: "20-04-2023 14:00 - 16:00 ", hora: "14:00 - 16:00", estado: "", id_instructor: ""},
+    {id:5, id_matricula_alumno: "A00773407", id_area_deportiva:8, fecha: "21-04-2023 16:00 - 18:00", hora: "16:00 - 18:00", estado: "", id_instructor: ""},
+    {id:5, id_matricula_alumno: "A00773407", id_area_deportiva:8, fecha: "21-04-2023 18:00 - 20:00", hora: "18:00 - 20:00", estado: "", id_instructor: ""},
+    {id:5, id_matricula_alumno: "A00773407", id_area_deportiva:8, fecha: "21-04-2023 20:00 - 22:00" , hora: "20:00 - 22:00", estado: "", id_instructor: ""}
 
   ]
   seleReserva: Reservas = new Reservas();
@@ -55,8 +58,8 @@ export class GimnasioComponent {
     var yValues = [55, 49];
 
     var barColors = [
-      "#12BB2F",
-      "#F41212",
+      "#6c9bcf",
+      "#654e92",
       
     ];
     
@@ -82,10 +85,13 @@ export class GimnasioComponent {
   }
 
 
+
+
   ngOnInit(): void {
     this.createChart();
+    
+    
   }
-
 
 
   title = 'appBootstrap';
