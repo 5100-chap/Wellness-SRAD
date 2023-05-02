@@ -1,10 +1,20 @@
-# WellnessSRAD
+# WellnessSRAD (Alpha)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.6.
+Wellness SRAD es una aplicación web que se encarga de llevar a cabo el registro de contabilidad del aforo de personas que ingresan y salen del edificio Wellness Center, como también observar las estadísticas del registro de las entradas y salidas. La aplicación brinda a los usuarios la capacidad de conocer el aforo de las instalaciones del edificio en tiempo real, como también la capacidad de reservar las instalaciones y facilitar la organización dentro de las instalaciones de parte de los administradores. 
 
-## Development server
+## Instalación para development
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Antes que nada, para poder modificar y desarrollar en este proyecto uno debe de tener instalado NodeJS para back-end y angular para front-end
+
+Para instalar los paquetes que dan soporte a este proyecto a través de NodeJS favor de utilizar `npm install --save --force`
+## Development server (Front-end)
+
+Para correr la aplicacion se requiere usar `npm start` en un servido dev. Navega al link `http://localhost:4200/`. Todo cambio se compilara en tiempo real y ayuda a evitar recompilaciones manuales.
+
+## Development server (Back-end)
+Antes de empezar recuerda crear un archivo .env para credenciales y conexion en la base de datos, para mayores detalles favor de checar readme.txt
+Para correr la aplicacion se requiere usar `npm run backend_test ` en un servido dev. Navega al link `http://localhost:(PuertoDefinidoEnElenv)/api/`. deberia de mostrar un mensaje el cual diga `Api works!`.
+
 
 ## Code scaffolding
 
