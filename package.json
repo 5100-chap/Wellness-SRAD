@@ -2,7 +2,7 @@
   "name": "wellness-srad",
   "version": "1.0.0",
   "scripts": {
-    "backend_test": "echo 'Asegurese de haber creado el archivo .env para las credenciales, para mayor informacion cheque ./API/readme.txt' && nodemon ./API/api.js",
+    "backend_test": "echo 'Asegurese de haber creado el archivo .env para las credenciales, para mayor informacion cheque ./readme.txt' && nodemon ./API/api.js",
     "ng": "ng",
     "start": "ng serve --open --proxy-config proxy.conf.json",
     "build": "ng build",
