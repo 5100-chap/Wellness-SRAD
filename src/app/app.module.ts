@@ -28,7 +28,7 @@ const router: Routes = [
   {
     path: 'inicio',
     component: ListaAreasComponent,
-        canActivate: [authGuard(['Alumno'])], // only allow 'admin' and 'user' roles
+        canActivate: [authGuard(['Alumno'])], 
     data: {
       allowedRoles: ['Alumno']
     }
@@ -36,7 +36,7 @@ const router: Routes = [
   {
     path: 'reservas',
     component: ListaReservasComponent,
-        canActivate: [authGuard(['Alumno'])], // only allow 'admin' and 'user' roles
+        canActivate: [authGuard(['Alumno'])], 
     data: {
       allowedRoles: ['Alumno']
     }
@@ -44,7 +44,7 @@ const router: Routes = [
   {
     path: 'calendario',
     component: CalendarioComponent,
-        canActivate: [authGuard(['Alumno'])], // only allow 'admin' and 'user' roles
+        canActivate: [authGuard(['Alumno'])], 
     data: {
       allowedRoles: ['Alumno']
     }
@@ -52,7 +52,7 @@ const router: Routes = [
   {
     path: 'idDigital',
     component: IdDigitalComponent,
-        canActivate: [authGuard(['Alumno'])], // only allow 'admin' and 'user' roles
+        canActivate: [authGuard(['Alumno'])], 
     data: {
       allowedRoles: ['Alumno']
     }
@@ -68,7 +68,7 @@ const router: Routes = [
   {
     path: 'gimnasio',
     component: GimnasioComponent,
-        canActivate: [authGuard(['Alumno'])], // only allow 'admin' and 'user' roles
+        canActivate: [authGuard(['Alumno'])], 
     data: {
       allowedRoles: ['Alumno']
     }
@@ -76,7 +76,7 @@ const router: Routes = [
   {
     path: 'tendencias',
     component: TendenciasComponent,
-        canActivate: [authGuard(['Alumno'])], // only allow 'admin' and 'user' roles
+        canActivate: [authGuard(['Alumno'])], 
     data: {
       allowedRoles: ['Alumno']
     }
@@ -84,7 +84,7 @@ const router: Routes = [
   {
     path: 'inicioAdmin',
     component: InicioAdminComponent,
-        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], // only allow 'admin' and 'user' roles
+        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
     data: {
       allowedRoles: ['Director', 'Administrador', 'Instructor']
     }
@@ -92,7 +92,7 @@ const router: Routes = [
   {
     path: 'nuevaArea',
     component: NuevaAreaComponent,
-        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], // only allow 'admin' and 'user' roles
+        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
     data: {
       allowedRoles: ['Director', 'Administrador', 'Instructor']
     }
@@ -100,7 +100,7 @@ const router: Routes = [
   {
     path: 'editarAforo',
     component: EditarAforoComponent,
-        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], // only allow 'admin' and 'user' roles
+        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
     data: {
       allowedRoles: ['Director', 'Administrador', 'Instructor']
     }
