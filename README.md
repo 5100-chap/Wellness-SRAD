@@ -4,7 +4,7 @@ Wellness SRAD es una aplicación web que se encarga de llevar a cabo el registro
 
 ## Instalación para development
 
-Antes que nada, para poder modificar y desarrollar en este proyecto uno debe de tener instalado NodeJS para back-end y angular para front-end, en nuestro caso usamos la version 16.15.1 (LTS) de Nodejs, asi como tener instalado la version de Angular 15.2.6
+Antes que nada, para poder modificar y desarrollar en este proyecto uno debe de tener instalado NodeJS para back-end y angular para front-end
 
 Para instalar los paquetes que dan soporte a este proyecto a través de NodeJS favor de utilizar `npm install --save --force`
 ## Development server (Front-end)
