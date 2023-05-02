@@ -31,6 +31,9 @@ import { ArenaComponent } from './arena/arena.component';
 import { CitasentrenadorComponent } from './citasentrenador/citasentrenador.component';
 import { CitasnutriologoComponent } from './citasnutriologo/citasnutriologo.component';
 import { HorarioAsesorComponent } from './horario-asesor/horario-asesor.component';
+import { CodigoQrComponent } from './codigo-qr/codigo-qr.component';
+import { EncuestaComponent } from './encuesta/encuesta.component';
+
 import { CrossfitComponent } from './crossfit/crossfit.component';
 import { EsportsComponent } from './esports/esports.component';
 import { authGuard } from './auth.guard';
@@ -194,6 +197,22 @@ const router: Routes = [
     data: {
       allowedRoles: ['Alumno']
     }
+  },
+  {
+    path:'codigo-qr',
+    component:CodigoQrComponent,
+    canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
+  },
+  {
+    path:'encuesta',
+    component:EncuestaComponent,
+    canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
   }
 
 ];
@@ -221,6 +240,8 @@ const router: Routes = [
     CitasentrenadorComponent,
     CitasnutriologoComponent,
     HorarioAsesorComponent,
+    CodigoQrComponent,
+    EncuestaComponent,
     CrossfitComponent,
     EsportsComponent,
     LoginComponent,
