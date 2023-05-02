@@ -4,7 +4,7 @@
   "scripts": {
     "backend_test": "echo 'Asegurese de haber creado el archivo .env para las credenciales, para mayor informacion cheque ./API/readme.txt' && nodemon ./API/api.js",
     "ng": "ng",
-    "start": "ng serve --open",
+    "start": "ng serve --open --proxy-config proxy.conf.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"

@@ -1,15 +1,11 @@
 import { NgModule } from '@angular/core';
-
-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { QRCodeModule } from 'angularx-qrcode';
 import { AppComponent } from './app.component';
-
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ListaAreasComponent } from './lista-areas/lista-areas.component';
@@ -17,8 +13,6 @@ import { ListaReservasComponent } from './lista-reservas/lista-reservas.componen
 import { CalendarioComponent } from './calendario/calendario.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IdDigitalComponent } from './id-digital/id-digital.component';
-
-
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { GimnasioComponent } from './gimnasio/gimnasio.component';
@@ -27,56 +21,89 @@ import { TendenciasComponent } from './tendencias/tendencias.component';
 import { InicioAdminComponent } from './inicio-admin/inicio-admin.component';
 import { NuevaAreaComponent } from './nueva-area/nueva-area.component';
 import { EditarAforoComponent } from './editar-aforo/editar-aforo.component';
-
-
+import { authGuard } from './auth.guard';
 
 
 const router: Routes = [
   {
     path: 'inicio',
-    component: ListaAreasComponent
+    component: ListaAreasComponent,
+        canActivate: [authGuard(['Alumno'])], // only allow 'admin' and 'user' roles
+    data: {
+      allowedRoles: ['Alumno']
+    }
   },
   {
     path: 'reservas',
-    component: ListaReservasComponent
+    component: ListaReservasComponent,
+        canActivate: [authGuard(['Alumno'])], // only allow 'admin' and 'user' roles
+    data: {
+      allowedRoles: ['Alumno']
+    }
   },
   {
     path: 'calendario',
-    component: CalendarioComponent
+    component: CalendarioComponent,
+        canActivate: [authGuard(['Alumno'])], // only allow 'admin' and 'user' roles
+    data: {
+      allowedRoles: ['Alumno']
+    }
   },
   {
     path: 'idDigital',
-    component: IdDigitalComponent
+    component: IdDigitalComponent,
+        canActivate: [authGuard(['Alumno'])], // only allow 'admin' and 'user' roles
+    data: {
+      allowedRoles: ['Alumno']
+    }
   },
   {
     path: 'login',
     component: LoginComponent
-
+    
   },
   {
     path: '', redirectTo: '/login', pathMatch: 'full' 
   },
   {
     path: 'gimnasio',
-    component: GimnasioComponent
+    component: GimnasioComponent,
+        canActivate: [authGuard(['Alumno'])], // only allow 'admin' and 'user' roles
+    data: {
+      allowedRoles: ['Alumno']
+    }
   },
   {
     path: 'tendencias',
-    component: TendenciasComponent
- 
+    component: TendenciasComponent,
+        canActivate: [authGuard(['Alumno'])], // only allow 'admin' and 'user' roles
+    data: {
+      allowedRoles: ['Alumno']
+    }
   },
   {
     path: 'inicioAdmin',
-    component: InicioAdminComponent
- 
+    component: InicioAdminComponent,
+        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], // only allow 'admin' and 'user' roles
+    data: {
+      allowedRoles: ['Director', 'Administrador', 'Instructor']
+    }
   },
   {
     path: 'nuevaArea',
-    component: NuevaAreaComponent
+    component: NuevaAreaComponent,
+        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], // only allow 'admin' and 'user' roles
+    data: {
+      allowedRoles: ['Director', 'Administrador', 'Instructor']
+    }
   },
   {
     path: 'editarAforo',
-    component: EditarAforoComponent
+    component: EditarAforoComponent,
+        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], // only allow 'admin' and 'user' roles
+    data: {
+      allowedRoles: ['Director', 'Administrador', 'Instructor']
+    }
   }
 
 ];
@@ -96,20 +123,20 @@ const router: Routes = [
     InicioAdminComponent,
     NuevaAreaComponent,
     EditarAforoComponent,
-    
+    LoginComponent,
   ],
   imports: [
-    FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     NgbModule,
-    ReactiveFormsModule,
     NoopAnimationsModule,
     QRCodeModule,
-    RouterModule.forRoot(router),    
-
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    RouterModule.forRoot(router),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
