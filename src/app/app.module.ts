@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { QRCodeModule } from 'angularx-qrcode';
+
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -21,6 +23,7 @@ import { TendenciasComponent } from './tendencias/tendencias.component';
 import { InicioAdminComponent } from './inicio-admin/inicio-admin.component';
 import { NuevaAreaComponent } from './nueva-area/nueva-area.component';
 import { EditarAforoComponent } from './editar-aforo/editar-aforo.component';
+
 import { authGuard } from './auth.guard';
 
 
