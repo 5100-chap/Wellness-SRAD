@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
-
-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { QRCodeModule } from 'angularx-qrcode';
-import { AppComponent } from './app.component';
 
+import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ListaAreasComponent } from './lista-areas/lista-areas.component';
@@ -17,8 +15,6 @@ import { ListaReservasComponent } from './lista-reservas/lista-reservas.componen
 import { CalendarioComponent } from './calendario/calendario.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IdDigitalComponent } from './id-digital/id-digital.component';
-
-
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { GimnasioComponent } from './gimnasio/gimnasio.component';
@@ -40,29 +36,46 @@ import { EncuestaComponent } from './encuesta/encuesta.component';
 
 import { CrossfitComponent } from './crossfit/crossfit.component';
 import { EsportsComponent } from './esports/esports.component';
+import { authGuard } from './auth.guard';
 
 
 const router: Routes = [
   {
     path: 'inicio',
-    component: ListaAreasComponent
+    component: ListaAreasComponent,
+        canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
   },
   {
     path: 'reservas',
-    component: ListaReservasComponent
+    component: ListaReservasComponent,
+        canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
   },
   {
     path: 'calendario',
-    component: CalendarioComponent
+    component: CalendarioComponent,
+        canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
   },
   {
     path: 'idDigital',
-    component: IdDigitalComponent
+    component: IdDigitalComponent,
+        canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
   },
   {
     path: 'login',
     component: LoginComponent
-
+    
   },
   {
     path: 'lockers',
@@ -70,74 +83,136 @@ const router: Routes = [
   },
   {
     path: 'gimnasio',
-    component: GimnasioComponent
+    component: GimnasioComponent,
+        canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
   },
   {
     path: 'tendencias',
-    component: TendenciasComponent
- 
+    component: TendenciasComponent,
+        canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
   },
   {
     path: '', redirectTo: '/login', pathMatch: 'full' 
   },
   {
     path: 'inicioAdmin',
-    component: InicioAdminComponent
- 
+    component: InicioAdminComponent,
+        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
+    data: {
+      allowedRoles: ['Director', 'Administrador', 'Instructor']
+    }
   },
   {
     path: 'crearArea',
-    component: NuevaAreaComponent
+    component: NuevaAreaComponent,
+        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
+    data: {
+      allowedRoles: ['Director', 'Administrador', 'Instructor']
+    }
   },
   {
     path: 'editarAforo',
-    component: EditarAforoComponent
+    component: EditarAforoComponent,
+        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
+    data: {
+      allowedRoles: ['Director', 'Administrador', 'Instructor']
+    }
   },
   {
     path: 'cerrarEspacios',
-    component: CerrarEspaciosComponent
+    component: CerrarEspaciosComponent,
+    canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
+    data: {
+      allowedRoles: ['Director', 'Administrador', 'Instructor']
+    }
 
   },
   {
     path: 'crearAnuncio',
-    component: CrearAnuncioComponent
+    component: CrearAnuncioComponent,
+    canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
+    data: {
+      allowedRoles: ['Director', 'Administrador', 'Instructor']
+    }
 
   },
   {
     path: 'estadisticas',
-    component: StatsAdminComponent
+    component: StatsAdminComponent,
+    canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
+    data: {
+      allowedRoles: ['Director', 'Administrador', 'Instructor']
+    }
   },
   {
     path: 'esports',
-    component: EsportsComponent
+    component: EsportsComponent,
+    canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
   },
   {
     path: 'crossfit',
-    component: CrossfitComponent
+    component: CrossfitComponent,
+    canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
   },
   {
     path: 'arena',
-    component: ArenaComponent
+    component: ArenaComponent,
+    canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
   },
   {
     path:'citas_entrenador',
-    component:CitasentrenadorComponent
+    component:CitasentrenadorComponent,
+    canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
   },
   {
     path:'citas_nutriologo',
-    component:CitasnutriologoComponent
+    component:CitasnutriologoComponent,
+    canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
   },
   {
     path:'horario-asesor',
-    component:HorarioAsesorComponent
+    component:HorarioAsesorComponent,
+    canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
   },
   {
     path:'codigo-qr',
-    component:CodigoQrComponent
+    component:CodigoQrComponent,
+    canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
   },
   {
     path:'encuesta',
-    component:EncuestaComponent
+    component:EncuestaComponent,
+    canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
   }
 
 ];
@@ -169,19 +244,20 @@ const router: Routes = [
     EncuestaComponent,
     CrossfitComponent,
     EsportsComponent,
+    LoginComponent,
   ],
   imports: [
-    FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     NgbModule,
-    ReactiveFormsModule,
     NoopAnimationsModule,
     QRCodeModule,
-    RouterModule.forRoot(router),    
-
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    RouterModule.forRoot(router),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
