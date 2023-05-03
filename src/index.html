@@ -3,7 +3,8 @@
 <script src="https://cdn.jsdelivr.net/jsbarcode/3.3.20/JsBarcode.all.min.js"></script>
 <script>
   setTimeout(function () {
-    JsBarcode("#code128", "A01256789");
+    const username = sessionStorage.getItem('currentUser') ? JSON.parse(sessionStorage.getItem('currentUser')).username : '';
+    JsBarcode("#code128", username);
   }, 500);
 </script>
 

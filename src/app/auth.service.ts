@@ -23,8 +23,8 @@ export class AuthService {
   public get currentUserValue(): any {
     return this.currentUserSubject.value;
   }
+  
   //Guarda la sesion
-
   public login(
     username: string,
     password: string,
