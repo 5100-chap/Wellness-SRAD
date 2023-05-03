@@ -1,15 +1,7 @@
 
+    
   
-<style>
-  a:hover {
-      text-decoration: none;
-      color: #27262646 !important;
-      
-  }
-  </style>
-  
-  
-  <div class="sticky-top"> <nav class="navbar bg-body-tertiary">
+  <div class="sticky-top" > <nav class="navbar bg-body-tertiary">
     <div class="container-fluid">
   
       <a class="navbar-brand" [routerLink]="'inicio'">
@@ -34,6 +26,10 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" [routerLink]="'calendario'">Calendario</a>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" [routerLink]="'anuncios'">Anuncios</a>
+        </li>
   
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" [routerLink]="'lockers'">Lockers</a>
@@ -41,6 +37,14 @@
 
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="http://localhost:4200/idDigital">ID digital</a>
+        </li>
+
+
+        <li class="nav-item">
+          <div class = "card">
+            <button class="nav-link active" aria-current="page" id = "btn"> Cerrar Sesión</button>
+          </div>
+          
         </li>
   
       </ul>

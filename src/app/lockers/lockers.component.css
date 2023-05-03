@@ -55,3 +55,27 @@ button:hover {
 	left:25rem;
 	bottom: 1rem;
 }
+
+
+
+#btn {
+
+    background: #003399;
+    border-color: transparent;
+    color: white;
+    
+   
+	
+}
+
+#btn2 {
+
+    background: #ffffff;
+    border-color: #ffffff;
+    color: #003399;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	
+}
+
