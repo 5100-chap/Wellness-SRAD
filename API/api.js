@@ -15,6 +15,7 @@ const database = require("./config/database");
 
 // Importar las consultas desde el archivo queries.js
 const queries = require("./database/queries");
+const { async } = require("rxjs");
 
 //Declaracion para el puerto
 const port = process.env.PORT || 8080;
@@ -61,6 +62,20 @@ app.get("/api/getAllAlumni", async (req, res, next) => {
         const result = await request.query(queries.getAllAlumni);
         res.send(result.recordset);
     } catch (err) {
+        next(err);
+    }
+});
+
+// Manda un registro a la base de datos
+app.post("api/marcarLlegada", async (req, res, next) => {
+    try{
+        if(req.body.usuario==null){
+            return;
+        }
+        console.log(req.body.usuario)
+        console.log(Date.now());
+    }
+    catch(err){
         next(err);
     }
 });
@@ -117,6 +132,7 @@ app.get("/api/getXCredentials", async (req, res, next) => {
             }
         
         }
+        console.log(username);
         res.send(result.recordset);
     } catch (err) {
         next(err);
