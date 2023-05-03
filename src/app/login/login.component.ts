@@ -16,8 +16,14 @@ export class LoginComponent {
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required)
   });
+  constructor(private apiService: ApiService, private authService: AuthService, private router: Router) {  }
 
-  constructor(private apiService: ApiService, private authService: AuthService,  private router: Router) { }
+  ngOnInit() {
+    if (this.authService.isLoggedIn()) {
+      const redirectUrl = '/home';
+      this.router.navigate([redirectUrl]);
+    }
+  }
 
   onSubmit() {
     const { username, password } = this.loginForm.value;
@@ -30,11 +36,11 @@ export class LoginComponent {
         const properties = data[0];
         this.authService.login(usernameValue, passwordValue, role, properties);
         if (role === "Alumno") {
-          const redirectUrl = this.authService.redirectUrl ? this.authService.redirectUrl: '/inicio';
+          const redirectUrl = this.authService.redirectUrl ? this.authService.redirectUrl : '/inicio';
           this.router.navigate([redirectUrl]);
         }
-        else{
-          const redirectUrl = this.authService.redirectUrl ? this.authService.redirectUrl: '/inicioAdmin';
+        else {
+          const redirectUrl = this.authService.redirectUrl ? this.authService.redirectUrl : '/inicioAdmin';
           this.router.navigate([redirectUrl]);
         }
       }),
