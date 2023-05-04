@@ -2,6 +2,7 @@
 //Declaracion para libreria express
 const express = require("express");
 const app = express();
+const bodyParser = require('body-parser');
 
 //Declaracion para libreria Miscrosoft SQL
 const sql = require("mssql");
@@ -34,6 +35,8 @@ const handleGeneralErrors = (err, req, res, next) => {
 //Configuración de los middleware
 app.use(handleDatabaseErrors);
 app.use(handleGeneralErrors);
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 //Conexión a la base de datos usando credenciales de database
 const connectToDatabase = async () => {
@@ -67,13 +70,16 @@ app.get("/api/getAllAlumni", async (req, res, next) => {
 });
 
 // Manda un registro a la base de datos
-app.post("api/marcarLlegada", async (req, res, next) => {
+app.post("/api/marcarLlegada", async (req, res, next) => {
     try{
-        if(req.body.usuario==null){
+        if(req.body===undefined){
+            console.log('Cuerpo vacio');
+            res.send("Failure");
             return;
         }
-        console.log(req.body.usuario)
-        console.log(Date.now());
+        console.log(Date.now().toString());
+        console.log(req.body.usuario);
+        res.send("Success");
     }
     catch(err){
         next(err);

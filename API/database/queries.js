@@ -4,7 +4,14 @@ const queries = {
     getById: 'SELECT * FROM tabla WHERE id = @id',
     create: 'INSERT INTO tabla (campo1, campo2) VALUES (@campo1, @campo2)',
     update: 'UPDATE tabla SET campo1 = @campo1, campo2 = @campo2 WHERE id = @id',
-    delete: 'DELETE FROM tabla WHERE id = @id'
+    delete: 'DELETE FROM tabla WHERE id = @id',
+    insertarRegistro: 'INSERT INTO Registro(matricula_alumno, hora_de_llegada, fecha, id_area)\
+    VALUES\
+        (\'@matricula_alumno\', \'@hora_de_llegada\', \'@fecha\', @id_area);',
+    verificarRegistro: 'SELECT COUNT(*) FROM Registro WHERE Registro.matricula_alumno=\'@matricula_alumno\' AND Registro.hora_de_salida IS NULL;',
+    marcarSalida: 'UPDATE Registro\
+    SET hora_de_salida=\'@salida\'\
+    WHERE Registro.hora_de_salida IS NULL AND Registro.matricula_alumno=\'@matricula_alumno\';'
 };
 
 module.exports = queries;

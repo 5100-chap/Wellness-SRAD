@@ -16,6 +16,6 @@ export class ApiService {
   }
 
   marcar(usuario: String){
-    return this.http.post('/api/marcarLlegada', {'usuario': usuario});
+    return this.http.post('/api/marcarLlegada', {'usuario': usuario || ''});
   }
 }
