@@ -20,8 +20,13 @@ export class LoginComponent {
 
   ngOnInit() {
     if (this.authService.isLoggedIn()) {
-      const redirectUrl = '/home';
-      this.router.navigate([redirectUrl]);
+      var role = this.authService.currentUserValue; 
+      if (role.role === "Alumno"){
+        this.router.navigateByUrl('/inicio');
+      }
+      else{
+        this.router.navigateByUrl('/inicioAdmin');
+      }
     }
   }
 
@@ -47,7 +52,6 @@ export class LoginComponent {
       catchError((error) => {
         console.error(error);
         return of(null);
-        this.router.navigate(['/login'])
       })
     ).subscribe();
   }
