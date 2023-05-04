@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 export class AuthService {
   private currentUserSubject = new BehaviorSubject<any>(null);
   public currentUser = this.currentUserSubject.asObservable();
-
+  private loggedIn = false;
   // Guarda las direcciones URL, esto permite la redireccion de paginas
   // despues del login
   redirectUrl: string | null = null;
@@ -16,6 +16,7 @@ export class AuthService {
     const userJson = sessionStorage.getItem('currentUser');
     if (userJson) {
       this.currentUserSubject.next(JSON.parse(userJson));
+      this.loggedIn = true;
     }
   }
 
@@ -23,8 +24,8 @@ export class AuthService {
   public get currentUserValue(): any {
     return this.currentUserSubject.value;
   }
+  
   //Guarda la sesion
-
   public login(
     username: string,
     password: string,
@@ -40,11 +41,16 @@ export class AuthService {
     };
     sessionStorage.setItem('currentUser', JSON.stringify(authenticatedUser));
     this.currentUserSubject.next(authenticatedUser);
+    this.loggedIn = true;
   }
 
   public logout() {
     // Elimina todo si el usuario hace logout
     sessionStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+    this.loggedIn = false;
+  }
+  public isLoggedIn(){
+    return this.loggedIn;
   }
 }
