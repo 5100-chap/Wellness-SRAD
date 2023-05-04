@@ -12,7 +12,7 @@ const queries = {
     marcarSalida: 'UPDATE Registro\
     SET hora_de_salida=\'@salida\'\
     WHERE Registro.hora_de_salida IS NULL AND Registro.matricula_alumno=\'@matricula_alumno\';',
-    llamarTodoElAforo: ''
+    llamarTodoElAforo: 'SELECT Registro.matricula_alumno, Registro.id_area FROM Registro;'
 };
 
 module.exports = queries;

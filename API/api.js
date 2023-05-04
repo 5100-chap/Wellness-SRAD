@@ -73,7 +73,9 @@ app.get("/api/getAllAlumni", async (req, res, next) => {
 app.get("/api/llamarAforo", async (req, res, next) => {
     try{
         var request = new sql.Request();
-        var search;
+        var search = queries.llamarTodoElAforo;
+        var result = await request.query(search);
+        console.log(result);
     }
     catch(err){
         next(err);
