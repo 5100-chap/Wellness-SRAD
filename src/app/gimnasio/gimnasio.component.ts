@@ -3,7 +3,9 @@ import Chart, { Legend, plugins } from 'chart.js/auto';
 import 'chartjs-plugin-labels';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { Reservas } from '../models/reservas';
-
+import { ApiService } from '../api.service';
+import { AuthService } from '../auth.service';
+import { FormGroup } from '@angular/forms';
 
 
 declare var window: any
@@ -103,7 +105,7 @@ export class GimnasioComponent implements OnInit {
   Created constructor
   --------------------------------------------
   --------------------------------------------*/
-  constructor(private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal, private apiService: ApiService, private authService: AuthService) {}
      
   /**
    * Write code on Method
@@ -133,6 +135,14 @@ export class GimnasioComponent implements OnInit {
     }
   }
 
+  marcarLlegadaOSalida(){
+    console.log(this.authService.currentUserValue['username']);
+    
+    // primero encontrar si ya cuenta con registro
+    // en caso de que no, pues insert into
+    // en caso de que si, update a ese registro
+    this.apiService.marcar(this.authService.currentUserValue['username']);
+  }
 }
 
 

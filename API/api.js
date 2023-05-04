@@ -2,6 +2,7 @@
 //Declaracion para libreria express
 const express = require("express");
 const app = express();
+const bodyParser = require('body-parser');
 
 //Declaracion para libreria Miscrosoft SQL
 const sql = require("mssql");
@@ -15,6 +16,7 @@ const database = require("./config/database");
 
 // Importar las consultas desde el archivo queries.js
 const queries = require("./database/queries");
+const { async } = require("rxjs");
 
 //Declaracion para el puerto
 const port = process.env.PORT || 8080;
@@ -33,6 +35,8 @@ const handleGeneralErrors = (err, req, res, next) => {
 //Configuración de los middleware
 app.use(handleDatabaseErrors);
 app.use(handleGeneralErrors);
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 //Conexión a la base de datos usando credenciales de database
 const connectToDatabase = async () => {
@@ -61,6 +65,27 @@ app.get("/api/getAllAlumni", async (req, res, next) => {
         const result = await request.query(queries.getAllAlumni);
         res.send(result.recordset);
     } catch (err) {
+        next(err);
+    }
+});
+
+// Manda un registro a la base de datos
+app.post("/api/marcarLlegada", async (req, res, next) => {
+    try{
+        if(req.body===undefined){
+            console.log('Cuerpo vacio');
+            res.send("Failure");
+            return;
+        }
+        var currentTime = new Date();
+        var request = new sql.Request();
+        console.log(currentTime.getFullYear()+"-"+(currentTime.getMonth()+1)+"-"+currentTime.getDate());
+        var search = queries.verificarRegistro.replace('@matricula_alumno', req.body.usuario);
+        var result = await request.query(search);
+        console.log(result.rowsAffected[0]);
+        res.send("Success");
+    }
+    catch(err){
         next(err);
     }
 });
@@ -117,6 +142,7 @@ app.get("/api/getXCredentials", async (req, res, next) => {
             }
         
         }
+        console.log(username);
         res.send(result.recordset);
     } catch (err) {
         next(err);
