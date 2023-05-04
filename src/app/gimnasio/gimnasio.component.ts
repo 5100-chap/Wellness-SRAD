@@ -141,7 +141,7 @@ export class GimnasioComponent implements OnInit {
     // primero encontrar si ya cuenta con registro
     // en caso de que no, pues insert into
     // en caso de que si, update a ese registro
-    this.apiService.marcar(this.authService.currentUserValue['username']);
+    this.apiService.marcar(this.authService.currentUserValue['username'], 2);
   }
 }
 
