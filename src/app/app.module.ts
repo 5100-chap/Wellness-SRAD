@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { QRCodeModule } from 'angularx-qrcode';
 
+
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -40,6 +41,8 @@ import { EncuestaComponent } from './encuesta/encuesta.component';
 import { CrossfitComponent } from './crossfit/crossfit.component';
 import { EsportsComponent } from './esports/esports.component';
 import { authGuard } from './auth.guard';
+import { Error404Component } from './error404/error404.component';
+import { AreaDeportivaComponent } from './area-deportiva/area-deportiva.component';
 
 
 const router: Routes = [
@@ -281,6 +284,15 @@ const router: Routes = [
     data: {
       allowedRoles: ['Alumno']
     }
+  }, 
+  {
+    path: 'error404',
+    component: Error404Component
+    
+  },
+  {
+    path: 'areaDeportiva',
+    component: AreaDeportivaComponent
 
   }
 
@@ -323,6 +335,8 @@ const router: Routes = [
     CrossfitComponent,
     EsportsComponent,
     LoginComponent,
+    Error404Component,
+    AreaDeportivaComponent,
   ],
   imports: [
     BrowserModule,
