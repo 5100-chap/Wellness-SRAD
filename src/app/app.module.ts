@@ -286,9 +286,12 @@ const router: Routes = [
     }
   }, 
   {
-    path: 'error404',
-    component: Error404Component
-    
+    path: '**',
+    component: Error404Component,
+    canActivate: [authGuard(['Alumno','Director', 'Administrador', 'Instructor'])], 
+    data: {
+      allowedRoles: ['Alumno','Director', 'Administrador', 'Instructor']
+    }
   },
   {
     path: 'areaDeportiva',
