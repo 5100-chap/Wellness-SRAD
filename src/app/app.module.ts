@@ -284,7 +284,12 @@ const router: Routes = [
     data: {
       allowedRoles: ['Alumno']
     }
-  }, 
+  },
+  {
+    path: 'areaDeportiva',
+    component: AreaDeportivaComponent
+  }
+  ,
   {
     path: '**',
     component: Error404Component,
@@ -292,15 +297,7 @@ const router: Routes = [
     data: {
       allowedRoles: ['Alumno','Director', 'Administrador', 'Instructor']
     }
-  },
-  {
-    path: 'areaDeportiva',
-    component: AreaDeportivaComponent
-
   }
-
-
-
 ];
 
 @NgModule({
