@@ -9,10 +9,6 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators,ReactiveFormsModule, FormControl} from '@angular/forms';
 
 
-interface Food {
-  value: string;
-  viewValue: string;
-}
 
 @Component({
   selector: 'app-area-deportiva',
