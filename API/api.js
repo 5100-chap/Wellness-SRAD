@@ -77,8 +77,12 @@ app.post("/api/marcarLlegada", async (req, res, next) => {
             res.send("Failure");
             return;
         }
-        console.log(Date.now().toString());
-        console.log(req.body.usuario);
+        var currentTime = new Date();
+        var request = new sql.Request();
+        console.log(currentTime.getFullYear()+"-"+(currentTime.getMonth()+1)+"-"+currentTime.getDate());
+        var search = queries.verificarRegistro.replace('@matricula_alumno', req.body.usuario);
+        var result = await request.query(search);
+        console.log(result.rowsAffected[0]);
         res.send("Success");
     }
     catch(err){
