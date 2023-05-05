@@ -18,4 +18,8 @@ export class ApiService {
   marcar(usuario: String, area_id: number){
     return this.http.post('/api/marcarLlegada', {'usuario': usuario || '', 'area_id': area_id});
   }
+
+  verificarLlegada(usuario: String){
+    return this.http.post('/api/verificarAlumnoLlegada', {'usuario': usuario});
+  }
 }
