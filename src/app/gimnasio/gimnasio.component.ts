@@ -54,6 +54,11 @@ export class GimnasioComponent implements OnInit {
 
   public chart: any;
   public registroStatus: any;
+  
+
+  setResultado(input: any){
+    this.registroStatus = input;
+  }
 
   createChart(){
 
@@ -88,22 +93,28 @@ export class GimnasioComponent implements OnInit {
   }
 
 
+  
 
-
-  ngOnInit(): void {
+  ngOnInit() {
     this.createChart();
-    this.apiService.verificarLlegada(this.authService.currentUserValue['username']).subscribe((resultado)=>{
-      this.registroStatus = resultado;
+    var res;
+    this.apiService.verificarLlegada(this.authService.currentUserValue['username']).subscribe((resultado : any)=>{
       console.log(resultado);
+      res = resultado;
+      console.log(res);
     });
-    console.log(this.registroStatus);
+    this.setResultado(res);
+    console.log(res);
+    console.log(this.registroStatus)
   }
 
+  public getResultado(){
+    console.log(this.registroStatus);
+  }
 
   title = 'appBootstrap';
     
   closeResult: string = '';
-     
   /*------------------------------------------
   --------------------------------------------
   Created constructor
@@ -138,6 +149,7 @@ export class GimnasioComponent implements OnInit {
       return  `with: ${reason}`;
     }
   }
+
 
   marcarLlegadaOSalida(){
     this.apiService.marcar(this.authService.currentUserValue['username'], 2);
