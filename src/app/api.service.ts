@@ -15,7 +15,7 @@ export class ApiService {
     return this.http.get('/api/getXCredentials', { headers });
   }
 
-  marcar(usuario: String){
-    return this.http.post('/api/marcarLlegada', {'usuario': usuario || ''});
+  marcar(usuario: String, area_id: number){
+    return this.http.post('/api/marcarLlegada', {'usuario': usuario || '', 'area_id': area_id});
   }
 }

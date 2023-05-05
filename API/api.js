@@ -69,6 +69,19 @@ app.get("/api/getAllAlumni", async (req, res, next) => {
     }
 });
 
+// Estadisticas
+app.get("/api/llamarAforo", async (req, res, next) => {
+    try{
+        var request = new sql.Request();
+        var search = queries.llamarTodoElAforo;
+        var result = await request.query(search);
+        console.log(result);
+    }
+    catch(err){
+        next(err);
+    }
+});
+
 // Manda un registro a la base de datos
 app.post("/api/marcarLlegada", async (req, res, next) => {
     try{
@@ -79,10 +92,26 @@ app.post("/api/marcarLlegada", async (req, res, next) => {
         }
         var currentTime = new Date();
         var request = new sql.Request();
-        console.log(currentTime.getFullYear()+"-"+(currentTime.getMonth()+1)+"-"+currentTime.getDate());
+        var fecha = currentTime.getFullYear()+"-"+(currentTime.getMonth()+1)+"-"+currentTime.getDate();
+        var hora = currentTime.getHours()+":"+currentTime.getMinutes()+":"+currentTime.getSeconds();
         var search = queries.verificarRegistro.replace('@matricula_alumno', req.body.usuario);
         var result = await request.query(search);
-        console.log(result.rowsAffected[0]);
+        if(!result.recordset[0][""]){
+            console.log("No ha entrado");
+            search = queries.insertarRegistro.replace('@matricula_alumno', req.body.usuario);
+            search = search.replace('@hora_de_llegada', hora);
+            search = search.replace('@fecha', fecha);
+            search = search.replace('@id_area', req.body.area_id);
+            request.query(search);
+        }
+        else{
+            console.log("ya entro, entonces sale");
+            currentTime = new Date();
+            hora = currentTime.getHours()+":"+currentTime.getMinutes()+":"+currentTime.getSeconds();
+            search = queries.marcarSalida.replace('@salida', hora);
+            search = search.replace('@matricula_alumno', req.body.usuario);
+            request.query(search);
+        }
         res.send("Success");
     }
     catch(err){
