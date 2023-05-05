@@ -276,14 +276,11 @@ const router: Routes = [
       allowedRoles: ['Alumno']
     }
 
-  },
+  }, 
   {
-    path: 'eSports',
-    component: EsportsComponent,
-    canActivate: [authGuard(['Alumno'])], 
-    data: {
-      allowedRoles: ['Alumno']
-    }
+    path: 'error404',
+    component: Error404Component
+    
   },
   {
     path: 'areaDeportiva',

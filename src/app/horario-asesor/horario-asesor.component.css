@@ -66,3 +66,19 @@ button:hover {
     color: #777777 !important;
     
 }
+
+
+#btn2 {
+
+    background: #ffffff;
+    border-color: transparent;
+    color: #003399;
+	
+}
+
+#btn {
+
+    background: #003399;
+    border-color: transparent;
+    color: white;
+}
