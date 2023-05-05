@@ -53,6 +53,7 @@ export class GimnasioComponent implements OnInit {
   }
 
   public chart: any;
+  public registroStatus: any;
 
   createChart(){
 
@@ -91,8 +92,11 @@ export class GimnasioComponent implements OnInit {
 
   ngOnInit(): void {
     this.createChart();
-    
-    
+    this.apiService.verificarLlegada(this.authService.currentUserValue['username']).subscribe((resultado)=>{
+      this.registroStatus = resultado;
+      console.log(resultado);
+    });
+    console.log(this.registroStatus);
   }
 
 
@@ -136,11 +140,6 @@ export class GimnasioComponent implements OnInit {
   }
 
   marcarLlegadaOSalida(){
-    console.log(this.authService.currentUserValue['username']);
-    
-    // primero encontrar si ya cuenta con registro
-    // en caso de que no, pues insert into
-    // en caso de que si, update a ese registro
     this.apiService.marcar(this.authService.currentUserValue['username'], 2);
   }
 }
