@@ -27,53 +27,57 @@
 
 <h1 class = "text-center"> Arnold S.
     <br/>
-    <small class="text-muted" style="font-size: 2rem;"> *Entrenador </small></h1>
+    <small class="text-muted" style="font-size: 2rem;"> Entrenador </small></h1>
 
 
 <!--Reservación-->
-<h3> &nbsp; &nbsp; <strong>Reservación</strong> </h3>     
+<h2 style="margin-left: 5%; margin-top: 2%; margin-bottom: 0.5%;"> <strong> Reservación </strong> </h2>  
 
 <br>
-<div class="vstack gap-4 col-md-11 mx-auto">
+<div class="vstack gap-4 col-md-10 mx-auto">
 
-    <div class="card w-100 border border-primary border border-2">
-        <div class="col mt-2 ">
-
-        <div class="container">
-            <div class="row">
-
-            <div class = "mt-1"id ="circulo"> </div>
-
-            <div class=" col-md-2 mt-1">
-
-                <h3>Estado: <small class="text-success">Abierto</small></h3> 
-
+    <div class="card w-100 border border-gray border border-2">
+        <div class="col card-header">
+  
+       
+            <div class="row" style="margin-left: 1%;">
+    
+              <div class="mt-1" id="circulo"> </div>
+    
+              <div class=" col-md-2 mt-1">
+    
+                <h4>Estado: <small class="text-success">Disponible</small></h4>
+    
+              </div>
+    
+              <div class="col-md-3 mt-1">
+    
+                  <form [formGroup]="form" (ngSubmit)="submit()" >  
+              
+                      <div class="form-group">  
+                          
+                          <select formControlName="website" class="form-control" id="btn"  (change)="changeWebsite($event)" >  
+                              <option disabled>Selecciona una semana</option>  
+                              <option> Selecciona una semana </option>  
+                              <option *ngFor="let web of websiteList">{{web}}</option>  
+                          </select>  
+                       
+                      </div>  
+                      
+                  </form>  
+              </div>
             </div>
-            
-            <div class="col-md-4 mt-1">
-
-                <div ngbDropdown>
-                <button class="btn btn-primary" id="gfg" 
-                        ngbDropdownToggle>Semana 20 - 26 de Marzo 2023</button>
-                <div ngbDropdownMenu="gfg">
-                    <button ngbDropdownItem>Semana 20 - 26 de Marzo 2023</button>
-                    <button ngbDropdownItem>Semana 20 - 26 de Marzo 2023</button>
-                    <button ngbDropdownItem>Semana 20 - 26 de Marzo 2023</button>
-                </div>
-                </div>
-            </div>
-            </div>
-            </div>
+       
         </div>
+        
 
         
 
         <br>
         
-        <!--Tabla-->
         <table class="table">
             <thead>
-                <tr>
+              <tr>
                 <th scope="col" class="text-center"> Lunes</th>
                 <th scope="col" class="text-center"> Martes</th>
                 <th scope="col" class="text-center"> Miercoles</th>
@@ -81,127 +85,80 @@
                 <th scope="col" class="text-center"> Viernes</th>
                 <th scope="col" class="text-center"> Sábado</th>
                 <th scope="col" class="text-center"> Domingo</th>
-                
-                </tr>
+      
+              </tr>
             </thead>
             <tbody>
-                <tr>
-                <td class="text-center"> <button class="btn btn-primary"> 6:00 - 8:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 6:00 - 8:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 6:00 - 8:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 6:00 - 8:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 6:00 - 8:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary" disabled> 6:00 - 8:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary" disabled> 6:00 - 8:00</button></td>
-                </tr>
-                <tr>
-                <td class="text-center"> <button class="btn btn-primary"> 9:00 - 11:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 9:00 - 11:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 9:00 - 11:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 9:00 - 11:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 9:00 - 11:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 9:00 - 11:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 9:00 - 11:00</button></td>
-                </tr>
-                <tr>
-                <td class="text-center"> <button class="btn btn-primary"> 11:00 - 1:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 11:00 - 1:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 11:00 - 1:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 11:00 - 1:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 11:00 - 1:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 11:00 - 1:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 11:00 - 1:00</button></td>
-                </tr>
-                <tr>
-                <td class="text-center"> <button class="btn btn-primary"> 1:00 - 3:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 1:00 - 3:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 1:00 - 3:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 1:00 - 3:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 1:00 - 3:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 1:00 - 3:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 1:00 - 3:00</button></td>
-                </tr>
-                <tr>
-                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
-                </tr>
-                <tr>
-                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 3:00 - 5:00</button></td>
-                </tr>
-
-                <tr>
-                <td class="text-center"> <button class="btn btn-primary"> 5:00 - 7:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 5:00 - 7:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 5:00 - 7:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 5:00 - 7:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 5:00 - 7:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 5:00 - 7:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 5:00 - 7:00</button></td>
-                </tr>
-
-                <tr>
-                <td class="text-center"> <button class="btn btn-primary"> 7:00 - 9:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 7:00 - 9:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 7:00 - 9:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 7:00 - 9:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 7:00 - 9:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 7:00 - 9:00</button></td>
-                <td class="text-center"> <button class="btn btn-primary"> 7:00 - 9:00</button></td>
-                </tr>
-
+      
+      
+              <tr *ngFor="let al of reservaArray" (click)="openForEdit(al)" [class.active]="al == seleReserva">
+      
+                <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+                <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+                <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+                <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+                <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+                <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+                <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+      
+              </tr>
+      
+      
             </tbody>
-        </table>
-
-    </div>
-</div>
-
-<br>
-
-<!--Reserva seleccionada-->
-<div class="vstack gap-4 col-md-11 mx-auto">
-
-    <div id= "reserve" class="card w-100 border border-gray border border-2">
-        <br>
-    
-    
-        <div class="container">
-            <div class="row">
-    
-            <div class=" col-md-10 mt-1">
-    
-                <h4> <strong>Horario Seleccionado: </strong></h4> 
-                <span id="badge"> Lunes 20 de Marzo 1:00 - 2:00 PM</span>  
-    
-            </div>
-            <div class=" col-md-2 mt-3">
-    
-                <button id = "confirmar" class="btn"> Reservar </button>
-            </div>
-            </div>
-    
-            <br>
-        
+          </table>
+      
         </div>
-    </div>
-
-<!--Ubicació y Reseña-->
+      </div>
+      
+      
+       <!-- Resumen de reservación-->
+      
+      <div class="vstack gap-4 col-md-10 mx-auto mt-2">
+      
+        <div id="reserve" class="card w-100 border border-light border border-2">
+          <br>
+      
+      
+          <div class="container">
+            <div class="row">
+      
+              <div class=" col-md-10 ">
+                <h4> <strong> &nbsp; Horario Seleccionado: </strong></h4>
+                <input [(ngModel)]="seleReserva.fecha" type="text" class="form-control" disabled id="reserve">
+      
+              </div>
+      
+              <div class=" col-md-2 mt-3">
+                <button id="btn2" style = "font-size: 1.4rem;" class="btn" (click)="open(mymodal)"> Reservar </button>
+                <ng-template #mymodal let-modal>
+                  <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    Tu reservación ha sido exitosa!
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
+                  </div>
+                </ng-template>
+              </div>
+      
+            </div>
+      
+            <br>
+      
+          </div>
+        </div>
+    
+<!--Ubicación y Reseña-->
 <div class="row">
     <div class="col-md-5 mt-4">
-        <h3> <strong>Ubicación</strong> </h3> 
+        <h3> <strong>Especialidad</strong> </h3> 
         <div class = "card border border-black border border-2">
-
-        <h5> Acondicionamiento Fisico </h5>
+        <h5 style="margin-left: 1%; margin-top:1%;">Acondicionamiento Fisico</h5>
         </div>
     </div>
 

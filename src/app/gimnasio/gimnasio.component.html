@@ -1,264 +1,228 @@
-<div class="img-fluid" class = "opacity-30"  >
-    <div class=" text-white">
-      <!-- <img src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="130" class="card-img" alt="..."> -->
-      <div class="img-banner">
-        <img src="../assets/img/Gimnasio.jpeg" height="130" class="card-img" alt="..." style="opacity: 0.3;" >
-      </div>
-      <div class="card-img-overlay">
-        <h5 class="card-title">&nbsp;</h5>
-        <h5 class="card-title">&nbsp;</h5>
-        <h5 class="card-title">&nbsp;</h5>
-        <h5 class="card-title">&nbsp;</h5>
-  
-        <h1 class="card-title" class = "text-center"> Gimnasio </h1>
-      </div>
+<div class="img-fluid" class="opacity-30">
+  <div class="text-white img-banner2">
+    <img src="../assets/img/gym.jpeg" height="250" class="card-img" style="opacity: 0.5;">
+    <div class="card-img-overlay">
+      <h2 class="card-title text-center" style="margin-left: 2.3%; margin-top:10%" id="prueba"> <i> Gimnasio</i></h2>
     </div>
   </div>
-  
+</div>
 
-  <br>
+<h3 style="margin-left: 4%; margin-top: 2%; margin-bottom: 2%;"> <strong>Aforo en tiempo real </strong> </h3>
+
+
+
+<div class="vstack gap-4 col-md-9 mx-auto">
+
+  <div class="card w-100 ">
+    <h3 class="card-header">18 de Abril de 2023</h3>
+
+
     <div class="row">
-      <div class=" col-md-4 mt-1">
-        <h3> &nbsp; &nbsp; <strong>Aforo en tiempo real </strong> </h3>
-      </div>
-      </div>
-  <br>
 
-  
-
-  <div class="vstack gap-4 col-md-11 mx-auto">
-
-  <div class="card w-100 border border-black border border-2">
-    <h5 class="card-header">18 de Abril de 2023</h5>
-    
-    
-    <div class="row">
-      
-      <div class="col-md-7 mt-4">
+      <div class="col-md-6 mt-4">
         <div class="chart-container">
-          <canvas  id="MyChart" >{{ chart }}</canvas>
+          <canvas id="MyChart">{{ chart }}</canvas>
           <br>
         </div>
       </div>
 
-      <div class="col-md-5 mt-5">
-        <br>
-       <h1> Aforo actual </h1> 
-       <h1 class="text-body-secondary "> &nbsp; 230/280</h1>
-       <br>
+      <div class="col-md-4" style="margin-top: 5%;">
 
-       <p > <a href="http://localhost:4200/tendencias" class="btn btn-primary">&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;Estadísticas &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</a> </p>
-       
+        <h1 style="margin-left: 12%;"> Aforo actual </h1>
+        <h1 class="text-body-secondary" style="margin-left: 18%;">230/280</h1>
+
+        <form style=" margin-top: 6%;" (ngSubmit)="marcarLlegadaOSalida()">
+          <a href="http://localhost:4200/tendencias" class="btn btn-primary text-center" id="btn"
+            style="font-size: 1.3rem;">Estadísticas </a>
+          <button type="submit" class="btn btn-primary text-center" id="btn" style="font-size: 1.3rem; margin-left: 0.7%;" *ngIf="registroStatus['status']">Marcar llegada
+          </button>
+          <button type="submit" class="btn btn-primary text-center" id="btn" style="font-size: 1.3rem; margin-left: 0.7%;" *ngIf="registroStatus['status']">Marcar salida
+          </button>
+        </form>
+
       </div>
+
     </div>
 
   </div>
-  </div>
-
-  <br>
-
-  
-<h3> &nbsp; &nbsp; <strong>Reservación</strong> </h3>     
-  
+</div>
 
 
 
 
-  <br>
 
 
-  <div class="vstack gap-4 col-md-11 mx-auto">
-
-    <div class="card w-100 border border-black border border-2">
-      <div class="col mt-2 card-header">
-
-        <div class="container">
-          <div class="row">
-    
-          <div class = "mt-1"id ="circulo"> </div>
-
-            <div class=" col-md-2 mt-1">
-
-              <h4>Estado: <small class="text-success">Abierto</small></h4> 
-
-            </div>
-            
-            <div class="col-md-4 mt-1">
-    
-              <div ngbDropdown>
-                <button class="btn btn-primary" id="gfg" 
-                        ngbDropdownToggle>Semana 20 - 26 de Marzo 2023</button>
-                <div ngbDropdownMenu="gfg">
-                  <button ngbDropdownItem>Semana 20 - 26 de Marzo 2023</button>
-                  <button ngbDropdownItem>Semana 20 - 26 de Marzo 2023</button>
-                  <button ngbDropdownItem>Semana 20 - 26 de Marzo 2023</button>
-                </div>
-              </div>
-            </div>
-            </div>
-          </div>
-        </div>
-
-       
-
-        <br>
-      
-
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col" class="text-center"> Lunes</th>
-            <th scope="col" class="text-center"> Martes</th>
-            <th scope="col" class="text-center"> Miercoles</th>
-            <th scope="col" class="text-center"> Jueves</th>
-            <th scope="col" class="text-center"> Viernes</th>
-            <th scope="col" class="text-center"> Sábado</th>
-            <th scope="col" class="text-center"> Domingo</th>
-            
-          </tr>
-        </thead>
-        <tbody>
-          
-
-          <tr *ngFor="let al of reservaArray" (click)="openForEdit(al)" [class.active] = "al == seleReserva">
-    
-            <td class="text-center"> <button class="btn btn-primary" > {{al.hora}}  </button></td>
-            <td class="text-center"> <button class="btn btn-primary"> {{al.hora}} </button></td>
-            <td class="text-center"> <button class="btn btn-primary"> {{al.hora}} </button></td>
-            <td class="text-center"> <button class="btn btn-primary"> {{al.hora}} </button></td>
-            <td class="text-center"> <button class="btn btn-primary"> {{al.hora}} </button></td>
-            <td class="text-center"> <button class="btn btn-primary"> {{al.hora}} </button></td>
-            <td class="text-center"> <button class="btn btn-primary" > {{al.hora}} </button></td>
-            
-          </tr>
+<h3 style="margin-left: 4%; margin-top: 3%; margin-bottom: 2%;"> <strong> Reservación </strong> </h3>
 
 
-        </tbody>
-      </table>
-  
-    </div>
-    </div>
 
-    
+<div class="vstack gap-4 col-md-9 mx-auto">
 
+  <div class="card w-100 ">
+
+
+    <div class="col card-header">
 
      
+        <div class="row">
 
-    <div class="vstack gap-4 col-md-11 mx-auto">
+          <div class="mt-1" id="circulo"> </div>
 
-      <div id= "reserve" class="card w-100 border border-gray border border-2">
-        <br>
-    
-  
-          <div class="container">
-            <div class="row">
-      
-              <div class=" col-md-10 ">
-                <h4> <strong> &nbsp; Horario Seleccionado: </strong></h4> 
-                <input [(ngModel)]="seleReserva.fecha" type="text" class="form-control" disabled id= "reserve"> 
-    
+          <div class=" col-md-2 mt-1">
+
+            <h4>Estado: <small class="text-success">Abierto</small></h4>
+
+          </div>
+
+          <div class="col-md-4 mt-1">
+
+            <div ngbDropdown>
+              <button class="btn btn-primary" id="btn" ngbDropdownToggle>Semana 20 - 26 de Marzo 2023</button>
+              <div ngbDropdownMenu="gfg">
+                <button ngbDropdownItem>Semana 20 - 26 de Marzo 2023</button>
+                <button ngbDropdownItem>Semana 20 - 26 de Marzo 2023</button>
+                <button ngbDropdownItem>Semana 20 - 26 de Marzo 2023</button>
               </div>
-
-              <div class=" col-md-2 mt-3">
-                <button id = "confirmar" class="btn" (click)="open(mymodal)"> Reservar </button>
-                <ng-template #mymodal let-modal>
-                  <div class="modal-header">
-                    <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
-                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                      <span  aria-hidden="true">×</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    Tu reservación ha sido exitosa!
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
-                  </div>
-                </ng-template>
-              </div>
-             
             </div>
-
-         
-
-            <br>
-          
-      </div>
-    </div>
-
-    <div class="row">
-      
-      <div class="col-md-5 mt-4">
-        <h3> <strong>Ubicación</strong> </h3> 
-        <div class = "card border border-black border border-2">
-  
-          <h5>Primer piso - 102</h5>
+          </div>
         </div>
-      </div>
-    
-      <div class="col-md-7 mt-4">
-        <h3> <strong>Reseñas</strong> </h3> 
-        <div class = "card border border-black border border-2">
-          <div class="row">
-      
-            <div class="col-md-9 mt-2">
-               <h5> &nbsp; Limpieza</h5>
-            </div>
-      
-            <div class="col-md-3 mt-2">
-              <h4>★★★★☆ 4 </h4>
-             
-            </div>
-          </div>
-
-          <div class="row">
-      
-            <div class="col-md-9 mt-2">
-               <h5> &nbsp; Calidad del equipo</h5>
-            </div>
-      
-            <div class="col-md-3 mt-2">
-              <h4>★★★★★ 5</h4>
-             
-            </div>
-          </div>
-
-          <div class="row">
-      
-            <div class="col-md-9 mt-2">
-               <h5> &nbsp; Ambiente</h5>
-            </div>
-      
-            <div class="col-md-3 mt-2">
-              <h4>★★★☆☆ 3</h4>
-             
-            </div>
-          </div>
-          
-        </div>
-       
-      </div>
-    </div>
-    
-
-        
    
-
-
+    </div>
     
+    <br>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col" class="text-center"> Lunes</th>
+          <th scope="col" class="text-center"> Martes</th>
+          <th scope="col" class="text-center"> Miercoles</th>
+          <th scope="col" class="text-center"> Jueves</th>
+          <th scope="col" class="text-center"> Viernes</th>
+          <th scope="col" class="text-center"> Sábado</th>
+          <th scope="col" class="text-center"> Domingo</th>
+
+        </tr>
+      </thead>
+      <tbody>
+
+
+        <tr *ngFor="let al of reservaArray" (click)="openForEdit(al)" [class.active]="al == seleReserva">
+
+          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+
+        </tr>
+
+
+      </tbody>
+    </table>
+
+  </div>
+</div>
 
 
 
 
 
-  
+
+<div class="vstack gap-4 col-md-9 mx-auto mt-2">
+
+  <div id="reserve" class="card w-100 border border-light border border-2">
+    <br>
 
 
-  
+    <div class="container">
+      <div class="row">
+
+        <div class=" col-md-10 ">
+          <h4> <strong> &nbsp; Horario Seleccionado: </strong></h4>
+          <input [(ngModel)]="seleReserva.fecha" type="text" class="form-control" disabled id="reserve">
+
+        </div>
+
+        <div class=" col-md-2 mt-3">
+          <button id="confirmar" class="btn" (click)="open(mymodal)"> Reservar </button>
+          <ng-template #mymodal let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Tu reservación ha sido exitosa!
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
+            </div>
+          </ng-template>
+        </div>
+
+      </div>
 
 
 
+      <br>
 
+    </div>
+  </div>
 
+  <div class="row">
 
+    <div class="col-md-5 mt-4">
+      <h3> <strong>Ubicación</strong> </h3>
+      <div class="card border border-black border border-1">
 
+        <h5 style="margin-left: 1%; margin-top:1%;">Primer piso - 102</h5>
+      </div>
+    </div>
+
+    <div class="col-md-7 mt-4">
+      <h3> <strong>Reseñas</strong> </h3>
+      <div class="card border border-black border border-1">
+        <div class="row">
+
+          <div class="col-md-9 mt-2">
+            <h5> &nbsp; Limpieza</h5>
+          </div>
+
+          <div class="col-md-3 mt-2">
+            <h4>★★★★☆ 4 </h4>
+
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-9 mt-2">
+            <h5> &nbsp; Calidad del equipo</h5>
+          </div>
+
+          <div class="col-md-3 mt-2">
+            <h4>★★★★★ 5</h4>
+
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-9 mt-2">
+            <h5> &nbsp; Ambiente</h5>
+          </div>
+          <div class="col-md-3 mt-2">
+            <h4>★★★☆☆ 3</h4>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

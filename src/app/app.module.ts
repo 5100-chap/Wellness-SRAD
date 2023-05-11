@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { QRCodeModule } from 'angularx-qrcode';
 
+
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -27,16 +28,21 @@ import { LockersComponent } from './lockers/lockers.component';
 import { CerrarEspaciosComponent } from './cerrar-espacios/cerrar-espacios.component';
 import { CrearAnuncioComponent } from './crear-anuncio/crear-anuncio.component';
 import { StatsAdminComponent } from './stats-admin/stats-admin.component';
-import { ArenaComponent } from './arena/arena.component';
+import { StatsGymAdminComponent } from './stats-gym-admin/stats-gym-admin.component';
+import { MonitorIngresosComponent } from './monitor-ingresos/monitor-ingresos.component';
+import { ExportarDatosComponent } from './exportar-datos/exportar-datos.component';
+import { AnunciosComponent } from './anuncios/anuncios.component';
 import { CitasentrenadorComponent } from './citasentrenador/citasentrenador.component';
 import { CitasnutriologoComponent } from './citasnutriologo/citasnutriologo.component';
 import { HorarioAsesorComponent } from './horario-asesor/horario-asesor.component';
+import { ArenaComponent } from './arena/arena.component';
 import { CodigoQrComponent } from './codigo-qr/codigo-qr.component';
 import { EncuestaComponent } from './encuesta/encuesta.component';
-
 import { CrossfitComponent } from './crossfit/crossfit.component';
 import { EsportsComponent } from './esports/esports.component';
 import { authGuard } from './auth.guard';
+import { Error404Component } from './error404/error404.component';
+import { AreaDeportivaComponent } from './area-deportiva/area-deportiva.component';
 
 
 const router: Routes = [
@@ -213,8 +219,82 @@ const router: Routes = [
     data: {
       allowedRoles: ['Alumno']
     }
-  }
+  },
+  {
+    path: 'estadisticasGimnasio',
+    component: StatsGymAdminComponent,
+    canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
+    data: {
+      allowedRoles: ['Director', 'Administrador', 'Instructor']
+    }
+  },
+  {
+    path: 'monitorIngresos',
+    component: MonitorIngresosComponent,
+    canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
+    data: {
+      allowedRoles: ['Director', 'Administrador', 'Instructor']
+    }
+  },
+  {
+    path: 'exportarDatos',
+    component: ExportarDatosComponent,
+    canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
+    data: {
+      allowedRoles: ['Director', 'Administrador', 'Instructor']
+    }
+  },
+  {
+    path: 'anuncios',
+    component: AnunciosComponent,
+    canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
+  },
+  {
+    path: 'entrenadores',
+    component: CitasentrenadorComponent,
+    canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
+  },
+  {
+    path: 'nutriologos',
+    component: CitasnutriologoComponent,
+    canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
+  },
+  {
+    path: 'horarioAsesor',
+    component: HorarioAsesorComponent,
+    canActivate: [authGuard(['Alumno'])], 
+    data: {
+      allowedRoles: ['Alumno']
+    }
 
+  }, 
+  {
+    path: 'error404',
+    component: Error404Component
+    
+  },
+  {
+    path: 'areaDeportiva',
+    component: AreaDeportivaComponent
+  }
+  ,
+  {
+    path: '**',
+    component: Error404Component,
+    canActivate: [authGuard(['Alumno','Director', 'Administrador', 'Instructor'])], 
+    data: {
+      allowedRoles: ['Alumno','Director', 'Administrador', 'Instructor']
+    }
+  }
 ];
 
 @NgModule({
@@ -236,6 +316,13 @@ const router: Routes = [
     CerrarEspaciosComponent,
     CrearAnuncioComponent,
     StatsAdminComponent,
+    StatsGymAdminComponent,
+    MonitorIngresosComponent,
+    ExportarDatosComponent,
+    AnunciosComponent,
+    CitasentrenadorComponent,
+    CitasnutriologoComponent,
+    HorarioAsesorComponent,
     ArenaComponent,
     CitasentrenadorComponent,
     CitasnutriologoComponent,
@@ -245,6 +332,8 @@ const router: Routes = [
     CrossfitComponent,
     EsportsComponent,
     LoginComponent,
+    Error404Component,
+    AreaDeportivaComponent,
   ],
   imports: [
     BrowserModule,
