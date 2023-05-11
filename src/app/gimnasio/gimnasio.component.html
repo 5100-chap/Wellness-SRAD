@@ -34,7 +34,9 @@
         <form style=" margin-top: 6%;" (ngSubmit)="marcarLlegadaOSalida()">
           <a href="http://localhost:4200/tendencias" class="btn btn-primary text-center" id="btn"
             style="font-size: 1.3rem;">Estadísticas </a>
-          <button type="submit" class="btn btn-primary text-center" id="btn" style="font-size: 1.3rem; margin-left: 0.7%;">Marcar llegada
+          <button type="submit" class="btn btn-primary text-center" id="btn" style="font-size: 1.3rem; margin-left: 0.7%;" *ngIf="registroStatus['status']">Marcar llegada
+          </button>
+          <button type="submit" class="btn btn-primary text-center" id="btn" style="font-size: 1.3rem; margin-left: 0.7%;" *ngIf="registroStatus['status']">Marcar salida
           </button>
         </form>
 
