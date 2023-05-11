@@ -1,3 +1,5 @@
+<!--Encabezado de la página-->
+
 <div class="img-fluid" class="opacity-30">
     <div class="text-white img-banner">
       <img src="../assets/img/esports.jpeg" height="280" class="card-img" style="opacity: 0.5;">
@@ -103,7 +105,7 @@
   
           <tr *ngFor="let al of reservaArray" (click)="openForEdit(al)" [class.active]="al == seleReserva">
   
-            <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+            <td class="text-center"> <button class="btn btn-primary" id="btn" disabled> {{al.hora}} </button></td>
             <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
             <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
             <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
@@ -163,7 +165,7 @@
       </div>
     </div>
 
-
+<!--Información adicional del área deportivs-->
     <div class="row">
 
         <div class="col-md-5 mt-4">
