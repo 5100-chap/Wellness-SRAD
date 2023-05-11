@@ -285,11 +285,16 @@ const router: Routes = [
   {
     path: 'areaDeportiva',
     component: AreaDeportivaComponent
-
   }
-
-
-
+  ,
+  {
+    path: '**',
+    component: Error404Component,
+    canActivate: [authGuard(['Alumno','Director', 'Administrador', 'Instructor'])], 
+    data: {
+      allowedRoles: ['Alumno','Director', 'Administrador', 'Instructor']
+    }
+  }
 ];
 
 @NgModule({
