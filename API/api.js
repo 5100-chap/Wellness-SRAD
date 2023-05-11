@@ -73,9 +73,31 @@ app.get("/api/getAllAlumni", async (req, res, next) => {
 app.get("/api/llamarAforo", async (req, res, next) => {
     try{
         var request = new sql.Request();
-        var search = queries.llamarTodoElAforo;
+        var search = queries.llamarTodoElAforo.replace('@matricula_alumno', req.body.usuario);
         var result = await request.query(search);
-        console.log(result);
+        res.send(result.recordset[0][""]);
+    }
+    catch(err){
+        next(err);
+    }
+});
+
+// Verificar si alumno ya entró
+app.post("/api/verificarAlumnoLlegada", async (req, res, next)=>{
+    try{
+        if(req.body===undefined){
+            res.send("Failure");
+            return;
+        }
+        var request = new sql.Request();
+        var search = queries.verificarRegistro.replace('@matricula_alumno', req.body.usuario);
+        var result = await request.query(search);
+        if(!result.recordset[0][""]){
+            res.send({'status':0});
+        }
+        else{
+            res.send({'status':1});
+        }
     }
     catch(err){
         next(err);
