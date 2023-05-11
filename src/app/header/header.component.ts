@@ -10,8 +10,16 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
 
   constructor(private authService: AuthService,  private router: Router) { }
+  ngOnInit() {
+  }
+
+  isAlumno() {
+    const obj = this.authService.currentUserValue;
+    return obj.role === 'Alumno';
+  }
+
   logout(){
     this.authService.logout();
-    this.router.navigate(['/login'])
+    this.router.navigate(['/login']);
   }
 }

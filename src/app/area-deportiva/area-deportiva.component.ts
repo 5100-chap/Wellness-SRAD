@@ -5,14 +5,20 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { Reservas } from '../models/reservas';
 import { NgClass } from '@angular/common';
 import { Router } from '@angular/router';
+
 import { FormBuilder, FormGroup, Validators,ReactiveFormsModule, FormControl} from '@angular/forms';
 
+
+
 @Component({
-  selector: 'app-crossfit',
-  templateUrl: './crossfit.component.html',
-  styleUrls: ['./crossfit.component.css']
+  selector: 'app-area-deportiva',
+  templateUrl: './area-deportiva.component.html',
+  styleUrls: ['./area-deportiva.component.css']
 })
-export class CrossfitComponent {
+
+
+export class AreaDeportivaComponent {
+ 
   websiteList: any = ['Semana 20 - 26 de Marzo 2023', 'Semana 27 - 31 de Marzo 2023', 'Semana 20 - 26 de Marzo 2023']  
     
   form = new FormGroup({  
@@ -63,11 +69,46 @@ export class CrossfitComponent {
 
   }
 
- 
+  public chart: any;
+
+  createChart(){
+
+    var xValues = ["Libre", "Ocupado"];
+    var yValues = [55, 49];
+
+    var barColors = [
+      "#6c9bcf",
+      "#654e92",
+      
+    ];
+    
+    this.chart = new Chart("MyChart", {
+      type: 'pie', //this denotes tha type of chart
+      
+
+      data: {// values on X-Axis
+        labels: xValues, 
+	       datasets: [
+          {
+            data: yValues,
+            backgroundColor: barColors,
+
+            hoverOffset: 4
+          }]
+      },
+      options: {
+        aspectRatio:2.5,
+
+          }
+    });
+  }
+
+
 
 
   ngOnInit(): void {
-
+    this.createChart();
+    
     
   }
 

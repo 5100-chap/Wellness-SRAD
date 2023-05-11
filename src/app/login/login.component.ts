@@ -16,16 +16,29 @@ export class LoginComponent {
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required)
   });
-  constructor(private apiService: ApiService, private authService: AuthService, private router: Router) {  }
+
+  loading = false;
+  hasTried = false;
+
+  constructor(
+    private apiService: ApiService,
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     if (this.authService.isLoggedIn()) {
-      const redirectUrl = '/home';
-      this.router.navigate([redirectUrl]);
+      var role = this.authService.currentUserValue;
+      if (role.role === 'Alumno') {
+        this.router.navigateByUrl('/inicio');
+      } else {
+        this.router.navigateByUrl('/inicioAdmin');
+      }
     }
   }
 
   onSubmit() {
+    this.loading = true;
     const { username, password } = this.loginForm.value;
     const usernameValue = username || '';
     const passwordValue = password || '';
@@ -35,20 +48,27 @@ export class LoginComponent {
         const role = data[1] || '';
         const properties = data[0];
         this.authService.login(usernameValue, passwordValue, role, properties);
-        if (role === "Alumno") {
-          const redirectUrl = this.authService.redirectUrl ? this.authService.redirectUrl : '/inicio';
+        if (role === 'Alumno') {
+          const redirectUrl = this.authService.redirectUrl
+            ? this.authService.redirectUrl
+            : '/inicio';
           this.router.navigate([redirectUrl]);
-        }
-        else {
-          const redirectUrl = this.authService.redirectUrl ? this.authService.redirectUrl : '/inicioAdmin';
+        } else {
+          const redirectUrl = this.authService.redirectUrl
+            ? this.authService.redirectUrl
+            : '/inicioAdmin';
           this.router.navigate([redirectUrl]);
         }
       }),
       catchError((error) => {
         console.error(error);
         return of(null);
-        this.router.navigate(['/login'])
       })
-    ).subscribe();
+    ).subscribe(() => {
+      this.loading = false;
+      if (!this.authService.currentUserValue) {
+        this.hasTried = true;
+      }
+    });
   }
 }
