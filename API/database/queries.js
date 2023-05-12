@@ -12,7 +12,8 @@ const queries = {
     marcarSalida: 'UPDATE Registro\
     SET hora_de_salida=\'@salida\'\
     WHERE Registro.hora_de_salida IS NULL AND Registro.matricula_alumno=\'@matricula_alumno\';',
-    llamarTodoElAforo: 'SELECT Registro.matricula_alumno, Registro.id_area FROM Registro;'
+    llamarTodoElAforo: 'SELECT Registro.matricula_alumno, Registro.id_area FROM Registro;',
+    consultarAforoActualYTotal: 'SELECT Area.lugares_disponibles AS actuales, Area.lugares_totales AS totales FROM Area WHERE Area.id = @area_id;'
 };
 
 module.exports = queries;

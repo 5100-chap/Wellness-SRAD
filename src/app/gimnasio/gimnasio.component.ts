@@ -224,6 +224,9 @@ export class GimnasioComponent implements OnInit {
   }
 
   marcarLlegadaOSalida() {
-    this.apiService.marcar(this.authService.currentUserValue['username'], 2);
+    this.apiService.marcar(this.authService.currentUserValue['username'], 2).subscribe();
+    this.getAlumnoStatus();
+    window.location.reload();
+    // this.getStatus();
   }
 }
