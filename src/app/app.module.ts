@@ -43,16 +43,13 @@ import { EsportsComponent } from './esports/esports.component';
 import { authGuard } from './auth.guard';
 import { Error404Component } from './error404/error404.component';
 import { AreaDeportivaComponent } from './area-deportiva/area-deportiva.component';
+import { MonitorReservasComponent } from './monitor-reservas/monitor-reservas.component';
 
 
 const router: Routes = [
   {
     path: 'inicio',
-    component: ListaAreasComponent,
-        canActivate: [authGuard(['Alumno'])], 
-    data: {
-      allowedRoles: ['Alumno']
-    }
+    component: ListaAreasComponent
   },
   {
     path: 'reservas',
@@ -108,11 +105,7 @@ const router: Routes = [
   },
   {
     path: 'inicioAdmin',
-    component: InicioAdminComponent,
-        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
-    data: {
-      allowedRoles: ['Director', 'Administrador', 'Instructor']
-    }
+    component: InicioAdminComponent
   },
   {
     path: 'crearArea',
@@ -158,11 +151,7 @@ const router: Routes = [
   },
   {
     path: 'esports',
-    component: EsportsComponent,
-    canActivate: [authGuard(['Alumno'])], 
-    data: {
-      allowedRoles: ['Alumno']
-    }
+    component: EsportsComponent
   },
   {
     path: 'crossfit',
@@ -285,8 +274,12 @@ const router: Routes = [
   {
     path: 'areaDeportiva',
     component: AreaDeportivaComponent
-  }
-  ,
+  },
+  {
+    path: 'monitorReservas',
+    component: MonitorReservasComponent
+  },
+
   {
     path: '**',
     component: Error404Component,
@@ -334,6 +327,7 @@ const router: Routes = [
     LoginComponent,
     Error404Component,
     AreaDeportivaComponent,
+    MonitorReservasComponent,
   ],
   imports: [
     BrowserModule,
