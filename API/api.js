@@ -113,7 +113,24 @@ app.post("/api/consultarAforo", async (req, res, next) => {
         var request = new sql.Request();
         var search = queries.consultarAforoActualYTotal.replace('@area_id', req.body.area_id);
         var result = await request.query(search);
-        console.log(`${result.recordset}`);
+        res.send(result.recordset[0]);
+    }
+    catch(err){
+        next(err);
+    }
+});
+
+// Aumentar el aforo
+app.post("/api/aumentarAforo", async (req, res, next) => {
+    try{
+        if(req.body===undefined){
+            res.send(404);
+            return;
+        }
+        var request = new sql.Request();
+        var search = queries.aumentoAforo.replace('@area_id', req.body.area_id);
+        await request.query(search);
+        res.send();
     }
     catch(err){
         next(err);

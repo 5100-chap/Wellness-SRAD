@@ -124,8 +124,9 @@ export class GimnasioComponent implements OnInit {
   }
 
   public chart: any;
-  aforoData: any;
+  aforoData: String = "";
   alumnoStatus: number = -1;
+  
 
   createChart() {
     var xValues = ['Libre', 'Ocupado'];
@@ -157,6 +158,7 @@ export class GimnasioComponent implements OnInit {
   ngOnInit() : void {
     this.createChart();
     this.getAlumnoStatus();
+    this.getAforoArea();
   }
 
   getAlumnoStatus(): void {
@@ -168,6 +170,17 @@ export class GimnasioComponent implements OnInit {
       },
       error => {
         console.error('Error fetching alumno status:', error);
+      }
+    );
+  }
+
+  getAforoArea(): void{
+    this.apiService.consultarAforo(2).subscribe(
+      (data: any) =>{
+        this.aforoData = data['actuales'] + "/" + data['totales'];
+      },
+      error => {
+        console.log('Error fetching aforo status:', error);
       }
     );
   }
@@ -226,7 +239,7 @@ export class GimnasioComponent implements OnInit {
   marcarLlegadaOSalida() {
     this.apiService.marcar(this.authService.currentUserValue['username'], 2).subscribe();
     this.getAlumnoStatus();
+    this.getAforoArea();
     window.location.reload();
-    // this.getStatus();
   }
 }

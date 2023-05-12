@@ -13,7 +13,12 @@ const queries = {
     SET hora_de_salida=\'@salida\'\
     WHERE Registro.hora_de_salida IS NULL AND Registro.matricula_alumno=\'@matricula_alumno\';',
     llamarTodoElAforo: 'SELECT Registro.matricula_alumno, Registro.id_area FROM Registro;',
-    consultarAforoActualYTotal: 'SELECT Area.lugares_disponibles AS actuales, Area.lugares_totales AS totales FROM Area WHERE Area.id = @area_id;'
+    consultarAforoActualYTotal: 'SELECT Area.lugares_disponibles AS actuales, Area.lugares_totales AS totales FROM Area WHERE Area.id = @area_id;',
+    aumentoAforo: 'DECLARE @res INT;\
+    SET @res = (SELECT Area.lugares_disponibles AS actuales FROM Area WHERE Area.id = @area_id);\
+    UPDATE Area\
+    SET Area.lugares_disponibles = @res+1\
+    WHERE Area.id = @area_id;'
 };
 
 module.exports = queries;
