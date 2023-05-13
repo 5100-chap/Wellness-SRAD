@@ -129,8 +129,27 @@ app.post("/api/aumentarAforo", async (req, res, next) => {
         }
         var request = new sql.Request();
         var search = queries.aumentoAforo.replace('@area_id', req.body.area_id);
-        await request.query(search);
-        res.send();
+        search = search.replace('@area_id', req.body.area_id);
+        var result = await request.query(search);
+        res.send(200);
+    }
+    catch(err){
+        next(err);
+    }
+});
+
+// Disminuir el aforo
+app.post("/api/disminuirAforo", async (req, res, next) => {
+    try{
+        if(req.body===undefined){
+            res.send(404);
+            return;
+        }
+        var request = new sql.Request();
+        var search = queries.disminuirAforo.replace('@area_id', req.body.area_id);
+        search = search.replace('@area_id', req.body.area_id);
+        var result = await request.query(search);
+        res.send(200);
     }
     catch(err){
         next(err);

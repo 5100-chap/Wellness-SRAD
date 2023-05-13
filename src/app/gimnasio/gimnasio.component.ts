@@ -174,6 +174,18 @@ export class GimnasioComponent implements OnInit {
     );
   }
 
+  aumentarAforo(): void{
+    this.apiService.aumentarAforo(2).subscribe(error => {
+      console.error('Error fetching area id status: ', error);
+    });
+  }
+
+  disminuirAforo(): void{
+    this.apiService.disminuirAforo(2).subscribe(error => {
+      console.error('Error fetching area id status', error);
+    });
+  }
+
   getAforoArea(): void{
     this.apiService.consultarAforo(2).subscribe(
       (data: any) =>{

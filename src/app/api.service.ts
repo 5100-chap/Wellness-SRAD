@@ -36,4 +36,12 @@ export class ApiService {
   consultarAforo(area_id: Number): Observable<AforoArea>{
     return this.http.post<AforoArea>('/api/consultarAforo', {area_id});
   }
+
+  aumentarAforo(area_id: Number){
+    return this.http.post('/api/aumentarAforo', {area_id});
+  }
+
+  disminuirAforo(area_id: Number){
+    return this.http.post('/api/disminuirAforo', {area_id});
+  }
 }
