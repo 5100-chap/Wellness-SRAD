@@ -6,6 +6,11 @@ interface AlumnoStatusResponse {
   status: number;
 }
 
+interface AforoArea{
+  actual: number;
+  total: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -26,5 +31,17 @@ export class ApiService {
 
   verificarLlegada(usuario: String): Observable<AlumnoStatusResponse> {
     return this.http.post<AlumnoStatusResponse>('/api/verificarAlumnoLlegada', { usuario });
+  }
+
+  consultarAforo(area_id: Number): Observable<AforoArea>{
+    return this.http.post<AforoArea>('/api/consultarAforo', {area_id});
+  }
+
+  aumentarAforo(area_id: Number){
+    return this.http.post('/api/aumentarAforo', {area_id});
+  }
+
+  disminuirAforo(area_id: Number){
+    return this.http.post('/api/disminuirAforo', {area_id});
   }
 }
