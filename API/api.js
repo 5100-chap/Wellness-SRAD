@@ -104,6 +104,65 @@ app.post("/api/verificarAlumnoLlegada", async (req, res, next)=>{
     }
 });
 
+app.post("/api/consultarAforo", async (req, res, next) => {
+    try{
+        if(req.body === undefined){
+            res.send(404);
+            return;
+        }
+        var request = new sql.Request();
+        var search = `EXEC [dbo].[ConsultarAforoActualYTotal] ${req.body.area_id}`;
+
+        // var search = queries.consultarAforoActualYTotal.replace('@area_id', req.body.area_id);
+        var result = await request.query(search);
+        res.send(result.recordset[0]);
+    }
+    catch(err){
+        next(err);
+    }
+});
+
+// Aumentar el aforo
+app.post("/api/aumentarAforo", async (req, res, next) => {
+    try{
+        if(req.body===undefined){
+            res.send(404);
+            return;
+        }
+        var request = new sql.Request();
+        var search = `EXEC [dbo].[AumentoAforo] ${req.body.area_id}`;
+
+        // var search = queries.aumentoAforo.replace('@area_id', req.body.area_id);
+        // search = search.replace('@area_id', req.body.area_id);
+        var result = await request.query(search);
+        res.send(200);
+    }
+    catch(err){
+        next(err);
+    }
+});
+
+// Disminuir el aforo
+app.post("/api/disminuirAforo", async (req, res, next) => {
+    try{
+        if(req.body===undefined){
+            res.send(404);
+            return;
+        }
+        var request = new sql.Request();
+        var newSearch = `EXEC [dbo].[disminuirAforo] ${req.body.area_id}`;
+        var result = await request.query(newSearch);
+
+        // var search = queries.disminuirAforo.replace('@area_id', req.body.area_id);
+        // search = search.replace('@area_id', req.body.area_id);
+        // var result = await request.query(search);
+        res.send(200);
+    }
+    catch(err){
+        next(err);
+    }
+});
+
 // Manda un registro a la base de datos
 app.post("/api/marcarLlegada", async (req, res, next) => {
     try{
@@ -119,7 +178,7 @@ app.post("/api/marcarLlegada", async (req, res, next) => {
         var search = queries.verificarRegistro.replace('@matricula_alumno', req.body.usuario);
         var result = await request.query(search);
         if(!result.recordset[0][""]){
-            console.log("No ha entrado");
+            console.log("No ha entrado, entonces entra");
             search = queries.insertarRegistro.replace('@matricula_alumno', req.body.usuario);
             search = search.replace('@hora_de_llegada', hora);
             search = search.replace('@fecha', fecha);
@@ -127,14 +186,14 @@ app.post("/api/marcarLlegada", async (req, res, next) => {
             request.query(search);
         }
         else{
-            console.log("ya entro, entonces sale");
+            console.log("ya había entrado, entonces sale");
             currentTime = new Date();
             hora = currentTime.getHours()+":"+currentTime.getMinutes()+":"+currentTime.getSeconds();
             search = queries.marcarSalida.replace('@salida', hora);
             search = search.replace('@matricula_alumno', req.body.usuario);
             request.query(search);
         }
-        res.send("Success");
+        res.send();
     }
     catch(err){
         next(err);
