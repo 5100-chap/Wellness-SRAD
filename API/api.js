@@ -111,7 +111,9 @@ app.post("/api/consultarAforo", async (req, res, next) => {
             return;
         }
         var request = new sql.Request();
-        var search = queries.consultarAforoActualYTotal.replace('@area_id', req.body.area_id);
+        var search = `EXEC [dbo].[ConsultarAforoActualYTotal] ${req.body.area_id}`;
+
+        // var search = queries.consultarAforoActualYTotal.replace('@area_id', req.body.area_id);
         var result = await request.query(search);
         res.send(result.recordset[0]);
     }
@@ -128,8 +130,10 @@ app.post("/api/aumentarAforo", async (req, res, next) => {
             return;
         }
         var request = new sql.Request();
-        var search = queries.aumentoAforo.replace('@area_id', req.body.area_id);
-        search = search.replace('@area_id', req.body.area_id);
+        var search = `EXEC [dbo].[AumentoAforo] ${req.body.area_id}`;
+
+        // var search = queries.aumentoAforo.replace('@area_id', req.body.area_id);
+        // search = search.replace('@area_id', req.body.area_id);
         var result = await request.query(search);
         res.send(200);
     }
@@ -146,9 +150,12 @@ app.post("/api/disminuirAforo", async (req, res, next) => {
             return;
         }
         var request = new sql.Request();
-        var search = queries.disminuirAforo.replace('@area_id', req.body.area_id);
-        search = search.replace('@area_id', req.body.area_id);
-        var result = await request.query(search);
+        var newSearch = `EXEC [dbo].[disminuirAforo] ${req.body.area_id}`;
+        var result = await request.query(newSearch);
+
+        // var search = queries.disminuirAforo.replace('@area_id', req.body.area_id);
+        // search = search.replace('@area_id', req.body.area_id);
+        // var result = await request.query(search);
         res.send(200);
     }
     catch(err){
