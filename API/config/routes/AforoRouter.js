@@ -7,9 +7,9 @@ const queries = require("../database/queries");
 router.get("/api/llamarAforo", async (req, res, next) => {
     try{
         var request = new sql.Request();
-        var search = queries.llamarTodoElAforo.replace('@matricula_alumno', req.body.usuario);
-        var result = await request.query(search);
-        res.send(result.recordset[0][""]);
+        // var search = queries.llamarTodoElAforo.replace('@matricula_alumno', req.body.usuario);
+        var result = await request.query('EXEC [dbo].[LlamarTodoElAforo];');
+        res.send(result.recordset);
     }
     catch(err){
         next(err);
@@ -24,7 +24,7 @@ router.post("/api/consultarAforo", async (req, res, next) => {
             return;
         }
         var request = new sql.Request();
-        var search = `EXEC [dbo].[ConsultarAforoActualYTotal] ${req.body.area_id}`;
+        var search = `EXEC [dbo].[ConsultarAforoActualYTotal] ${req.body.area_id};`;
 
         // var search = queries.consultarAforoActualYTotal.replace('@area_id', req.body.area_id);
         var result = await request.query(search);

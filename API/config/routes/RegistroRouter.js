@@ -11,8 +11,7 @@ router.post("/api/verificarAlumnoLlegada", async (req, res, next)=>{
             return;
         }
         var request = new sql.Request();
-        var search = queries.verificarRegistro.replace('@matricula_alumno', req.body.usuario);
-        var result = await request.query(search);
+        var result = await request.query(`EXEC [dbo].[VerificarRegistro] ${req.body.usuario};`);
         if(!result.recordset[0][""]){
             res.send({'status':0});
         }
@@ -37,25 +36,18 @@ router.post("/api/marcarLlegada", async (req, res, next) => {
         var request = new sql.Request();
         var fecha = currentTime.getFullYear()+"-"+(currentTime.getMonth()+1)+"-"+currentTime.getDate();
         var hora = currentTime.getHours()+":"+currentTime.getMinutes()+":"+currentTime.getSeconds();
-        var search = queries.verificarRegistro.replace('@matricula_alumno', req.body.usuario);
-        var result = await request.query(search);
+        var result = await request.query(`EXEC [dbo].[VerificarRegistro] \'${req.body.usuario}\'`);
         if(!result.recordset[0][""]){
             console.log("No ha entrado, entonces entra");
-            search = queries.insertarRegistro.replace('@matricula_alumno', req.body.usuario);
-            search = search.replace('@hora_de_llegada', hora);
-            search = search.replace('@fecha', fecha);
-            search = search.replace('@id_area', req.body.area_id);
-            request.query(search);
+            request.query(`EXEC [dbo].[InsertarRegistro] \'${req.body.usuario}\', \'${hora}\', \'${fecha}\', ${req.body.area_id};`);
         }
         else{
             console.log("ya había entrado, entonces sale");
             currentTime = new Date();
             hora = currentTime.getHours()+":"+currentTime.getMinutes()+":"+currentTime.getSeconds();
-            search = queries.marcarSalida.replace('@salida', hora);
-            search = search.replace('@matricula_alumno', req.body.usuario);
-            request.query(search);
+            request.query(`EXEC [dbo].[MarcarSalida] \'${hora}\', \'${req.body.usuario}\';`);
         }
-        res.send();
+        res.send(200);
     }
     catch(err){
         next(err);
