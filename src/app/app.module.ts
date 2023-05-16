@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { QRCodeModule } from 'angularx-qrcode';
 import { AppComponent } from './app.component';
@@ -18,7 +19,6 @@ import { CalendarioComponent } from './calendario/calendario.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IdDigitalComponent } from './id-digital/id-digital.component';
 
-
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { GimnasioComponent } from './gimnasio/gimnasio.component';
@@ -28,8 +28,7 @@ import { InicioAdminComponent } from './inicio-admin/inicio-admin.component';
 import { NuevaAreaComponent } from './nueva-area/nueva-area.component';
 import { EditarAforoComponent } from './editar-aforo/editar-aforo.component';
 import { LockersComponent } from './lockers/lockers.component';
-
-
+import { ImageUploadComponent } from './image-upload/image-upload.component';
 
 
 const router: Routes = [
@@ -102,6 +101,7 @@ const router: Routes = [
     NuevaAreaComponent,
     EditarAforoComponent,
     LockersComponent,
+    ImageUploadComponent,
     
   ],
   imports: [
@@ -112,7 +112,8 @@ const router: Routes = [
     ReactiveFormsModule,
     NoopAnimationsModule,
     QRCodeModule,
-    RouterModule.forRoot(router),    
+    RouterModule.forRoot(router),  
+    HttpClientModule,  
 
   ],
   providers: [],
