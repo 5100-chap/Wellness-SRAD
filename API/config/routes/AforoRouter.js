@@ -76,4 +76,19 @@ router.post("/api/disminuirAforo", async (req, res, next) => {
     }
 });
 
+router.get("/api/AforoSemanal", async (req, res, next) => {
+    const startDate = req.query.startDate;
+    const endDate = req.query.endDate;
+    const request = new sql.Request();
+    try {
+        const result = await request
+            .input('startDate', sql.Date, startDate)
+            .input('endDate', sql.Date, endDate)
+            .execute('AforoSemanal');
+        res.json(result.recordset);
+    } catch (err) {
+        next(err);
+    }
+});
+
 module.exports = router;

@@ -44,4 +44,7 @@ export class ApiService {
   disminuirAforo(area_id: Number){
     return this.http.post('/api/disminuirAforo', {area_id});
   }
+  getAforoPerWeek(startDate: string, endDate: string) {
+    return this.http.get(`/api/getAforoPerWeek?startDate=${startDate}&endDate=${endDate}`);
+  }
 }
