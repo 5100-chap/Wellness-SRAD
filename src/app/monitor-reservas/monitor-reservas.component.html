@@ -79,6 +79,8 @@
         <th scope="col">Hora de inicio</th>
         <th scope="col">Hora de salida</th>
         <th scope="col">Fecha</th>
+        <th scope="col">Comprobante</th>
+        <th scope="col">Cancelar</th>
       </tr>
     </thead>
     <tbody>
@@ -89,6 +91,8 @@
         <td>13:24</td>
         <td>17:00</td>
         <td>28/04/2023</td>
+        <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-primary" (click)="open(modalcomprobante)">Ver Comprobante</button></td>
+        <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalcancelar)">Cancelar Reserva</button></td>
       </tr>
       <tr>
         <th scope="row">2</th>
@@ -97,6 +101,8 @@
         <td>13:24</td>
         <td>17:00</td>
         <td>28/04/2023</td>
+        <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-primary" (click)="open(modalcomprobante)">Ver Comprobante</button></td>
+        <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalcancelar)">Cancelar Reserva</button></td>
       </tr>
       <tr>
         <th scope="row">3</th>
@@ -105,6 +111,8 @@
         <td>13:24</td>
         <td>17:00</td>
         <td>28/04/2023</td>
+        <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-primary" (click)="open(modalcomprobante)">Ver Comprobante</button></td>
+        <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalcancelar)">Cancelar Reserva</button></td>
       </tr>
     </tbody>
   </table>
@@ -153,5 +161,35 @@
     <button type="button" class="btn btn-primary" id = "btn" (click)="modal.close('Save click')">Crear</button>
       
   </div>
+  </ng-template>
+
+  <!--Modal del comprobante de pago-->
+  <ng-template #modalcomprobante let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Ver Comprobante</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span  aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <!-- <iframe src="../assets/img/arena.jpeg" style="width:100%; height:700px;" ></iframe> -->
+      <iframe src="../assets/files/comprobante-wellness.pdf" style="width:100%; height:700px;" frameborder="0"></iframe>
+    </div>
+  </ng-template>
+  <!--Modal de cancelación del alumno-->
+  <ng-template #modalcancelar let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Cancelar Reservación </h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span  aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p> Esta a punto de cancelar la reserva del alumno, estas seguro de hacerlo? </p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger"  id ="btn2"aria-label="Close" (click)="modal.dismiss('Cross click')">Cancelar</button>
+      <button type="button" class="btn btn-danger"  id ="btn" aria-label="Close" (click)="modal.dismiss('Cross click')">Confirmar</button>
+    </div>
   </ng-template>
 
