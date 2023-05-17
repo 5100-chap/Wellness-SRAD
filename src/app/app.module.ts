@@ -125,20 +125,12 @@ const router: Routes = [
   },
   {
     path: 'cerrarEspacios',
-    component: CerrarEspaciosComponent,
-    canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
-    data: {
-      allowedRoles: ['Director', 'Administrador', 'Instructor']
-    }
+    component: CerrarEspaciosComponent
 
   },
   {
     path: 'crearAnuncio',
-    component: CrearAnuncioComponent,
-    canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
-    data: {
-      allowedRoles: ['Director', 'Administrador', 'Instructor']
-    }
+    component: CrearAnuncioComponent
 
   },
   {
