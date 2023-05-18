@@ -6,9 +6,14 @@ interface AlumnoStatusResponse {
   status: number;
 }
 
-interface AforoArea{
+interface AforoArea {
   actual: number;
   total: number;
+}
+
+interface AforoSemanalResponse {
+  DayOfWeek: number;
+  AttendanceCount: number;
 }
 
 @Injectable({
@@ -20,28 +25,41 @@ export class ApiService {
   getXCredentials(username: string, password: string) {
     const authHeader = 'Basic ' + window.btoa(`${username}:${password}`);
     const headers = {
-      Authorization: authHeader
+      Authorization: authHeader,
     };
     return this.http.get('/api/getXCredentials', { headers });
   }
 
-  marcar(usuario: String, area_id: number){
-    return this.http.post('/api/marcarLlegada', {'usuario': usuario || '', 'area_id': area_id});
+  marcar(usuario: String, area_id: number) {
+    return this.http.post('/api/marcarLlegada', {
+      usuario: usuario || '',
+      area_id: area_id,
+    });
   }
 
   verificarLlegada(usuario: String): Observable<AlumnoStatusResponse> {
-    return this.http.post<AlumnoStatusResponse>('/api/verificarAlumnoLlegada', { usuario });
+    return this.http.post<AlumnoStatusResponse>('/api/verificarAlumnoLlegada', {
+      usuario,
+    });
   }
 
-  consultarAforo(area_id: Number): Observable<AforoArea>{
-    return this.http.post<AforoArea>('/api/consultarAforo', {area_id});
+  consultarAforo(area_id: Number): Observable<AforoArea> {
+    return this.http.post<AforoArea>('/api/consultarAforo', { area_id });
   }
 
-  aumentarAforo(area_id: Number){
-    return this.http.post('/api/aumentarAforo', {area_id});
+  aumentarAforo(area_id: Number) {
+    return this.http.post('/api/aumentarAforo', { area_id });
   }
 
-  disminuirAforo(area_id: Number){
-    return this.http.post('/api/disminuirAforo', {area_id});
+  disminuirAforo(area_id: Number) {
+    return this.http.post('/api/disminuirAforo', { area_id });
+  }
+  getAforoSemanal(
+    date: string,
+    areaId: number
+  ): Observable<AforoSemanalResponse[]> {
+    return this.http.get<AforoSemanalResponse[]>(
+      `/api/AforoSemanal?date=${date}&areaId=${areaId}`
+    );
   }
 }

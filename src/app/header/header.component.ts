@@ -13,17 +13,27 @@ export class HeaderComponent {
   ngOnInit() {
   }
 
+  //Función para saber si el usuario es un alumno
+
   isAlumno() {
     const obj = this.authService.currentUserValue;
     return obj.role === 'Alumno';
   }
 
-  isAdmin() {
+  //Función para saber si el usuario es un administrador 
+  isAdmin(){
     const obj = this.authService.currentUserValue;
-    return obj.role === 'Administrador';
+    return obj.role === 'Administrador' ;
+
+  }
+  //Función para saber si el usuario es un administrador o un alumno
+  isAdminOrAlumno(){
+    const obj = this.authService.currentUserValue;
+    return obj.role === 'Administrador' ||  obj.role === 'Alumno';
+
   }
 
-
+  //Función para cerrar sesión y borrar credenciales
   logout(){
     this.authService.logout();
     this.router.navigate(['/login']);
