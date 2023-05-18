@@ -1,69 +1,110 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { ApiService } from '../api.service';
+import Chart from 'chart.js/auto';
+import { Subscription } from 'rxjs';
 
-import Chart, { Legend, plugins } from 'chart.js/auto';
+interface AforoSemanalResponse {
+  DayOfWeek: number;
+  AttendanceCount: number;
+}
 
 @Component({
   selector: 'app-stats-gym-admin',
   templateUrl: './stats-gym-admin.component.html',
-  styleUrls: ['./stats-gym-admin.component.css']
+  styleUrls: ['./stats-gym-admin.component.css'],
 })
-export class StatsGymAdminComponent {
-
+export class StatsGymAdminComponent implements OnInit, OnDestroy {
   public chart: any;
+  dateControl = new FormControl();
+  private subscription: Subscription | undefined;
 
-  createChart(){
+  constructor(private apiService: ApiService) {}
 
-   
-    this.chart = new Chart("linea", {
-      type: 'line', //this denotes tha type of chart
-      
+  createChart(labels: string[], data: number[]) {
+    // Si ya existe un gráfico, lo destruimos
+    if (this.chart) {
+      this.chart.destroy();
+    }
 
-      data: {// values on X-Axis
-        labels: ['6:00 AM', '7:00 AM', '8:00 AM','9:00 AM',
-								 '10:00 AM', '11:00 AM', '12:00 PM','1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM', '7:00 PM', '8:00 PM', '9:00 PM', '10:00 PM'], 
-	       datasets: [
+    this.chart = new Chart('Dia', {
+      type: 'bar',
+
+      data: {
+        labels: labels,
+        datasets: [
           {
-            label: "Ingresos",
-            data: ['2982', '556', '2021','2087',
-            '2966', '2229', '3524','2246', '2995', '1052', '2658', '2098', '2302', '2676', '2525', '1503', '254'],
-            backgroundColor: 'blue'
-          }
-        ]
+            label: 'Ingresos',
+            data: data,
+            backgroundColor: 'blue',
+          },
+        ],
       },
       options: {
-        aspectRatio:2.5,
-
-          }
-    });
-
-    this.chart = new Chart("Dia", {
-      type: 'bar', //this denotes tha type of chart
-      
-
-      data: {// values on X-Axis
-        labels: ['20/03/2023', '21/03/2023', '22/03/2023','23/03/2023',
-								 '24/03/2023', '25/03/2023', '26/03/2023'], 
-	       datasets: [
-          {
-            label: "Ingresos",
-            data: ['2982', '556', '2021','2087',
-            '2966', '2229', '2254'],
-            backgroundColor: 'blue'
-          }
-        ]
+        aspectRatio: 2.5,
       },
-      options: {
-        aspectRatio:2.5,
-
-          }
     });
-
-
   }
-
 
   ngOnInit(): void {
-    this.createChart();
+    const areaId = 52;
+
+    // Definir los nombres de los días de la semana
+    const daysOfWeek = [
+      'Lunes',
+      'Martes',
+      'Miércoles',
+      'Jueves',
+      'Viernes',
+      'Sábado',
+      'Domingo',
+    ];
+
+    this.subscription = this.dateControl.valueChanges.subscribe(
+      (value: string) => {
+        const year = Number(value.slice(0, 4));
+        const week = Number(value.slice(-2));
+
+        const date = new Date(year, 0, 1 + (week - 1) * 7);
+        const dayOfWeek = date.getDay();
+        const ISOweekStart = date;
+        if (dayOfWeek <= 4)
+          ISOweekStart.setDate(date.getDate() - date.getDay() + 1);
+        else ISOweekStart.setDate(date.getDate() + 8 - date.getDay());
+
+        const formattedDate = ISOweekStart.toISOString().split('T')[0];
+
+        this.apiService
+          .getAforoSemanal(formattedDate, areaId)
+          .subscribe((data: AforoSemanalResponse[]) => {
+            // Inicializar un objeto con todos los días de la semana y aforo 0
+            const attendanceByDay: { [day: string]: number } = {
+              Lunes: 0,
+              Martes: 0,
+              Miércoles: 0,
+              Jueves: 0,
+              Viernes: 0,
+              Sábado: 0,
+              Domingo: 0,
+            };
+
+            // Llenar el objeto con los datos obtenidos
+            for (const item of data) {
+              attendanceByDay[daysOfWeek[item.DayOfWeek - 1]] =
+                item.AttendanceCount;
+            }
+
+            // Crear los arreglos labels y dataPoints a partir del objeto
+            const labels = Object.keys(attendanceByDay);
+            const dataPoints = Object.values(attendanceByDay);
+
+            this.createChart(labels, dataPoints);
+          });
+      }
+    );
   }
 
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
 }
