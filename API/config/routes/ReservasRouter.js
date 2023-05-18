@@ -9,7 +9,6 @@ router.get('/api/getTodasReservasAlumno', async(req, res, next)=>{
     try{
         var request = new sql.Request();
         var result = await request.query(`EXEC [dbo].[GetTodasReservasAlumno] \'${req.body.usuario}\';`);
-        console.log(result.recordset);
         res.json(result.recordset);
     }
     catch(error){
@@ -26,6 +25,19 @@ router.put('/api/createReservacionArea', async(req, res, next)=>{
     try{
         var request = new sql.Request();
         var result = await request.query(`EXEC [dbo].[CreateReservacionArea] \'${req.body.usuario}\', \'${dia}\', \'${hora}\', \'${req.body.asesor}\', ${req.body.area_id}, \'Activa\';`);
+        res.sendStatus(200);
+    }
+    catch(error){
+        console.log(error);
+        res.sendStatus(404);
+    }
+});
+
+// Cancelar una reservación
+router.delete('/api/cancelReservacionArea', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();
+        var result = await request.query(`EXEC [dbo].[CancelReservacionArea] \'${req.body.usuario}\', ${req.body.id};`);
         res.sendStatus(200);
     }
     catch(error){

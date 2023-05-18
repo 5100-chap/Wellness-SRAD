@@ -18,6 +18,12 @@ export class HeaderComponent {
     return obj.role === 'Alumno';
   }
 
+  isAdmin() {
+    const obj = this.authService.currentUserValue;
+    return obj.role === 'Administrador';
+  }
+
+
   logout(){
     this.authService.logout();
     this.router.navigate(['/login']);
