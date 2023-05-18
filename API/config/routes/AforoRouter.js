@@ -77,18 +77,32 @@ router.post("/api/disminuirAforo", async (req, res, next) => {
 });
 
 router.get("/api/AforoSemanal", async (req, res, next) => {
-    const startDate = req.query.startDate;
-    const endDate = req.query.endDate;
+    const date = req.query.date;
+    const areaId = req.query.areaId;
     const request = new sql.Request();
     try {
         const result = await request
-            .input('startDate', sql.Date, startDate)
-            .input('endDate', sql.Date, endDate)
+            .input('Date', sql.Date, date)
+            .input('AreaId', sql.Int, areaId)
             .execute('AforoSemanal');
         res.json(result.recordset);
     } catch (err) {
         next(err);
     }
 });
+
+router.get("/api/AreaInformacion", async (req, res, next) => {
+    const nombreArea = req.query.nombreArea;
+    const request = new sql.Request();
+    try {
+        const result = await request
+            .input('Nombre', sql.VarChar, nombreArea)
+            .execute('AreaInformacion');
+        res.json(result.recordset);
+    } catch (err) {
+        next(err);
+    }
+});
+
 
 module.exports = router;
