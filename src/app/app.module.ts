@@ -109,11 +109,7 @@ const router: Routes = [
   },
   {
     path: 'crearArea',
-    component: NuevaAreaComponent,
-        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
-    data: {
-      allowedRoles: ['Director', 'Administrador', 'Instructor']
-    }
+    component: NuevaAreaComponent
   },
   {
     path: 'editarAforo',
