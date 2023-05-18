@@ -78,13 +78,19 @@
     <br>
 
 
-    <table class="table-responsive">
+    <table class="table-responsive" >
 
       <tbody>
 
 
-        <tr *ngFor="let al of reservaArray" (click)="openForEdit(al)" [class.active]="al == seleReserva">
+        <tr *ngFor="let al of reservaArray" (click)="openForEdit(al)" [class.active]="al == seleReserva" id="LockersBotones">
 
+          <td class="text-center" id="hola"> <button class="btn btn-primary"> <img
+                src="https://drive.google.com/uc?export=view&id=1lBoZK4_lFRNr-N_k7Nw5u6Hh9PNHCiuq" style="width:4rem" 
+                alt="LockerPNG"> </button></td>
+          <td class="text-center"> <button class="btn btn-primary"> <img
+                src="https://drive.google.com/uc?export=view&id=1lBoZK4_lFRNr-N_k7Nw5u6Hh9PNHCiuq" style="width:4rem"
+                alt="LockerPNG"> </button></td>
           <td class="text-center"> <button class="btn btn-primary"> <img
                 src="https://drive.google.com/uc?export=view&id=1lBoZK4_lFRNr-N_k7Nw5u6Hh9PNHCiuq" style="width:4rem"
                 alt="LockerPNG"> </button></td>

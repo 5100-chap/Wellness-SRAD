@@ -55,3 +55,9 @@ button:hover {
 	left:25rem;
 	bottom: 1rem;
 }
+
+#LockersBotones {
+	position:relative;
+	left: 11rem;
+}
+
