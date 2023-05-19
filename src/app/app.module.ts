@@ -7,7 +7,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { QRCodeModule } from 'angularx-qrcode';
 
-
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -43,260 +42,238 @@ import { EsportsComponent } from './esports/esports.component';
 import { authGuard } from './auth.guard';
 import { Error404Component } from './error404/error404.component';
 import { AreaDeportivaComponent } from './area-deportiva/area-deportiva.component';
+import { MonitorReservasComponent } from './monitor-reservas/monitor-reservas.component';
 import { ImageUploadComponent } from './image-upload/image-upload.component';
-
-
 
 const router: Routes = [
   {
     path: 'inicio',
     component: ListaAreasComponent,
-        canActivate: [authGuard(['Alumno'])], 
-    data: {
-      allowedRoles: ['Alumno']
-    }
   },
   {
     path: 'reservas',
     component: ListaReservasComponent,
-        canActivate: [authGuard(['Alumno'])], 
+    canActivate: [authGuard(['Alumno'])],
     data: {
-      allowedRoles: ['Alumno']
-    }
+      allowedRoles: ['Alumno'],
+    },
   },
   {
     path: 'calendario',
     component: CalendarioComponent,
-        canActivate: [authGuard(['Alumno'])], 
+    canActivate: [authGuard(['Alumno'])],
     data: {
-      allowedRoles: ['Alumno']
-    }
+      allowedRoles: ['Alumno'],
+    },
   },
   {
     path: 'idDigital',
     component: IdDigitalComponent,
-        canActivate: [authGuard(['Alumno'])], 
+    canActivate: [authGuard(['Alumno'])],
     data: {
-      allowedRoles: ['Alumno']
-    }
+      allowedRoles: ['Alumno'],
+    },
   },
   {
     path: 'login',
-    component: LoginComponent
-    
+    component: LoginComponent,
   },
   {
     path: 'lockers',
-    component: LockersComponent
+    component: LockersComponent,
   },
   {
     path: 'gimnasio',
     component: GimnasioComponent,
-        canActivate: [authGuard(['Alumno'])], 
+    canActivate: [authGuard(['Alumno'])],
     data: {
-      allowedRoles: ['Alumno']
-    }
+      allowedRoles: ['Alumno'],
+    },
   },
   {
     path: 'tendencias',
     component: TendenciasComponent,
-        canActivate: [authGuard(['Alumno'])], 
+    canActivate: [authGuard(['Alumno'])],
     data: {
-      allowedRoles: ['Alumno']
-    }
+      allowedRoles: ['Alumno'],
+    },
   },
   {
-    path: '', redirectTo: '/login', pathMatch: 'full' 
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full',
   },
   {
     path: 'inicioAdmin',
     component: InicioAdminComponent,
-        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
-    data: {
-      allowedRoles: ['Director', 'Administrador', 'Instructor']
-    }
   },
   {
     path: 'crearArea',
     component: NuevaAreaComponent,
-        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
-    data: {
-      allowedRoles: ['Director', 'Administrador', 'Instructor']
-    }
   },
   {
     path: 'editarAforo',
     component: EditarAforoComponent,
-        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
+    canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])],
     data: {
-      allowedRoles: ['Director', 'Administrador', 'Instructor']
-    }
+      allowedRoles: ['Director', 'Administrador', 'Instructor'],
+    },
   },
   {
     path: 'cerrarEspacios',
     component: CerrarEspaciosComponent,
-    canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
-    data: {
-      allowedRoles: ['Director', 'Administrador', 'Instructor']
-    }
-
   },
   {
     path: 'crearAnuncio',
     component: CrearAnuncioComponent,
-    canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
-    data: {
-      allowedRoles: ['Director', 'Administrador', 'Instructor']
-    }
-
   },
   {
     path: 'estadisticas',
     component: StatsAdminComponent,
-    canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
+    canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])],
     data: {
-      allowedRoles: ['Director', 'Administrador', 'Instructor']
-    }
+      allowedRoles: ['Director', 'Administrador', 'Instructor'],
+    },
   },
   {
     path: 'esports',
     component: EsportsComponent,
-    canActivate: [authGuard(['Alumno'])], 
-    data: {
-      allowedRoles: ['Alumno']
-    }
   },
   {
     path: 'crossfit',
     component: CrossfitComponent,
-    canActivate: [authGuard(['Alumno'])], 
+    canActivate: [authGuard(['Alumno'])],
     data: {
-      allowedRoles: ['Alumno']
-    }
+      allowedRoles: ['Alumno'],
+    },
   },
   {
     path: 'arena',
     component: ArenaComponent,
-    canActivate: [authGuard(['Alumno'])], 
+    canActivate: [authGuard(['Alumno'])],
     data: {
-      allowedRoles: ['Alumno']
-    }
+      allowedRoles: ['Alumno'],
+    },
   },
   {
-    path:'citas_entrenador',
-    component:CitasentrenadorComponent,
-    canActivate: [authGuard(['Alumno'])], 
+    path: 'citas_entrenador',
+    component: CitasentrenadorComponent,
+    canActivate: [authGuard(['Alumno'])],
     data: {
-      allowedRoles: ['Alumno']
-    }
+      allowedRoles: ['Alumno'],
+    },
   },
   {
-    path:'citas_nutriologo',
-    component:CitasnutriologoComponent,
-    canActivate: [authGuard(['Alumno'])], 
+    path: 'citas_nutriologo',
+    component: CitasnutriologoComponent,
+    canActivate: [authGuard(['Alumno'])],
     data: {
-      allowedRoles: ['Alumno']
-    }
+      allowedRoles: ['Alumno'],
+    },
   },
   {
-    path:'horario-asesor',
-    component:HorarioAsesorComponent,
-    canActivate: [authGuard(['Alumno'])], 
+    path: 'horario-asesor',
+    component: HorarioAsesorComponent,
+    canActivate: [authGuard(['Alumno'])],
     data: {
-      allowedRoles: ['Alumno']
-    }
+      allowedRoles: ['Alumno'],
+    },
   },
   {
-    path:'codigo-qr',
-    component:CodigoQrComponent,
-    canActivate: [authGuard(['Alumno'])], 
+    path: 'codigo-qr',
+    component: CodigoQrComponent,
+    canActivate: [authGuard(['Alumno'])],
     data: {
-      allowedRoles: ['Alumno']
-    }
+      allowedRoles: ['Alumno'],
+    },
   },
   {
-    path:'encuesta',
-    component:EncuestaComponent,
-    canActivate: [authGuard(['Alumno'])], 
+    path: 'encuesta',
+    component: EncuestaComponent,
+    canActivate: [authGuard(['Alumno'])],
     data: {
-      allowedRoles: ['Alumno']
-    }
+      allowedRoles: ['Alumno'],
+    },
   },
   {
     path: 'estadisticasGimnasio',
     component: StatsGymAdminComponent,
-    canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
+    canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])],
     data: {
-      allowedRoles: ['Director', 'Administrador', 'Instructor']
-    }
+      allowedRoles: ['Director', 'Administrador', 'Instructor'],
+    },
   },
   {
     path: 'monitorIngresos',
     component: MonitorIngresosComponent,
-    canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
+    canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])],
     data: {
-      allowedRoles: ['Director', 'Administrador', 'Instructor']
-    }
+      allowedRoles: ['Director', 'Administrador', 'Instructor'],
+    },
   },
   {
     path: 'exportarDatos',
     component: ExportarDatosComponent,
-    canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])], 
+    canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])],
     data: {
-      allowedRoles: ['Director', 'Administrador', 'Instructor']
-    }
+      allowedRoles: ['Director', 'Administrador', 'Instructor'],
+    },
   },
   {
     path: 'anuncios',
     component: AnunciosComponent,
-    canActivate: [authGuard(['Alumno'])], 
+    canActivate: [authGuard(['Alumno'])],
     data: {
-      allowedRoles: ['Alumno']
-    }
+      allowedRoles: ['Alumno'],
+    },
   },
   {
     path: 'entrenadores',
     component: CitasentrenadorComponent,
-    canActivate: [authGuard(['Alumno'])], 
+    canActivate: [authGuard(['Alumno'])],
     data: {
-      allowedRoles: ['Alumno']
-    }
+      allowedRoles: ['Alumno'],
+    },
   },
   {
     path: 'nutriologos',
     component: CitasnutriologoComponent,
-    canActivate: [authGuard(['Alumno'])], 
+    canActivate: [authGuard(['Alumno'])],
     data: {
-      allowedRoles: ['Alumno']
-    }
+      allowedRoles: ['Alumno'],
+    },
   },
   {
     path: 'horarioAsesor',
     component: HorarioAsesorComponent,
-    canActivate: [authGuard(['Alumno'])], 
+    canActivate: [authGuard(['Alumno'])],
     data: {
-      allowedRoles: ['Alumno']
-    }
-
-  }, 
+      allowedRoles: ['Alumno'],
+    },
+  },
   {
     path: 'error404',
-    component: Error404Component
-    
+    component: Error404Component,
   },
   {
     path: 'areaDeportiva',
-    component: AreaDeportivaComponent
-  }
-  ,
+    component: AreaDeportivaComponent,
+  },
+  {
+    path: 'monitorReservas',
+    component: MonitorReservasComponent,
+  },
+
   {
     path: '**',
     component: Error404Component,
-    canActivate: [authGuard(['Alumno','Director', 'Administrador', 'Instructor'])], 
+    canActivate: [
+      authGuard(['Alumno', 'Director', 'Administrador', 'Instructor']),
+    ],
     data: {
-      allowedRoles: ['Alumno','Director', 'Administrador', 'Instructor']
-    }
-  }
+      allowedRoles: ['Alumno', 'Director', 'Administrador', 'Instructor'],
+    },
+  },
 ];
 
 @NgModule({
@@ -336,8 +313,8 @@ const router: Routes = [
     LoginComponent,
     Error404Component,
     AreaDeportivaComponent,
+    MonitorReservasComponent,
     ImageUploadComponent,
-    
   ],
   imports: [
     BrowserModule,
