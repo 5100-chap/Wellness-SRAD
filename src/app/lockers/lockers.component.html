@@ -116,11 +116,11 @@
     
       <div class="row">
         <div class=" col-md-10 ">
-          <h4 style="margin-top: 1.5%; margin-left: 1%"> <strong>Casillero Seleccionado: </strong></h4>
+          <h4 style="margin-top: 1.5%; margin-left: 1%"> <strong> Sube aquí tu comprobante de pago: </strong></h4>
           <input [(ngModel)]="seleReserva.fecha" type="text" class="form-control" disabled id="reserve" style="margin-bottom: 1%; font-size: 1.3rem;">
         </div>
 
-        <div class=" col-md-2 mt-3" >
+        <!-- <div class=" col-md-2 mt-3" >
           <button style = "font-size: 1.5rem; margin-top: 8%;" id="btn2" class="btn" (click)="open(mymodal)"> Pagar </button>
           <ng-template #mymodal let-modal>
             <div class="modal-header">
@@ -136,6 +136,19 @@
               <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
             </div>
           </ng-template>
+        </div> -->
+        <div class="row">
+          <div class="input-group mb-5 col-md-2 " style="width: 50%; margin-left: 2%;">
+            <button class="btn btn-primary" type="button" id="inputGroupFileAddon03"> Enviar </button>
+            <input type="file" class="form-control" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03" aria-label="Upload">
+  
+            <!-- <form name="subida-imagenes" type="POST" enctype="multipart/formdata" style="margin-left: 1.5%;" class="mt-2" >
+              <input type="file" name="imagen" />
+            </form> -->
+  
+          </div>
+
+          
         </div>
       </div>   
   </div>
