@@ -5,12 +5,12 @@
       <a class="navbar-brand" [routerLink]="'inicio'">
         <img src="https://javier.rodriguez.org.mx/itesm/borregos/borrego-blue-small.png" alt="Logo" width="30"
           height="24" class="d-inline-block align-text-top">
-        | Rec Sports
+        | Athletics
       </a>
 
       <ul class="nav justify-content-end">
 
-        <li class="nav-item" *ngIf="isAlumno()">
+        <li class="nav-item" *ngIf="isAdminOrAlumno()">
           <a class="nav-link active" aria-current="page" [routerLink]="'inicio'">Inicio</a>
         </li>
 

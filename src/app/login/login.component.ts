@@ -45,7 +45,7 @@ export class LoginComponent {
     this.apiService.getXCredentials(usernameValue, passwordValue).pipe(
       tap((data: any) => {
         // Asigna credenciales con las llamadas a la API
-        const role = data[1] || '';
+        const role = data[0].role || '';
         const properties = data[0];
         this.authService.login(usernameValue, passwordValue, role, properties);
         if (role === 'Alumno') {
