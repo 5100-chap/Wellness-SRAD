@@ -12,22 +12,25 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 export class NuevaAreaComponent  {
   
-  /* Validación de los campos del formulario */
-
-  resultado!: string;
-
-
+  /* Validación de los campos */
   NuevaAreaForm = new FormGroup({
     nombre: new FormControl('', Validators.required),
     aforo: new FormControl('', Validators.required),
     ubicación: new FormControl('', Validators.required),
-    imagen: new FormControl('', Validators.required)
-
+    material: new FormControl('', Validators.required)
   });
 
-  
+  resultado!: string;
+  value!: string;
+
+  formularioContacto = new FormGroup({
+    nombre: new FormControl('', [Validators.required, Validators.minLength(10)]),
+    mail: new FormControl('', [Validators.required, Validators.email]),
+    mensaje: new FormControl('', [Validators.required, Validators.maxLength(500)])
+  });
+
   submit() {
-    if (this.NuevaAreaForm.valid)
+    if (this.formularioContacto.valid)
       this.resultado = "Todos los datos son válidos";
     else
       this.resultado = "Hay datos inválidos en el formulario";

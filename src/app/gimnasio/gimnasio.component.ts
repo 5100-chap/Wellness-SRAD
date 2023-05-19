@@ -128,15 +128,13 @@ export class GimnasioComponent implements OnInit {
   alumnoStatus: number = -1;
   
 
-  createChart() {
+  createChart(actuales: Number, totales: Number) {
     var xValues = ['Libre', 'Ocupado'];
-    var yValues = [55, 49];
+    var yValues = [actuales, totales];
 
     var barColors = ['#6c9bcf', '#654e92'];
-
     this.chart = new Chart('MyChart', {
       type: 'pie', //this denotes tha type of chart
-
       data: {
         // values on X-Axis
         labels: xValues,
@@ -156,9 +154,8 @@ export class GimnasioComponent implements OnInit {
   }
 
   ngOnInit() : void {
-    this.createChart();
-    this.getAlumnoStatus();
     this.getAforoArea();
+    this.getAlumnoStatus();
   }
 
   getAlumnoStatus(): void {
@@ -166,7 +163,6 @@ export class GimnasioComponent implements OnInit {
     this.apiService.verificarLlegada(usuario).subscribe(
       (data: AlumnoStatusResponse) => {
         this.alumnoStatus = data.status;
-        console.log(this.alumnoStatus);
       },
       error => {
         console.error('Error fetching alumno status:', error);
@@ -190,6 +186,7 @@ export class GimnasioComponent implements OnInit {
     this.apiService.consultarAforo(2).subscribe(
       (data: any) =>{
         this.aforoData = data['actuales'] + "/" + data['totales'];
+        this.createChart(Number(data['actuales']), Number(data['totales']));
       },
       error => {
         console.log('Error fetching aforo status:', error);
