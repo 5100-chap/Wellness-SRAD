@@ -43,6 +43,8 @@ import { EsportsComponent } from './esports/esports.component';
 import { authGuard } from './auth.guard';
 import { Error404Component } from './error404/error404.component';
 import { AreaDeportivaComponent } from './area-deportiva/area-deportiva.component';
+import { ImageUploadComponent } from './image-upload/image-upload.component';
+
 
 
 const router: Routes = [
@@ -334,6 +336,8 @@ const router: Routes = [
     LoginComponent,
     Error404Component,
     AreaDeportivaComponent,
+    ImageUploadComponent,
+    
   ],
   imports: [
     BrowserModule,
