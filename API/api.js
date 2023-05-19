@@ -2,39 +2,40 @@
 //Declaracion para libreria express
 const express = require("express");
 const app = express();
-
-//Declaracion para libreria Miscrosoft SQL
+const bodyParser = require("body-parser");
+const dotenv = require("dotenv");
 const sql = require("mssql");
 
-//Declaracion para libreria dotenv
-const dotenv = require("dotenv");
+//Cargar la configuración de .env
 dotenv.config();
 
-//Cargar la configuración de .env
-const database = require("./config/database");
+const database = require("./config/credentials/database");
 
-// Importar las consultas desde el archivo queries.js
-const queries = require("./database/queries");
+const routes = require("./config/routes/router"); // Import the combined routes
 
-//Declaracion para el puerto
 const port = process.env.PORT || 8080;
 
-//Middleware para manejar errores de la base de datos
 const handleDatabaseErrors = (err, req, res, next) => {
     console.log("Error en la base de datos:", err);
     res.status(500).send("Error en la base de datos: " + err.message);
 };
-//Middleware para manejar errores generales
+
 const handleGeneralErrors = (err, req, res, next) => {
     console.log("Error:", err);
     res.status(500).send("Error general, favor de checar API: " + err.message);
 };
 
-//Configuración de los middleware
+//Usar errores declarados previamente
 app.use(handleDatabaseErrors);
 app.use(handleGeneralErrors);
+//Configuración de body-parser
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-//Conexión a la base de datos usando credenciales de database
+//Usar las rutas
+app.use(routes); 
+
+//Funcion para iniciar el servidor
 const connectToDatabase = async () => {
     try {
         await sql.connect(database.config);
@@ -46,63 +47,6 @@ const connectToDatabase = async () => {
         );
     }
 };
-
-//--------------------------Rutas------------------------
-
-//Test GET
-app.get("/api", function (req, res) {
-    res.send("api works!");
-});
-
-//Consigue la lista de todos los alumnos
-app.get("/api/getAllAlumni", async (req, res, next) => {
-    try {
-        const request = new sql.Request();
-        const result = await request.query(queries.getAllAlumni);
-        res.send(result.recordset);
-    } catch (err) {
-        next(err);
-    }
-});
-
-//Consigue los datos necesarios para las credenciales
-app.get("/api/getXCredentials", async (req, res, next) => {
-    try {
-        //Configuracion del request de sql
-        const request = new sql.Request();
-        //Creacion de variables de query para buscar
-        var search;
-        var result;
-        //El codigo buscara si corresponde a una nomina o matricula, el cual
-        //Buscara primero al alumno y despues dentro de los roles que contienen nomina
-        rangoArray = ["Alumno", "Director", "Administrador", "Instructor"];
-        for (let i = 0; i < rangoArray.length; i++) {
-            //Modifica el query base acorde a los roles
-            search = queries.searchDirAdmInsAl.replace("remp_tabla", rangoArray[i]);
-            if (rangoArray[i] === "Alumno") {
-                search = search.replace("numero_nomina", "matricula");
-            }
-            search = search.replace(" remp_nomina ", req.query.mat_nom);
-            result = await request.query(search);
-            if (result.recordset.length === 1) {
-                result.recordset.push(rangoArray[i]);
-                if (!(result.recordset[0].contrasena === req.query.pswd)) {
-                    console.log("Triggered password error");
-                    result.recordset = null;
-                }
-                break;
-            } else if (i === rangoArray.length - 1) {
-                console.log("Triggered illegal instruction");
-                result.recordset = null;
-            }
-        }
-        res.send(result.recordset);
-    } catch (err) {
-        next(err);
-    }
-});
-
-//----------------------------------------------------------------
 
 //Iniciar el servidor
 app.set("port", port);

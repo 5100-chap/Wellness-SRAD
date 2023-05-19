@@ -1,0 +1,123 @@
+
+ <div class="row">
+    <div class=" col-md-6 mt-4">
+      <h3> &nbsp; &nbsp; <strong> Monitor de ingresos </strong> </h3>
+    </div>
+  </div>
+<br>
+
+
+<div class="row">
+   
+    <div class="col-md-2 mt-1" style="margin-left: 2%;">
+        <div ngbDropdown>
+          <button class="btn btn-primary" id="btn" 
+                  ngbDropdownToggle>Semana II: 20 - 26 de Marzo 2023</button>
+          <div ngbDropdownMenu="gfg">
+            <button ngbDropdownItem>Semana III: 20 - 26 de Marzo 2023</button>
+            <button ngbDropdownItem>Semana IV: 20 - 26 de Marzo 2023</button>
+            <button ngbDropdownItem>Semana V: 20 - 26 de Marzo 2023</button>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-md-4 mt-1" style="margin-left: 4%;">
+        
+        <div ngbDropdown>
+          <button class="btn btn-primary" id="btn" 
+                  ngbDropdownToggle>20 de Marzo 2023</button>
+          <div ngbDropdownMenu="gfg">
+            <button ngbDropdownItem>21 de Marzo 2023</button>
+            <button ngbDropdownItem>22 de Marzo 2023</button>
+            <button ngbDropdownItem>23 de Marzo 2023</button>
+            <button ngbDropdownItem>24 de Marzo 2023</button>
+            <button ngbDropdownItem>25 de Marzo 2023</button>
+            <button ngbDropdownItem>26 de Marzo 2023</button>
+          </div>
+        </div>
+      </div>
+
+  </div>
+  
+
+
+<div class="card mt-5" style="width:75%; margin-left: 13%;">
+
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Matricula</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Hora de llegada</th>
+        <th scope="col">Hora de salida</th>
+        <th scope="col">Fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>A01276919</td>
+        <td>Alessandro Tolentino Hernández</td>
+        <td>13:24</td>
+        <td>17:00</td>
+        <td>28/04/2023</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>A01276919</td>
+        <td>Alessandro Tolentino Hernández</td>
+        <td>13:24</td>
+        <td>17:00</td>
+        <td>28/04/2023</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>A01276919</td>
+        <td>Alessandro Tolentino Hernández</td>
+        <td>13:24</td>
+        <td>17:00</td>
+        <td>28/04/2023</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+
+  <div class="row" style="margin-left: 35%; margin-top: 2.5%;">
+
+    <div class="col-md-2">
+        <button class="btn btn-primary btn-lg" id="btn" style="font-size: 1.3rem;" > Exportar 
+            <img src="../assets/img/descargas.png" height="25" width="25" class="card-img" alt="...">
+        </button>
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-primary btn-lg" id="btn" style="font-size: 1.3rem;  " (click)="open(mymodal) "> + Añadir registro </button>    </div>
+
+  </div>
+
+
+  
+
+
+
+  <ng-template #mymodal let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Añadir registro </h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span  aria-hidden="true">×</span>
+      </button>
+  </div>
+  <div class="modal-body">
+    <div class="input-group flex-nowrap">
+        <span class="input-group-text" id="addon-wrapping">Matricula</span>
+        <input type="text" class="form-control" placeholder="A0xxxxxxx" aria-label="Username" aria-describedby="addon-wrapping">
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger"  id ="btn2"aria-label="Close" (click)="modal.dismiss('Cross click')"> Cancelar</button>
+    <button type="button" class="btn btn-primary" id = "btn" (click)="modal.close('Save click')">Crear</button>
+      
+  </div>
+  </ng-template>

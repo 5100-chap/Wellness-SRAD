@@ -1,0 +1,207 @@
+<!-- La idea de esto fue hacer una ventana "global" entre coach y nutriologo que sirva para que solo haga un query   -->
+
+<!--Banner  y Nombre-->
+<div class="img-fluid" class = "opacity-30"  >
+    <div class=" text-white">
+        <img src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="180" class="card-img" alt="...">
+        <div class="card-img-overlay">
+        <h5 class="card-title">&nbsp;</h5>
+        <h5 class="card-title">&nbsp;</h5>
+        <h5 class="card-title">&nbsp;</h5>
+        <h5 class="card-title">&nbsp;</h5>
+        <!--Nombre del Asesor-->
+        <h1 class="card-title" class = "text-center"> Asesor </h1>
+        </div>
+    </div>
+</div>
+
+<!--imagen-->
+<div class="rounded-circle  shadow-1-strong d-flex align-items-center justify-content-center mb-4 mx-auto" style="width: 100px; height: 100px;">
+    <img src="https://live.staticflickr.com/65535/50630706993_00b8c57751_w.jpg"  class="rounded-circle" height="250px px" alt=""
+         loading="lazy" />
+</div>
+
+<h5 class="card-title">&nbsp;</h5>
+<h5 class="card-title">&nbsp;</h5>
+<h5 class="card-title">&nbsp;</h5>
+
+<h1 class = "text-center"> Arnold S.
+    <br/>
+    <small class="text-muted" style="font-size: 2rem;"> Entrenador </small></h1>
+
+
+<!--Reservación-->
+<h2 style="margin-left: 5%; margin-top: 2%; margin-bottom: 0.5%;"> <strong> Reservación </strong> </h2>  
+
+<br>
+<div class="vstack gap-4 col-md-10 mx-auto">
+
+    <div class="card w-100 border border-gray border border-2">
+        <div class="col card-header">
+  
+       
+            <div class="row" style="margin-left: 1%;">
+    
+              <div class="mt-1" id="circulo"> </div>
+    
+              <div class=" col-md-2 mt-1">
+    
+                <h4>Estado: <small class="text-success">Disponible</small></h4>
+    
+              </div>
+    
+              <div class="col-md-3 mt-1">
+    
+                  <form [formGroup]="form" (ngSubmit)="submit()" >  
+              
+                      <div class="form-group">  
+                          
+                          <select formControlName="website" class="form-control" id="btn"  (change)="changeWebsite($event)" >  
+                              <option disabled>Selecciona una semana</option>  
+                              <option> Selecciona una semana </option>  
+                              <option *ngFor="let web of websiteList">{{web}}</option>  
+                          </select>  
+                       
+                      </div>  
+                      
+                  </form>  
+              </div>
+            </div>
+       
+        </div>
+        
+
+        
+
+        <br>
+        
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col" class="text-center"> Lunes</th>
+                <th scope="col" class="text-center"> Martes</th>
+                <th scope="col" class="text-center"> Miercoles</th>
+                <th scope="col" class="text-center"> Jueves</th>
+                <th scope="col" class="text-center"> Viernes</th>
+                <th scope="col" class="text-center"> Sábado</th>
+                <th scope="col" class="text-center"> Domingo</th>
+      
+              </tr>
+            </thead>
+            <tbody>
+      
+      
+              <tr *ngFor="let al of reservaArray" (click)="openForEdit(al)" [class.active]="al == seleReserva">
+      
+                <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+                <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+                <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+                <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+                <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+                <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+                <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+      
+              </tr>
+      
+      
+            </tbody>
+          </table>
+      
+        </div>
+      </div>
+      
+      
+       <!-- Resumen de reservación-->
+      
+      <div class="vstack gap-4 col-md-10 mx-auto mt-2">
+      
+        <div id="reserve" class="card w-100 border border-light border border-2">
+          <br>
+      
+      
+          <div class="container">
+            <div class="row">
+      
+              <div class=" col-md-10 ">
+                <h4> <strong> &nbsp; Horario Seleccionado: </strong></h4>
+                <input [(ngModel)]="seleReserva.fecha" type="text" class="form-control" disabled id="reserve">
+      
+              </div>
+      
+              <div class=" col-md-2 mt-3">
+                <button id="btn2" style = "font-size: 1.4rem;" class="btn" (click)="open(mymodal)"> Reservar </button>
+                <ng-template #mymodal let-modal>
+                  <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    Tu reservación ha sido exitosa!
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
+                  </div>
+                </ng-template>
+              </div>
+      
+            </div>
+      
+            <br>
+      
+          </div>
+        </div>
+    
+<!--Ubicación y Reseña-->
+<div class="row">
+    <div class="col-md-5 mt-4">
+        <h3> <strong>Especialidad</strong> </h3> 
+        <div class = "card border border-black border border-2">
+        <h5 style="margin-left: 1%; margin-top:1%;">Acondicionamiento Fisico</h5>
+        </div>
+    </div>
+
+    <div class="col-md-7 mt-4">
+        <h3> <strong>Reseñas</strong> </h3> 
+        <div class = "card border border-black border border-2">
+        <div class="row">
+
+            <div class="col-md-10 mt-2">
+                <h5> &nbsp; Atención </h5>
+            </div>
+
+            <div class="col-md-2 mt-2">
+            ★★★★☆ 4
+            
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-10 mt-2">
+                <h5> &nbsp; Actitud </h5>
+            </div>
+
+            <div class="col-md-2 mt-2">
+            ★★★★★ 5
+            
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-10 mt-2">
+                <h5> &nbsp; Planeación </h5>
+            </div>
+
+            <div class="col-md-2 mt-2">
+            ★★★☆☆ 3
+            
+            </div>
+        </div>
+        
+        </div>
+        
+    </div>
+</div>

@@ -39,6 +39,57 @@
 
 button:hover {
     text-decoration: none;
-    color: #003366 !important;
+    color: #c2c2c2 !important;
     
+}
+
+#progress {
+	height: 17px;
+	width: 17px;
+	border-radius: 50%;
+	display: grid;
+	place-items: center;
+	float: left;
+	margin-top: 3px;
+	margin-right: 10px;
+  }
+  
+  #progress-value {
+	display: block;
+	height: calc(100% - 4px);
+	width: calc(100% - 4px);
+	background-color: #ffffff;
+	border-radius: 50%;
+	display: grid;
+	place-items: center;
+	font-weight: 600;
+	font-size: 20px;
+  }
+
+  #btn2 {
+
+    background: #ffffff;
+    border-color: transparent;
+    color: #003399;
+	
+}
+
+#btn {
+
+    background: #003399;
+    border-color: transparent;
+    color: white;
+}
+
+
+.img-banner{
+    background: #000000;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #003399, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #003399, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.img-banner2{
+    background: #000000;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #000000, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #000000, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
