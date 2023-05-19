@@ -1,0 +1,158 @@
+.login-page .card-login .logo-container {
+    width: 180px;
+}
+
+.page-header[filter-color="orange"] {
+    background: rgba(44, 44, 44, 0.2);
+    background: -webkit-linear-gradient(90deg,
+            rgba(2, 54, 224, 0.6),
+            rgba(95, 125, 139, 0.6));
+    background: -o-linear-gradient(90deg,
+            rgba(2, 54, 224, 0.6),
+            rgba(95, 125, 139, 0.6));
+    background: -moz-linear-gradient(90deg,
+            rgba(2, 54, 224, 0.6),
+            rgba(95, 125, 139, 0.6));
+    background: linear-gradient(0deg,
+            rgba(2, 54, 224, 0.6),
+            rgba(95, 125, 139, 0.6));
+}
+
+body {
+    font-size: 18px;
+    font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
+}
+
+.navbar .navbar-nav .nav-link {
+    font-size: 14px;
+}
+
+.footer ul li a {
+    font-size: 14px;
+}
+
+.login-page .link {
+    font-size: 12px;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
+}
+
+.btn-primary {
+    background-color: #0033a0;
+}
+
+a {
+    color: #2196f3;
+}
+
+a:hover,
+a:focus {
+    color: #058eff;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary:active:focus,
+.btn-primary:active:hover,
+.btn-primary.active:focus,
+.btn-primary.active:hover,
+.open>.btn-primary.dropdown-toggle,
+.open>.btn-primary.dropdown-toggle:focus,
+.open>.btn-primary.dropdown-toggle:hover {
+    background-color: #e19a27;
+}
+
+.navbar-brand img {
+    width: 200px;
+}
+
+.note-popover {
+    display: none;
+}
+
+@media screen and (max-width: 991px) {
+    .navbar-collapse:before {
+        background: #000;
+        background: -webkit-linear-gradient(#000 0%, #000 80%);
+        background: -o-linear-gradient(#000 0%, #000 80%);
+        background: -moz-linear-gradient(#000 0%, #000 80%);
+        background: linear-gradient(#000 0%, #000 80%);
+        opacity: 0.76;
+        filter: alpha(opacity=76);
+        display: block;
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+
+    .navbar-brand img {
+        width: 120px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .footer ul li a {
+        font-size: 0.5em;
+    }
+
+    .footer {
+        font-size: 9px;
+        padding-bottom: 0;
+    }
+
+    .logo-container {
+        width: 75%;
+    }
+
+    .footer nav {
+        font-size: 8px;
+        float: none;
+    }
+
+    .footer ul li {
+        content: "";
+        display: table;
+        clear: both;
+        padding: 0 4em;
+    }
+
+    .footer .copyright {
+        font-size: 0.5em;
+        padding-top: 3em;
+    }
+}
+
+@media screen and (max-height: 568px) {
+    .footer ul li a {
+        font-size: 9px;
+    }
+
+    .footer {
+        font-size: 9px;
+        padding-bottom: 0;
+    }
+
+    .footer nav {
+        font-size: 9px;
+        float: none;
+    }
+
+    .footer ul li {
+        content: "";
+        display: table;
+        clear: both;
+        padding: 0 4em;
+    }
+}

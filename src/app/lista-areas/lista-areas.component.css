@@ -1,0 +1,38 @@
+.img-banner{
+    background: #000000;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #003399, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #003399, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.img-banner2{
+    background: #000000;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #000000, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #000000, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.img-bannerCerrado{
+    background: #000000;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #9d0909, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #9d0909, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+
+#btn2 {
+
+    background: #ffffff;
+    border-color: transparent;
+    color: #003399;
+	
+}
+
+#btn {
+
+    background: #003399;
+    border-color: transparent;
+    color: white;
+}
+
+#prueba{
+    color: whitesmoke;
+    /*-webkit-text-stroke: 0.1px black; /* width and color */
+}

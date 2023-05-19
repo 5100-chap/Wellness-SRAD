@@ -1,0 +1,90 @@
+#abierto {
+	
+	background: #067604;
+    color: white;
+	font-size: 1.4rem;
+    border-radius: 10px;
+    height: 90%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	
+}
+
+#cerrado {
+	
+	background: #bb0707;
+    color: white;
+	font-size: 1.8rem;
+    border-radius: 10px;
+    height: 90%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	
+}
+
+#card {
+	
+	background: #003399;
+    color: white;
+	font-size: 1.8rem;
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	
+}
+
+#text {
+	
+	
+    color: white;
+	font-size: 2rem;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+	
+}
+
+#align {
+	
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	
+}
+
+#btn {
+
+    background: #003399;
+    border-color: transparent;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	
+}
+
+
+#btn2 {
+
+    background: #ffffff;
+    border-color: #ffffff;
+    color: #003399;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	
+}
+
+
+
+
