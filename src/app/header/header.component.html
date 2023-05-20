@@ -10,8 +10,32 @@
 
       <ul class="nav justify-content-end">
 
-        <li class="nav-item" *ngIf="isAdminOrAlumno()">
+        <li class="nav-item" *ngIf="isAlumno()">
           <a class="nav-link active" aria-current="page" [routerLink]="'inicio'">Inicio</a>
+        </li>
+
+        <li class="nav-item" *ngIf="isAdmin()">
+          <a class="nav-link active" aria-current="page" [routerLink]="'inicioAdmin'">Inicio</a>
+        </li>
+
+        <li class="nav-item" *ngIf="isAdmin()">
+          <a class="nav-link active" aria-current="page" [routerLink]="'exportarDatos'">Exportar aforo</a>
+        </li>
+
+        <li class="nav-item" *ngIf="isAdmin()">
+          <a class="nav-link active" aria-current="page" [routerLink]="'crearAnuncio'">Crear anuncio</a>
+        </li>
+
+        <li class="nav-item" *ngIf="isAdmin()">
+          <a class="nav-link active" aria-current="page" [routerLink]="'monitorIngresos'">Monitor de ingresos</a>
+        </li>
+
+        <li class="nav-item" *ngIf="isAdmin()">
+          <a class="nav-link active" aria-current="page" [routerLink]="'monitorReservas'">Reservas</a>
+        </li>
+
+        <li class="nav-item" *ngIf="isAdmin()">
+          <a class="nav-link active" aria-current="page" [routerLink]="'crearArea'">Añadir area</a>
         </li>
 
         <li class="nav-item" *ngIf="isAlumno()">
