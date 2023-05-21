@@ -15,6 +15,7 @@ export class ListaReservasComponent {
     
   closeResult: string = '';
   Reservas!: ReservasAlumno[];
+  slices: Number[] = [];
      
   /*------------------------------------------
   --------------------------------------------
@@ -48,6 +49,16 @@ export class ListaReservasComponent {
     const usuario = this.authService.currentUserValue['username'];
     this.apiService.getTodasReservasAlumno(usuario).subscribe((data: ReservasAlumno[])=>{
       this.Reservas = data;
+      if(data.length != 0){
+        let ant=data[0]['id_area_deportiva'];
+        for(let i=1; i<data.length; i++){
+          if(ant !== data[i]['id_area_deportiva']){
+            ant = data[i]['id_area_deportiva'];
+            this.slices.push(i);
+          }
+        }
+        this.slices.push(data.length);
+      }
     },
     error=>{
       console.error('Error fetching all reservas from alumno --> ', error);
@@ -73,6 +84,34 @@ export class ListaReservasComponent {
 
   printIndex(index: number){
     console.log(index);
+  }
+
+  marcarLlegada(index: number): boolean{
+    if(this.Reservas[index]['estado']=='Activa'){
+      return true;
+    }
+    return false;
+  }
+
+  reagendar(index: number): boolean{
+    if(this.Reservas[index]['estado']=='Activa' || this.Reservas[index]['estado']=='Cancelada'){
+      return true;
+    }
+    return false;
+  }
+
+  cancelarReserva(index: number): boolean{
+    if(this.Reservas[index]['estado']=='Activa'){
+      return true;
+    }
+    return false;
+  }
+
+  marcarSalida(index: number): boolean{
+    if(this.Reservas[index]['estado']=='En curso'){
+      return true;
+    }
+    return false;
   }
      
   /**

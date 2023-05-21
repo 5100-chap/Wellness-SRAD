@@ -46,4 +46,16 @@ router.delete('/api/cancelReservacionArea', async(req, res, next)=>{
     }
 });
 
+// Reserva en curso
+router.put('/api/reservaEnCurso', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();
+        var result = await request.query(`EXEC [dbo].[ReservaEnCurso] ${req.body.id};`);
+        res.sendStatus(200);
+    }catch(error){
+        console.log(error);
+        res.sendStatus(404);
+    }
+});
+
 module.exports = router;
