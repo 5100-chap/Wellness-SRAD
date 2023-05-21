@@ -5,7 +5,7 @@ const queries = require("../database/queries");
 
 
 // Obtener las reservas de un alumno
-router.get('/api/getTodasReservasAlumno', async(req, res, next)=>{
+router.post('/api/getTodasReservasAlumno', async(req, res, next)=>{
     try{
         var request = new sql.Request();
         var result = await request.query(`EXEC [dbo].[GetTodasReservasAlumno] \'${req.body.usuario}\';`);

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ReservasAlumno } from './models/reservas-alumno.model';
 
 interface AlumnoStatusResponse {
   status: number;
@@ -61,5 +62,9 @@ export class ApiService {
     return this.http.get<AforoSemanalResponse[]>(
       `/api/AforoSemanal?date=${date}&areaId=${areaId}`
     );
+  }
+
+  getTodasReservasAlumno(usuario: String): Observable<ReservasAlumno[]>{
+    return this.http.post<ReservasAlumno[]>('/api/getTodasReservasAlumno', {"usuario": usuario});
   }
 }
