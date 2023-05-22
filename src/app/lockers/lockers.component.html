@@ -15,7 +15,6 @@
 </div>
 
 <br>
-
 <div class="vstack gap-4 col-md-11 mx-auto">
 
   <div class="card w-100 border border-gray border border-2">
@@ -58,13 +57,8 @@
         </div>
    
     </div>
-
-
-
     <br>
-
-
-    <table class="table-responsive">
+    <table class="table-responsive" >
 
       <tbody>
         <tr *ngFor="let al of reservaArray" (click)="openForEdit(al)" [class.active]="al == seleReserva">
@@ -154,18 +148,24 @@
   </div>
 
   <div class="row">
+    <!-- Seccion del Preview de Comprobante, esto se encuentra en el componente de image-upload -->
+    <app-image-upload></app-image-upload>
+    
 
+    <!-- Ubicacion -->
     <div class="col-md-5 mt-4">
       <h3> <strong>Ubicación</strong> </h3>
-      <div class="card border border-black border border-2">
+      <div class="card border border-grey border border-2" >
 
-        <h5>Primer piso - 102</h5>
+        <h5 style="margin-left: 2%; margin-top: 1%">Primer piso - 102</h5>
       </div>
     </div>
 
+
+    <!-- Reseñas -->
     <div class="col-md-7 mt-4">
       <h3> <strong>Reseñas</strong> </h3>
-      <div class="card border border-black border border-2">
+      <div class="card border border-grey border border-2">
         <div class="row">
 
           <div class="col-md-9 mt-2">

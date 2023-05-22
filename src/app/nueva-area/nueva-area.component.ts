@@ -15,9 +15,10 @@ export class NuevaAreaComponent  {
   /* Validación de los campos */
   NuevaAreaForm = new FormGroup({
     nombre: new FormControl('', Validators.required),
-    aforo: new FormControl('', Validators.required),
+    aforo: new FormControl('', Validators.required  ),
     ubicación: new FormControl('', Validators.required),
-    material: new FormControl('', Validators.required)
+    imagen: new FormControl('', Validators.required),
+    
   });
 
   resultado!: string;
