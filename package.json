@@ -23,6 +23,7 @@
     "@popperjs/core": "^2.11.7",
     "angularx-qrcode": "^15.0.1",
     "body-parser": "^1.20.2",
+    "bootstrap": "^5.2.3",
     "chart.js": "^4.2.1",
     "chartjs-plugin-labels": "^1.1.0",
     "dotenv": "^16.0.3",

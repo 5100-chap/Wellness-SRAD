@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { AuthService } from '../auth.service';
-import { ApiService } from '../api.service';
+import { AuthService } from '../services/auth.service';
+import { ApiService } from '../services/api.service';
 import { ReservasAlumno } from '../models/reservas-alumno.model';
 
 @Component({
