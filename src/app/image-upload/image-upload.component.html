@@ -1,32 +1,45 @@
 <div class="row">
     <h4><strong>Comprobante de Pago</strong></h4>
 
-    <div class="card border border-black border border-2">
-      <div class="col-8">
-        <label class="btn btn-default p-0">
-          <input type="file" style="display: none"  accept="image/*" (change)="selectFile($event)" #hiddenfileinput/>
-          <button class="btn btn-success btn-sm" (click)="hiddenfileinput.click()"  id="chooseFile">Seleccionar Imágen</button>
-        </label>
-      </div>
-    
+    <div class = "vstack gap-4 col-md-11 mx-auto">
+
+      <div class="card border border-grey border border-2">
+
+        <div class="row">
+          <div class="col-2">
+            <label class="btn btn-default p-0" style="margin-top: 10%; margin-left: 4%;">
+              <input type="file" style="display: none"  accept="image/*, .pdf" (change)="selectFile($event)" #hiddenfileinput/>
+              
+              <button class="btn btn-sm" (click)="hiddenfileinput.click()"  id="btn">Seleccionar archivo</button>
       
-
-      <div class="col-4">
-        <button
-          class="btn btn-success btn-sm float-right"
-          [disabled]="!selectedFiles"
-          (click)="upload()"
-          id="SubirPago"
-        >
-          Subir Imágen
-        </button>
-
-        <div>
-          <img [src]="preview" class="preview" />
+            </label>
+          </div>
+  
+          <div class="col-2" style="margin-top: 1.6%;">
+            <button class="btn btn-sm float-right" [disabled]="!selectedFiles" (click)="upload()" id="btn"> Subir comprobante  </button>
+          </div>
+  
         </div>
-      <br>
+    
+  
+        <div class="col-4" style="margin-top: 2%; margin-left: 2%; width: 30%; height: 30%;">
+         
+          <div >
+            <img [src]="preview" class="preview" />
+          </div>
+           <br>
+  
+        </div>
+  
+  
       </div>
+  
+
+
     </div>
+
+
+    
     
     
     <div *ngIf="currentFile && progress" class="progress my-3">
@@ -35,7 +48,7 @@
         role="progressbar"
         attr.aria-valuenow="{{ progress }}"
         aria-valuemin="0"
-        aria-valuemax="100"
+        aria-valuemax="50"
         [ngStyle]="{ width: progress + '%' }"
       >
         {{ progress }}%
@@ -45,6 +58,5 @@
     <div *ngIf="message" class="alert alert-secondary" role="alert">
       {{ message }}
     </div>
-    
   
   </div>
