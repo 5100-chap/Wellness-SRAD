@@ -15,7 +15,7 @@ export class ListaReservasComponent {
     
   closeResult: string = '';
   Reservas!: ReservasAlumno[];
-  slices: Number[] = [];
+  slices: number[] = [];
      
   /*------------------------------------------
   --------------------------------------------
@@ -51,6 +51,7 @@ export class ListaReservasComponent {
       this.Reservas = data;
       if(data.length != 0){
         let ant=data[0]['id_area_deportiva'];
+        this.slices.push(0);
         for(let i=1; i<data.length; i++){
           if(ant !== data[i]['id_area_deportiva']){
             ant = data[i]['id_area_deportiva'];
@@ -59,12 +60,20 @@ export class ListaReservasComponent {
         }
         this.slices.push(data.length);
       }
+      console.log(this.slices);
     },
     error=>{
       console.error('Error fetching all reservas from alumno --> ', error);
     });
   }
 
+  cancelarReserva(index: number){
+    const usuario = this.authService.currentUserValue['username'];
+    this.apiService.cancelarReservaAlumno(usuario, this.Reservas[index]['id']).subscribe(error=>{
+      console.log(error);
+    });
+  }
+  
   tengoAsesor(dato: String): String{
     if(dato==null){
       return "Ninguno";
@@ -86,33 +95,34 @@ export class ListaReservasComponent {
     console.log(index);
   }
 
-  marcarLlegada(index: number): boolean{
+  marcarLlegadaBtn(index: number): boolean{
     if(this.Reservas[index]['estado']=='Activa'){
       return true;
     }
     return false;
   }
 
-  reagendar(index: number): boolean{
+  reagendarBtn(index: number): boolean{
     if(this.Reservas[index]['estado']=='Activa' || this.Reservas[index]['estado']=='Cancelada'){
       return true;
     }
     return false;
   }
 
-  cancelarReserva(index: number): boolean{
+  cancelarReservaBtn(index: number): boolean{
     if(this.Reservas[index]['estado']=='Activa'){
       return true;
     }
     return false;
   }
 
-  marcarSalida(index: number): boolean{
+  marcarSalidaBtn(index: number): boolean{
     if(this.Reservas[index]['estado']=='En curso'){
       return true;
     }
     return false;
   }
+
      
   /**
    * Write code on Method

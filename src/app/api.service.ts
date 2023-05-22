@@ -67,4 +67,8 @@ export class ApiService {
   getTodasReservasAlumno(usuario: String): Observable<ReservasAlumno[]>{
     return this.http.post<ReservasAlumno[]>('/api/getTodasReservasAlumno', {"usuario": usuario});
   }
+
+  cancelarReservaAlumno(usuario: String, id: number){
+    return this.http.delete('/api/cancelReservacionArea', {body: {"usuario": usuario, "id": id}});
+  }
 }
