@@ -1,15 +1,17 @@
 <!--Banner-->
 
-<div class="img-fluid" class = "opacity-30"  >
+<div class="img-fluid" class="opacity-30">
   <div class=" text-white">
-    <img src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="130" class="card-img" alt="...">
+    <img
+      src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80"
+      height="130" class="card-img" alt="...">
     <div class="card-img-overlay">
       <h5 class="card-title">&nbsp;</h5>
       <h5 class="card-title">&nbsp;</h5>
       <h5 class="card-title">&nbsp;</h5>
       <h5 class="card-title">&nbsp;</h5>
 
-      <h1 class="card-title" class = "text-center"> Estadisticas del Gimnasio </h1>
+      <h1 class="card-title" class="text-center"> Estadisticas del Gimnasio </h1>
     </div>
   </div>
 </div>
@@ -29,10 +31,10 @@
   <div class="row">
     <div class="col-md-1 mt-4"></div>
     <div class="col-md-10 mt-5">
-        <div class="chart-container">
-            <canvas id="Dia">{{ chart }}</canvas>
-            <br>
-          </div>
+      <div class="chart-container">
+        <canvas id="Dia">{{ chart }}</canvas>
+        <br>
+      </div>
     </div>
   </div>
 </div>
@@ -45,16 +47,20 @@
   <h4 class="card-header text-center">Ingresos por hora</h4>
 
   <div class="col-md-3 mt-3" style="margin-left: 2%;">
-    <!--Crear un selector de dias aqui-->
+    <div class="col-md-3 mt-3" style="margin-left: 2%;">
+      <label for="dayPicker">Elige el día:</label>
+      <input type="date" id="dayPicker" [formControl]="dayControl">
+    </div>
+
   </div>
 
   <div class="row">
     <div class="col-md-1 mt-4"></div>
     <div class="col-md-10 mt-5">
-        <div class="chart-container">
-            <canvas id="linea">{{ chart }}</canvas>
-            <br>
-          </div>
+      <div class="chart-container">
+        <canvas id="linea">{{ chart }}</canvas>
+        <br>
+      </div>
     </div>
   </div>
 </div>
