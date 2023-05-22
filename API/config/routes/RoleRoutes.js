@@ -19,7 +19,6 @@ router.get("/api/getAllAlumni", async (req, res, next) => {
     }
 });
 
-
 router.get("/api/getXCredentials", async (req, res, next) => {
     try {
         // Consigue el header de autentificacion

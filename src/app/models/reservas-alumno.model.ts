@@ -6,4 +6,5 @@ export class ReservasAlumno {
     hora!: String;
     id_area_deportiva: number = 0;
     nombre!: String;
+    asesorNombre!: String;
 }

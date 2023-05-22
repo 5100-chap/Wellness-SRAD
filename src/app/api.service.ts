@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ReservasAlumno } from './models/reservas-alumno.model';
+import { AsesorNombre } from './models/asesor-nombre';
 
 interface AlumnoStatusResponse {
   status: number;
@@ -70,5 +71,20 @@ export class ApiService {
 
   cancelarReservaAlumno(usuario: String, id: number){
     return this.http.delete('/api/cancelReservacionArea', {body: {"usuario": usuario, "id": id}});
+  }
+
+  marcarLlegadaReserva(usuario: String, area_id: number, id_reservacion: number){
+    return this.http.post('/api/marcarLlegadaReserva', {
+      usuario: usuario,
+      area_id: area_id,
+      id_reservacion: id_reservacion
+    });
+  }
+
+  marcarSalidaReserva(usuario: String, id: number){
+    return this.http.post('/api/marcarSalidaReserva', {
+      usuario: usuario,
+      id: id
+    });
   }
 }
