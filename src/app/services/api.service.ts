@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ReservasAlumno } from '../models/reservas-alumno.model';
 
 //Importar clases para Api services
 import { Area } from '../models/area';
@@ -59,4 +60,12 @@ export class ApiService {
     return this.http.get<Area[]>(`/api/AreaInformacion?nombreArea=${nombreArea}`);
   }
 
+
+  getTodasReservasAlumno(usuario: String): Observable<ReservasAlumno[]>{
+    return this.http.post<ReservasAlumno[]>('/api/getTodasReservasAlumno', {"usuario": usuario});
+  }
+
+  cancelarReservaAlumno(usuario: String, id: number){
+    return this.http.delete('/api/cancelReservacionArea', {body: {"usuario": usuario, "id": id}});
+  }
 }
