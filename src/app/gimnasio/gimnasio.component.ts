@@ -15,7 +15,7 @@ import { ApiService } from '../services/api.service';
 import { AuthService } from '../services/auth.service';
 import { FormGroup } from '@angular/forms';
 import { AlumnoStatusResponse } from '../models/alumnoStatusResponse';
-
+import { Area } from '../models/area';
 
 declare var window: any;
 
@@ -26,6 +26,10 @@ declare var window: any;
   styleUrls: ['./gimnasio.component.css'],
 })
 export class GimnasioComponent implements OnInit {
+
+  Areainfo: Area[] = [];
+  areaId: number = 0;
+
   reservaArray: Reservas[] = [
     {
       id: 1,
@@ -155,6 +159,11 @@ export class GimnasioComponent implements OnInit {
   ngOnInit() : void {
     this.getAforoArea();
     this.getAlumnoStatus();
+
+    this.apiService.getAreaByName('gimnasio').subscribe((response) => {
+      this.Areainfo = response;
+      this.areaId = this.Areainfo[0].AreaId;
+    });
   }
 
   getAlumnoStatus(): void {
@@ -170,19 +179,20 @@ export class GimnasioComponent implements OnInit {
   }
 
   aumentarAforo(): void{
-    this.apiService.aumentarAforo(2).subscribe(error => {
+    this.apiService.aumentarAforo(this.areaId).subscribe(error => {
       console.error('Error fetching area id status: ', error);
     });
   }
 
   disminuirAforo(): void{
-    this.apiService.disminuirAforo(2).subscribe(error => {
+    this.apiService.disminuirAforo(this.areaId).subscribe(error => {
       console.error('Error fetching area id status', error);
     });
   }
 
   getAforoArea(): void{
-    this.apiService.consultarAforo(2).subscribe(
+
+    this.apiService.consultarAforo(this.areaId).subscribe(
       (data: any) =>{
         this.aforoData = data['actuales'] + "/" + data['totales'];
         this.createChart(Number(data['actuales']), Number(data['totales']));
@@ -245,7 +255,7 @@ export class GimnasioComponent implements OnInit {
   }
 
   marcarLlegadaOSalida() {
-    this.apiService.marcar(this.authService.currentUserValue['username'], 2).subscribe();
+    this.apiService.marcar(this.authService.currentUserValue['username'], this.areaId).subscribe();
     this.getAlumnoStatus();
     this.getAforoArea();
     window.location.reload();
