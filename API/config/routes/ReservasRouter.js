@@ -5,7 +5,7 @@ const queries = require("../database/queries");
 
 
 // Obtener las reservas de un alumno
-router.get('/api/getTodasReservasAlumno', async(req, res, next)=>{
+router.post('/api/getTodasReservasAlumno', async(req, res, next)=>{
     try{
         var request = new sql.Request();
         var result = await request.query(`EXEC [dbo].[GetTodasReservasAlumno] \'${req.body.usuario}\';`);
@@ -41,6 +41,18 @@ router.delete('/api/cancelReservacionArea', async(req, res, next)=>{
         res.sendStatus(200);
     }
     catch(error){
+        console.log(error);
+        res.sendStatus(404);
+    }
+});
+
+// Reserva en curso
+router.put('/api/reservaEnCurso', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();
+        var result = await request.query(`EXEC [dbo].[ReservaEnCurso] ${req.body.id};`);
+        res.sendStatus(200);
+    }catch(error){
         console.log(error);
         res.sendStatus(404);
     }

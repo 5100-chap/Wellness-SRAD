@@ -1,9 +1,9 @@
-import { inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Injectable, inject } from '@angular/core';
+import { Router, UrlTree } from '@angular/router';
 
-import { AuthService } from './auth.service';
+import { AuthService } from '../services/auth.service';
 
-export const authGuard = (allowedRoles: string[]) => {
+export function authGuard(allowedRoles: string[]) {
     return () => {
         const authService = inject(AuthService);
         const router = inject(Router);
@@ -14,5 +14,5 @@ export const authGuard = (allowedRoles: string[]) => {
         }
 
         return router.parseUrl('/login');
-    }
-};
+    };
+}
