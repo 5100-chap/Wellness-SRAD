@@ -6,5 +6,4 @@ export class Reservas {
     hora !: string;
     estado !: string;
     id_instructor !: string;
-
 }

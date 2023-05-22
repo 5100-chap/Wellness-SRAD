@@ -11,15 +11,14 @@ import Chart, { Legend, plugins } from 'chart.js/auto';
 import 'chartjs-plugin-labels';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Reservas } from '../models/reservas';
-import { ApiService } from '../api.service';
-import { AuthService } from '../auth.service';
+import { ApiService } from '../services/api.service';
+import { AuthService } from '../services/auth.service';
 import { FormGroup } from '@angular/forms';
+import { AlumnoStatusResponse } from '../models/alumnoStatusResponse';
+
 
 declare var window: any;
 
-interface AlumnoStatusResponse {
-  status: number;
-}
 
 @Component({
   selector: 'app-gimnasio',
@@ -128,15 +127,13 @@ export class GimnasioComponent implements OnInit {
   alumnoStatus: number = -1;
   
 
-  createChart() {
+  createChart(actuales: Number, totales: Number) {
     var xValues = ['Libre', 'Ocupado'];
-    var yValues = [55, 49];
+    var yValues = [actuales, totales];
 
     var barColors = ['#6c9bcf', '#654e92'];
-
     this.chart = new Chart('MyChart', {
       type: 'pie', //this denotes tha type of chart
-
       data: {
         // values on X-Axis
         labels: xValues,
@@ -156,9 +153,8 @@ export class GimnasioComponent implements OnInit {
   }
 
   ngOnInit() : void {
-    this.createChart();
-    this.getAlumnoStatus();
     this.getAforoArea();
+    this.getAlumnoStatus();
   }
 
   getAlumnoStatus(): void {
@@ -166,7 +162,6 @@ export class GimnasioComponent implements OnInit {
     this.apiService.verificarLlegada(usuario).subscribe(
       (data: AlumnoStatusResponse) => {
         this.alumnoStatus = data.status;
-        console.log(this.alumnoStatus);
       },
       error => {
         console.error('Error fetching alumno status:', error);
@@ -190,6 +185,7 @@ export class GimnasioComponent implements OnInit {
     this.apiService.consultarAforo(2).subscribe(
       (data: any) =>{
         this.aforoData = data['actuales'] + "/" + data['totales'];
+        this.createChart(Number(data['actuales']), Number(data['totales']));
       },
       error => {
         console.log('Error fetching aforo status:', error);

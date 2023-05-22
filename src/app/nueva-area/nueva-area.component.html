@@ -1,121 +1,167 @@
+<!-- Encabezado del formulario de la creación de la nueva área--> 
+
 <div class="img-fluid" class = "opacity-30"  >
-    <div class=" text-white">
-      <img src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="130" class="card-img" alt="...">
-      <div class="card-img-overlay">
-        <h5 class="card-title">&nbsp;</h5>
-        <h5 class="card-title">&nbsp;</h5>
-        <h5 class="card-title">&nbsp;</h5>
-        <h5 class="card-title">&nbsp;</h5>
-  
-        <h1 class="card-title" class = "text-center"> Crear nueva área deportiva</h1>
-      </div>
+  <div class=" text-white">
+    <img src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="130" class="card-img" alt="...">
+    <div class="card-img-overlay">
+      <h5 class="card-title">&nbsp;</h5>
+      <h5 class="card-title">&nbsp;</h5>
+      <h5 class="card-title">&nbsp;</h5>
+      <h5 class="card-title">&nbsp;</h5>
+
+      <h1 class="card-title" class = "text-center"> Crear nueva área deportiva</h1>
     </div>
   </div>
-  
+</div>
+
+
 <h3 style="margin-left: 1%;" class="mt-4"> &nbsp; &nbsp; <strong> Datos de la nueva área deportiva </strong> </h3>
 
-  
+<!--Formulario para la creación de la nueva área-->
+
+<form [formGroup]="NuevaAreaForm"   name="NuevaAreaForm" id="NuevaAreaForm"
+acceptcharset="utf-8"  role="form">
+
 <div class="row " style="margin-left: 1.5%; margin-top: 2%;">
-  
-    <div class = "col-md-6" >
-      <div class="input-group mb-3">
-        <span class="input-group-text" id="title">Nombre del área deportiva </span>
-        <input type="text" class="form-control" placeholder="Escribe el nombre aquí" aria-label="Username" aria-describedby="basic-addon1">
-      </div>
+
+<div class = "col-md-6" >
+  <div class="input-group form-group-no-border input-lg mb-3">
+    <span class="input-group-text" id="title">Nombre del área deportiva </span>
+    <input type="text" formControlName="nombre" tabindex="1" required autocomplete="off" class="form-control" placeholder="Escribe el nombre aquí" aria-label="Username" aria-describedby="basic-addon1">
+    
+  </div>
+
+   <!--Validar si el campo nombre está vacio -->
+   <span *ngIf="this.NuevaAreaForm.get('nombre')?.errors?.['required']"  style= "color: rgba(203, 23, 10, 0.913);">
+    El nombre no puede quedar vacío
+  </span>
+</div>
+
+
+<div class = "col-md-5"  >
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="title" >Número de aforo</span>
+      <input type="number" formControlName="aforo" tabindex="2" required autocomplete="off" class="form-control" placeholder="Insertar aforo aquí" aria-label="Username" aria-describedby="basic-addon1" min="1">
+
+      
+    </div>
+      <!--Validar si el campo número de aforo está vacio -->
+      <span *ngIf="this.NuevaAreaForm.get('aforo')?.errors?.['required']"  style= "color: rgba(203, 23, 10, 0.913);">
+        El aforo no puede quedar vacío
+      </span>
+
+       
+
+
+
+  </div>
+</div>
+
+<br>
+
+<div class="row" style="margin-left: 1.5%;">
+  <div class = "col-md-11 mt-2" >
+
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="title">Ubicación</span>
+      <input type="text" formControlName="ubicación" tabindex="3" autocomplete="off" class="form-control" placeholder="Insertar ubicación aquí" aria-label="Username" aria-describedby="basic-addon1">
     </div>
 
-    <div class = "col-md-5"  >
-    
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="title" >Número de aforo</span>
-          <input type="number" class="form-control" placeholder="Insertar aforo aquí" aria-label="Username" aria-describedby="basic-addon1" min="1">
-        </div>
-      </div>
+    <!--Validar si el campo ubicación está vacio -->
+    <span *ngIf="this.NuevaAreaForm.get('ubicación')?.errors?.['required']"  style= "color: rgba(203, 23, 10, 0.913);">
+      La ubicación no puede quedar vacía
+    </span>
+
+  </div>
+
 </div>
+
+<br>
+
 
 
 
 <div class="row" style="margin-left: 1.5%;">
-    <div class = "col-md-11 mt-2" >
+<div class = "col-md-11 mt-2" >
+ 
+  <div class="form-check input-group mb-2">
+    <input type="checkbox" name="rad2" (change)="true" #checkBox> &nbsp; ¿El nuevo espacio requiere materiales?
+  </div>
+
+
+  <div *ngIf="checkBox.checked" class="input-group mb-3">
     
-      <div class="input-group mb-3">
-        <span class="input-group-text" id="title">Ubicación</span>
-        <input type="text" class="form-control" placeholder="Insertar ubicación aquí" aria-label="Username" aria-describedby="basic-addon1">
-      </div>
-    </div>
+    <span class="input-group-text" id="title">Material disponible</span>
+    <input type="text" formControlName="material" tabindex="4" autocomplete="off" class="form-control" placeholder="Insertar material aquí" aria-label="Username" aria-describedby="basic-addon1">
+ </div>   
+
 </div>
 
-
-
-
-  <div class="row" style="margin-left: 1.5%;">
-    <div class = "col-md-11 mt-2" >
-      <div class="form-check input-group mb-2">
-  
-        <input class="form-check-input" type="checkbox" id="check1" name="option1" value="something" style="border-color: rgba(128, 128, 128, 0.413);" >
-        <label class="form-check-label"> &nbsp; ¿El nuevo espacio requiere materiales?</label>
-      </div>
-    
-      <div class="input-group mb-3">
-        <span class="input-group-text" id="title">Material disponible</span>
-        <input type="text" class="form-control" placeholder="Insertar material aquí" aria-label="Username" aria-describedby="basic-addon1">
-      </div>
-    </div>
-    
 </div>
+
+<br>
 
 
 <div class="row" style="margin-left: 1.5%;">
-    <div class = "col-md-8 mt-2" >
-    
-      <div class="input-group mb-5">
-        <span class="input-group-text" id="title">Imagen</span>
+  <div class = "col-md-8 mt-2" >
 
-        <form name="subida-imagenes" type="POST" enctype="multipart/formdata" style="margin-left: 1.5%;" class="mt-2" >
-            <input type="file" name="imagen" />
-        </form>
+    <div class="input-group mb-5">
+      <span class="input-group-text" id="title">Imagen</span>
+
+      <div name="subida-imagenes"  style="margin-left: 1.5%;" class="mt-2" >
+          <input type="file" formControlName="imagen" tabindex="4" autocomplete="off"  name="imagen" />
       </div>
     </div>
- </div>
+
+      <!--Validar si el campo imagen está vacio -->
+      <span *ngIf="this.NuevaAreaForm.get('imagen')?.errors?.['required']"  style= "color: rgba(203, 23, 10, 0.913);">
+        La imagen no puede quedar vacía
+      </span>
+      
+  </div>
+</div>
 
 
- <!--Botones-->
+<!--Botones-->
 
 
+<div class="row" style="margin-left: 35%; margin-top: 2%;">
 
- <div class="row" style="margin-left: 35%; margin-top: 2%;">
+  
 
   <div class="input-group">
     <div class="col-md-1 ">
       <button class="btn btn-primary btn-lg" id="btn2" style="font-size: 1.3rem;" routerLink="/inicioAdmin" > Cancelar
       </button>
-  </div>
-  <div class="col-md-3" style="margin-left:5%;">
-      <button class="btn btn-primary btn-lg" id="btn" style="font-size: 1.3rem;  " (click)="open(mymodal) "> Crear área deportiva </button>    
-  </div>
+    </div>
+
+    <div class="col-md-3" style="margin-left:5%;">
+        <button class="btn btn-primary btn-lg" type = "submit" [disabled]="NuevaAreaForm.invalid" id="btn" style="font-size: 1.3rem;  " (click)="open(mymodal) "> Crear área deportiva </button>  
+        <br>
+        <div style="color: #aa730d" *ngIf="NuevaAreaForm.invalid">
+          Favor de ingresar todos los datos
+        </div>  
+    </div>
 
 
   </div>
-
-
 
 </div>
 
+</form>
+
 
 <ng-template #mymodal let-modal>
-  <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span  aria-hidden="true">×</span>
-      </button>
-  </div>
-  <div class="modal-body">
-    Área deportiva creada exitosamente!
-  </div>
-  <div class="modal-footer">
-      <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
-  </div>
-  </ng-template>
-
-
-
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <span  aria-hidden="true">×</span>
+    </button>
+</div>
+<div class="modal-body">
+  Área deportiva creada exitosamente!
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
+</div>
+</ng-template>
