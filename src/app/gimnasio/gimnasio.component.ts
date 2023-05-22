@@ -14,12 +14,11 @@ import { Reservas } from '../models/reservas';
 import { ApiService } from '../services/api.service';
 import { AuthService } from '../services/auth.service';
 import { FormGroup } from '@angular/forms';
+import { AlumnoStatusResponse } from '../models/alumnoStatusResponse';
+
 
 declare var window: any;
 
-interface AlumnoStatusResponse {
-  status: number;
-}
 
 @Component({
   selector: 'app-gimnasio',

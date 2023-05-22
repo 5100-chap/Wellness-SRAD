@@ -2,19 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-interface AlumnoStatusResponse {
-  status: number;
-}
+//Importar clases para Api services
+import { Area } from '../models/area';
+import { AlumnoStatusResponse } from '../models/alumnoStatusResponse';
+import { AforoArea } from '../models/aforoArea';
+import { AforoSemanalResponse } from '../models/aforoSemanalResponse';
 
-interface AforoArea {
-  actual: number;
-  total: number;
-}
-
-interface AforoSemanalResponse {
-  DayOfWeek: number;
-  AttendanceCount: number;
-}
 
 @Injectable({
   providedIn: 'root',
@@ -62,4 +55,8 @@ export class ApiService {
       `/api/AforoSemanal?date=${date}&areaId=${areaId}`
     );
   }
+  getAreaByName(nombreArea: string): Observable<Area[]> {
+    return this.http.get<Area[]>(`/api/AreaInformacion?nombreArea=${nombreArea}`);
+  }
+
 }
