@@ -10,12 +10,12 @@ import {
 import Chart, { Legend, plugins } from 'chart.js/auto';
 import 'chartjs-plugin-labels';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { Reservas } from '../models/reservas';
+import { Reservas } from '../models/reservas.model';
 import { ApiService } from '../services/api.service';
 import { AuthService } from '../services/auth.service';
 import { FormGroup } from '@angular/forms';
-import { AlumnoStatusResponse } from '../models/alumnoStatusResponse';
-import { Area } from '../models/area';
+import { AlumnoStatusResponse } from '../models/alumnoStatusResponse.model';
+import { Area } from '../models/area.model';
 
 declare var window: any;
 
