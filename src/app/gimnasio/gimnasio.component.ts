@@ -26,6 +26,11 @@ declare var window: any;
   styleUrls: ['./gimnasio.component.css'],
 })
 export class GimnasioComponent implements OnInit {
+  meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+  actual: Date = new Date();
+  semana: String = `Semana ${this.actual.getDate()-this.actual.getDay()+1} - ${this.actual.getDate()+(7-this.actual.getDay())} de ${this.meses[this.actual.getMonth()]} ${this.actual.getFullYear()}`;
+
+  semanaSig: String = `Semana 20 - 26 de Marzo 2023`;
   reservaArray: Reservas[] = [
     {
       id: 1,
@@ -122,6 +127,18 @@ export class GimnasioComponent implements OnInit {
     }
   }
 
+  printWeekRange(){
+    const actual = new Date();
+    console.log(`Lunes -> ${actual.getDate()-actual.getDay()+1}, Domingo ->${actual.getDate()+(7-actual.getDay())}`);
+    const week = ['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado', 'Domingo'];
+    console.log(week[actual.getDay()-1]);
+  }
+
+  printWeekDay(day: number){
+    const week = ['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado', 'Domingo'];
+    console.log(week[day]);
+  }
+
   public chart: any;
   aforoData: String = "";
   alumnoStatus: number = -1;
@@ -155,6 +172,7 @@ export class GimnasioComponent implements OnInit {
   ngOnInit() : void {
     this.getAforoArea();
     this.getAlumnoStatus();
+    this.printWeekRange();
   }
 
   getAlumnoStatus(): void {
