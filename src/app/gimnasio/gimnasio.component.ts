@@ -27,10 +27,32 @@ declare var window: any;
 })
 export class GimnasioComponent implements OnInit {
   meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-  actual: Date = new Date();
-  semana: String = `Semana ${this.actual.getDate()-this.actual.getDay()+1} - ${this.actual.getDate()+(7-this.actual.getDay())} de ${this.meses[this.actual.getMonth()]} ${this.actual.getFullYear()}`;
+  now!: Date;
 
-  semanaSig: String = `Semana 20 - 26 de Marzo 2023`;
+  getSemanaRange(l: number, r: number): String{
+    const now = new Date();
+    let res = '';
+    const firstWeekNow = new Date(0, 0, l);
+    const lastWeekNow = new Date(0, 0, r);
+    let firstDay = now.getDate() - now.getDay() + firstWeekNow.getDate();
+    let lastDay = now.getDate() - now.getDay() + lastWeekNow.getDate();
+    if(firstDay < 0){
+      res += `Semana ${firstDay} de ${this.meses[((now.getMonth()-1<0)?11:now.getMonth()-1)]}`;
+    }
+    else{
+      res += `Semana ${firstDay}`;
+    }
+
+    const primerDiaMesSiguiente = new Date((now.getMonth()+1>11)?now.getFullYear()+1:now.getFullYear(), (now.getMonth()+1>11)?0:now.getMonth()+1, 1);
+    const ultimoDiaDelMes = new Date(primerDiaMesSiguiente.getTime() - 1);
+    if(lastDay > ultimoDiaDelMes.getDate()){
+      res += ` de ${this.meses[now.getMonth()]} - ${lastDay-ultimoDiaDelMes.getDate()} de ${this.meses[(now.getMonth()+1>11)?0:now.getMonth()+1]} ${now.getFullYear()}`;
+    }
+    else{
+      res += ` - ${lastDay} de ${this.meses[now.getMonth()]} ${now.getFullYear()}`;
+    }
+    return res;
+  }
   reservaArray: Reservas[] = [
     {
       id: 1,
@@ -172,7 +194,7 @@ export class GimnasioComponent implements OnInit {
   ngOnInit() : void {
     this.getAforoArea();
     this.getAlumnoStatus();
-    this.printWeekRange();
+    this.now = new Date();
   }
 
   getAlumnoStatus(): void {

@@ -78,9 +78,9 @@
           <div class="col-md-4 mt-1">
 
             <div ngbDropdown>
-              <button class="btn btn-primary" id="btn" ngbDropdownToggle>{{semana}}</button>
+              <button class="btn btn-primary" id="btn" ngbDropdownToggle>{{getSemanaRange(1, 7)}}</button>
               <div ngbDropdownMenu="gfg">
-                <button ngbDropdownItem>{{semanaSig}}</button>
+                <button ngbDropdownItem>{{getSemanaRange(8, 14)}}</button>
               </div>
             </div>
           </div>
