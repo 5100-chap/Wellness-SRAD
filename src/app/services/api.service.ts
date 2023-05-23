@@ -85,4 +85,9 @@ export class ApiService {
   getTodasAreasInformacion(): Observable<Area[]> {
     return this.http.get<Area[]>('/api/TodasAreasInformacion');
   }
+  updateAreaStatus(areaId: number, status: boolean): Observable<Area> {
+    const body = { status: status };
+    return this.http.put<Area>(`/api/AreaUpdateStatus?areaId=${areaId}`, body);
+  }
+  
 }

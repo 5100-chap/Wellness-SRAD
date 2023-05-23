@@ -27,5 +27,18 @@ router.get("/api/TodasAreasInformacion", async (req, res, next) => {
     }
 });
 
+router.put("/api/AreaUpdateStatus", async (req, res, next) => {
+    const areaId = req.query.areaId;
+    const request = new sql.Request();
+    try {
+        const result = await request
+            .input('AreaId', sql.Int, areaId)
+            .execute('AbrirArea');
+        res.json(result.recordset);
+    } catch (err) {
+        next(err);
+    }
+});
+
 
 module.exports = router;
