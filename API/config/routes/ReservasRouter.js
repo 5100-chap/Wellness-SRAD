@@ -38,11 +38,11 @@ router.delete('/api/cancelReservacionArea', async(req, res, next)=>{
     try{
         var request = new sql.Request();
         var result = await request.query(`EXEC [dbo].[CancelReservacionArea] \'${req.body.usuario}\', ${req.body.id};`);
-        res.sendStatus(200);
+        res.json({'status': 'ok'});
     }
     catch(error){
         console.log(error);
-        res.sendStatus(404);
+        res.json({'status': 'failed'});
     }
 });
 
@@ -55,6 +55,33 @@ router.put('/api/reservaEnCurso', async(req, res, next)=>{
     }catch(error){
         console.log(error);
         res.sendStatus(404);
+    }
+});
+
+// Marcar Entrada desde una reserva
+router.post('/api/marcarLlegadaReserva', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();
+        const currentTime = new Date();
+        var dia = `${currentTime.getFullYear()}-${currentTime.getMonth()+1}-${currentTime.getDate()}`;
+        var hora = `${currentTime.getHours()}:${currentTime.getMinutes()}:${currentTime.getSeconds()}`;        
+        var result = await request.query(`EXEC [dbo].[MarcarLlegadaReserva] \'${req.body.usuario}\', \'${hora}\', \'${dia}\', ${req.body.area_id}, ${req.body.id_reservacion};`);
+    }catch(error){
+        console.log(error);
+        res.json({'status': 'error'});
+    }
+});
+
+// Marcar Salida desde una reserva
+router.post('/api/marcarSalidaReserva', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();
+        const currentTime = new Date();
+        var hora = `${currentTime.getHours()}:${currentTime.getMinutes()}:${currentTime.getSeconds()}`;        
+        await request.query(`EXEC [dbo].[MarcarSalida] \'${hora}\', \'${req.body.usuario}\';EXEC [dbo].[MarcarSalidaReserva] ${req.body.id};`);
+    }catch(error){
+        console.log(error);
+        res.json({'status': 'error'});
     }
 });
 

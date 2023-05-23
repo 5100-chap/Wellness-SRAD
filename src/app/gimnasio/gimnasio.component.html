@@ -78,11 +78,9 @@
           <div class="col-md-4 mt-1">
 
             <div ngbDropdown>
-              <button class="btn btn-primary" id="btn" ngbDropdownToggle>Semana 20 - 26 de Marzo 2023</button>
+              <button class="btn btn-primary" id="btn" ngbDropdownToggle>{{getSemanaRange(1, 7)}}</button>
               <div ngbDropdownMenu="gfg">
-                <button ngbDropdownItem>Semana 20 - 26 de Marzo 2023</button>
-                <button ngbDropdownItem>Semana 20 - 26 de Marzo 2023</button>
-                <button ngbDropdownItem>Semana 20 - 26 de Marzo 2023</button>
+                <button ngbDropdownItem>{{getSemanaRange(8, 14)}}</button>
               </div>
             </div>
           </div>
@@ -110,13 +108,13 @@
 
         <tr *ngFor="let al of reservaArray" (click)="openForEdit(al)" [class.active]="al == seleReserva">
 
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printWeekDay(0)"> {{al.hora}} </button></td>
+          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printWeekDay(1)"> {{al.hora}} </button></td>
+          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printWeekDay(2)"> {{al.hora}} </button></td>
+          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printWeekDay(3)"> {{al.hora}} </button></td>
+          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printWeekDay(4)"> {{al.hora}} </button></td>
+          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printWeekDay(5)"> {{al.hora}} </button></td>
+          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printWeekDay(6)"> {{al.hora}} </button></td>
 
         </tr>
 

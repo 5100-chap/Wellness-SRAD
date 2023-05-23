@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ReservasAlumno } from '../models/reservas-alumno.model';
+import { ReservasAlumno } from './../models/reservas-alumno.model';
+import { AsesorNombre } from './../models/asesor-nombre';
 
 //Importar clases para Api services
 import { Area } from '../models/area';
@@ -75,4 +76,19 @@ export class ApiService {
     );
   }
 
+
+  marcarLlegadaReserva(usuario: String, area_id: number, id_reservacion: number){
+    return this.http.post('/api/marcarLlegadaReserva', {
+      usuario: usuario,
+      area_id: area_id,
+      id_reservacion: id_reservacion
+    });
+  }
+
+  marcarSalidaReserva(usuario: String, id: number){
+    return this.http.post('/api/marcarSalidaReserva', {
+      usuario: usuario,
+      id: id
+    });
+  }
 }
