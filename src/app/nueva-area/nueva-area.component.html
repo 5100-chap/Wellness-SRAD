@@ -20,7 +20,7 @@
 <!--Formulario para la creación de la nueva área-->
 
 <form [formGroup]="NuevaAreaForm"   name="NuevaAreaForm" id="NuevaAreaForm"
-acceptcharset="utf-8"  role="form">
+acceptcharset="utf-8" role="form" >
 
 <div class="row " style="margin-left: 1.5%; margin-top: 2%;">
 
@@ -88,9 +88,9 @@ acceptcharset="utf-8"  role="form">
     <input type="checkbox" name="rad2" (change)="true" #checkBox> &nbsp; ¿El nuevo espacio requiere materiales?
   </div>
 
+  <!--Si el check-box ha sido activado-->
 
   <div *ngIf="checkBox.checked" class="input-group mb-3">
-    
     <span class="input-group-text" id="title">Material disponible</span>
     <input type="text" formControlName="material" tabindex="4" autocomplete="off" class="form-control" placeholder="Insertar material aquí" aria-label="Username" aria-describedby="basic-addon1">
  </div>   
@@ -149,6 +149,9 @@ acceptcharset="utf-8"  role="form">
 </div>
 
 </form>
+
+
+<!--Modal de confirmación de creación de área-->
 
 
 <ng-template #mymodal let-modal>
