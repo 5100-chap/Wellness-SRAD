@@ -27,7 +27,6 @@ declare var window: any;
 })
 export class GimnasioComponent implements OnInit {
 
-  Areainfo: Area[] = [];
   areaId: number = 0;
 
   reservaArray: Reservas[] = [
@@ -157,14 +156,13 @@ export class GimnasioComponent implements OnInit {
   }
 
   ngOnInit() : void {
-    this.getAforoArea();
-    this.getAlumnoStatus();
-
     this.apiService.getAreaByName('gimnasio').subscribe((response) => {
-      this.Areainfo = response;
-      this.areaId = this.Areainfo[0].AreaId;
+      this.areaId = response[0].AreaId;
+      this.getAforoArea();
+      this.getAlumnoStatus();
     });
-  }
+}
+
 
   getAlumnoStatus(): void {
     const usuario = this.authService.currentUserValue['username']; // Replace with the actual user value you want to send
