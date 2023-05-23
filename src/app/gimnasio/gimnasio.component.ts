@@ -26,6 +26,33 @@ declare var window: any;
   styleUrls: ['./gimnasio.component.css'],
 })
 export class GimnasioComponent implements OnInit {
+  meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+  now!: Date;
+
+  getSemanaRange(l: number, r: number): String{
+    const now = new Date();
+    let res = '';
+    const firstWeekNow = new Date(0, 0, l);
+    const lastWeekNow = new Date(0, 0, r);
+    let firstDay = now.getDate() - now.getDay() + firstWeekNow.getDate();
+    let lastDay = now.getDate() - now.getDay() + lastWeekNow.getDate();
+    if(firstDay < 0){
+      res += `Semana ${firstDay} de ${this.meses[((now.getMonth()-1<0)?11:now.getMonth()-1)]}`;
+    }
+    else{
+      res += `Semana ${firstDay}`;
+    }
+
+    const primerDiaMesSiguiente = new Date((now.getMonth()+1>11)?now.getFullYear()+1:now.getFullYear(), (now.getMonth()+1>11)?0:now.getMonth()+1, 1);
+    const ultimoDiaDelMes = new Date(primerDiaMesSiguiente.getTime() - 1);
+    if(lastDay > ultimoDiaDelMes.getDate()){
+      res += ` de ${this.meses[now.getMonth()]} - ${lastDay-ultimoDiaDelMes.getDate()} de ${this.meses[(now.getMonth()+1>11)?0:now.getMonth()+1]} ${now.getFullYear()}`;
+    }
+    else{
+      res += ` - ${lastDay} de ${this.meses[now.getMonth()]} ${now.getFullYear()}`;
+    }
+    return res;
+  }
 
   areaId: number = 0;
 
@@ -125,6 +152,18 @@ export class GimnasioComponent implements OnInit {
     }
   }
 
+  printWeekRange(){
+    const actual = new Date();
+    console.log(`Lunes -> ${actual.getDate()-actual.getDay()+1}, Domingo ->${actual.getDate()+(7-actual.getDay())}`);
+    const week = ['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado', 'Domingo'];
+    console.log(week[actual.getDay()-1]);
+  }
+
+  printWeekDay(day: number){
+    const week = ['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado', 'Domingo'];
+    console.log(week[day]);
+  }
+
   public chart: any;
   aforoData: String = "";
   alumnoStatus: number = -1;
@@ -160,6 +199,7 @@ export class GimnasioComponent implements OnInit {
       this.areaId = response[0].AreaId;
       this.getAforoArea();
       this.getAlumnoStatus();
+      this.now = new Date();
     });
 }
 
