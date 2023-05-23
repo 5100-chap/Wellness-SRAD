@@ -9,13 +9,14 @@ import { Area } from '../models/area';
 import { AlumnoStatusResponse } from '../models/alumnoStatusResponse';
 import { AforoArea } from '../models/aforoArea';
 import { AforoSemanalResponse } from '../models/aforoSemanalResponse';
+import { IngresosPorHora } from '../models/ingresoPorHora';
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getXCredentials(username: string, password: string) {
     const authHeader = 'Basic ' + window.btoa(`${username}:${password}`);
@@ -62,13 +63,19 @@ export class ApiService {
   }
 
 
-  getTodasReservasAlumno(usuario: String): Observable<ReservasAlumno[]>{
-    return this.http.post<ReservasAlumno[]>('/api/getTodasReservasAlumno', {"usuario": usuario});
+  getTodasReservasAlumno(usuario: String): Observable<ReservasAlumno[]> {
+    return this.http.post<ReservasAlumno[]>('/api/getTodasReservasAlumno', { "usuario": usuario });
   }
 
-  cancelarReservaAlumno(usuario: String, id: number){
-    return this.http.delete('/api/cancelReservacionArea', {body: {"usuario": usuario, "id": id}});
+  cancelarReservaAlumno(usuario: String, id: number) {
+    return this.http.delete('/api/cancelReservacionArea', { body: { "usuario": usuario, "id": id } });
   }
+  getIngresosPorHora(day: string, areaId: number): Observable<IngresosPorHora[]> {
+    return this.http.get<IngresosPorHora[]>(
+      `/api/ingresosPorHora?Day=${day}&AreaId=${areaId}`
+    );
+  }
+
 
   marcarLlegadaReserva(usuario: String, area_id: number, id_reservacion: number){
     return this.http.post('/api/marcarLlegadaReserva', {
