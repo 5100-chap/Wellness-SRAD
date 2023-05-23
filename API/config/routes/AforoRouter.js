@@ -91,18 +91,6 @@ router.get("/api/AforoSemanal", async (req, res, next) => {
     }
 });
 
-router.get("/api/AreaInformacion", async (req, res, next) => {
-    const nombreArea = req.query.nombreArea;
-    const request = new sql.Request();
-    try {
-        const result = await request
-            .input('Nombre', sql.VarChar, nombreArea)
-            .execute('AreaInformacion');
-        res.json(result.recordset);
-    } catch (err) {
-        next(err);
-    }
-});
 
 router.get('/api/ingresosPorHora/', async (req, res, next) => {
     const AreaId = req.query.AreaId;
