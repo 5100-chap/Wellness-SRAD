@@ -44,8 +44,11 @@
                         </div>
                     </div>
                     <div class="col-md-2" id="align">
-                        <button id="btn2" class="btn btn-primary btn-lg" routerLink="/estadisticas"> Estadísticas
+                        <button id="btn2" class="btn btn-primary btn-lg"
+                            [routerLink]="[area.NombreArea.toLowerCase() !== 'gimnasio' ? '/estadisticas' : '/estadisticasGimnasio']">
+                            Estadísticas
                         </button>
+
                     </div>
                     <div class="col-md-2" id="align">
                         <button id="btn2" class="btn btn-primary btn-lg" routerLink="/editarAforo"> Editar aforo
@@ -78,7 +81,9 @@
                         </div>
                     </div>
                     <div class="col-md-2" id="align">
-                        <button id="btn2" class="btn btn-primary btn-lg" routerLink="/estadisticas"> Estadísticas
+                        <button id="btn2" class="btn btn-primary btn-lg"
+                            [routerLink]="[area.NombreArea.toLowerCase() !== 'gimnasio' ? '/estadisticas' : '/estadisticasGimnasio']">
+                            Estadísticas
                         </button>
                     </div>
                     <div class="col-md-2" id="align">
