@@ -3,9 +3,9 @@ import { FormControl } from '@angular/forms';
 import { ApiService } from '../services/api.service';
 import Chart from 'chart.js/auto';
 import { Subscription } from 'rxjs';
-import { AforoSemanalResponse } from '../models/aforoSemanalResponse';
-import { Area } from '../models/area';
-import { IngresosPorHora } from '../models/ingresoPorHora';
+import { AforoSemanalResponse } from '../models/aforoSemanalResponse.model';
+import { Area } from '../models/area.model';
+import { IngresosPorHora } from '../models/ingresoPorHora.model';
 
 @Component({
   selector: 'app-stats-gym-admin',
