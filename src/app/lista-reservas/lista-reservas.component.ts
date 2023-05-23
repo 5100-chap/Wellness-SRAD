@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { AuthService } from '../auth.service';
-import { ApiService } from '../api.service';
+import { AuthService } from '../services/auth.service';
+import { ApiService } from '../services/api.service';
 import { ReservasAlumno } from '../models/reservas-alumno.model';
 import { AsesorNombre } from '../models/asesor-nombre';
 
@@ -38,7 +38,6 @@ export class ListaReservasComponent {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
-      window.location.reload()
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   } 
@@ -72,28 +71,28 @@ export class ListaReservasComponent {
   cancelarReserva(index: number){
     const usuario = this.authService.currentUserValue['username'];
     this.apiService.cancelarReservaAlumno(usuario, this.Reservas[index]['id']).subscribe(()=>{
-      window.location.reload();
     },error=>{
       console.log(error);
     });
+    window.location.reload();
   }
 
   marcarLlegada(index: number){
     const usuario = this.authService.currentUserValue['username'];
     this.apiService.marcarLlegadaReserva(usuario, this.Reservas[index]['id_area_deportiva'], this.Reservas[index]['id']).subscribe(()=>{
-      window.location.reload();
     },error=>{
       console.log(error);
     });
+    window.location.reload();
   }
 
   marcarSalida(index: number){
     const usuario = this.authService.currentUserValue['username'];
     this.apiService.marcarSalidaReserva(usuario, this.Reservas[index]['id']).subscribe(()=>{
-      window.location.reload();
     }, error=>{
       console.log(error);
     });
+    window.location.reload();
   }
   
   tengoAsesor(dato: String): String{

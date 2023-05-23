@@ -11,15 +11,14 @@ import Chart, { Legend, plugins } from 'chart.js/auto';
 import 'chartjs-plugin-labels';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Reservas } from '../models/reservas';
-import { ApiService } from '../api.service';
-import { AuthService } from '../auth.service';
+import { ApiService } from '../services/api.service';
+import { AuthService } from '../services/auth.service';
 import { FormGroup } from '@angular/forms';
+import { AlumnoStatusResponse } from '../models/alumnoStatusResponse';
+
 
 declare var window: any;
 
-interface AlumnoStatusResponse {
-  status: number;
-}
 
 @Component({
   selector: 'app-gimnasio',

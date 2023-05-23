@@ -1,13 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ApiService } from '../api.service';
+import { ApiService } from '../services/api.service';
 import Chart from 'chart.js/auto';
 import { Subscription } from 'rxjs';
-
-interface AforoSemanalResponse {
-  DayOfWeek: number;
-  AttendanceCount: number;
-}
+import { AforoSemanalResponse } from '../models/aforoSemanalResponse';
+import { Area } from '../models/area';
 
 @Component({
   selector: 'app-stats-gym-admin',
