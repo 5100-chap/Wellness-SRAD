@@ -5,21 +5,21 @@ const queries = require("../database/queries");
 
 // Estadisticas
 router.get("/api/llamarAforo", async (req, res, next) => {
-    try{
+    try {
         var request = new sql.Request();
         // var search = queries.llamarTodoElAforo.replace('@matricula_alumno', req.body.usuario);
         var result = await request.query('EXEC [dbo].[LlamarTodoElAforo];');
         res.send(result.recordset);
     }
-    catch(err){
+    catch (err) {
         next(err);
     }
 });
 
 
 router.post("/api/consultarAforo", async (req, res, next) => {
-    try{
-        if(req.body === undefined){
+    try {
+        if (req.body === undefined) {
             res.send(404);
             return;
         }
@@ -30,15 +30,15 @@ router.post("/api/consultarAforo", async (req, res, next) => {
         var result = await request.query(search);
         res.send(result.recordset[0]);
     }
-    catch(err){
+    catch (err) {
         next(err);
     }
 });
 
 // Aumentar el aforo
 router.post("/api/aumentarAforo", async (req, res, next) => {
-    try{
-        if(req.body===undefined){
+    try {
+        if (req.body === undefined) {
             res.send(404);
             return;
         }
@@ -50,15 +50,15 @@ router.post("/api/aumentarAforo", async (req, res, next) => {
         var result = await request.query(search);
         res.send(200);
     }
-    catch(err){
+    catch (err) {
         next(err);
     }
 });
 
 // Disminuir el aforo
 router.post("/api/disminuirAforo", async (req, res, next) => {
-    try{
-        if(req.body===undefined){
+    try {
+        if (req.body === undefined) {
             res.send(404);
             return;
         }
@@ -71,7 +71,7 @@ router.post("/api/disminuirAforo", async (req, res, next) => {
         // var result = await request.query(search);
         res.send(200);
     }
-    catch(err){
+    catch (err) {
         next(err);
     }
 });
@@ -91,13 +91,16 @@ router.get("/api/AforoSemanal", async (req, res, next) => {
     }
 });
 
-router.get("/api/AreaInformacion", async (req, res, next) => {
-    const nombreArea = req.query.nombreArea;
+
+router.get('/api/ingresosPorHora/', async (req, res, next) => {
+    const AreaId = req.query.AreaId;
+    const Day = req.query.Day;
     const request = new sql.Request();
     try {
         const result = await request
-            .input('Nombre', sql.VarChar, nombreArea)
-            .execute('AreaInformacion');
+            .input('AreaId', sql.Int, AreaId)
+            .input('Day', sql.Date, Day)
+            .execute('GetIngresosPorHora');
         res.json(result.recordset);
     } catch (err) {
         next(err);

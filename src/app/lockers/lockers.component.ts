@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import Chart, { Legend, plugins } from 'chart.js/auto';
 import 'chartjs-plugin-labels';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { Reservas } from '../models/reservas';
+import { Reservas } from '../models/reservas.model';
 
 declare var window: any;
 

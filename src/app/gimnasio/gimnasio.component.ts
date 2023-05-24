@@ -10,12 +10,12 @@ import {
 import Chart, { Legend, plugins } from 'chart.js/auto';
 import 'chartjs-plugin-labels';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { Reservas } from '../models/reservas';
+import { Reservas } from '../models/reservas.model';
 import { ApiService } from '../services/api.service';
 import { AuthService } from '../services/auth.service';
 import { FormGroup } from '@angular/forms';
-import { AlumnoStatusResponse } from '../models/alumnoStatusResponse';
-
+import { AlumnoStatusResponse } from '../models/alumnoStatusResponse.model';
+import { Area } from '../models/area.model';
 
 declare var window: any;
 
@@ -53,6 +53,9 @@ export class GimnasioComponent implements OnInit {
     }
     return res;
   }
+
+  areaId: number = 0;
+
   reservaArray: Reservas[] = [
     {
       id: 1,
@@ -180,10 +183,14 @@ export class GimnasioComponent implements OnInit {
   }
 
   ngOnInit() : void {
-    this.getAforoArea();
-    this.getAlumnoStatus();
-    this.now = new Date();
-  }
+    this.apiService.getAreaByName('gimnasio').subscribe((response) => {
+      this.areaId = response[0].AreaId;
+      this.getAforoArea();
+      this.getAlumnoStatus();
+      this.now = new Date();
+    });
+}
+
 
   getAlumnoStatus(): void {
     const usuario = this.authService.currentUserValue['username']; // Replace with the actual user value you want to send
@@ -198,19 +205,20 @@ export class GimnasioComponent implements OnInit {
   }
 
   aumentarAforo(): void{
-    this.apiService.aumentarAforo(2).subscribe(error => {
+    this.apiService.aumentarAforo(this.areaId).subscribe(error => {
       console.error('Error fetching area id status: ', error);
     });
   }
 
   disminuirAforo(): void{
-    this.apiService.disminuirAforo(2).subscribe(error => {
+    this.apiService.disminuirAforo(this.areaId).subscribe(error => {
       console.error('Error fetching area id status', error);
     });
   }
 
   getAforoArea(): void{
-    this.apiService.consultarAforo(2).subscribe(
+
+    this.apiService.consultarAforo(this.areaId).subscribe(
       (data: any) =>{
         this.aforoData = data['actuales'] + "/" + data['totales'];
         this.createChart(Number(data['actuales']), Number(data['totales']));
@@ -273,7 +281,7 @@ export class GimnasioComponent implements OnInit {
   }
 
   marcarLlegadaOSalida() {
-    this.apiService.marcar(this.authService.currentUserValue['username'], 2).subscribe();
+    this.apiService.marcar(this.authService.currentUserValue['username'], this.areaId).subscribe();
     this.getAlumnoStatus();
     this.getAforoArea();
     window.location.reload();

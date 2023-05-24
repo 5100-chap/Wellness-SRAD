@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component, NgModule, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Reservas } from './models/reservas';
+import { Reservas } from './models/reservas.model';
 import { FormBuilder, FormGroup, Validators,ReactiveFormsModule, FormControl} from '@angular/forms';
 
 
