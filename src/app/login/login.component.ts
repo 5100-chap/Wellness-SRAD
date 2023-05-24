@@ -35,6 +35,7 @@ export class LoginComponent {
         this.router.navigateByUrl('/inicioAdmin');
       }
     }
+    localStorage.setItem('opcion', 'T');
   }
 
   onSubmit() {

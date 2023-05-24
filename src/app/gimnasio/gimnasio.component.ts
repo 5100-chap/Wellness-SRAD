@@ -5,6 +5,7 @@ import {
   OnInit,
   SimpleChanges,
   ViewChild,
+  ChangeDetectorRef,
 } from '@angular/core';
 import Chart, { Legend, plugins } from 'chart.js/auto';
 import 'chartjs-plugin-labels';
@@ -24,20 +25,8 @@ declare var window: any;
   styleUrls: ['./gimnasio.component.css'],
 })
 export class GimnasioComponent implements OnInit {
-  meses = [
-    'Enero',
-    'Febrero',
-    'Marzo',
-    'Abril',
-    'Mayo',
-    'Junio',
-    'Julio',
-    'Agosto',
-    'Septiembre',
-    'Octubre',
-    'Noviembre',
-    'Diciembre',
-  ];
+  meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+  diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
   now!: Date;
 
   getSemanaRange(l: number, r: number): String {
@@ -72,81 +61,101 @@ export class GimnasioComponent implements OnInit {
   }
 
   areaId: number = 0;
+  semanaSeleccionada!: boolean;
+
+  cambiarSemana1(){
+    localStorage.setItem('opcion', 'T');
+    window.location.reload();
+  }
+  cambiarSemana2(){
+    localStorage.setItem('opcion', 'F');
+    window.location.reload();
+  }
 
   reservaArray: Reservas[] = [
     {
       id: 1,
-      id_matricula_alumno: 'A00960720',
-      id_area_deportiva: 7,
+      id_matricula_alumno: '',
+      id_area_deportiva: 1,
       fecha: '17-04-2023 6:00 - 8:00',
-      hora: '6:00 - 8:00',
+      rangoDeHora: '6:00 - 8:00',
+      hora: '06:00',
       estado: '',
       id_instructor: '',
     },
     {
       id: 2,
-      id_matricula_alumno: 'A00952209',
-      id_area_deportiva: 6,
+      id_matricula_alumno: '',
+      id_area_deportiva: 1,
       fecha: '18-04-2023 8:00 - 10:00 ',
-      hora: '8:00 - 10:00',
+      rangoDeHora: '8:00 - 10:00',
+      hora: '8:00',
       estado: '',
       id_instructor: '',
     },
     {
       id: 2,
-      id_matricula_alumno: 'A00952209',
-      id_area_deportiva: 6,
+      id_matricula_alumno: '',
+      id_area_deportiva: 1,
       fecha: '18-04-2023 10:00 - 12:00',
-      hora: '10:00 - 12:00',
+      rangoDeHora: '10:00 - 12:00',
+      hora: '10:00',
       estado: '',
       id_instructor: '',
     },
     {
       id: 3,
-      id_matricula_alumno: 'A00149174',
-      id_area_deportiva: 8,
+      id_matricula_alumno: '',
+      id_area_deportiva: 1,
       fecha: '19-04-2023 12:00 - 14:00',
-      hora: '12:00 - 14:00',
+      rangoDeHora: '12:00 - 14:00',
+      hora: '12:00',
       estado: '',
       id_instructor: '',
     },
     {
       id: 4,
-      id_matricula_alumno: 'A00640163',
-      id_area_deportiva: 7,
+      id_matricula_alumno: '',
+      id_area_deportiva: 1,
       fecha: '20-04-2023 14:00 - 16:00 ',
-      hora: '14:00 - 16:00',
+      rangoDeHora: '14:00 - 16:00',
+      hora: '14:00',
       estado: '',
       id_instructor: '',
     },
     {
       id: 5,
-      id_matricula_alumno: 'A00773407',
-      id_area_deportiva: 8,
+      id_matricula_alumno: '',
+      id_area_deportiva: 1,
       fecha: '21-04-2023 16:00 - 18:00',
-      hora: '16:00 - 18:00',
+      rangoDeHora: '16:00 - 18:00',
+      hora: '16:00',
       estado: '',
       id_instructor: '',
     },
     {
       id: 5,
-      id_matricula_alumno: 'A00773407',
-      id_area_deportiva: 8,
+      id_matricula_alumno: '',
+      id_area_deportiva: 1,
       fecha: '21-04-2023 18:00 - 20:00',
-      hora: '18:00 - 20:00',
+      rangoDeHora: '18:00 - 20:00',
+      hora: '18:00',
       estado: '',
       id_instructor: '',
     },
     {
       id: 5,
-      id_matricula_alumno: 'A00773407',
-      id_area_deportiva: 8,
+      id_matricula_alumno: '',
+      id_area_deportiva: 1,
       fecha: '21-04-2023 20:00 - 22:00',
-      hora: '20:00 - 22:00',
+      rangoDeHora: '20:00 - 22:00',
+      hora: '20:00',
       estado: '',
       id_instructor: '',
     },
   ];
+  
+  
   seleReserva: Reservas = new Reservas();
   addOrEdit() {
     if (this.seleReserva.id == 0) {
@@ -167,37 +176,6 @@ export class GimnasioComponent implements OnInit {
       );
       this.seleReserva = new Reservas();
     }
-  }
-
-  printWeekRange() {
-    const actual = new Date();
-    console.log(
-      `Lunes -> ${actual.getDate() - actual.getDay() + 1}, Domingo ->${actual.getDate() + (7 - actual.getDay())
-      }`
-    );
-    const week = [
-      'Lunes',
-      'Martes',
-      'Miercoles',
-      'Jueves',
-      'Viernes',
-      'Sabado',
-      'Domingo',
-    ];
-    console.log(week[actual.getDay() - 1]);
-  }
-
-  printWeekDay(day: number) {
-    const week = [
-      'Lunes',
-      'Martes',
-      'Miercoles',
-      'Jueves',
-      'Viernes',
-      'Sabado',
-      'Domingo',
-    ];
-    console.log(week[day]);
   }
 
   public chart: any;
@@ -234,8 +212,15 @@ export class GimnasioComponent implements OnInit {
       this.getAforoArea();
       this.getAlumnoStatus();
       this.now = new Date();
+      this.semanaSeleccionada = (localStorage.getItem('opcion')=="T")?true:false;
+      console.log((localStorage.getItem('opcion')=="T")?true:false);
     });
   }
+
+  printHorario(day: number, hora: string): void{
+    console.log(`${this.diasSemana[day]} - ${hora}`);
+  }
+
 
   getAlumnoStatus(): void {
     const usuario = this.authService.currentUserValue['username']; // Replace with the actual user value you want to send
@@ -292,8 +277,9 @@ export class GimnasioComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private apiService: ApiService,
-    private authService: AuthService
-  ) { }
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   /**
    * Write code on Method

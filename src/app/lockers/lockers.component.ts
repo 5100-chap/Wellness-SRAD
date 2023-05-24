@@ -19,6 +19,7 @@ export class LockersComponent {
       id_area_deportiva: 7,
       fecha: 'Locker 1',
       hora: 'Locker 1',
+      rangoDeHora: 'Locker 1',
       estado: '',
       id_instructor: '',
     },
@@ -28,6 +29,7 @@ export class LockersComponent {
       id_area_deportiva: 6,
       fecha: 'Locker 2',
       hora: 'Locker 2',
+      rangoDeHora: 'Locker 2',
       estado: '',
       id_instructor: '',
     },
@@ -37,6 +39,7 @@ export class LockersComponent {
       id_area_deportiva: 6,
       fecha: 'Locker 3',
       hora: 'Locker 3',
+      rangoDeHora: 'Locker 3',
       estado: '',
       id_instructor: '',
     },
@@ -46,6 +49,7 @@ export class LockersComponent {
       id_area_deportiva: 8,
       fecha: 'Locker 4',
       hora: 'Locker 4',
+      rangoDeHora: 'Locker 4',
       estado: '',
       id_instructor: '',
     },
@@ -55,10 +59,12 @@ export class LockersComponent {
       id_area_deportiva: 7,
       fecha: 'Locker 5',
       hora: 'Locker 5',
+      rangoDeHora: 'Locker 5',
       estado: '',
       id_instructor: '',
     },
   ];
+  
   seleReserva: Reservas = new Reservas();
   addOrEdit() {
     if (this.seleReserva.id == 0) {
