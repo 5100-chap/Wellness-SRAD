@@ -1,4 +1,3 @@
-
 import {
   Component,
   ElementRef,
@@ -20,7 +19,6 @@ import { Area } from '../models/area.model';
 
 declare var window: any;
 
-
 @Component({
   selector: 'app-gimnasio',
   templateUrl: './gimnasio.component.html',
@@ -31,27 +29,33 @@ export class GimnasioComponent implements OnInit {
   diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
   now!: Date;
 
-  getSemanaRange(l: number, r: number): String{
+  getSemanaRange(l: number, r: number): String {
     const now = new Date();
     let res = '';
     const firstWeekNow = new Date(0, 0, l);
     const lastWeekNow = new Date(0, 0, r);
     let firstDay = now.getDate() - now.getDay() + firstWeekNow.getDate();
     let lastDay = now.getDate() - now.getDay() + lastWeekNow.getDate();
-    if(firstDay < 0){
-      res += `Semana ${firstDay} de ${this.meses[((now.getMonth()-1<0)?11:now.getMonth()-1)]}`;
-    }
-    else{
+    if (firstDay < 0) {
+      res += `Semana ${firstDay} de ${this.meses[now.getMonth() - 1 < 0 ? 11 : now.getMonth() - 1]
+        }`;
+    } else {
       res += `Semana ${firstDay}`;
     }
 
-    const primerDiaMesSiguiente = new Date((now.getMonth()+1>11)?now.getFullYear()+1:now.getFullYear(), (now.getMonth()+1>11)?0:now.getMonth()+1, 1);
+    const primerDiaMesSiguiente = new Date(
+      now.getMonth() + 1 > 11 ? now.getFullYear() + 1 : now.getFullYear(),
+      now.getMonth() + 1 > 11 ? 0 : now.getMonth() + 1,
+      1
+    );
     const ultimoDiaDelMes = new Date(primerDiaMesSiguiente.getTime() - 1);
-    if(lastDay > ultimoDiaDelMes.getDate()){
-      res += ` de ${this.meses[now.getMonth()]} - ${lastDay-ultimoDiaDelMes.getDate()} de ${this.meses[(now.getMonth()+1>11)?0:now.getMonth()+1]} ${now.getFullYear()}`;
-    }
-    else{
-      res += ` - ${lastDay} de ${this.meses[now.getMonth()]} ${now.getFullYear()}`;
+    if (lastDay > ultimoDiaDelMes.getDate()) {
+      res += ` de ${this.meses[now.getMonth()]} - ${lastDay - ultimoDiaDelMes.getDate()
+        } de ${this.meses[now.getMonth() + 1 > 11 ? 0 : now.getMonth() + 1]
+        } ${now.getFullYear()}`;
+    } else {
+      res += ` - ${lastDay} de ${this.meses[now.getMonth()]
+        } ${now.getFullYear()}`;
     }
     return res;
   }
@@ -84,8 +88,8 @@ export class GimnasioComponent implements OnInit {
       id_matricula_alumno: '',
       id_area_deportiva: 1,
       fecha: '18-04-2023 8:00 - 10:00 ',
-      rangoDeHora: '',
-      hora: '8:00 - 10:00',
+      rangoDeHora: '8:00 - 10:00',
+      hora: '8:00',
       estado: '',
       id_instructor: '',
     },
@@ -94,7 +98,8 @@ export class GimnasioComponent implements OnInit {
       id_matricula_alumno: '',
       id_area_deportiva: 1,
       fecha: '18-04-2023 10:00 - 12:00',
-      hora: '10:00 - 12:00',
+      rangoDeHora: '10:00 - 12:00',
+      hora: '10:00',
       estado: '',
       id_instructor: '',
     },
@@ -103,7 +108,8 @@ export class GimnasioComponent implements OnInit {
       id_matricula_alumno: '',
       id_area_deportiva: 1,
       fecha: '19-04-2023 12:00 - 14:00',
-      hora: '12:00 - 14:00',
+      rangoDeHora: '12:00 - 14:00',
+      hora: '12:00',
       estado: '',
       id_instructor: '',
     },
@@ -112,7 +118,8 @@ export class GimnasioComponent implements OnInit {
       id_matricula_alumno: '',
       id_area_deportiva: 1,
       fecha: '20-04-2023 14:00 - 16:00 ',
-      hora: '14:00 - 16:00',
+      rangoDeHora: '14:00 - 16:00',
+      hora: '14:00',
       estado: '',
       id_instructor: '',
     },
@@ -121,7 +128,8 @@ export class GimnasioComponent implements OnInit {
       id_matricula_alumno: '',
       id_area_deportiva: 1,
       fecha: '21-04-2023 16:00 - 18:00',
-      hora: '16:00 - 18:00',
+      rangoDeHora: '16:00 - 18:00',
+      hora: '16:00',
       estado: '',
       id_instructor: '',
     },
@@ -130,7 +138,8 @@ export class GimnasioComponent implements OnInit {
       id_matricula_alumno: '',
       id_area_deportiva: 1,
       fecha: '21-04-2023 18:00 - 20:00',
-      hora: '18:00 - 20:00',
+      rangoDeHora: '18:00 - 20:00',
+      hora: '18:00',
       estado: '',
       id_instructor: '',
     },
@@ -139,11 +148,14 @@ export class GimnasioComponent implements OnInit {
       id_matricula_alumno: '',
       id_area_deportiva: 1,
       fecha: '21-04-2023 20:00 - 22:00',
-      hora: '20:00 - 22:00',
+      rangoDeHora: '20:00 - 22:00',
+      hora: '20:00',
       estado: '',
       id_instructor: '',
     },
   ];
+  
+  
   seleReserva: Reservas = new Reservas();
   addOrEdit() {
     if (this.seleReserva.id == 0) {
@@ -167,25 +179,22 @@ export class GimnasioComponent implements OnInit {
   }
 
   public chart: any;
-  aforoData: String = "";
+  aforoData: String = '';
   alumnoStatus: number = -1;
+
+  createChart(libres: number, ocupados: number) {
+    var xValues = ['Libre: ' + libres, 'Ocupado: ' + ocupados];
+    var yValues = [libres, ocupados];
   
-
-  createChart(actuales: Number, totales: Number) {
-    var xValues = ['Libre', 'Ocupado'];
-    var yValues = [actuales, totales];
-
-    var barColors = ['#6c9bcf', '#654e92'];
+    var barColors = ['#003366', '#5B6C70'];
     this.chart = new Chart('MyChart', {
-      type: 'pie', //this denotes tha type of chart
+      type: 'pie',
       data: {
-        // values on X-Axis
         labels: xValues,
         datasets: [
           {
             data: yValues,
             backgroundColor: barColors,
-
             hoverOffset: 4,
           },
         ],
@@ -195,8 +204,9 @@ export class GimnasioComponent implements OnInit {
       },
     });
   }
+  
 
-  ngOnInit() : void {
+  ngOnInit(): void {
     this.apiService.getAreaByName('gimnasio').subscribe((response) => {
       this.areaId = response[0].AreaId;
       this.getAforoArea();
@@ -218,38 +228,41 @@ export class GimnasioComponent implements OnInit {
       (data: AlumnoStatusResponse) => {
         this.alumnoStatus = data.status;
       },
-      error => {
+      (error) => {
         console.error('Error fetching alumno status:', error);
       }
     );
   }
 
-  aumentarAforo(): void{
-    this.apiService.aumentarAforo(this.areaId).subscribe(error => {
+  aumentarAforo(): void {
+    this.apiService.aumentarAforo(this.areaId).subscribe((error) => {
       console.error('Error fetching area id status: ', error);
     });
   }
 
-  disminuirAforo(): void{
-    this.apiService.disminuirAforo(this.areaId).subscribe(error => {
+  disminuirAforo(): void {
+    this.apiService.disminuirAforo(this.areaId).subscribe((error) => {
       console.error('Error fetching area id status', error);
     });
   }
 
-  getAforoArea(): void{
-
+  getAforoArea(): void {
     this.apiService.consultarAforo(this.areaId).subscribe(
-      (data: any) =>{
-        this.aforoData = data['actuales'] + "/" + data['totales'];
-        this.createChart(Number(data['actuales']), Number(data['totales']));
+      (data: any) => {
+        const actuales = Number(data['actuales']);
+        const totales = Number(data['totales']);
+        const ocupados = totales - actuales;
+
+        this.aforoData = actuales + '/' + totales;
+        this.createChart(ocupados, actuales);
       },
-      error => {
+      (error) => {
         console.log('Error fetching aforo status:', error);
       }
     );
   }
 
-  getStatus() : void {
+  getStatus(): void {
     console.log(this.alumnoStatus);
   }
 
@@ -302,7 +315,9 @@ export class GimnasioComponent implements OnInit {
   }
 
   marcarLlegadaOSalida() {
-    this.apiService.marcar(this.authService.currentUserValue['username'], this.areaId).subscribe();
+    this.apiService
+      .marcar(this.authService.currentUserValue['username'], this.areaId)
+      .subscribe();
     this.getAlumnoStatus();
     this.getAforoArea();
     window.location.reload();
