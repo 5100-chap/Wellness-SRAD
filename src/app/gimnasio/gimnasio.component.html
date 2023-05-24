@@ -76,11 +76,16 @@
           </div>
 
           <div class="col-md-4 mt-1">
-
-            <div ngbDropdown>
+            <div ngbDropdown *ngIf="semanaSeleccionada">
               <button class="btn btn-primary" id="btn" ngbDropdownToggle>{{getSemanaRange(1, 7)}}</button>
               <div ngbDropdownMenu="gfg">
-                <button ngbDropdownItem>{{getSemanaRange(8, 14)}}</button>
+                <button ngbDropdownItem (click)="cambiarSemana1()">{{getSemanaRange(8, 14)}}</button>
+              </div>
+            </div>
+            <div ngbDropdown *ngIf="!semanaSeleccionada">
+              <button class="btn btn-primary" id="btn" ngbDropdownToggle>{{getSemanaRange(8, 14)}}</button>
+              <div ngbDropdownMenu="gfg">
+                <button ngbDropdownItem (click)="cambiarSemana2()">{{getSemanaRange(1, 7)}}</button>
               </div>
             </div>
           </div>
@@ -108,13 +113,13 @@
 
         <tr *ngFor="let al of reservaArray" (click)="openForEdit(al)" [class.active]="al == seleReserva">
 
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printHorario(0, al.hora)"> {{al.hora}} </button></td>
+          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printHorario(1, al.hora)"> {{al.hora}} </button></td>
+          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printHorario(2, al.hora)"> {{al.hora}} </button></td>
+          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printHorario(3, al.hora)"> {{al.hora}} </button></td>
+          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printHorario(4, al.hora)"> {{al.hora}} </button></td>
+          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printHorario(5, al.hora)"> {{al.hora}} </button></td>
+          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printHorario(6, al.hora)"> {{al.hora}} </button></td>
 
         </tr>
 

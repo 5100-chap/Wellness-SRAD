@@ -6,6 +6,7 @@ import {
   OnInit,
   SimpleChanges,
   ViewChild,
+  ChangeDetectorRef,
 } from '@angular/core';
 import Chart, { Legend, plugins } from 'chart.js/auto';
 import 'chartjs-plugin-labels';
@@ -27,6 +28,7 @@ declare var window: any;
 })
 export class GimnasioComponent implements OnInit {
   meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+  diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
   now!: Date;
 
   getSemanaRange(l: number, r: number): String{
@@ -55,6 +57,16 @@ export class GimnasioComponent implements OnInit {
   }
 
   areaId: number = 0;
+  semanaSeleccionada!: boolean;
+
+  cambiarSemana1(){
+    localStorage.setItem('opcion', 'T');
+    window.location.reload();
+  }
+  cambiarSemana2(){
+    localStorage.setItem('opcion', 'F');
+    window.location.reload();
+  }
 
   reservaArray: Reservas[] = [
     {
@@ -62,7 +74,8 @@ export class GimnasioComponent implements OnInit {
       id_matricula_alumno: '',
       id_area_deportiva: 1,
       fecha: '17-04-2023 6:00 - 8:00',
-      hora: '6:00 - 8:00',
+      rangoDeHora: '6:00 - 8:00',
+      hora: '06:00',
       estado: '',
       id_instructor: '',
     },
@@ -71,6 +84,7 @@ export class GimnasioComponent implements OnInit {
       id_matricula_alumno: '',
       id_area_deportiva: 1,
       fecha: '18-04-2023 8:00 - 10:00 ',
+      rangoDeHora: '',
       hora: '8:00 - 10:00',
       estado: '',
       id_instructor: '',
@@ -188,8 +202,14 @@ export class GimnasioComponent implements OnInit {
       this.getAforoArea();
       this.getAlumnoStatus();
       this.now = new Date();
+      this.semanaSeleccionada = (localStorage.getItem('opcion')=="T")?true:false;
+      console.log((localStorage.getItem('opcion')=="T")?true:false);
     });
-}
+  }
+
+  printHorario(day: number, hora: string): void{
+    console.log(`${this.diasSemana[day]} - ${hora}`);
+  }
 
 
   getAlumnoStatus(): void {
@@ -244,8 +264,9 @@ export class GimnasioComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private apiService: ApiService,
-    private authService: AuthService
-  ) { }
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   /**
    * Write code on Method
