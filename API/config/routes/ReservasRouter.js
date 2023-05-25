@@ -17,6 +17,19 @@ router.post('/api/getTodasReservasAlumno', async(req, res, next)=>{
     }
 });
 
+// Obtener reservas de una semana
+router.post('/api/getReservasSemanales',async(req, res, next)=>{
+    try{
+        var request = new sql.Request();
+        console.log(`${req.body.lunes} - ${req.body.domingo} - ${req.body.area_id}`);
+        var result = await request.query(`EXEC [dbo].[ObtenerReservasSemanal] \'${req.body.lunes}\', \'${req.body.domingo}\', ${req.body.area_id};`);
+        res.json(result.recordset);
+    }
+    catch(error){
+        res.json({'status': error});
+    }
+});
+
 // Para crear una reservación 
 router.put('/api/createReservacionArea', async(req, res, next)=>{
     var currentTime = new Date();

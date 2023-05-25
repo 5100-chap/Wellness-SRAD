@@ -17,6 +17,7 @@ import { Form, FormGroup, FormControl } from '@angular/forms';
 import { AlumnoStatusResponse } from '../models/alumnoStatusResponse.model';
 import { Area } from '../models/area.model';
 import { Subscription } from 'rxjs';
+import { HorarioReserva } from '../models/horario-reserva';
 
 declare var window: any;
 
@@ -73,7 +74,7 @@ export class GimnasioComponent implements OnInit {
       id_area_deportiva: 1,
       fecha: '17-04-2023 6:00 - 8:00',
       rangoDeHora: '6:00 - 8:00',
-      hora: '06:00',
+      hora: '06:00:00',
       estado: '',
       id_instructor: '',
     },
@@ -83,7 +84,7 @@ export class GimnasioComponent implements OnInit {
       id_area_deportiva: 1,
       fecha: '18-04-2023 8:00 - 10:00 ',
       rangoDeHora: '8:00 - 10:00',
-      hora: '8:00',
+      hora: '08:00:00',
       estado: '',
       id_instructor: '',
     },
@@ -93,7 +94,7 @@ export class GimnasioComponent implements OnInit {
       id_area_deportiva: 1,
       fecha: '18-04-2023 10:00 - 12:00',
       rangoDeHora: '10:00 - 12:00',
-      hora: '10:00',
+      hora: '10:00:00',
       estado: '',
       id_instructor: '',
     },
@@ -103,7 +104,7 @@ export class GimnasioComponent implements OnInit {
       id_area_deportiva: 1,
       fecha: '19-04-2023 12:00 - 14:00',
       rangoDeHora: '12:00 - 14:00',
-      hora: '12:00',
+      hora: '12:00:00',
       estado: '',
       id_instructor: '',
     },
@@ -113,7 +114,7 @@ export class GimnasioComponent implements OnInit {
       id_area_deportiva: 1,
       fecha: '20-04-2023 14:00 - 16:00 ',
       rangoDeHora: '14:00 - 16:00',
-      hora: '14:00',
+      hora: '14:00:00',
       estado: '',
       id_instructor: '',
     },
@@ -123,7 +124,7 @@ export class GimnasioComponent implements OnInit {
       id_area_deportiva: 1,
       fecha: '21-04-2023 16:00 - 18:00',
       rangoDeHora: '16:00 - 18:00',
-      hora: '16:00',
+      hora: '16:00:00',
       estado: '',
       id_instructor: '',
     },
@@ -133,7 +134,7 @@ export class GimnasioComponent implements OnInit {
       id_area_deportiva: 1,
       fecha: '21-04-2023 18:00 - 20:00',
       rangoDeHora: '18:00 - 20:00',
-      hora: '18:00',
+      hora: '18:00:00',
       estado: '',
       id_instructor: '',
     },
@@ -143,7 +144,7 @@ export class GimnasioComponent implements OnInit {
       id_area_deportiva: 1,
       fecha: '21-04-2023 20:00 - 22:00',
       rangoDeHora: '20:00 - 22:00',
-      hora: '20:00',
+      hora: '20:00:00',
       estado: '',
       id_instructor: '',
     },
@@ -202,32 +203,39 @@ export class GimnasioComponent implements OnInit {
 
   ngOnInit(): void {
     this.apiService.getAreaByName('gimnasio').subscribe((response) => {
+      this.now = new Date();
       this.areaId = response[0].AreaId;
       this.getAforoArea();
       this.getAlumnoStatus();
       this.subscription = this.dateControl.valueChanges.subscribe(()=>{
         this.semanaSeleccionada = +this.dateControl.value.slice(6);
+        this.getDiasSemana();
+        console.log(this.listaDias);
+        this.apiService.getTodasReservas(this.listaDias[0], this.listaDias[6], this.areaId).subscribe((data: HorarioReserva[])=>{
+          this.listaDeHorariosReservados = data;
+        }, error=>{
+          console.log(error);
+        });
       });
-      this.now = new Date();
-      this.getDiasSemana();
-      console.log(this.listaDias);
     });
   }
 
+  // Obtener el rango de días de la semana, desde lunes hasta domingo, en base a la semana que seleccionó
+  listaDeHorariosReservados: HorarioReserva[] = [];
   listaDias: string[] = [];
   getDiasSemana(){
-    const dias = new Date(70, 0, this.now.getDay());
-    const lunes = new Date(this.now.getTime() - dias.getTime());
+    this.listaDias = [];
+    const primerDiaAnio = new Date(this.now.getFullYear(), 0, 1);
+    const diasParaLunes = (primerDiaAnio.getDay()+6)%7;
+    const primerLunesDelAnio = new Date(this.now.getFullYear(), 0, 1 + (7 - diasParaLunes));
+    const diasSuma = (this.semanaSeleccionada-1)*7;
+    const lunes = new Date(primerLunesDelAnio.getTime() + diasSuma * 86400000); // a partir del primer lunes del año, le suma los días que faltan para este lunes en millisegundos
     const week = new Date(70, 0, 7); // una semana completa
-    const domingo = new Date(this.now.getTime() + (week.getTime() - dias.getTime()));
     const cont = new Date(70, 0, 1, 18, 0, 0); // un dia completo
+    const domingo = new Date(lunes.getTime()+week.getTime());
     for(let i=lunes; i<=domingo; i=new Date(i.getTime() + cont.getTime())){
-      this.listaDias.push(`${i.getFullYear()}-${i.getMonth()}-${i.getDate()}`);
+      this.listaDias.push(`${i.getFullYear()}-${(i.getMonth()+1>9)?i.getMonth()+1:`0${i.getMonth()+1}`}-${i.getDate()}`);
     }
-  }
-
-  checarReservas(){
-
   }
 
   crearReserva(hora: String){
@@ -238,7 +246,17 @@ export class GimnasioComponent implements OnInit {
     console.log(`${this.diasSemana[day]} - ${hora}`);
   }
 
+  // Revisa si el horario del botón está ocupado
+  ocupado(dia: number, hora: string): boolean{
+    for(let i=0; i<this.listaDeHorariosReservados.length; i++){
+      if(this.listaDeHorariosReservados[i].dia.slice(0, 10) === this.listaDias[dia] && this.listaDeHorariosReservados[i].hora.slice(11, 19) === hora){
+        return false;
+      }
+    }
+    return true;
+  }
 
+  // Recibe el estado del alumno, si esta adentro o afuera del area
   getAlumnoStatus(): void {
     const usuario = this.authService.currentUserValue['username']; // Replace with the actual user value you want to send
     this.apiService.verificarLlegada(usuario).subscribe(

@@ -10,6 +10,7 @@ import { AlumnoStatusResponse } from '../models/alumnoStatusResponse.model';
 import { AforoArea } from '../models/aforoArea.model';
 import { AforoSemanalResponse } from '../models/aforoSemanalResponse.model';
 import { IngresosPorHora } from '../models/ingresoPorHora.model';
+import { HorarioReserva } from '../models/horario-reserva';
 
 @Injectable({
   providedIn: 'root',
@@ -67,6 +68,10 @@ export class ApiService {
     return this.http.post<ReservasAlumno[]>('/api/getTodasReservasAlumno', {
       usuario: usuario,
     });
+  }
+
+  getTodasReservas(lunes: string, domingo: string, area_id: number): Observable<HorarioReserva[]>{
+    return this.http.post<HorarioReserva[]>('/api/getReservasSemanales', {lunes, domingo, area_id});
   }
 
   cancelarReservaAlumno(usuario: String, id: number) {

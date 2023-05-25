@@ -105,13 +105,34 @@
 
         <tr *ngFor="let al of reservaArray" (click)="openForEdit(al)" [class.active]="al == seleReserva">
 
-          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printHorario(0, al.hora)"> {{al.rangoDeHora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printHorario(1, al.hora)"> {{al.rangoDeHora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printHorario(2, al.hora)"> {{al.rangoDeHora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printHorario(3, al.hora)"> {{al.rangoDeHora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printHorario(4, al.hora)"> {{al.rangoDeHora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printHorario(5, al.hora)"> {{al.rangoDeHora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printHorario(6, al.hora)"> {{al.rangoDeHora}} </button></td>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(0, al.hora)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(0, al.hora)" class="btn btn-primary" id="btn" disabled> {{al.rangoDeHora}} </button>
+          </td>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(1, al.hora)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(1, al.hora)" class="btn btn-primary" id="btn" disabled> {{al.rangoDeHora}} </button>
+          </td>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(2, al.hora)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(2, al.hora)" class="btn btn-primary" id="btn" disabled> {{al.rangoDeHora}} </button>
+          </td>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(3, al.hora)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(3, al.hora)" class="btn btn-primary" id="btn" disabled> {{al.rangoDeHora}} </button>
+          </td>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(4, al.hora)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(4, al.hora)" class="btn btn-primary" id="btn" disabled> {{al.rangoDeHora}} </button>
+          </td>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(5, al.hora)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(5, al.hora)" class="btn btn-primary" id="btn" disabled> {{al.rangoDeHora}} </button>
+          </td>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(6, al.hora)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(6, al.hora)" class="btn btn-primary" id="btn" disabled> {{al.rangoDeHora}} </button>
+          </td>
 
         </tr>
 
