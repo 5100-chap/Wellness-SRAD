@@ -13,9 +13,10 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Reservas } from '../models/reservas.model';
 import { ApiService } from '../services/api.service';
 import { AuthService } from '../services/auth.service';
-import { FormGroup } from '@angular/forms';
+import { Form, FormGroup, FormControl } from '@angular/forms';
 import { AlumnoStatusResponse } from '../models/alumnoStatusResponse.model';
 import { Area } from '../models/area.model';
+import { Subscription } from 'rxjs';
 
 declare var window: any;
 
@@ -61,16 +62,9 @@ export class GimnasioComponent implements OnInit {
   }
 
   areaId: number = 0;
-  semanaSeleccionada!: boolean;
-
-  cambiarSemana1(){
-    localStorage.setItem('opcion', 'T');
-    window.location.reload();
-  }
-  cambiarSemana2(){
-    localStorage.setItem('opcion', 'F');
-    window.location.reload();
-  }
+  semanaSeleccionada!: number;
+  dateControl = new FormControl();
+  private subscription: Subscription | undefined;
 
   reservaArray: Reservas[] = [
     {
@@ -211,10 +205,33 @@ export class GimnasioComponent implements OnInit {
       this.areaId = response[0].AreaId;
       this.getAforoArea();
       this.getAlumnoStatus();
+      this.subscription = this.dateControl.valueChanges.subscribe(()=>{
+        this.semanaSeleccionada = +this.dateControl.value.slice(6);
+      });
       this.now = new Date();
-      this.semanaSeleccionada = (localStorage.getItem('opcion')=="T")?true:false;
-      console.log((localStorage.getItem('opcion')=="T")?true:false);
+      this.getDiasSemana();
+      console.log(this.listaDias);
     });
+  }
+
+  listaDias: string[] = [];
+  getDiasSemana(){
+    const dias = new Date(70, 0, this.now.getDay());
+    const lunes = new Date(this.now.getTime() - dias.getTime());
+    const week = new Date(70, 0, 7); // una semana completa
+    const domingo = new Date(this.now.getTime() + (week.getTime() - dias.getTime()));
+    const cont = new Date(70, 0, 1, 18, 0, 0); // un dia completo
+    for(let i=lunes; i<=domingo; i=new Date(i.getTime() + cont.getTime())){
+      this.listaDias.push(`${i.getFullYear()}-${i.getMonth()}-${i.getDate()}`);
+    }
+  }
+
+  checarReservas(){
+
+  }
+
+  crearReserva(hora: String){
+    
   }
 
   printHorario(day: number, hora: string): void{
