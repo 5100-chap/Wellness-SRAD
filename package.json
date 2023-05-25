@@ -35,7 +35,6 @@
     "jsbarcode": "^3.11.5",
     "mssql": "^9.1.1",
     "ng-starrating": "^1.0.20",
-    "ngx-bar-rating": "^6.0.0",
     "ngx-barcode-qrcode-sdk": "^1.0.1",
     "ngx-material-rating": "^2.0.0",
     "popper.js": "^1.16.1",
