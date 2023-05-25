@@ -25,7 +25,7 @@ import { Subscription } from 'rxjs';
 import { Area } from '../models/area.model';
 import { ChartService } from '../services/chart.service';
 import { AforoSemanalResponse } from '../models/aforoSemanalResponse.model';
-
+import { IngresosPorHora } from '../models/ingresoPorHora.model';
 @Component({
   selector: 'app-stats-admin',
   templateUrl: './stats-admin.component.html',
@@ -80,6 +80,16 @@ export class StatsAdminComponent {
     this.chart = this.chartService.createChart('Dia', labels, data, 'bar');
   }
 
+  createLineChart(labels: string[], data: number[]) {
+    this.chartService.destroyChart(this.lineChart);
+    this.lineChart = this.chartService.createChart(
+      'linea',
+      labels,
+      data,
+      'line'
+    );
+  }
+
   getAforoArea(): void {
     this.apiService.consultarAforo(this.areaActual.AreaId).subscribe(
       (data: any) => {
@@ -101,7 +111,6 @@ export class StatsAdminComponent {
     );
   }
 
-
   ngOnInit(): void {
     const nombreAreaParam = this.route.snapshot.paramMap.get('nombreArea');
     if (nombreAreaParam === null) {
@@ -111,7 +120,10 @@ export class StatsAdminComponent {
     }
     this.apiService.getAreaByName(this.nombreArea).subscribe((response) => {
       this.areaActual = response[0];
-      if (this.areaActual.NombreArea.toLocaleLowerCase() !== nombreAreaParam?.toLocaleLowerCase()){
+      if (
+        this.areaActual.NombreArea.toLocaleLowerCase() !==
+        nombreAreaParam?.toLocaleLowerCase()
+      ) {
         this.router.navigate(['/']);
       }
     });
@@ -165,10 +177,36 @@ export class StatsAdminComponent {
       }
     );
 
+    this.subscription2 = this.dayControl.valueChanges.subscribe(
+      (value: string) => {
+        this.apiService
+          .getIngresosPorHora(value, this.areaActual.AreaId)
+          .subscribe((data: IngresosPorHora[]) => {
+            // Inicializar un objeto con todas las horas del día y ingresos 0
+            const ingresosPorHora: { [hora: number]: number } = {};
+            for (let i = 0; i < 24; i++) {
+              ingresosPorHora[i] = 0;
+            }
+
+            // Llenar el objeto con los datos obtenidos
+            for (const item of data) {
+              ingresosPorHora[item.Hora] = item.Ingresos;
+            }
+
+            // Crear los arreglos labels y dataPoints a partir del objeto
+            const labels = Object.keys(ingresosPorHora).map(
+              (hour) => `${hour}:00 hrs`
+            );
+            const dataPoints = Object.values(ingresosPorHora);
+
+            this.createLineChart(labels, dataPoints);
+          });
+      }
+    );
   }
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
+    this.subscription2?.unsubscribe();
   }
-  
 }

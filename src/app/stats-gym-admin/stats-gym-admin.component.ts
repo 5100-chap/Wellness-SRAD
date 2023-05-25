@@ -18,7 +18,7 @@ export class StatsGymAdminComponent implements OnInit, OnDestroy {
   public lineChart: any;
   dateControl = new FormControl();
   dayControl = new FormControl();
-  AreaInfo: Area[] = [];
+  public AreaInfo: Area[] = [];
   private subscription: Subscription | undefined;
   private subscription2: Subscription | undefined;
   // Definir los nombres de los días de la semana
