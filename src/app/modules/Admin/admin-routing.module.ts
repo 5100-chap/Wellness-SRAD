@@ -48,7 +48,7 @@ const routesAdmin: Routes = [
         component: CrearAnuncioComponent,
     },
     {
-        path: 'estadisticas',
+        path: 'estadisticas/:nombreArea',
         component: StatsAdminComponent,
         canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])],
         data: {

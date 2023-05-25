@@ -22,6 +22,9 @@ import {
   ReactiveFormsModule,
   FormControl,
 } from '@angular/forms'; // Para construcción y manejo de formularios
+import { Area } from '../models/area.model';
+import { ChartService } from '../services/chart.service';
+
 
 @Component({
   selector: 'app-area-deportiva',
@@ -29,11 +32,11 @@ import {
   styleUrls: ['./area-deportiva.component.css'],
 })
 export class AreaDeportivaComponent implements OnInit {
-  // Declaramos las variables y arrays que vamos a utilizar
+  // Declaramos las variables y arrays que vamos a utilizar|
+  areaActual : Area = new Area;
   public nombreArea: string = '';
-  areaId: number = 0;
-  aforoData: String = '';
-  materialesData: string = '';
+  aforoData: string = '';
+  //Deprecated manejo de fechas
   // Array de meses para manejo de fechas
   meses = [
     'Enero',
@@ -218,28 +221,6 @@ export class AreaDeportivaComponent implements OnInit {
 
   public chart: any;
 
-  createChart(libres: number, ocupados: number) {
-    var xValues = ['Libre: ' + libres, 'Ocupado: ' + ocupados];
-    var yValues = [libres, ocupados];
-
-    var barColors = ['#003366', '#5B6C70'];
-    this.chart = new Chart('MyChart', {
-      type: 'pie',
-      data: {
-        labels: xValues,
-        datasets: [
-          {
-            data: yValues,
-            backgroundColor: barColors,
-            hoverOffset: 4,
-          },
-        ],
-      },
-      options: {
-        aspectRatio: 2.5,
-      },
-    });
-  }
 
   title = 'appBootstrap';
 
@@ -251,12 +232,14 @@ export class AreaDeportivaComponent implements OnInit {
   --------------------------------------------
   --------------------------------------------*/
   constructor(
+    private chartService: ChartService,
     private modalService: NgbModal,
     private route: ActivatedRoute,
     private router: Router,
     private apiService: ApiService,
     private authService: AuthService
   ) {}
+
 
   ngOnInit(): void {
     const nombreAreaParam = this.route.snapshot.paramMap.get('nombreArea');
@@ -266,25 +249,29 @@ export class AreaDeportivaComponent implements OnInit {
       this.nombreArea = nombreAreaParam;
     }
     this.apiService.getAreaByName(this.nombreArea).subscribe((response) => {
-      this.areaId = response[0].AreaId;
-      this.materialesData = response[0].MaterialDisponible;
+      this.areaActual = response[0];
       this.getAforoArea();
       this.now = new Date();
     });
   }
 
   getAforoArea(): void {
-    this.apiService.consultarAforo(this.areaId).subscribe(
+    this.apiService.consultarAforo(this.areaActual.AreaId).subscribe(
       (data: any) => {
-        this.aforoData = data['actuales'] + '/' + data['totales'];
-        this.createChart(Number(data['actuales']), Number(data['totales']));
+        const actuales = Number(data['actuales']);
+        const totales = Number(data['totales']);
+        const ocupados = totales - actuales;
+  
+        this.aforoData = actuales + '/' + totales;
+        // Use service method to create chart
+        this.chart = this.chartService.createPieChart('MyChart', ['Libre: ' + actuales, 'Ocupado: ' + ocupados], [ocupados, actuales]);
       },
       (error) => {
         console.log('Error fetching aforo status:', error);
       }
     );
   }
-
+  
   /**
    * Write code on Method
    *
