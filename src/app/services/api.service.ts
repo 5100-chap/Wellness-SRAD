@@ -10,6 +10,8 @@ import { AlumnoStatusResponse } from '../models/alumnoStatusResponse.model';
 import { AforoArea } from '../models/aforoArea.model';
 import { AforoSemanalResponse } from '../models/aforoSemanalResponse.model';
 import { IngresosPorHora } from '../models/ingresoPorHora.model';
+import { Casilleros } from '../models/casilleros';
+import { NumCasillerosDisponibles } from '../models/num-casilleros-disponibles';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +26,15 @@ export class ApiService {
     };
     return this.http.get('/api/getXCredentials', { headers });
   }
+
+  getCasillerosDisponibles():Observable<Casilleros[]> {
+    return this.http.get<Casilleros[]>('/api/getCasillerosDisponibles');
+  }
+
+  getDisponibilidadCasillero():Observable<NumCasillerosDisponibles[]> {
+    return this.http.get<NumCasillerosDisponibles[]>('/api/getDisponibilidadCasilleros');
+  }
+
 
   marcar(usuario: String, area_id: number) {
     return this.http.post('/api/marcarLlegada', {

@@ -3,6 +3,9 @@ import Chart, { Legend, plugins } from 'chart.js/auto';
 import 'chartjs-plugin-labels';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Reservas } from '../models/reservas.model';
+import { Casilleros } from '../models/casilleros';
+import { ApiService } from '../services/api.service';
+import { NumCasillerosDisponibles } from '../models/num-casilleros-disponibles';
 
 declare var window: any;
 
@@ -12,109 +15,52 @@ declare var window: any;
   styleUrls: ['./lockers.component.css'],
 })
 export class LockersComponent {
-  reservaArray: Reservas[] = [
-    {
-      id: 1,
-      id_matricula_alumno: 'A00960720',
-      id_area_deportiva: 7,
-      fecha: 'Locker 1',
-      hora: 'Locker 1',
-      estado: '',
-      id_instructor: '',
-    },
-    {
-      id: 2,
-      id_matricula_alumno: 'A00952209',
-      id_area_deportiva: 6,
-      fecha: 'Locker 2',
-      hora: 'Locker 2',
-      estado: '',
-      id_instructor: '',
-    },
-    {
-      id: 3,
-      id_matricula_alumno: 'A00952209',
-      id_area_deportiva: 6,
-      fecha: 'Locker 3',
-      hora: 'Locker 3',
-      estado: '',
-      id_instructor: '',
-    },
-    {
-      id: 4,
-      id_matricula_alumno: 'A00149174',
-      id_area_deportiva: 8,
-      fecha: 'Locker 4',
-      hora: 'Locker 4',
-      estado: '',
-      id_instructor: '',
-    },
-    {
-      id: 5,
-      id_matricula_alumno: 'A00960720',
-      id_area_deportiva: 7,
-      fecha: 'Locker 5',
-      hora: 'Locker 5',
-      estado: '',
-      id_instructor: '',
-    },
-  ];
-  seleReserva: Reservas = new Reservas();
-  addOrEdit() {
-    if (this.seleReserva.id == 0) {
-      this.seleReserva.id = this.reservaArray.length + 1;
-      this.reservaArray.push(this.seleReserva);
-    }
-    this.seleReserva = new Reservas();
+
+  /** Definiciones de variables*/
+  casilleros: Casilleros[] = [];
+
+  constructor(private apiService: ApiService, private modalService: NgbModal) {}
+  
+  CasillerosDisponibles : NumCasillerosDisponibles[] = [];
+
+  seleReserva: Casilleros = new Casilleros();
+
+
+  /**  Obtención de la información de los casilleros disponibles*/
+
+  ngOnInit(): void {
+    this.getCasillerosDis();
+    this.getDisponibilidad();
+
+  
   }
+  getCasillerosDis(){
 
-  openForEdit(reserve: Reservas) {
-    this.seleReserva = reserve;
-  }
-
-  delete() {
-    if (confirm('Deseas realmente eliminar la reservación?')) {
-      this.reservaArray = this.reservaArray.filter(
-        (x) => x != this.seleReserva
-      );
-      this.seleReserva = new Reservas();
-    }
-  }
-
-  public chart: any;
-
-  createChart() {
-    var xValues = ['Libre', 'Ocupado'];
-    var yValues = [55, 49];
-
-    var barColors = ['#12BB2F', '#F41212'];
-
-    this.chart = new Chart('MyChart', {
-      type: 'pie', //this denotes tha type of chart
-
-      data: {
-        // values on X-Axis
-        labels: xValues,
-        datasets: [
-          {
-            data: yValues,
-            backgroundColor: barColors,
-
-            hoverOffset: 4,
-          },
-        ],
-      },
-      options: {
-        aspectRatio: 2.5,
-      },
+    this.apiService.getCasillerosDisponibles().subscribe((data: Casilleros[]) => {
+      this.casilleros = data;
+      console.log(this.casilleros)
     });
   }
 
-  ngOnInit(): void {
-    this.createChart();
+  getDisponibilidad(){
+    this.apiService.getDisponibilidadCasillero().subscribe((data: NumCasillerosDisponibles[]) => {
+      this.CasillerosDisponibles = data;
+      console.log(this.CasillerosDisponibles)
+    });
+
   }
 
-  title = 'appBootstrap';
+  actulizarCasilleroSelecccionado(seleccionado : Casilleros){
+    this.seleReserva = seleccionado;
+   
+  }
+
+  
+
+  
+
+
+/* Creación del modal*/
 
   closeResult: string = '';
 
@@ -123,7 +69,7 @@ export class LockersComponent {
   Created constructor
   --------------------------------------------
   --------------------------------------------*/
-  constructor(private modalService: NgbModal) {}
+  
 
   /**
    * Write code on Method
