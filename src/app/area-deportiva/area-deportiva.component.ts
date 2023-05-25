@@ -247,12 +247,21 @@ export class AreaDeportivaComponent implements OnInit {
       this.router.navigate(['/']);
     } else {
       this.nombreArea = nombreAreaParam;
+      this.apiService.getAreaByName(this.nombreArea).subscribe((response) => {
+        this.areaActual = response[0];
+        console.log(this.areaActual);
+        if (this.areaActual.NombreArea === null) {
+          this.router.navigate(['/404']);
+        }
+        if(!this.areaActual.Estatus) {
+          this.router.navigate(["/error-" + this.areaActual.NombreArea + "-cerrado"]);
+        }
+        else{
+          this.getAforoArea();
+          this.now = new Date();
+        }
+      }); 
     }
-    this.apiService.getAreaByName(this.nombreArea).subscribe((response) => {
-      this.areaActual = response[0];
-      this.getAforoArea();
-      this.now = new Date();
-    });
   }
 
   getAforoArea(): void {
