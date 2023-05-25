@@ -3,6 +3,10 @@ import Chart, { Legend, plugins } from 'chart.js/auto';
 import 'chartjs-plugin-labels';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Reservas } from '../models/reservas';
+import { defineComponents, IgcRatingComponent } from 'igniteui-webcomponents';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+defineComponents(IgcRatingComponent);
 
 declare var window: any;
 
@@ -133,6 +137,19 @@ export class LockersComponent {
   open(content: any) {
     this.modalService
       .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${result}`;
+        },
+        (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        }
+      );
+  }
+
+  abrir(content: any) {
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-resena' })
       .result.then(
         (result) => {
           this.closeResult = `Closed with: ${result}`;

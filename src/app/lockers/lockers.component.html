@@ -152,6 +152,23 @@
     <!-- Reseñas -->
     <div class="col-md-7 mt-4">
       <h3> <strong>Reseñas</strong> </h3>
+
+      <button style = "font-size: 1.5rem; margin-top: 8%;" id="btn2" class="btn" (click)="abrir(resenamodal)"> Calificar </button>
+          <ng-template #resenamodal let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-resena">Reseñas</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Tu reseña se ha realizado exitosamente!
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
+            </div>
+          </ng-template>
+
       <div class="card border border-grey border border-2">
         <div class="row">
 
