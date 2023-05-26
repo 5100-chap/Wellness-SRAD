@@ -212,6 +212,7 @@ export class GimnasioComponent implements OnInit {
         this.getDiasSemana();
         this.apiService.getTodasReservas(this.listaDias[0], this.listaDias[6], this.areaId).subscribe((data: HorarioReserva[])=>{
           this.listaDeHorariosReservados = data;
+          console.log(this.alumnoStatus);
         }, error=>{
           console.log(error);
         });
@@ -237,6 +238,7 @@ export class GimnasioComponent implements OnInit {
     }
   }
 
+  // Crea la reserva dependiendo del día y hora seleccionados
   horaSeleccionada!: string;
   diaSeleccionado!: string;
   crearReserva(){
@@ -261,6 +263,9 @@ export class GimnasioComponent implements OnInit {
 
   // Revisa si el horario del botón está ocupado
   ocupado(dia: number, hora: string): boolean{
+    if(this.listaDeHorariosReservados.length===0 || this.diaPasado(dia, hora)){
+      return false;
+    }
     for(let i=0; i<this.listaDeHorariosReservados.length; i++){
       if(this.listaDeHorariosReservados[i].dia.slice(0, 10) === this.listaDias[dia] && this.listaDeHorariosReservados[i].hora.slice(11, 19) === hora || this.diaPasado(dia, hora)){
         return false;
@@ -360,8 +365,10 @@ export class GimnasioComponent implements OnInit {
    */
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
+      this.reload();
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      this.reload();
       return 'by clicking on a backdrop';
     } else {
       this.reload();

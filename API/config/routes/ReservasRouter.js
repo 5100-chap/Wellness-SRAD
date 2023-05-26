@@ -21,7 +21,6 @@ router.post('/api/getTodasReservasAlumno', async(req, res, next)=>{
 router.post('/api/getReservasSemanales',async(req, res, next)=>{
     try{
         var request = new sql.Request();
-        console.log(`${req.body.lunes} - ${req.body.domingo} - ${req.body.area_id}`);
         var result = await request.query(`EXEC [dbo].[ObtenerReservasSemanal] \'${req.body.lunes}\', \'${req.body.domingo}\', ${req.body.area_id};`);
         res.json(result.recordset);
     }

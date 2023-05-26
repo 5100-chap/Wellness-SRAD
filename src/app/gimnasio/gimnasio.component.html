@@ -164,7 +164,7 @@
         </div>
 
         <div class=" col-md-2 mt-3">
-          <button id="confirmar" class="btn" (click)="open(mymodal)" (click)="crearReserva()"> Reservar </button>
+          <button *ngIf="horaSeleccionada!==undefined && diaSeleccionado!==undefined" id="confirmar" class="btn" (click)="open(mymodal)" (click)="crearReserva()"> Reservar </button>
           <ng-template #mymodal let-modal>
             <div class="modal-header">
               <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
@@ -179,8 +179,8 @@
               <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="reload()">OK</button>
             </div>
           </ng-template>
+          <button *ngIf="horaSeleccionada===undefined || diaSeleccionado===undefined" id="confirmar" class="btn" disabled> Reservar </button>
         </div>
-
       </div>
 
 
