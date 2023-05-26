@@ -11,6 +11,9 @@ import { AforoArea } from '../models/aforoArea.model';
 import { AforoSemanalResponse } from '../models/aforoSemanalResponse.model';
 import { IngresosPorHora } from '../models/ingresoPorHora.model';
 import { HorarioReserva } from '../models/horario-reserva';
+import { Casilleros } from '../models/casilleros';
+import { NumCasillerosDisponibles } from '../models/num-casilleros-disponibles';
+import { ReservaCasillero } from '../models/reserva-casillero';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +28,19 @@ export class ApiService {
     };
     return this.http.get('/api/getXCredentials', { headers });
   }
+
+  getCasillerosDisponibles():Observable<Casilleros[]> {
+    return this.http.get<Casilleros[]>('/api/getCasillerosDisponibles');
+  }
+
+  getDisponibilidadCasillero():Observable<NumCasillerosDisponibles[]> {
+    return this.http.get<NumCasillerosDisponibles[]>('/api/getDisponibilidadCasilleros');
+  }
+
+  consultarReservaCasillero(matricula: String): Observable<ReservaCasillero> {
+    return this.http.post<ReservaCasillero>('/api/consultarReservaCasillero', { matricula });
+  }
+
 
   marcar(usuario: String, area_id: number) {
     return this.http.post('/api/marcarLlegada', {
@@ -87,6 +103,21 @@ export class ApiService {
       `/api/ingresosPorHora?Day=${day}&AreaId=${areaId}`
     );
   }
+
+  crearReservaCasillero(alumno: String, casillero: number){
+    
+    return this.http.post('/api/createReservacionLocker',{
+      matricula: alumno,
+      id_casillero: casillero
+    });
+  }
+
+  actualizarEstadoCasillero(casillero: number){
+    return this.http.post('/api/actualizarEstadoLocker',{
+      id_casillero: casillero
+    });
+  }
+  
 
 
   marcarLlegadaReserva(usuario: String, area_id: number, id_reservacion: number){

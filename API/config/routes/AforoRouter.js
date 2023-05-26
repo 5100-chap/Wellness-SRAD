@@ -3,6 +3,19 @@ const router = express.Router();
 const sql = require("mssql");
 const queries = require("../database/queries");
 
+//Consigue el número de casilleros disponibles
+router.get("/api/getDisponibilidadCasilleros", async (req,res, next) =>{
+    const request = new sql.Request();
+    try{
+        const result = await request.execute('GetDisponibilidadCasilleros');
+        res.json(result.recordset);
+
+    } catch (err){
+        next(err);
+    }
+
+});
+
 // Estadisticas
 router.get("/api/llamarAforo", async (req, res, next) => {
     try {
@@ -15,6 +28,7 @@ router.get("/api/llamarAforo", async (req, res, next) => {
         next(err);
     }
 });
+
 
 
 router.post("/api/consultarAforo", async (req, res, next) => {

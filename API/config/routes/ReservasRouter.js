@@ -1,3 +1,4 @@
+const { request } = require("express");
 const express = require("express");
 const router = express.Router();
 const sql = require("mssql");
@@ -41,6 +42,51 @@ router.put('/api/createReservacionArea', async(req, res, next)=>{
         res.sendStatus(404);
     }
 });
+
+// Crear una reservación de un Locker
+router.post('/api/createReservacionLocker', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();       
+        var result = await request.query(`EXEC [dbo].[CrearReservaCasillero] \'${req.body.matricula}\', ${req.body.id_casillero};`);
+    }catch(error){
+        console.log(error);
+        res.json({'status': 'error'});
+    }
+});
+
+// Actualizar el estatus de un locker 
+router.post('/api/actualizarEstadoLocker', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();       
+        var result = await request.query(`EXEC [dbo].[ActualizarEstadoCasillero] \ ${req.body.id_casillero};`);
+    }catch(error){
+        console.log(error);
+        res.json({'status': 'error'});
+    }
+});
+
+//Revisar si el alumno tiene una reserva de casillero, si la tiene que la obtenga
+
+router.post("/api/consultarReservaCasillero", async (req, res, next) => {
+    try {
+        if (req.body === undefined) {
+            res.send(404);
+            return;
+        }
+        var request = new sql.Request();
+        var search = `EXEC [dbo].[ExisteReservaCasillero] \'${req.body.matricula}\';`;
+        
+        var result = await request.query(search);
+        res.send(result.recordset[0]);
+    }
+    catch (err) {
+        next(err);
+    }
+    
+
+});
+
+
 
 // Cancelar una reservación
 router.delete('/api/cancelReservacionArea', async(req, res, next)=>{

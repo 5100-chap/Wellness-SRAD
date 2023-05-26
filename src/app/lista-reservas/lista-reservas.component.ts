@@ -12,7 +12,7 @@ import { AsesorNombre } from '../models/asesor-nombre';
 })
 export class ListaReservasComponent {
 
-  title = 'appBootstrap';
+  /*Creación del modal*/
     
   closeResult: string = '';
   Reservas!: ReservasAlumno[];
@@ -41,6 +41,9 @@ export class ListaReservasComponent {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   } 
+
+
+   /*Obtención de las reservas del alumno que ha iniciado sesión*/
 
   ngOnInit(): void{
     this.getTodasReservasAlumno();
