@@ -13,6 +13,7 @@ import { IngresosPorHora } from '../models/ingresoPorHora.model';
 import { Casilleros } from '../models/casilleros';
 import { NumCasillerosDisponibles } from '../models/num-casilleros-disponibles';
 import { ReservaCasillero } from '../models/reserva-casillero';
+import { Anuncio } from '../models/anuncio';
 
 @Injectable({
   providedIn: 'root',
@@ -28,17 +29,24 @@ export class ApiService {
     return this.http.get('/api/getXCredentials', { headers });
   }
 
+  //Obtener la información de los casilleros disponibles
   getCasillerosDisponibles():Observable<Casilleros[]> {
     return this.http.get<Casilleros[]>('/api/getCasillerosDisponibles');
   }
 
+  //Obtener el número de los casilleros disponibles
   getDisponibilidadCasillero():Observable<NumCasillerosDisponibles[]> {
     return this.http.get<NumCasillerosDisponibles[]>('/api/getDisponibilidadCasilleros');
   }
-
+  //Consultar si el alumno actual tiene un casillero reservado
   consultarReservaCasillero(matricula: String): Observable<ReservaCasillero> {
     return this.http.post<ReservaCasillero>('/api/consultarReservaCasillero', { matricula });
   }
+
+  // Obtener todos los anuncios
+  getAnuncios(): Observable<Anuncio[]> {
+    return this.http.get<Anuncio[]>('/api/getAnuncios');
+  } 
 
 
   marcar(usuario: String, area_id: number) {
