@@ -13,35 +13,35 @@
 <h3 style="margin-left: 4%; margin-top: 2%; margin-bottom: 2%;"> <strong> Información </strong> </h3>
 
 
-<!-- Tarjeta de información del area deportiva-->
-<div class="vstack gap-4 col-md-10 mx-auto">
-
-  <div class="card w-100" style=" border-width: 0.2rem;">
-
-    <div class="row" style="margin-bottom: 3%;">
-
-      <div class="col-md-6" style="margin-top: 2%; margin-left: 5%; text-align: center;">
-        <h2> <strong> Lugares disponibles </strong> </h2>
-        <div style="margin-top: 3.5%;">
-          <h2> {{aforoData}}</h2>
+<!-- Tarjeta de información del área deportiva -->
+<div class="container">
+  <div class="card p-4" style="border-width: 0.2rem;">
+    <div class="row">
+      <div class="col-md-6 col-lg-4">
+        <div class="chart-container">
+          <canvas id="MyChart">{{ chart }}</canvas>
         </div>
-
-
-
       </div>
-      <div class="col-md-5" style="margin-top: 2%; text-align: center;">
-        <h2> <strong> Material disponibles </strong> </h2>
-        <div style="margin-top: 3.5%;">
+      <div class="col-md-6 col-lg-4">
+        <h2 class="text-center">Lugares disponibles</h2>
+        <div class="text-center">
+          <h2>{{ aforoData }}</h2>
+        </div>
+      </div>
+      <div class="col-md-12 col-lg-4">
+        <h2 class="text-center">Materiales disponibles</h2>
+        <div class="text-center">
           <ul class="materiales-list">
-            <li *ngFor="let material of materialesData.split(',')">- {{ material.trim() }}</li>
+            <li *ngFor="let material of areaActual.MaterialDisponible.split(',')">- {{ material.trim() }}</li>
           </ul>
         </div>
       </div>
-
     </div>
-
   </div>
 </div>
+
+
+
 
 
 <!-- Calendario de reservación-->
@@ -175,7 +175,7 @@
       <h3> <strong>Ubicación</strong> </h3>
       <div class="card border border-black border border-1">
 
-        <h5 style="margin-left: 1%; margin-top:1%;">Primer piso - 102</h5>
+        <h5 style="margin-left: 1%; margin-top:1%;">{{areaActual.Ubicacion}}</h5>
       </div>
     </div>
 

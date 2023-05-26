@@ -1,103 +1,51 @@
-<div class="img-fluid" class = "opacity-30"  >
-    <div class=" text-white">
-      <img src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="130" class="card-img" alt="...">
+<div class="container">
+  <div class="img-fluid" style="opacity: 0.3;">
+    <div class="text-white">
+      <img src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80"
+        height="130" class="card-img" alt="...">
       <div class="card-img-overlay">
-        <h5 class="card-title">&nbsp;</h5>
-        <h5 class="card-title">&nbsp;</h5>
-        <h5 class="card-title">&nbsp;</h5>
-        <h5 class="card-title">&nbsp;</h5>
-  
-        <h1 class="card-title" class = "text-center"> Estadísticas del gimnasio</h1>
+        <h1 class="card-title text-center">Estadísticas del gimnasio</h1>
       </div>
     </div>
   </div>
-
 
   <!-- Gráfica de tendencias -->
 
-  <div class="card mt-4" style="width:70%; margin-left: 15%;">
-    <h4 class="card-header">Tendencias de ingreso al gimnasio por hora</h4>
+  <div class="card mt-4">
+    <h4 class="card-header text-center">Monitor de ingresos diarios</h4>
 
-    <div class="row">
-      <div class="col-md-3 mt-3" style="margin-left: 2%;">
-        <div ngbDropdown>
-          <button class="btn btn-primary" id="btn" 
-                  ngbDropdownToggle>Semana II: 20 - 26 de Marzo 2023</button>
-          <div ngbDropdownMenu="gfg">
-            <button ngbDropdownItem>Semana III: 20 - 26 de Marzo 2023</button>
-            <button ngbDropdownItem>Semana IV: 20 - 26 de Marzo 2023</button>
-            <button ngbDropdownItem>Semana V: 20 - 26 de Marzo 2023</button>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mt-3">
-        
-        <div ngbDropdown>
-          <button class="btn btn-primary" id="btn" 
-                  ngbDropdownToggle>20 de Marzo 2023</button>
-          <div ngbDropdownMenu="gfg">
-            <button ngbDropdownItem>21 de Marzo 2023</button>
-            <button ngbDropdownItem>22 de Marzo 2023</button>
-            <button ngbDropdownItem>23 de Marzo 2023</button>
-            <button ngbDropdownItem>24 de Marzo 2023</button>
-            <button ngbDropdownItem>25 de Marzo 2023</button>
-            <button ngbDropdownItem>26 de Marzo 2023</button>
-          </div>
-        </div>
-      </div>
+    <div class="col-md-3 mt-3 mx-auto">
+      <label for="weekPicker">Elige la semana:</label>
+      <input type="week" id="weekPicker" [formControl]="dateControl" class="form-control">
     </div>
 
-
     <div class="row">
-      <div class="col-md-1 mt-4"></div>
-      <div class="col-md-10 mt-5">
-          <div class="chart-container">
-              <canvas  id="MyChart" >{{ chart }}</canvas>
-              <br>
-            </div>
+      <div class="col-md-12 mt-5">
+        <div class="chart-container">
+          <canvas id="Dia">{{ chart }}</canvas>
+          <br>
+        </div>
       </div>
     </div>
   </div>
 
-    <!-- Monitor de ingresos -->
+  <!-- Gráfica de líneas -->
 
-    <div class="card mt-4" style="width:70%; margin-left: 15%;">
-      <h4 class="card-header">Monitor de ingresos diarios</h4>
-  
-      <div class="row">
-        <div class="col-md-3 mt-3" style="margin-left: 2%;">
-          <div ngbDropdown>
-            <button class="btn btn-primary" id="btn" 
-                    ngbDropdownToggle>Semana II: 20 - 26 de Marzo 2023</button>
-            <div ngbDropdownMenu="gfg">
-              <button ngbDropdownItem>Semana III: 20 - 26 de Marzo 2023</button>
-              <button ngbDropdownItem>Semana IV: 20 - 26 de Marzo 2023</button>
-              <button ngbDropdownItem>Semana V: 20 - 26 de Marzo 2023</button>
-            </div>
-          </div>
-        </div>
+  <div class="card mt-4">
+    <h4 class="card-header text-center">Tendencias de ingreso al gimnasio por hora</h4>
 
-      </div>
-  
-  
-    
+    <div class="col-md-3 mt-3 mx-auto">
+      <label for="dayPicker">Elige el día:</label>
+      <input type="date" id="dayPicker" [formControl]="dayControl" class="form-control">
+    </div>
+
     <div class="row">
-      <div class="col-md-1 mt-4"></div>
-      <div class="col-md-10 mt-5">
-          <div class="chart-container">
-              <canvas  id="Dia" >{{ chart }}</canvas>
-              <br>
-            </div>
+      <div class="col-md-12 mt-5">
+        <div class="chart-container">
+          <canvas id="linea">{{ chart }}</canvas>
+          <br>
+        </div>
       </div>
     </div>
-
-    </div>
-
-
-
-
-  
-
- 
-
-  
+  </div>
+</div>
