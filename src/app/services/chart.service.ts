@@ -1,5 +1,32 @@
 import { Injectable } from '@angular/core';
-import { Chart, ChartConfiguration, ChartType } from 'chart.js';
+import {
+  Chart,
+  ChartConfiguration,
+  ChartType,
+  CategoryScale,
+  BarController,
+  LineController,
+  BarElement,
+  LineElement,
+  PointElement,
+  PieController,
+  ArcElement,
+  Tooltip,
+  LinearScale
+} from 'chart.js';
+
+Chart.register(
+  BarController,
+  LineController,
+  BarElement,
+  LineElement,
+  PointElement,
+  PieController,
+  CategoryScale,
+  ArcElement,
+  Tooltip,
+  LinearScale,
+);
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +36,12 @@ export class ChartService {
 
   constructor() {}
 
-  createChart(chartId: string, labels: string[], data: number[], chartType: ChartType): Chart {
+  createChart(
+    chartId: string,
+    labels: string[],
+    data: number[],
+    chartType: ChartType
+  ): Chart {
     const chartConfig: ChartConfiguration = {
       type: chartType,
       data: {

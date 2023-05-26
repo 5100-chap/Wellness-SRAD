@@ -10,6 +10,10 @@ import { AlumnoStatusResponse } from '../models/alumnoStatusResponse.model';
 import { AforoArea } from '../models/aforoArea.model';
 import { AforoSemanalResponse } from '../models/aforoSemanalResponse.model';
 import { IngresosPorHora } from '../models/ingresoPorHora.model';
+import { HorarioReserva } from '../models/horario-reserva';
+import { Casilleros } from '../models/casilleros';
+import { NumCasillerosDisponibles } from '../models/num-casilleros-disponibles';
+import { ReservaCasillero } from '../models/reserva-casillero';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +28,19 @@ export class ApiService {
     };
     return this.http.get('/api/getXCredentials', { headers });
   }
+
+  getCasillerosDisponibles():Observable<Casilleros[]> {
+    return this.http.get<Casilleros[]>('/api/getCasillerosDisponibles');
+  }
+
+  getDisponibilidadCasillero():Observable<NumCasillerosDisponibles[]> {
+    return this.http.get<NumCasillerosDisponibles[]>('/api/getDisponibilidadCasilleros');
+  }
+
+  consultarReservaCasillero(matricula: String): Observable<ReservaCasillero> {
+    return this.http.post<ReservaCasillero>('/api/consultarReservaCasillero', { matricula });
+  }
+
 
   marcar(usuario: String, area_id: number) {
     return this.http.post('/api/marcarLlegada', {
@@ -69,6 +86,10 @@ export class ApiService {
     });
   }
 
+  getTodasReservas(lunes: string, domingo: string, area_id: number): Observable<HorarioReserva[]>{
+    return this.http.post<HorarioReserva[]>('/api/getReservasSemanales', {lunes, domingo, area_id});
+  }
+
   cancelarReservaAlumno(usuario: String, id: number) {
     return this.http.delete('/api/cancelReservacionArea', {
       body: { usuario: usuario, id: id },
@@ -82,6 +103,21 @@ export class ApiService {
       `/api/ingresosPorHora?Day=${day}&AreaId=${areaId}`
     );
   }
+
+  crearReservaCasillero(alumno: String, casillero: number){
+    
+    return this.http.post('/api/createReservacionLocker',{
+      matricula: alumno,
+      id_casillero: casillero
+    });
+  }
+
+  actualizarEstadoCasillero(casillero: number){
+    return this.http.post('/api/actualizarEstadoLocker',{
+      id_casillero: casillero
+    });
+  }
+  
 
 
   marcarLlegadaReserva(usuario: String, area_id: number, id_reservacion: number){
@@ -104,6 +140,25 @@ export class ApiService {
   updateAreaStatus(areaId: number, status: boolean): Observable<Area> {
     const body = { status: status };
     return this.http.put<Area>(`/api/AreaUpdateStatus?areaId=${areaId}`, body);
+  }
+
+  crearReserva(usuario: string, fecha: string, hora: string, asesor: string, area_id: number){
+    console.log(
+      {
+        usuario: usuario,
+        fecha: fecha,
+        hora: hora,
+        asesor: asesor,
+        area_id: area_id
+      }
+    );
+    return this.http.put('/api/createReservacionArea', {
+      usuario: usuario,
+      fecha: fecha,
+      hora: hora,
+      asesor: asesor,
+      area_id: area_id
+    });
   }
   
 }

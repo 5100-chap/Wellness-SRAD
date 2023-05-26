@@ -6,6 +6,7 @@ import { AforoSemanalResponse } from '../models/aforoSemanalResponse.model';
 import { Area } from '../models/area.model';
 import { IngresosPorHora } from '../models/ingresoPorHora.model';
 import { ChartService } from '../services/chart.service';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-stats-gym-admin',
@@ -116,7 +117,6 @@ export class StatsGymAdminComponent implements OnInit, OnDestroy {
             const dataPoints = Object.values(attendanceByDay);
 
             this.createChart(labels, dataPoints);
-            console.log(data);
           });
       }
     );

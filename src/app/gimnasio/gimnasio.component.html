@@ -76,17 +76,9 @@
           </div>
 
           <div class="col-md-4 mt-1">
-            <div ngbDropdown *ngIf="semanaSeleccionada">
-              <button class="btn btn-primary" id="btn" ngbDropdownToggle>{{getSemanaRange(1, 7)}}</button>
-              <div ngbDropdownMenu="gfg">
-                <button ngbDropdownItem (click)="cambiarSemana1()">{{getSemanaRange(8, 14)}}</button>
-              </div>
-            </div>
-            <div ngbDropdown *ngIf="!semanaSeleccionada">
-              <button class="btn btn-primary" id="btn" ngbDropdownToggle>{{getSemanaRange(8, 14)}}</button>
-              <div ngbDropdownMenu="gfg">
-                <button ngbDropdownItem (click)="cambiarSemana2()">{{getSemanaRange(1, 7)}}</button>
-              </div>
+            <div class="col-md-3 mt-3" style="margin-left: 2%;">
+              <label for="weekPicker">Elige la semana:</label>
+              <input type="week" id="weekPicker" [formControl]="dateControl">
             </div>
           </div>
         </div>
@@ -111,15 +103,36 @@
       <tbody>
 
 
-        <tr *ngFor="let al of reservaArray" (click)="openForEdit(al)" [class.active]="al == seleReserva">
+        <tr *ngFor="let al of reservaArray; let i= index;" (click)="openForEdit(al)" [class.active]="al == seleReserva">
 
-          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printHorario(0, al.hora)"> {{al.hora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printHorario(1, al.hora)"> {{al.hora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printHorario(2, al.hora)"> {{al.hora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printHorario(3, al.hora)"> {{al.hora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printHorario(4, al.hora)"> {{al.hora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printHorario(5, al.hora)"> {{al.hora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn" (click)="printHorario(6, al.hora)"> {{al.hora}} </button></td>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(0, al.hora)" (click)="imprimirFechaCorrecta(i, 0)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(0, al.hora)" class="btn btn-primary" id="btn" disabled> {{al.rangoDeHora}} </button>
+          </td>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(1, al.hora)" (click)="imprimirFechaCorrecta(i, 1)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(1, al.hora)" class="btn btn-primary" id="btn" disabled> {{al.rangoDeHora}} </button>
+          </td>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(2, al.hora)" (click)="imprimirFechaCorrecta(i, 2)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(2, al.hora)" class="btn btn-primary" id="btn" disabled> {{al.rangoDeHora}} </button>
+          </td>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(3, al.hora)" (click)="imprimirFechaCorrecta(i, 3)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(3, al.hora)" class="btn btn-primary" id="btn" disabled> {{al.rangoDeHora}} </button>
+          </td>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(4, al.hora)" (click)="imprimirFechaCorrecta(i, 4)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(4, al.hora)" class="btn btn-primary" id="btn" disabled> {{al.rangoDeHora}} </button>
+          </td>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(5, al.hora)" (click)="imprimirFechaCorrecta(i, 5)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(5, al.hora)" class="btn btn-primary" id="btn" disabled> {{al.rangoDeHora}} </button>
+          </td>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(6, al.hora)" (click)="imprimirFechaCorrecta(i, 6)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(6, al.hora)" class="btn btn-primary" id="btn" disabled> {{al.rangoDeHora}} </button>
+          </td>
 
         </tr>
 
@@ -151,11 +164,11 @@
         </div>
 
         <div class=" col-md-2 mt-3">
-          <button id="confirmar" class="btn" (click)="open(mymodal)"> Reservar </button>
+          <button *ngIf="horaSeleccionada!==undefined && diaSeleccionado!==undefined" id="confirmar" class="btn" (click)="open(mymodal)" (click)="crearReserva()"> Reservar </button>
           <ng-template #mymodal let-modal>
             <div class="modal-header">
               <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
-              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="reload()">
                 <span aria-hidden="true">×</span>
               </button>
             </div>
@@ -163,11 +176,11 @@
               Tu reservación ha sido exitosa!
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
+              <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="reload()">OK</button>
             </div>
           </ng-template>
+          <button *ngIf="horaSeleccionada===undefined || diaSeleccionado===undefined" id="confirmar" class="btn" disabled> Reservar </button>
         </div>
-
       </div>
 
 
