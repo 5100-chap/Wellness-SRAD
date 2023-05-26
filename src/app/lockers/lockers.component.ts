@@ -158,6 +158,12 @@ export class LockersComponent {
       );
   }
 
+
+  boton1(event: any) {
+    alert(event.target.innerHTML);
+
+  }
+
   /**
    * Write code on Method
    *

@@ -127,7 +127,7 @@
               Tu pago se ha realizado exitosamente!
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
+              <button type="button" class="btn btn-primary" id="ok" (click)="modal.close('Save click')">OK</button>
             </div>
           </ng-template>
         </div>
@@ -153,25 +153,92 @@
     <div class="col-md-7 mt-4">
       <h3> <strong>Reseñas</strong> </h3>
 
-      <button style = "font-size: 1.5rem; margin-top: 8%;" id="btn2" class="btn" (click)="abrir(resenamodal)"> Calificar </button>
-          <ng-template #resenamodal let-modal>
-            <div class="modal-header">
-              <h4 class="modal-title" id="modal-resena">Reseñas</h4>
-              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              Tu reseña se ha realizado exitosamente!
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
-            </div>
-          </ng-template>
-
+        
+          
       <div class="card border border-grey border border-2">
-        <div class="row">
+        <button style = "font-size: 1.1rem" id="btn3" class="btn btn-sm float-right" (click)="abrir(resenamodal)"> Calificar </button>
 
+        <ng-template #resenamodal let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-resena">Reseñas</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            La calificación es de 1 a 5 (de peor a mejor).
+            <br/>
+            <strong>Limpieza</strong>
+            <br/>
+
+            <div class="btn-group btn-group-toggle" data-toggle="buttons" id="radiolimpieza">
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option1" name="grupo1" autocomplete="off"> 1
+              </label>
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option2" name="grupo1" autocomplete="off"> 2
+              </label>
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option3" name="grupo1" autocomplete="off"> 3
+              </label>
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option4" name="grupo1" autocomplete="off"> 4
+              </label>
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option5" name="grupo1" autocomplete="off"> 5
+              </label>
+            </div>
+            <br/>
+            <strong>Calidad del equipo</strong>
+            <br/>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons" id="radiocalidad">
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option1" name="grupo2" autocomplete="off"> 1
+              </label>
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option2" name="grupo2"  autocomplete="off"> 2
+              </label>
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option3" name="grupo2"  autocomplete="off"> 3
+              </label>
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option4" name="grupo2"  autocomplete="off"> 4
+              </label>
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option5" name="grupo2"  autocomplete="off"> 5
+              </label>
+            </div>
+
+            <br/>
+            <strong>Ambiente</strong>
+            <br/>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons" id="radioambiente">
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option1" name="grupo3" autocomplete="off"> 1
+              </label>
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option2" name="grupo3" autocomplete="off"> 2
+              </label>
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option3" name="grupo3" autocomplete="off"> 3
+              </label>
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option4" name="grupo3" autocomplete="off"> 4
+              </label>
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option5" name="grupo3" autocomplete="off"> 5
+              </label>
+            </div>
+
+            <br/>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
+          </div>
+        </ng-template>
+
+        <div class="row">
+          <br/>
           <div class="col-md-9 mt-2">
             <h5> &nbsp; Limpieza</h5>
           </div>
