@@ -1,7 +1,7 @@
 
  <div class="row">
     <div class=" col-md-6 mt-4">
-      <h3> &nbsp; &nbsp; <strong> Monitor de ingresos </strong> </h3>
+      <h3> &nbsp; &nbsp; <strong> Monitor de reservas </strong> </h3>
     </div>
   </div>
 <br>
@@ -15,12 +15,8 @@
     
             <div class="form-group">  
                 
-                <select formControlName="website" class="form-control" id="btn"  (change)="changeOpcion($event)" >   
+                <select formControlName="website" class="form-control" id="btn"  (change)="changeOpcion($event)" #area >   
                     <option >Selecciona un área deportiva</option>
-                    <option >Gimnasio</option>
-                    <option >Croosfit</option>
-                    <option >Arena Tec</option>
-                    <option >Arena e-sports</option>
                     <option *ngFor="let web of areas">{{web}}</option>  
                 </select>  
              
@@ -29,7 +25,7 @@
 
     </div>
     
-    <div class="col-md-4 mt-1" style="margin-left: 1%;">
+    <div *ngIf= "area.value != 'Lockers' "  class="col-md-4 mt-1" style="margin-left: 1%;">
   
         <form [formGroup]="form" (ngSubmit)="submit()" >  
     
@@ -37,16 +33,13 @@
                 
                 <select formControlName="website" class="form-control" id="btn"  (change)="changeOpcion($event)" >   
                     <option >Selecciona una semana</option>
-                    <option >Semana 20 - 26 de Marzo 2023</option>
-                    <option >Semana 27 - 31 de Marzo 2023</option>
-                    <option >Semana 20 - 26 de Marzo 2023</option>
                     <option *ngFor="let web of semanas">{{web}}</option>  
                 </select>  
             </div>  
         </form>  
     </div>
 
-    <div class="col-md-4 mt-1" style="margin-left: 1%;">
+    <div *ngIf= "area.value != 'Lockers' "  class="col-md-4 mt-1" style="margin-left: 1%;">
   
         <form [formGroup]="form" (ngSubmit)="submit()" >  
     
@@ -54,10 +47,9 @@
                 
                 <select formControlName="website" class="form-control" id="btn"  (change)="changeOpcion($event)" >   
                     <option >Selecciona un día</option>
-                    <option >20 Marzo 2023</option>
-                    <option >21 Marzo 2023</option>
-                    <option >22 Marzo 2023</option>
+
                     <option *ngFor="let web of dias">{{web}}</option>  
+
                 </select>  
             </div>  
         </form>  
@@ -67,56 +59,157 @@
   </div>
 
 
-<div class="card mt-5" style="width:75%; margin-left: 13%;">
+<div  *ngIf= "area.value == 'Lockers' " class="card mt-5" style="width:75%; margin-left: 13%;">
 
 
-<table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Matricula</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Hora de inicio</th>
-        <th scope="col">Hora de salida</th>
-        <th scope="col">Fecha</th>
-        <th scope="col">Comprobante</th>
-        <th scope="col">Cancelar</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>A01276919</td>
-        <td>Alessandro Tolentino Hernández</td>
-        <td>13:24</td>
-        <td>17:00</td>
-        <td>28/04/2023</td>
-        <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-primary" (click)="open(modalcomprobante)">Ver Comprobante</button></td>
-        <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalcancelar)">Cancelar Reserva</button></td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>A01276919</td>
-        <td>Alessandro Tolentino Hernández</td>
-        <td>13:24</td>
-        <td>17:00</td>
-        <td>28/04/2023</td>
-        <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-primary" (click)="open(modalcomprobante)">Ver Comprobante</button></td>
-        <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalcancelar)">Cancelar Reserva</button></td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>A01276919</td>
-        <td>Alessandro Tolentino Hernández</td>
-        <td>13:24</td>
-        <td>17:00</td>
-        <td>28/04/2023</td>
-        <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-primary" (click)="open(modalcomprobante)">Ver Comprobante</button></td>
-        <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalcancelar)">Cancelar Reserva</button></td>
-      </tr>
-    </tbody>
-  </table>
+  <table class="table table-striped">
+      <thead >
+        <tr class="text-center">
+          <th scope="col">Id</th>
+          <th scope="col">Matricula</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">#Locker</th>
+          <th scope="col">Estado</th>
+        
+          <th scope="col">Comprobante</th>
+          <th scope="col">Confirmar</th>
+          <th scope="col">Cancelar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="text-center">
+          <th scope="row">1</th>
+          <td>A01276919</td>
+          <td>Alessandro Tolentino Hernández</td>
+          <td>1</td>
+          <td>Por confirmar</td>
+          <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-primary" (click)="open(modalcomprobante)">Ver Comprobante</button></td>
+          <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-primary" (click)="open(modalConfirmar)">Confirmar Reserva</button></td>
+
+          <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalcancelar)">Cancelar Reserva</button></td>
+        </tr>
+        <tr class="text-center">
+          <th scope="row">2</th>
+          <td>A01276919</td>
+          <td>Alessandro Tolentino Hernández</td>
+          <td>1</td>
+          <td>Por confirmar</td>
+          <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-primary" (click)="open(modalcomprobante)">Ver Comprobante</button></td>
+          <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-primary" (click)="open(modalConfirmar)">Confirmar Reserva</button></td>
+
+          <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalcancelar)">Cancelar Reserva</button></td>
+        </tr>
+        <tr class="text-center">
+          <th scope="row">3</th>
+          <td>A01276919</td>
+          <td>Alessandro Tolentino Hernández</td>
+          <td>1</td>
+          <td>Por confirmar</td>
+          <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-primary" (click)="open(modalcomprobante)">Ver Comprobante</button></td>
+          <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-primary" (click)="open(modalConfirmar)">Confirmar Reserva</button></td>
+
+          <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalcancelar)">Cancelar Reserva</button></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+
+
+
+
+  <div  *ngIf= "area.value != 'Lockers' " class="card mt-5" style="width:75%; margin-left: 13%;">
+
+    <table class="table table-striped">
+        <thead>
+          <tr class="text-center">
+            <th scope="col">Id</th>
+            <th scope="col">Matricula</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Hora de inicio</th>
+            <th scope="col">Hora de fin</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Cancelar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center">
+            <th scope="row">1</th>
+            <td>A01276919</td>
+            <td>Alessandro Tolentino Hernández</td>
+            <td>13:24</td>
+            <td>17:00</td>
+            <td>28/04/2023</td>
+            <td>Activa</td>
+            <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalcancelar)">Cancelar Reserva</button></td>
+          </tr>
+          <tr class="text-center">
+            <th scope="row">2</th>
+            <td>A01276919</td>
+            <td>Alessandro Tolentino Hernández</td>
+            <td>13:24</td>
+            <td>17:00</td>
+            <td>28/04/2023</td>
+            <td>Activa</td>
+            <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalcancelar)">Cancelar Reserva</button></td>
+          </tr>
+          <tr class="text-center">
+            <th scope="row">3</th>
+            <td>A01276919</td>
+            <td>Alessandro Tolentino Hernández</td>
+            <td>13:24</td>
+            <td>17:00</td>
+            <td>28/04/2023</td>
+            <td>Activa</td>
+            <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalcancelar)">Cancelar Reserva</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   <div class="row" style="margin-left: 35%; margin-top: 2.5%;">
@@ -145,7 +238,7 @@
   
   <ng-template #mymodal let-modal>
   <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Añadir registro </h4>
+      <h4 class="modal-title" id="modal-basic-title">Añadir reserva </h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span  aria-hidden="true">×</span>
       </button>
@@ -154,12 +247,28 @@
     <div class="input-group flex-nowrap">
         <span class="input-group-text" id="addon-wrapping">Matricula</span>
         <input type="text" class="form-control" placeholder="A0xxxxxxx" aria-label="Username" aria-describedby="addon-wrapping">
-      </div>
+    </div>
+    <br>
+    <div class="input-group flex-nowrap">
+      <span class="input-group-text" id="addon-wrapping">Área deportiva</span>
+      <input type="text" class="form-control" placeholder="Ingrese el área deportiva" aria-label="Username" aria-describedby="addon-wrapping">
+    </div>
+    <br>
+    <div class="input-group flex-nowrap">
+      <span class="input-group-text" id="addon-wrapping">Fecha</span>
+      <input type="date" class="form-control" placeholder="Ingrese la fecha" aria-label="Username" aria-describedby="addon-wrapping">
+    </div>
+    <br>
+    <div class="input-group flex-nowrap">
+      <span class="input-group-text" id="addon-wrapping">Hora</span>
+      <input type="time" class="form-control" placeholder="Ingrese la hora" aria-label="Username" aria-describedby="addon-wrapping">
+    </div>
+
+
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-danger"  id ="btn2"aria-label="Close" (click)="modal.dismiss('Cross click')"> Cancelar</button>
-    <button type="button" class="btn btn-primary" id = "btn" (click)="modal.close('Save click')">Crear</button>
-      
+    <button type="button" class="btn btn-primary" id = "btn" (click)="open(modalConfirmar)" >Crear</button>      
   </div>
   </ng-template>
 
@@ -176,20 +285,57 @@
       <iframe src="../assets/files/comprobante-wellness.pdf" style="width:100%; height:700px;" frameborder="0"></iframe>
     </div>
   </ng-template>
+
   <!--Modal de cancelación del alumno-->
   <ng-template #modalcancelar let-modal>
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Cancelar Reservación </h4>
+      <h4 class="modal-title" id="modal-basic-title">Cancelar reservación </h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span  aria-hidden="true">×</span>
       </button>
     </div>
     <div class="modal-body">
-      <p> Esta a punto de cancelar la reserva del alumno, estas seguro de hacerlo? </p>
+      <p> Esta a punto de cancelar la reserva, ¿Desea continuar? </p>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-danger"  id ="btn2"aria-label="Close" (click)="modal.dismiss('Cross click')">Cancelar</button>
       <button type="button" class="btn btn-danger"  id ="btn" aria-label="Close" (click)="modal.dismiss('Cross click')">Confirmar</button>
     </div>
   </ng-template>
+
+    <!--Modal de confirmar reserva de casillero -->
+    <ng-template #modalConfirmar let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Confirmar reservación </h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span  aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p> Esta a punto de confirmar la reserva del casillero, ¿Desea continuar? </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger"  id ="btn2"aria-label="Close" (click)="modal.dismiss('Cross click')">Cancelar</button>
+        <button type="button" class="btn btn-danger"  id ="btn" aria-label="Close" (click)="modal.dismiss('Cross click')">Confirmar</button>
+      </div>
+    </ng-template>
+  
+
+
+
+    <!--Modal confirmación de reserva-->
+    <ng-template #modalConfirmar let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Confirmación </h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span  aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p> Reserva añadida correctamente! </p>
+
+
+      </div>
+    
+    </ng-template>
 

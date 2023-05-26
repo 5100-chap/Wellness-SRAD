@@ -1,303 +1,117 @@
-<div class="img-fluid" class = "opacity-30"  >
+<div class="img-fluid" class="opacity-30">
     <div class=" text-white">
-      <img src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="130" class="card-img" alt="...">
-      <div class="card-img-overlay">
-        <h5 class="card-title">&nbsp;</h5>
-        <h5 class="card-title">&nbsp;</h5>
-        <h5 class="card-title">&nbsp;</h5>
-        <h5 class="card-title">&nbsp;</h5>
-  
-        <h1 class="card-title" class = "text-center"> Bienvenido administrador </h1>
-      </div>
+        <img src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80"
+            height="130" class="card-img" alt="...">
+        <div class="card-img-overlay">
+            <h5 class="card-title">&nbsp;</h5>
+            <h5 class="card-title">&nbsp;</h5>
+            <h5 class="card-title">&nbsp;</h5>
+            <h5 class="card-title">&nbsp;</h5>
+
+            <h1 class="card-title" class="text-center"> Bienvenido administrador </h1>
+        </div>
     </div>
-  </div>
+</div>
 
 
-  
-  <div class="row">
+
+<div class="row">
     <div class=" col-md-6 mt-4">
-      <h3> &nbsp; &nbsp; <strong> Administración de áreas deportivas </strong> </h3>
+        <h3> &nbsp; &nbsp; <strong> Administración de áreas deportivas </strong> </h3>
     </div>
-  </div>
+</div>
 <br>
 
 
 
-<div class="vstack gap-3 col-md-9 mx-auto">
-    <div class="card" id="card">
-        
-          <div class="card-body">
-
-            <div class = "row">
-
-                <div class=" col-md-2 mt-1">
-                    <img src="../assets/img/cross.png"  height="90%" class="card-img" alt="...">
-                </div>
-                
-                <div  class="col-md-2 mt-1">
-                    
-                    <div  class= "text-center" id="abierto">
-                       Abierto <br>
-                       
-                     Aforo: 234/270
-                      
+<ng-container *ngFor="let area of areas">
+    <div class="vstack gap-3 col-md-9 mx-auto mt-4" *ngIf="area.Estatus == true">
+        <div class="card" id="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2 mt-2">
+                        <img [src]="'../assets/img/principal.jpg'" height="90%" class="card-img" alt="...">
                     </div>
-
-                
-                </div>
-
-                <div  class="col-md-2" >
-                    
-                    <div  id="text">
-
-                        <i><strong>Crossfit</strong></i>
+                    <div class="col-md-2 mt-2">
+                        <div class="text-center" id="abierto">
+                            Abierto <br>
+                            Aforo: {{area.LugaresDisponibles}}/{{area.LugaresTotales}}
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div id="text">
+                            <i><strong>{{area.NombreArea}}</strong></i>
+                        </div>
+                    </div>
+                    <div class="col-md-2" id="align">
+                        <button id="btn2" class="btn btn-primary btn-lg"
+                            [routerLink]="[area.NombreArea.toLowerCase() !== 'gimnasio' ? '/estadisticas' : '/estadisticasGimnasio']">
+                            Estadísticas
+                        </button>
 
                     </div>
-                
-                </div>
-
-    
-                <div  class="col-md-2 " id="align">
-                    
-                     <button id="btn2" class="btn btn-primary btn-lg" routerLink="/estadisticas" > Estadísticas </button>
-            
-                </div>
-
-                <div  class="col-md-2 " id="align">
-                    
-                    <button id="btn2" class="btn btn-primary btn-lg" routerLink="/editarAforo" > Editar aforo </button>
-            
-                </div>
-
-                <div  class="col-md-2" id="align">
-                    
-                    <button id="btn2" class="btn btn-primary btn-lg" routerLink="/cerrarEspacios"> Cerrar área </button>
-            
-                </div>
-
-            </div>
-        
-          </div>
-     
-    </div>
-</div>
-
-<div class="vstack gap-3 col-md-9 mx-auto mt-4">
-    <div class="card" id="card">
-        
-          <div class="card-body">
-
-            <div class = "row">
-
-                <div class=" col-md-2 mt-2">
-                    <img src="../assets/img/gym.jpeg" height="90%" class="card-img" alt="...">
-                </div>
-
-                <div  class="col-md-2 mt-2">
-                    
-                    <div  class= "text-center" id="abierto">
-                        Abierto <br>
-                        Aforo: 234/270
-                    </div>
-                
-                </div>
-
-                <div  class="col-md-2" >
-                    
-                    <div  id="text">
-
-                       <i><strong>Gimnasio</strong></i>
-
-                    </div>
-                
-                </div>
-
-
-                <div  class="col-md-2 " id="align">
-                    
-                     <button id="btn2" class="btn btn-primary btn-lg" routerLink="/estadisticasGimnasio" > Estadísticas </button>
-            
-                </div>
-
-                <div  class="col-md-2 " id="align">
-                    
-                    <button id="btn2" class="btn btn-primary btn-lg" routerLink="/editarAforo" > Editar aforo </button>
-            
-                </div>
-
-                <div  class="col-md-2" id="align">
-                    
-                    <button id="btn2" class="btn btn-primary btn-lg" routerLink="/cerrarEspacios"> Cerrar área </button>
-            
-                </div>
-
-            </div>
-        
-          </div>
-     
-    </div>
-</div>
-
-<div class="vstack gap-3 col-md-9 mx-auto mt-4">
-    <div class="card" id="card">
-        
-          <div class="card-body">
-
-            <div class = "row">
-
-                <div class=" col-md-2 mt-2">
-                    <img src="../assets/img/esports.jpeg" height="90%" class="card-img" alt="...">
-                </div>
-
-                <div  class="col-md-2 mt-2">
-                    
-                    <div  class= "text-center" id="abierto">
-                        Abierto <br>
-                        Aforo: 234/270
-                    </div>
-                
-                </div>
-
-                <div  class="col-md-2" >
-                    
-                    <div  id="text">
-
-                       <i><strong>E-sports</strong></i>
-
-                    </div>
-                
-                </div>
-
-
-                <div  class="col-md-2 " id="align">
-                    
-                    <button id="btn2" class="btn btn-primary btn-lg" routerLink="/estadisticas" > Estadísticas </button>
-            
-                </div>
-
-                <div  class="col-md-2 " id="align">
-                    
-                    <button id="btn2" class="btn btn-primary btn-lg" routerLink="/editarAforo" > Editar aforo </button>
-            
-                </div>
-
-                <div  class="col-md-2" id="align">
-                    
-                    <button id="btn2" class="btn btn-primary btn-lg" routerLink="/cerrarEspacios"> Cerrar área </button>
-            
-                </div>
-
-            </div>
-        
-          </div>
-     
-    </div>
-</div>
-
-
-<div class="vstack gap-3 col-md-9 mx-auto mt-4">
-    <div class="card" id="card">
-        
-          <div class="card-body">
-
-            <div class = "row">
-
-                <div class=" col-md-2 mt-2">
-                    <img src="../assets/img/arena.jpeg" height="90%" class="card-img" alt="...">
-                </div>
-
-                <div  class="col-md-2 mt-2">
-                    
-                    <div  class= "text-center" id="cerrado">
-                        Cerrado
-                    </div>
-                
-                </div>
-
-                <div  class="col-md-2" >
-                    
-                    <div  id="text">
-
-                       <i><strong>Arena Tec</strong></i>
-
-                    </div>
-                
-                </div>
-
-
-                <div  class="col-md-2 " id="align">
-                    
-                     <button id="btn2" class="btn btn-primary btn-lg" routerLink="/estadisticas" > Estadísticas </button>
-            
-                </div>
-
-                <div  class="col-md-2 " id="align">
-                    
-                    <button id="btn2" class="btn btn-primary btn-lg" routerLink="/editarAforo" > Editar aforo </button>
-            
-                </div>
-
-                <div  class="col-md-2" id="align">
-                    
-                
-                    <button id="btn2" class="btn btn-primary btn-lg" (click)="open(mymodal) "> Abrir área </button>
-                    <ng-template #mymodal let-modal>
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
-                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                        <span  aria-hidden="true">×</span>
+                    <div class="col-md-2" id="align">
+                        <button id="btn2" class="btn btn-primary btn-lg" routerLink="/editarAforo"> Editar aforo
                         </button>
                     </div>
-                    <div class="modal-body">
-                        Área abierta correctamente!
+                    <div class="col-md-2" id="align">
+                        <button id="btn2" class="btn btn-primary btn-lg" routerLink="/cerrarEspacios"> Cerrar área
+                        </button>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
-                    </div>
-                    </ng-template>
-            
                 </div>
-
             </div>
-        
-          </div>
-     
+        </div>
     </div>
-</div>
 
-<!--Funciones del administrador-->
-
-
-    <div class="vstack gap-3 col-md-10 mx-auto">
-
-        <div class="row">
-
-        <div  class="col-md-3 mt-5" id="align">
-            <button class="btn btn-primary btn-lg" id="btn" routerLink="/exportarDatos"> <strong>  Exportar datos de aforo  </strong> </button>
+    <div class="vstack gap-3 col-md-9 mx-auto mt-4" *ngIf="area.Estatus == false">
+        <div class="card" id="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2 mt-2">
+                        <img [src]="'../assets/img/principal.jpg'" height="90%" class="card-img" alt="...">
+                    </div>
+                    <div class="col-md-2 mt-2">
+                        <div class="text-center" id="cerrado">
+                            Cerrado
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div id="text">
+                            <i><strong>{{area.NombreArea}}</strong></i>
+                        </div>
+                    </div>
+                    <div class="col-md-2" id="align">
+                        <button id="btn2" class="btn btn-primary btn-lg"
+                            [routerLink]="[area.NombreArea.toLowerCase() !== 'gimnasio' ? '/estadisticas' : '/estadisticasGimnasio']">
+                            Estadísticas
+                        </button>
+                    </div>
+                    <div class="col-md-2" id="align">
+                        <button id="btn2" class="btn btn-primary btn-lg" routerLink="/editarAforo"> Editar aforo
+                        </button>
+                    </div>
+                    <div class="col-md-2" id="align">
+                        <button id="btn2" class="btn btn-primary btn-lg" (click)="openArea(area.AreaId, mymodal)"> Abrir
+                            área </button>
+                        <ng-template #mymodal let-modal>
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+                                <button type="button" class="close" aria-label="Close"
+                                    (click)="modal.dismiss('Cross click')">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Área abierta correctamente!
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary"
+                                    (click)="modal.close('Save click')">OK</button>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div  class="col-md-2 mt-5" id="align">
-            <button class="btn btn-primary btn-lg" id="btn" routerLink="/crearAnuncio"> <strong>  Crear anuncio </strong> </button>
-        </div>
-
-        <div  class="col-md-3 mt-5" id="align">
-            <button class="btn btn-primary btn-lg" id="btn" routerLink="/monitorIngresos"> <strong>  Monitor de ingresos </strong> </button>
-        </div>
-        <div  class="col-md-2 mt-5" id="align">
-            <button class="btn btn-primary btn-lg" id="btn" routerLink="/monitorReservas"> <strong>  Monitor de reservas </strong> </button>
-        </div>
-
-        <div  class="col-md-2 mt-5" id="align">
-            <button class="btn btn-primary btn-lg" id="btn" routerLink="/crearArea"> <strong> + Añadir área deportiva </strong> </button>
-        </div>
-
-        </div>
-        
-            
     </div>
-  
-
-
-
-
-
+</ng-container>

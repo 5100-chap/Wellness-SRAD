@@ -8,10 +8,12 @@ import { FormBuilder, FormGroup, Validators,ReactiveFormsModule, FormControl} fr
   styleUrls: ['./monitor-reservas.component.css']
 })
 export class MonitorReservasComponent {
+  
+  seleccion! : String;
 
-  areas: any = ['Gimnasio', 'Croosfit', 'Arena Tec', 'Arena e-sports'] 
+  areas: any = ['Gimnasio', 'Croosfit', 'Arena Tec', 'Arena e-sports', 'Lockers'] 
   semanas: any = ['Semana 20 - 26 de Marzo 2023', 'Semana 27 - 31 de Marzo 2023', 'Semana 20 - 26 de Marzo 2023']  
-  dias: any = ['Semana 20 - 26 de Marzo 2023', 'Semana 27 - 31 de Marzo 2023', 'Semana 20 - 26 de Marzo 2023']   
+  dias: any = ['20 Marzo 2023', '21 Marzo 2023', '22 Marzo 2023']   
     
   form = new FormGroup({  
     website: new FormControl('', Validators.required)  
@@ -26,17 +28,16 @@ export class MonitorReservasComponent {
   }  
   
   changeOpcion(e:any) {  
-    console.log(e.target.value);  
+    this.seleccion = e.target.value
+    console.log(this.seleccion)
   } 
 
-    
-    
+  onInit(){
+
+  }
 
 
-
-
-
-
+  
 
   title = 'appBootstrap';
     
