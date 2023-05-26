@@ -26,8 +26,12 @@ const routesShared: Routes = [
         component: Error404Component,
     },
     {
-        path: 'areaDeportiva',
+        path: 'areaDeportiva/:nombreArea',
         component: AreaDeportivaComponent,
+        canActivate: [authGuard(['Alumno'])],
+        data: {
+            allowedRoles: ['Alumno'],
+        }
     },
     {
         path: '**',
