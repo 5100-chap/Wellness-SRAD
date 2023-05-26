@@ -72,7 +72,7 @@ export class GimnasioComponent implements OnInit {
       id: 1,
       id_matricula_alumno: '',
       id_area_deportiva: 1,
-      fecha: '17-04-2023 6:00 - 8:00',
+      fecha: '6:00 - 8:00',
       rangoDeHora: '6:00 - 8:00',
       hora: '06:00:00',
       estado: '',
@@ -82,7 +82,7 @@ export class GimnasioComponent implements OnInit {
       id: 2,
       id_matricula_alumno: '',
       id_area_deportiva: 1,
-      fecha: '18-04-2023 8:00 - 10:00 ',
+      fecha: '8:00 - 10:00 ',
       rangoDeHora: '8:00 - 10:00',
       hora: '08:00:00',
       estado: '',
@@ -92,7 +92,7 @@ export class GimnasioComponent implements OnInit {
       id: 2,
       id_matricula_alumno: '',
       id_area_deportiva: 1,
-      fecha: '18-04-2023 10:00 - 12:00',
+      fecha: '10:00 - 12:00',
       rangoDeHora: '10:00 - 12:00',
       hora: '10:00:00',
       estado: '',
@@ -102,7 +102,7 @@ export class GimnasioComponent implements OnInit {
       id: 3,
       id_matricula_alumno: '',
       id_area_deportiva: 1,
-      fecha: '19-04-2023 12:00 - 14:00',
+      fecha: '12:00 - 14:00',
       rangoDeHora: '12:00 - 14:00',
       hora: '12:00:00',
       estado: '',
@@ -112,7 +112,7 @@ export class GimnasioComponent implements OnInit {
       id: 4,
       id_matricula_alumno: '',
       id_area_deportiva: 1,
-      fecha: '20-04-2023 14:00 - 16:00 ',
+      fecha: '14:00 - 16:00 ',
       rangoDeHora: '14:00 - 16:00',
       hora: '14:00:00',
       estado: '',
@@ -122,7 +122,7 @@ export class GimnasioComponent implements OnInit {
       id: 5,
       id_matricula_alumno: '',
       id_area_deportiva: 1,
-      fecha: '21-04-2023 16:00 - 18:00',
+      fecha: '16:00 - 18:00',
       rangoDeHora: '16:00 - 18:00',
       hora: '16:00:00',
       estado: '',
@@ -132,7 +132,7 @@ export class GimnasioComponent implements OnInit {
       id: 5,
       id_matricula_alumno: '',
       id_area_deportiva: 1,
-      fecha: '21-04-2023 18:00 - 20:00',
+      fecha: '18:00 - 20:00',
       rangoDeHora: '18:00 - 20:00',
       hora: '18:00:00',
       estado: '',
@@ -142,7 +142,7 @@ export class GimnasioComponent implements OnInit {
       id: 5,
       id_matricula_alumno: '',
       id_area_deportiva: 1,
-      fecha: '21-04-2023 20:00 - 22:00',
+      fecha: '20:00 - 22:00',
       rangoDeHora: '20:00 - 22:00',
       hora: '20:00:00',
       estado: '',
@@ -210,7 +210,6 @@ export class GimnasioComponent implements OnInit {
       this.subscription = this.dateControl.valueChanges.subscribe(()=>{
         this.semanaSeleccionada = +this.dateControl.value.slice(6);
         this.getDiasSemana();
-        console.log(this.listaDias);
         this.apiService.getTodasReservas(this.listaDias[0], this.listaDias[6], this.areaId).subscribe((data: HorarioReserva[])=>{
           this.listaDeHorariosReservados = data;
         }, error=>{
@@ -238,22 +237,42 @@ export class GimnasioComponent implements OnInit {
     }
   }
 
-  crearReserva(hora: String){
-    
+  horaSeleccionada!: string;
+  diaSeleccionado!: string;
+  crearReserva(){
+    if(this.diaSeleccionado!=undefined && this.horaSeleccionada!=undefined){
+      console.log(`${this.diaSeleccionado} || ${this.horaSeleccionada}`);
+      this.apiService.crearReserva(this.authService.currentUserValue['username'], this.diaSeleccionado, this.horaSeleccionada, '', this.areaId).subscribe(error=>{
+        console.log(error);
+      });
+    }
   }
 
-  printHorario(day: number, hora: string): void{
-    console.log(`${this.diasSemana[day]} - ${hora}`);
+  reload(){
+    window.location.reload();
+  }
+  
+  // Imprimir en 'horario seleccionado' la fecha correcta
+  imprimirFechaCorrecta(index: number, dia: number){
+    this.diaSeleccionado = this.listaDias[dia];
+    this.horaSeleccionada = this.reservaArray[index].hora;
+    this.reservaArray[index].fecha = this.listaDias[dia] + " - " + this.reservaArray[index].hora.slice(0, 5) + " --> " + ((+this.reservaArray[index].hora.slice(0, 2)) + 2) + ":00";
   }
 
   // Revisa si el horario del botón está ocupado
   ocupado(dia: number, hora: string): boolean{
     for(let i=0; i<this.listaDeHorariosReservados.length; i++){
-      if(this.listaDeHorariosReservados[i].dia.slice(0, 10) === this.listaDias[dia] && this.listaDeHorariosReservados[i].hora.slice(11, 19) === hora){
+      if(this.listaDeHorariosReservados[i].dia.slice(0, 10) === this.listaDias[dia] && this.listaDeHorariosReservados[i].hora.slice(11, 19) === hora || this.diaPasado(dia, hora)){
         return false;
       }
     }
     return true;
+  }
+
+  // Revisa si ese horario ya pasó de fecha
+  diaPasado(dia: number, hora: string): boolean{
+    const ant = new Date(+this.listaDias[dia].slice(0, 4), +this.listaDias[dia].slice(5, 7)-1, +this.listaDias[dia].slice(8), +hora.slice(0, 2), +hora.slice(3, 5), +hora.slice(6));
+    return ant < this.now;
   }
 
   // Recibe el estado del alumno, si esta adentro o afuera del area
@@ -345,6 +364,7 @@ export class GimnasioComponent implements OnInit {
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
     } else {
+      this.reload();
       return `with: ${reason}`;
     }
   }

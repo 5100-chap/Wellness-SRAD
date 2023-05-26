@@ -110,5 +110,24 @@ export class ApiService {
     const body = { status: status };
     return this.http.put<Area>(`/api/AreaUpdateStatus?areaId=${areaId}`, body);
   }
+
+  crearReserva(usuario: string, fecha: string, hora: string, asesor: string, area_id: number){
+    console.log(
+      {
+        usuario: usuario,
+        fecha: fecha,
+        hora: hora,
+        asesor: asesor,
+        area_id: area_id
+      }
+    );
+    return this.http.put('/api/createReservacionArea', {
+      usuario: usuario,
+      fecha: fecha,
+      hora: hora,
+      asesor: asesor,
+      area_id: area_id
+    });
+  }
   
 }

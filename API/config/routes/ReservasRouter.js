@@ -32,12 +32,9 @@ router.post('/api/getReservasSemanales',async(req, res, next)=>{
 
 // Para crear una reservación 
 router.put('/api/createReservacionArea', async(req, res, next)=>{
-    var currentTime = new Date();
-    var dia = `${currentTime.getFullYear()}-${currentTime.getMonth()+1}-${currentTime.getDate()}`;
-    var hora = `${currentTime.getHours()}:${currentTime.getMinutes()}:${currentTime.getSeconds()}`;
     try{
         var request = new sql.Request();
-        var result = await request.query(`EXEC [dbo].[CreateReservacionArea] \'${req.body.usuario}\', \'${dia}\', \'${hora}\', \'${req.body.asesor}\', ${req.body.area_id}, \'Activa\';`);
+        await request.query(`EXEC [dbo].[CreateReservacionArea] \'${req.body.usuario}\', \'${req.body.fecha}\', \'${req.body.hora}\', \'${req.body.asesor}\', ${req.body.area_id}, \'Activa\';`);
         res.sendStatus(200);
     }
     catch(error){
