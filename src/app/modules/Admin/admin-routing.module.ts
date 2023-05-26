@@ -32,7 +32,7 @@ const routesAdmin: Routes = [
         },
     },
     {
-        path: 'editarAforo',
+        path: 'editarAforo:/nombreArea',
         component: EditarAforoComponent,
         canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])],
         data: {
@@ -42,10 +42,18 @@ const routesAdmin: Routes = [
     {
         path: 'cerrarEspacios',
         component: CerrarEspaciosComponent,
+        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])],
+        data: {
+            allowedRoles: ['Director', 'Administrador', 'Instructor'],
+        },
     },
     {
         path: 'crearAnuncio',
         component: CrearAnuncioComponent,
+        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])],
+        data: {
+            allowedRoles: ['Director', 'Administrador', 'Instructor'],
+        },
     },
     {
         path: 'estadisticas/:nombreArea',
@@ -82,6 +90,10 @@ const routesAdmin: Routes = [
     {
         path: 'monitorReservas',
         component: MonitorReservasComponent,
+        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])],
+        data: {
+            allowedRoles: ['Director', 'Administrador', 'Instructor'],
+        },
     },
 ];
 
