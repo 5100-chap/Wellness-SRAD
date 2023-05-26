@@ -1,3 +1,4 @@
+const { request } = require("express");
 const express = require("express");
 const router = express.Router();
 const sql = require("mssql");
@@ -17,7 +18,7 @@ router.post('/api/getTodasReservasAlumno', async(req, res, next)=>{
     }
 });
 
-// Para crear una reservación 
+// Para crear una reservación en un area deportiva
 router.put('/api/createReservacionArea', async(req, res, next)=>{
     var currentTime = new Date();
     var dia = `${currentTime.getFullYear()}-${currentTime.getMonth()+1}-${currentTime.getDate()}`;
@@ -32,6 +33,30 @@ router.put('/api/createReservacionArea', async(req, res, next)=>{
         res.sendStatus(404);
     }
 });
+
+// Crear una reservación de un Locker
+router.post('/api/createReservacionLocker', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();       
+        var result = await request.query(`EXEC [dbo].[CrearReservaCasillero] \'${req.body.matricula}\', ${req.body.id_casillero};`);
+    }catch(error){
+        console.log(error);
+        res.json({'status': 'error'});
+    }
+});
+
+// Actualizar el estatus de un locker 
+router.post('/api/actualizarEstadoLocker', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();       
+        var result = await request.query(`EXEC [dbo].[ActualizarEstadoCasillero] \ ${req.body.id_casillero};`);
+    }catch(error){
+        console.log(error);
+        res.json({'status': 'error'});
+    }
+});
+
+
 
 // Cancelar una reservación
 router.delete('/api/cancelReservacionArea', async(req, res, next)=>{

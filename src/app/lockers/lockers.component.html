@@ -24,7 +24,6 @@
         <h2 class="text-body-secondary" class="text-center" id="cantidadLocker"> &nbsp;  <strong> Casilleros disponibles</strong> </h2>
         <h2 class="text-body-secondary" class="text-center" id="cantidadLocker" style="color: grey;"> &nbsp; {{CasillerosDisponibles[0].disponibles}}</h2>
       
-
       </div>
     </div>
   </div>
@@ -107,8 +106,8 @@
           
         </div>
 
-        <div class=" col-md-2 mt-3" >
-          <button style = "font-size: 1.5rem; margin-top: 8%;" id="btn2" class="btn" (click)="open(mymodal)"> Reservar </button>
+        <div *ngIf="this.seleReserva.id != 0"  class=" col-md-2 mt-3" >
+          <button style = "font-size: 1.5rem; margin-top: 8%;" id="btn2" class="btn" (click)="open(mymodal)" (click)=" crearReservaCasillero()" (click)=" actualizarEstadoCasillero()"> Reservar </button>
           <ng-template #mymodal let-modal>
             <div class="modal-header">
               <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
@@ -120,7 +119,7 @@
               Tu pago se ha realizado exitosamente!
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
+              <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="refresh()">OK</button>
             </div>
           </ng-template>
         </div>

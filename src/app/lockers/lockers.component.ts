@@ -6,6 +6,7 @@ import { Reservas } from '../models/reservas.model';
 import { Casilleros } from '../models/casilleros';
 import { ApiService } from '../services/api.service';
 import { NumCasillerosDisponibles } from '../models/num-casilleros-disponibles';
+import { AuthService } from '../services/auth.service';
 
 declare var window: any;
 
@@ -19,7 +20,7 @@ export class LockersComponent {
   /** Definiciones de variables*/
   casilleros: Casilleros[] = [];
 
-  constructor(private apiService: ApiService, private modalService: NgbModal) {}
+  constructor(private apiService: ApiService, private modalService: NgbModal, private authService: AuthService) {}
   
   CasillerosDisponibles : NumCasillerosDisponibles[] = [];
 
@@ -50,12 +51,40 @@ export class LockersComponent {
 
   }
 
+
   actulizarCasilleroSelecccionado(seleccionado : Casilleros){
     this.seleReserva = seleccionado;
-   
   }
 
+  crearReservaCasillero(){
+    const alumno = this.authService.currentUserValue['username']; // Obtener la matricula del alumno
+    const casillero = this.seleReserva.id
+
+    
+    this.apiService.crearReservaCasillero(alumno,casillero).subscribe(error => {
+      console.error('Error fetching area id status', error);
+    });
+    
   
+  }
+
+  actualizarEstadoCasillero(){
+    const casillero = this.seleReserva.id
+    
+
+    this.apiService.actualizarEstadoCasillero(casillero).subscribe(error => {
+      console.error('Error fetching area id status', error);
+    });
+    
+
+   
+
+  }
+
+  refresh(){
+    window.location.reload();
+  }
+
 
   
 

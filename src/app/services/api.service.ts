@@ -94,6 +94,21 @@ export class ApiService {
     );
   }
 
+  crearReservaCasillero(alumno: String, casillero: number){
+    
+    return this.http.post('/api/createReservacionLocker',{
+      matricula: alumno,
+      id_casillero: casillero
+    });
+  }
+
+  actualizarEstadoCasillero(casillero: number){
+    return this.http.post('/api/actualizarEstadoLocker',{
+      id_casillero: casillero
+    });
+  }
+  
+
 
   marcarLlegadaReserva(usuario: String, area_id: number, id_reservacion: number){
     return this.http.post('/api/marcarLlegadaReserva', {
