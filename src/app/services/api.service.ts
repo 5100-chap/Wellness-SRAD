@@ -9,6 +9,7 @@ import { AlumnoStatusResponse } from '../models/alumnoStatusResponse';
 import { AforoArea } from '../models/aforoArea';
 import { AforoSemanalResponse } from '../models/aforoSemanalResponse';
 import { IngresosPorHora } from '../models/ingresoPorHora';
+import { IngresosMonitor } from '../models/ingresos-monitor';
 
 
 @Injectable({
@@ -75,4 +76,7 @@ export class ApiService {
     );
   }
 
+  getMonitorIngresos(): Observable<IngresosMonitor[]>{
+  return this.http.get<IngresosMonitor[]>('/api/getDataMonitorIngresos')
+  }
 }
