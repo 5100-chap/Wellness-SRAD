@@ -8,9 +8,6 @@ import { CalendarioComponent } from '../../calendario/calendario.component';
 import { IdDigitalComponent } from '../../id-digital/id-digital.component';
 import { GimnasioComponent } from '../../gimnasio/gimnasio.component';
 import { TendenciasComponent } from '../../tendencias/tendencias.component';
-import { EsportsComponent } from '../../esports/esports.component';
-import { CrossfitComponent } from '../../crossfit/crossfit.component';
-import { ArenaComponent } from '../../arena/arena.component';
 import { CitasentrenadorComponent } from '../../citasentrenador/citasentrenador.component';
 import { CitasnutriologoComponent } from '../../citasnutriologo/citasnutriologo.component';
 import { HorarioAsesorComponent } from '../../horario-asesor/horario-asesor.component';
@@ -63,26 +60,6 @@ const routesAlumno: Routes = [
     {
         path: 'tendencias',
         component: TendenciasComponent,
-        canActivate: [authGuard(['Alumno'])],
-        data: {
-            allowedRoles: ['Alumno'],
-        },
-    },
-    {
-        path: 'esports',
-        component: EsportsComponent,
-    },
-    {
-        path: 'crossfit',
-        component: CrossfitComponent,
-        canActivate: [authGuard(['Alumno'])],
-        data: {
-            allowedRoles: ['Alumno'],
-        },
-    },
-    {
-        path: 'arena',
-        component: ArenaComponent,
         canActivate: [authGuard(['Alumno'])],
         data: {
             allowedRoles: ['Alumno'],
