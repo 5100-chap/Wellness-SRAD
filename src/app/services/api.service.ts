@@ -12,6 +12,7 @@ import { AforoSemanalResponse } from '../models/aforoSemanalResponse.model';
 import { IngresosPorHora } from '../models/ingresoPorHora.model';
 import { Casilleros } from '../models/casilleros';
 import { NumCasillerosDisponibles } from '../models/num-casilleros-disponibles';
+import { ReservaCasillero } from '../models/reserva-casillero';
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +34,10 @@ export class ApiService {
 
   getDisponibilidadCasillero():Observable<NumCasillerosDisponibles[]> {
     return this.http.get<NumCasillerosDisponibles[]>('/api/getDisponibilidadCasilleros');
+  }
+
+  consultarReservaCasillero(matricula: String): Observable<ReservaCasillero> {
+    return this.http.post<ReservaCasillero>('/api/consultarReservaCasillero', { matricula });
   }
 
 

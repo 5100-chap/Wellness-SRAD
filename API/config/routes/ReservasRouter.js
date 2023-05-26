@@ -56,6 +56,27 @@ router.post('/api/actualizarEstadoLocker', async(req, res, next)=>{
     }
 });
 
+//Revisar si el alumno tiene una reserva de casillero, si la tiene que la obtenga
+
+router.post("/api/consultarReservaCasillero", async (req, res, next) => {
+    try {
+        if (req.body === undefined) {
+            res.send(404);
+            return;
+        }
+        var request = new sql.Request();
+        var search = `EXEC [dbo].[ExisteReservaCasillero] \'${req.body.matricula}\';`;
+        
+        var result = await request.query(search);
+        res.send(result.recordset[0]);
+    }
+    catch (err) {
+        next(err);
+    }
+    
+
+});
+
 
 
 // Cancelar una reservación

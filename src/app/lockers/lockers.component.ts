@@ -7,6 +7,7 @@ import { Casilleros } from '../models/casilleros';
 import { ApiService } from '../services/api.service';
 import { NumCasillerosDisponibles } from '../models/num-casilleros-disponibles';
 import { AuthService } from '../services/auth.service';
+import { ReservaCasillero } from '../models/reserva-casillero';
 
 declare var window: any;
 
@@ -18,13 +19,16 @@ declare var window: any;
 export class LockersComponent {
 
   /** Definiciones de variables*/
-  casilleros: Casilleros[] = [];
+  
 
   constructor(private apiService: ApiService, private modalService: NgbModal, private authService: AuthService) {}
-  
+  casilleros: Casilleros[] = [];
+
   CasillerosDisponibles : NumCasillerosDisponibles[] = [];
 
   seleReserva: Casilleros = new Casilleros();
+
+  CasilleroReservado !: ReservaCasillero ;
 
 
   /**  Obtención de la información de los casilleros disponibles*/
@@ -32,25 +36,32 @@ export class LockersComponent {
   ngOnInit(): void {
     this.getCasillerosDis();
     this.getDisponibilidad();
-
-  
+    this.getCasilleroReservado();
   }
   getCasillerosDis(){
-
     this.apiService.getCasillerosDisponibles().subscribe((data: Casilleros[]) => {
       this.casilleros = data;
-      console.log(this.casilleros)
+      
     });
   }
+
 
   getDisponibilidad(){
     this.apiService.getDisponibilidadCasillero().subscribe((data: NumCasillerosDisponibles[]) => {
       this.CasillerosDisponibles = data;
-      console.log(this.CasillerosDisponibles)
     });
 
   }
 
+  getCasilleroReservado(){
+    const matricula = this.authService.currentUserValue['username']; // Obtener la matricula del alumno
+
+    this.apiService.consultarReservaCasillero(matricula).subscribe((data: ReservaCasillero) => {
+      this.CasilleroReservado = data;
+      console.log(this.CasilleroReservado.id_casillero)
+    });
+
+  }
 
   actulizarCasilleroSelecccionado(seleccionado : Casilleros){
     this.seleReserva = seleccionado;
@@ -64,8 +75,6 @@ export class LockersComponent {
     this.apiService.crearReservaCasillero(alumno,casillero).subscribe(error => {
       console.error('Error fetching area id status', error);
     });
-    
-  
   }
 
   actualizarEstadoCasillero(){
@@ -74,12 +83,9 @@ export class LockersComponent {
 
     this.apiService.actualizarEstadoCasillero(casillero).subscribe(error => {
       console.error('Error fetching area id status', error);
-    });
-    
-
-   
-
+  });
   }
+
 
   refresh(){
     window.location.reload();
