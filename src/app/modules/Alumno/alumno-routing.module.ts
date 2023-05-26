@@ -14,6 +14,9 @@ import { HorarioAsesorComponent } from '../../horario-asesor/horario-asesor.comp
 import { CodigoQrComponent } from '../../codigo-qr/codigo-qr.component';
 import { EncuestaComponent } from '../../encuesta/encuesta.component';
 import { AnunciosComponent } from '../../anuncios/anuncios.component';
+import { LockersComponent } from 'src/app/lockers/lockers.component';
+import { AreaDeportivaComponent } from '../../area-deportiva/area-deportiva.component';
+
 import { authGuard } from '../../guard/auth.guard';
 
 const routesAlumno: Routes = [
@@ -24,6 +27,14 @@ const routesAlumno: Routes = [
         data: {
             allowedRoles: ['Alumno'],
         },
+    },
+    {
+        path: 'areaDeportiva/:nombreArea',
+        component: AreaDeportivaComponent,
+        canActivate: [authGuard(['Alumno'])],
+        data: {
+            allowedRoles: ['Alumno'],
+        }
     },
     {
         path: 'reservas',
@@ -132,6 +143,14 @@ const routesAlumno: Routes = [
     {
         path: 'horarioAsesor',
         component: HorarioAsesorComponent,
+        canActivate: [authGuard(['Alumno'])],
+        data: {
+            allowedRoles: ['Alumno'],
+        },
+    },
+    {
+        path: 'lockers',
+        component: LockersComponent,
         canActivate: [authGuard(['Alumno'])],
         data: {
             allowedRoles: ['Alumno'],

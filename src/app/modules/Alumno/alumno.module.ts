@@ -18,8 +18,11 @@ import { HorarioAsesorComponent } from '../../horario-asesor/horario-asesor.comp
 import { CodigoQrComponent } from '../../codigo-qr/codigo-qr.component';
 import { EncuestaComponent } from '../../encuesta/encuesta.component';
 import { AnunciosComponent } from '../../anuncios/anuncios.component';
+import { LockersComponent } from 'src/app/lockers/lockers.component';
+import { AreaDeportivaComponent } from 'src/app/area-deportiva/area-deportiva.component';
 
 import { AlumnoRoutingModule } from './alumno-routing.module';
+import { SharedModule } from '../Shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -34,7 +37,9 @@ import { AlumnoRoutingModule } from './alumno-routing.module';
         HorarioAsesorComponent,
         CodigoQrComponent,
         EncuestaComponent,
-        AnunciosComponent
+        AnunciosComponent,
+        LockersComponent,
+        AreaDeportivaComponent,
     ],
     imports: [
         CommonModule,
@@ -43,7 +48,8 @@ import { AlumnoRoutingModule } from './alumno-routing.module';
         RouterModule,
         QRCodeModule,
         AlumnoRoutingModule,
-        NgbModule
+        NgbModule,
+        SharedModule
     ]
 })
 export class AlumnoModule { }
