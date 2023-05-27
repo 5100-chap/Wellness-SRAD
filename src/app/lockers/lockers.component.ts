@@ -9,6 +9,8 @@ import { NumCasillerosDisponibles } from '../models/num-casilleros-disponibles';
 import { AuthService } from '../services/auth.service';
 import { ReservaCasillero } from '../models/reserva-casillero';
 
+
+
 declare var window: any;
 
 @Component({
@@ -122,6 +124,25 @@ export class LockersComponent {
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         }
       );
+  }
+
+  abrir(content: any) {
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-resena' })
+      .result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${result}`;
+        },
+        (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        }
+      );
+  }
+
+
+  boton1(event: any) {
+    alert(event.target.innerHTML);
+
   }
 
   /**

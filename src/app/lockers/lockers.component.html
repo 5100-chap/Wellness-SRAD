@@ -155,6 +155,85 @@
 
         </div>
 
+        <ng-template #resenamodal let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-resena">Reseñas</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            La calificación es de 1 a 5 (de peor a mejor).
+            <br/>
+            <strong>Limpieza</strong>
+            <br/>
+
+            <div class="btn-group btn-group-toggle" data-toggle="buttons" id="radiolimpieza">
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option1" name="grupo1" autocomplete="off"> 1
+              </label>
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option2" name="grupo1" autocomplete="off"> 2
+              </label>
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option3" name="grupo1" autocomplete="off"> 3
+              </label>
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option4" name="grupo1" autocomplete="off"> 4
+              </label>
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option5" name="grupo1" autocomplete="off"> 5
+              </label>
+            </div>
+            <br/>
+            <strong>Calidad del equipo</strong>
+            <br/>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons" id="radiocalidad">
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option1" name="grupo2" autocomplete="off"> 1
+              </label>
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option2" name="grupo2"  autocomplete="off"> 2
+              </label>
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option3" name="grupo2"  autocomplete="off"> 3
+              </label>
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option4" name="grupo2"  autocomplete="off"> 4
+              </label>
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option5" name="grupo2"  autocomplete="off"> 5
+              </label>
+            </div>
+
+            <br/>
+            <strong>Ambiente</strong>
+            <br/>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons" id="radioambiente">
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option1" name="grupo3" autocomplete="off"> 1
+              </label>
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option2" name="grupo3" autocomplete="off"> 2
+              </label>
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option3" name="grupo3" autocomplete="off"> 3
+              </label>
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option4" name="grupo3" autocomplete="off"> 4
+              </label>
+              <label class="btn active">
+                <input class="form-check-input" type="radio" name="options" id="option5" name="grupo3" autocomplete="off"> 5
+              </label>
+            </div>
+
+            <br/>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
+          </div>
+        </ng-template>
+
       </div>
          <!-- Seccion del Preview de Comprobante, esto se encuentra en el componente de image-upload -->
         <app-image-upload></app-image-upload>
