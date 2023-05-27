@@ -1,71 +1,55 @@
 <div class="img-fluid" class = "opacity-30"  >
-    <div class=" text-white">
-      <img src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="130" class="card-img" alt="...">
-      <div class="card-img-overlay">
-        <h5 class="card-title">&nbsp;</h5>
-        <h5 class="card-title">&nbsp;</h5>
-        <h5 class="card-title">&nbsp;</h5>
-        <h5 class="card-title">&nbsp;</h5>
-  
-        <h1 class="card-title" class = "text-center"> Estadisticas </h1>
-      </div>
+  <div class=" text-white">
+    <img src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="130" class="card-img" alt="...">
+    <div class="card-img-overlay">
+      <h5 class="card-title">&nbsp;</h5>
+      <h5 class="card-title">&nbsp;</h5>
+      <h5 class="card-title">&nbsp;</h5>
+      <h5 class="card-title">&nbsp;</h5>
+
+      <h1 class="card-title" class = "text-center"> Estadisticas </h1>
     </div>
   </div>
+</div>
 
-  <div class="card mt-4" style="width:70%; margin-left: 15%;">
-    <h4 class="card-header">Aforo por semana en la sala de Crossfit</h4>
+<div class="card mt-4" style="width:70%; margin-left: 15%;">
+  <h4 class="card-header">Aforo por semana en la sala de {{areaActual.NombreArea}}</h4>
 
-    <div class="col-md-3 mt-3" style="margin-left: 2%;">
-        <div ngbDropdown>
-          <button class="btn btn-primary" id="gfg" 
-                  ngbDropdownToggle>Semana II: 20 - 26 de Marzo 2023</button>
-          <div ngbDropdownMenu="gfg">
-            <button ngbDropdownItem>Semana III: 20 - 26 de Marzo 2023</button>
-            <button ngbDropdownItem>Semana IV: 20 - 26 de Marzo 2023</button>
-            <button ngbDropdownItem>Semana V: 20 - 26 de Marzo 2023</button>
-          </div>
-        </div>
-      </div>
-  
-      <div class="row">
-          <div class="col-md-1 mt-4"></div>
-          <div class="col-md-10 mt-5">
-              <div class="chart-container">
-                  <canvas  id="Dia" >{{ chart }}</canvas>
-                  <br>
-                </div>
-          </div>
-        </div>
-  </div>
-
-  <div class="card mt-4" style="width:70%; margin-left: 15%;">
-    <h4 class="card-header">Porcentaje de ocupación en la sala de Crossfit por dia</h4>
-
-    <div class="col-md-3 mt-3" style="margin-left: 2%;">
-        <div ngbDropdown>
-            <button class="btn btn-primary" id="gfg" 
-                    ngbDropdownToggle>20 de Marzo 2023</button>
-            <div ngbDropdownMenu="gfg">
-              <button ngbDropdownItem>21 de Marzo 2023</button>
-              <button ngbDropdownItem>22 de Marzo 2023</button>
-              <button ngbDropdownItem>23 de Marzo 2023</button>
-              <button ngbDropdownItem>24 de Marzo 2023</button>
-              <button ngbDropdownItem>25 de Marzo 2023</button>
-              <button ngbDropdownItem>26 de Marzo 2023</button>
-            </div>
-          </div>
-      </div>
-  
-      <div class="row">
-          <div class="col-md-1 mt-4"></div>
-          <div class="col-md-10 mt-5">
-              <div class="chart-container">
-                  <canvas  id="pie" >{{ chart }}</canvas>
-                  <br>
-                </div>
-          </div>
-        </div>
+  <div class="col-md-3 mt-3" style="margin-left: 2%;">
+    <label for="weekPicker">Elige la semana:</label>
+    <input type="week" id="weekPicker" [formControl]="dateControl">
   </div>
 
 
- 
+    <div class="row">
+        <div class="col-md-1 mt-4"></div>
+        <div class="col-md-10 mt-5">
+            <div class="chart-container">
+                <canvas  id="Dia" >{{ chart }}</canvas>
+                <br>
+              </div>
+        </div>
+      </div>
+</div>
+
+<div class="card mt-4" style="width:70%; margin-left: 15%;">
+  <h4 class="card-header">Ocupación en la sala de {{areaActual.NombreArea}} por hora</h4>
+
+  <div class="col-md-3 mt-3" style="margin-left: 2%;">
+    <label for="dayPicker">Elige el día:</label>
+    <input type="date" id="dayPicker" [formControl]="dayControl">
+  </div>
+
+    <div class="row">
+        <div class="col-md-1 mt-4"></div>
+        <div class="col-md-10 mt-5">
+            <div class="chart-container">
+                <canvas  id="linea" >{{ chart }}</canvas>
+                <br>
+              </div>
+        </div>
+      </div>
+</div>
+
+
+

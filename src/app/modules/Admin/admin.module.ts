@@ -15,6 +15,7 @@ import { MonitorIngresosComponent } from '../../monitor-ingresos/monitor-ingreso
 import { ExportarDatosComponent } from '../../exportar-datos/exportar-datos.component';
 import { MonitorReservasComponent } from '../../monitor-reservas/monitor-reservas.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SharedModule } from '../Shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         FormsModule,
         ReactiveFormsModule,
         RouterModule,
-        NgbModule
+        NgbModule,
+        SharedModule
     ]
 })
 export class AdminModule { }

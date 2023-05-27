@@ -7,6 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { QRCodeModule } from 'angularx-qrcode';
 import { RouterModule, Routes } from '@angular/router';
 
+
 // Imported Modules
 import { AdminModule } from './Admin/admin.module';
 import { AlumnoModule } from './Alumno/alumno.module';
