@@ -5,6 +5,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const sql = require("mssql");
+const cancel = require('./config/middleware/cancelacionAutomatica');
 
 //Cargar la configuración de .env
 dotenv.config();
@@ -12,6 +13,7 @@ dotenv.config();
 const database = require("./config/credentials/database");
 
 const routes = require("./config/routes/router"); // Import the combined routes
+const cancelAuto = require("./config/middleware/cancelacionAutomatica");
 
 const port = process.env.PORT || 8080;
 
@@ -53,5 +55,9 @@ app.set("port", port);
 app.listen(port, function () {
     console.log(`Servidor iniciado en el puerto ${port}`);
     console.log(database.config);
-    connectToDatabase();
+    (async () => {
+        await connectToDatabase();
+        cancelAuto();
+        setInterval(cancelAuto, 5*60*1000);
+    })();
 });
