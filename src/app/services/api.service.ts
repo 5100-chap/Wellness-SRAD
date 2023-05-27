@@ -14,6 +14,7 @@ import { HorarioReserva } from '../models/horario-reserva';
 import { Casilleros } from '../models/casilleros';
 import { NumCasillerosDisponibles } from '../models/num-casilleros-disponibles';
 import { ReservaCasillero } from '../models/reserva-casillero';
+import { IngresosMonitor } from '../models/ingresos-monitor';
 
 @Injectable({
   providedIn: 'root',
@@ -104,6 +105,9 @@ export class ApiService {
     );
   }
 
+  getMonitorIngresos(): Observable<IngresosMonitor[]>{
+  return this.http.get<IngresosMonitor[]>('/api/getDataMonitorIngresos')
+  }
   crearReservaCasillero(alumno: String, casillero: number){
     
     return this.http.post('/api/createReservacionLocker',{

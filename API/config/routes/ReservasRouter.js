@@ -129,6 +129,17 @@ router.put('/api/reservaEnCurso', async(req, res, next)=>{
     }
 });
 
+//Montitor de Ingresos
+router.get('/api/getDataMonitorIngresos',async(req,res,next)=>{
+    try{
+        var request = new sql.Request();
+        var result = await request.query(`EXEC [dbo].[GetDataMonitorIngresos];`);
+        res.json(result.recordset)
+    }catch(error){
+        console.log(error);
+        res.sendStatus(404);
+    }
+})
 // Marcar Entrada desde una reserva
 router.post('/api/marcarLlegadaReserva', async(req, res, next)=>{
     try{
