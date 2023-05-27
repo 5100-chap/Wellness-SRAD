@@ -7,8 +7,6 @@ import {
   ViewChild,
   ChangeDetectorRef,
 } from '@angular/core';
-import Chart, { Legend, plugins } from 'chart.js/auto';
-import 'chartjs-plugin-labels';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Reservas } from '../models/reservas.model';
 import { ApiService } from '../services/api.service';
@@ -18,6 +16,7 @@ import { AlumnoStatusResponse } from '../models/alumnoStatusResponse.model';
 import { Area } from '../models/area.model';
 import { Subscription } from 'rxjs';
 import { HorarioReserva } from '../models/horario-reserva';
+import { ChartService } from '../services/chart.service';
 
 declare var window: any;
 
@@ -177,28 +176,6 @@ export class GimnasioComponent implements OnInit {
   aforoData: String = '';
   alumnoStatus: number = -1;
 
-  createChart(libres: number, ocupados: number) {
-    var xValues = ['Libre: ' + libres, 'Ocupado: ' + ocupados];
-    var yValues = [libres, ocupados];
-  
-    var barColors = ['#003366', '#5B6C70'];
-    this.chart = new Chart('MyChart', {
-      type: 'pie',
-      data: {
-        labels: xValues,
-        datasets: [
-          {
-            data: yValues,
-            backgroundColor: barColors,
-            hoverOffset: 4,
-          },
-        ],
-      },
-      options: {
-        aspectRatio: 2.5,
-      },
-    });
-  }
   
 
   ngOnInit(): void {
@@ -313,7 +290,8 @@ export class GimnasioComponent implements OnInit {
         const ocupados = totales - actuales;
 
         this.aforoData = actuales + '/' + totales;
-        this.createChart(ocupados, actuales);
+        this.chart = this.chartService.createPieChart('MyChart', ['Libre: ' + actuales, 'Ocupado: ' + ocupados], [ocupados, actuales]);
+        console.log(this.chart);
       },
       (error) => {
         console.log('Error fetching aforo status:', error);
@@ -337,7 +315,8 @@ export class GimnasioComponent implements OnInit {
     private modalService: NgbModal,
     private apiService: ApiService,
     private authService: AuthService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private chartService: ChartService,
   ) {}
 
   /**

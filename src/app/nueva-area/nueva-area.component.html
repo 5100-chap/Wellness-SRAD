@@ -85,12 +85,12 @@ acceptcharset="utf-8" role="form" >
 <div class = "col-md-11 mt-2" >
  
   <div class="form-check input-group mb-2">
-    <input type="checkbox" name="rad2" (change)="true" #checkBox> &nbsp; ¿El nuevo espacio requiere materiales?
+    <input type="checkbox" name="rad2" (change)="true" #checkBox1> &nbsp; ¿El nuevo espacio requiere materiales?
   </div>
 
   <!--Si el check-box ha sido activado-->
 
-  <div *ngIf="checkBox.checked" class="input-group mb-3">
+  <div *ngIf="checkBox1.checked" class="input-group mb-3">
     <span class="input-group-text" id="title">Material disponible</span>
     <input type="text" formControlName="material" tabindex="4" autocomplete="off" class="form-control" placeholder="Insertar material aquí" aria-label="Username" aria-describedby="basic-addon1">
  </div>   

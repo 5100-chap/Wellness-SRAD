@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ApiService } from '../services/api.service';
-import Chart from 'chart.js/auto';
 import { Subscription } from 'rxjs';
 import { AforoSemanalResponse } from '../models/aforoSemanalResponse.model';
 import { Area } from '../models/area.model';
 import { IngresosPorHora } from '../models/ingresoPorHora.model';
+import { ChartService } from '../services/chart.service';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-stats-gym-admin',
@@ -14,131 +15,63 @@ import { IngresosPorHora } from '../models/ingresoPorHora.model';
 })
 export class StatsGymAdminComponent implements OnInit, OnDestroy {
   //Creacion de las variables para las graficas
-  //Grafica de barras
   public chart: any;
-  //Grafico de lineas
   public lineChart: any;
-  //Selector para el grafico de barras
   dateControl = new FormControl();
-  //Selector para el grafico de lineas
   dayControl = new FormControl();
-  AreaInfo: Area[] = [];
-  //Suscripcion utilizada para la grafica de barras
+  public AreaInfo: Area[] = [];
   private subscription: Subscription | undefined;
-  //Suscripcion utilizada para el grafico de lineas
   private subscription2: Subscription | undefined;
+  // Definir los nombres de los días de la semana
+  private daysOfWeek = [
+    'Lunes',
+    'Martes',
+    'Miércoles',
+    'Jueves',
+    'Viernes',
+    'Sábado',
+    'Domingo',
+  ];
+  //Define el nombre de los meses
+  private monthNames = [
+    'Enero',
+    'Febrero',
+    'Marzo',
+    'Abril',
+    'Mayo',
+    'Junio',
+    'Julio',
+    'Agosto',
+    'Septiembre',
+    'Octubre',
+    'Noviembre',
+    'Diciembre',
+  ];
 
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    private chartService: ChartService
+  ) {}
 
-  //Grafico de barras
   createChart(labels: string[], data: number[]) {
-    // Si ya existe un gráfico, lo destruimos
-    if (this.chart) {
-      this.chart.destroy();
-    }
-
-    this.chart = new Chart('Dia', {
-      type: 'bar',
-
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: 'Ingresos',
-            data: data,
-            backgroundColor: 'blue',
-          },
-        ],
-      },
-      options: {
-        aspectRatio: 2.5,
-        scales: {
-          x: {
-            title: {
-              display: true,
-              text: 'Dia',
-            },
-          },
-          y: {
-            title: {
-              display: true,
-              text: 'Ingresos',
-            },
-          },
-        },
-      },
-    });
+    this.chartService.destroyChart(this.chart);
+    this.chart = this.chartService.createChart('Dia', labels, data, 'bar');
   }
 
-  //Grafico de lineas
   createLineChart(labels: string[], data: number[]) {
-    // Si ya existe un gráfico, lo destruimos
-    if (this.lineChart) {
-      this.lineChart.destroy();
-    }
-  
-    this.lineChart = new Chart('linea', {
-      type: 'line',
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: 'Ingresos',
-            data: data,
-            borderColor: 'blue',
-          },
-        ],
-      },
-      options: {
-        aspectRatio: 2.5,
-        scales: {
-          x: {
-            title: {
-              display: true,
-              text: 'Hora'
-            }
-          },
-          y: {
-            title: {
-              display: true,
-              text: 'Ingresos'
-            }
-          }
-        }
-      },
-    });
+    this.chartService.destroyChart(this.lineChart);
+    this.lineChart = this.chartService.createChart(
+      'linea',
+      labels,
+      data,
+      'line'
+    );
   }
 
   ngOnInit(): void {
     this.apiService.getAreaByName('gimnasio').subscribe((response) => {
       this.AreaInfo = response;
     });
-
-    // Definir los nombres de los días de la semana
-    const daysOfWeek = [
-      'Lunes',
-      'Martes',
-      'Miércoles',
-      'Jueves',
-      'Viernes',
-      'Sábado',
-      'Domingo',
-    ];
-    //Define el nombre de los meses
-    const monthNames = [
-      'Enero',
-      'Febrero',
-      'Marzo',
-      'Abril',
-      'Mayo',
-      'Junio',
-      'Julio',
-      'Agosto',
-      'Septiembre',
-      'Octubre',
-      'Noviembre',
-      'Diciembre',
-    ];
 
     this.subscription = this.dateControl.valueChanges.subscribe(
       (value: string) => {
@@ -170,7 +103,7 @@ export class StatsGymAdminComponent implements OnInit, OnDestroy {
 
             // Llenar el objeto con los datos obtenidos
             for (const item of data) {
-              attendanceByDay[daysOfWeek[item.DayOfWeek - 1]] =
+              attendanceByDay[this.daysOfWeek[item.DayOfWeek - 1]] =
                 item.AttendanceCount;
             }
             // Crear los arreglos labels y dataPoints a partir del objeto
@@ -178,13 +111,12 @@ export class StatsGymAdminComponent implements OnInit, OnDestroy {
               const currentDay = new Date(ISOweekStart);
               currentDay.setDate(currentDay.getDate() + index);
               return `${day} ${currentDay.getDate()} de ${
-                monthNames[currentDay.getMonth()]
+                this.monthNames[currentDay.getMonth()]
               }`;
             });
             const dataPoints = Object.values(attendanceByDay);
 
             this.createChart(labels, dataPoints);
-            console.log(data);
           });
       }
     );
@@ -199,16 +131,18 @@ export class StatsGymAdminComponent implements OnInit, OnDestroy {
             for (let i = 0; i < 24; i++) {
               ingresosPorHora[i] = 0;
             }
-    
+
             // Llenar el objeto con los datos obtenidos
             for (const item of data) {
               ingresosPorHora[item.Hora] = item.Ingresos;
             }
-    
+
             // Crear los arreglos labels y dataPoints a partir del objeto
-            const labels = Object.keys(ingresosPorHora).map(hour => `${hour}:00 hrs`);
+            const labels = Object.keys(ingresosPorHora).map(
+              (hour) => `${hour}:00 hrs`
+            );
             const dataPoints = Object.values(ingresosPorHora);
-    
+
             this.createLineChart(labels, dataPoints);
           });
       }

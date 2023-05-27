@@ -47,7 +47,6 @@
 <table class="table table-striped">
     <thead>
       <tr>
-        <th scope="col">Id</th>
         <th scope="col">Matricula</th>
         <th scope="col">Nombre</th>
         <th scope="col">Hora de llegada</th>
@@ -56,42 +55,16 @@
         <th scope="col">Marcar salida</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody *ngFor="let r of ingresos">
       <tr>
-        <th scope="row">1</th>
-        <td>A01276919</td>
-        <td>Alessandro Tolentino Hernández</td>
-        <td>13:24</td>
-        <td>17:00</td>
-        <td>28/04/2023</td>
-        <td>NA</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>A01276919</td>
-        <td>Alessandro Tolentino Hernández</td>
-        <td>13:24</td>
-        <td>17:00</td>
-        <td>28/04/2023</td>
-        <td>NA</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>A01276919</td>
-        <td>Alessandro Tolentino Hernández</td>
-        <td>13:24</td>
-        <td>17:00</td>
-        <td>28/04/2023</td>
-        <td>NA</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>A01276919</td>
-        <td>Alessandro Tolentino Hernández</td>
-        <td>13:24</td>
-        <td>NA</td>
-        <td>28/04/2023</td>
-        <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalSalida)">Marcar salida</button></td>
+        <td>{{r.matricula}}</td>
+        <td>{{r.nombre}}</td>
+        <td>{{r.hora_de_llegada}}</td>
+        <td *ngIf="r.hora_de_salida != null ">{{r.hora_de_salida}}</td>
+        <td *ngIf="r.hora_de_salida == null ">NA</td>
+        <td>{{r.fecha}}</td>
+        <td *ngIf="r.hora_de_salida == null "><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalSalida)">Marcar salida</button></td>
+        <td *ngIf="r.hora_de_salida != null ">NA</td>
       </tr>
     </tbody>
   </table>
@@ -101,7 +74,7 @@
   <div class="row" style="margin-left: 35%; margin-top: 2.5%;">
 
     <div class="col-md-2">
-        <button class="btn btn-primary btn-lg" id="btn" style="font-size: 1.3rem;" > Exportar 
+        <button class="btn btn-primary btn-lg" id="btn" style="font-size: 1.3rem;" (click)="exportarCSV()"> Exportar 
             <img src="../assets/img/descargas.png" height="25" width="25" class="card-img" alt="...">
         </button>
     </div>

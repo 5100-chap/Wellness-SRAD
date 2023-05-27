@@ -6,17 +6,13 @@ import { SharedModuleRoutingModule } from './shared-routing.module';
 
 // Shared components
 import { LoginComponent } from '../../login/login.component';
-import { LockersComponent } from '../../lockers/lockers.component';
 import { Error404Component } from '../../error404/error404.component';
-import { AreaDeportivaComponent } from '../../area-deportiva/area-deportiva.component';
 import { ImageUploadComponent } from 'src/app/image-upload/image-upload.component';
 
 @NgModule({
     declarations: [
         LoginComponent,
-        LockersComponent,
         Error404Component,
-        AreaDeportivaComponent,
         ImageUploadComponent
     ],
     imports: [
@@ -27,9 +23,8 @@ import { ImageUploadComponent } from 'src/app/image-upload/image-upload.componen
     ],
     exports: [
         LoginComponent,
-        LockersComponent,
         Error404Component,
-        AreaDeportivaComponent
+        ImageUploadComponent
     ]
 })
 export class SharedModule { }

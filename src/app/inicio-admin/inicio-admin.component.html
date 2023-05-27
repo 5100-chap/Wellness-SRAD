@@ -45,9 +45,17 @@
                     </div>
                     <div class="col-md-2" id="align">
                         <button id="btn2" class="btn btn-primary btn-lg"
-                            [routerLink]="[area.NombreArea.toLowerCase() !== 'gimnasio' ? '/estadisticas' : '/estadisticasGimnasio']">
+                            *ngIf="area.NombreArea.toLowerCase() === 'gimnasio'"
+                            [routerLink]="['/estadisticasGimnasio']">
                             Estadísticas
                         </button>
+
+                        <button id="btn2" class="btn btn-primary btn-lg"
+                            *ngIf="area.NombreArea.toLowerCase() !== 'gimnasio'"
+                            [routerLink]="['/estadisticas' , area.NombreArea.toLowerCase()]">
+                            Estadísticas
+                        </button>
+
 
                     </div>
                     <div class="col-md-2" id="align">

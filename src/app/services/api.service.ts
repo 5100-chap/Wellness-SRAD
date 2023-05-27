@@ -11,6 +11,11 @@ import { AforoArea } from '../models/aforoArea.model';
 import { AforoSemanalResponse } from '../models/aforoSemanalResponse.model';
 import { IngresosPorHora } from '../models/ingresoPorHora.model';
 import { HorarioReserva } from '../models/horario-reserva';
+import { Casilleros } from '../models/casilleros';
+import { NumCasillerosDisponibles } from '../models/num-casilleros-disponibles';
+import { ReservaCasillero } from '../models/reserva-casillero';
+import { Anuncio } from '../models/anuncio';
+import { IngresosMonitor } from '../models/ingresos-monitor';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +30,26 @@ export class ApiService {
     };
     return this.http.get('/api/getXCredentials', { headers });
   }
+
+  //Obtener la información de los casilleros disponibles
+  getCasillerosDisponibles():Observable<Casilleros[]> {
+    return this.http.get<Casilleros[]>('/api/getCasillerosDisponibles');
+  }
+
+  //Obtener el número de los casilleros disponibles
+  getDisponibilidadCasillero():Observable<NumCasillerosDisponibles[]> {
+    return this.http.get<NumCasillerosDisponibles[]>('/api/getDisponibilidadCasilleros');
+  }
+  //Consultar si el alumno actual tiene un casillero reservado
+  consultarReservaCasillero(matricula: String): Observable<ReservaCasillero> {
+    return this.http.post<ReservaCasillero>('/api/consultarReservaCasillero', { matricula });
+  }
+
+  // Obtener todos los anuncios
+  getAnuncios(): Observable<Anuncio[]> {
+    return this.http.get<Anuncio[]>('/api/getAnuncios');
+  } 
+
 
   marcar(usuario: String, area_id: number) {
     return this.http.post('/api/marcarLlegada', {
@@ -87,6 +112,24 @@ export class ApiService {
       `/api/ingresosPorHora?Day=${day}&AreaId=${areaId}`
     );
   }
+
+  getMonitorIngresos(): Observable<IngresosMonitor[]>{
+  return this.http.get<IngresosMonitor[]>('/api/getDataMonitorIngresos')
+  }
+  crearReservaCasillero(alumno: String, casillero: number){
+    
+    return this.http.post('/api/createReservacionLocker',{
+      matricula: alumno,
+      id_casillero: casillero
+    });
+  }
+
+  actualizarEstadoCasillero(casillero: number){
+    return this.http.post('/api/actualizarEstadoLocker',{
+      id_casillero: casillero
+    });
+  }
+  
 
 
   marcarLlegadaReserva(usuario: String, area_id: number, id_reservacion: number){

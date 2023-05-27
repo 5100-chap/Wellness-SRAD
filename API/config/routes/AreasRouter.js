@@ -16,6 +16,18 @@ router.get("/api/AreaInformacion", async (req, res, next) => {
     }
 });
 
+//Consigue la lista de todos los casilleros disponibles
+router.get("/api/getCasillerosDisponibles", async (req,res, next) =>{
+    const request = new sql.Request();
+    try{
+        const result = await request.execute('getCasillerosDisponibles');
+        res.json(result.recordset);
+
+    } catch (err){
+        next(err);
+    }
+
+});
 
 router.get("/api/TodasAreasInformacion", async (req, res, next) => {
     const request = new sql.Request();
