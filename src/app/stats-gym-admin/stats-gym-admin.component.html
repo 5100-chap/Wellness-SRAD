@@ -21,11 +21,11 @@
 
 
 <div class="card mt-4" style="width:70%; margin-left: 15%;">
-  <h4 class="card-header text-center">Aforo por semana</h4>
+  <h4 class="card-header ">Aforo por semana</h4>
 
-  <div class="col-md-3 mt-3" style="margin-left: 2%;">
-    <label for="weekPicker">Elige la semana:</label>
-    <input type="week" id="weekPicker" [formControl]="dateControl">
+  <div class="col-md-3 mt-2" style="margin-left: 2%;">
+    <label for="weekPicker" style="font-size:1.4rem">Elige la semana:</label>
+    <input type="week" id="btn" style="margin-top: 3%;" [formControl]="dateControl">
   </div>
 
   <div class="row">
@@ -44,12 +44,12 @@
 
 
 <div class="card mt-4" style="width:70%; margin-left: 15%;">
-  <h4 class="card-header text-center">Ingresos por hora</h4>
+  <h4 class="card-header ">Ingresos por hora</h4>
 
-  <div class="col-md-3 mt-3" style="margin-left: 2%;">
-    <div class="col-md-3 mt-3" style="margin-left: 2%;">
-      <label for="dayPicker">Elige el día:</label>
-      <input type="date" id="dayPicker" [formControl]="dayControl">
+  <div class="col-md-3 mt-2" style="margin-left: 2%;">
+    <div class="col-md-5 mt-2" style="margin-left: 2%;">
+      <label for="dayPicker" style="font-size:1.4rem">Elige el día:</label>
+      <input type="date" id="btn" style="margin-top: 3%;" [formControl]="dayControl">
     </div>
 
   </div>

@@ -15,181 +15,144 @@
 </div>
 
 <br>
-<div class="vstack gap-4 col-md-11 mx-auto">
 
-  <div class="card w-100 border border-gray border border-2">
-    <div class="row">
+<!--Se muestra el area de reservación en caso de no contar con un casillero reservado -->
 
-      <div class="col-md-5 mt-5">
-        <h2 class="text-body-secondary" class="text-center" id="cantidadLocker"> &nbsp;  <strong> Casilleros disponibles</strong> </h2>
-        <h2 class="text-body-secondary" class="text-center" id="cantidadLocker" style="color: grey;"> &nbsp; 98/280</h2>
-      
+<div *ngIf="this.CasilleroReservado == null">
+  <div  class="vstack gap-4 col-md-11 mx-auto">
 
-      </div>
-    </div>
-  </div>
-</div>
-
-<br>
-
-<h2 style="margin-left: 4%; margin-top: 2%; margin-bottom: 0.5%;">  <strong> Reservación </strong> </h2>
-
-<br>
-
-<div class="vstack gap-4 col-md-11 mx-auto">
-
-  <div class="card w-100 border border-gray border border-2">
-    <div class="card-header">
-
-        <div class="row">
-          <div class=" col-md-3 mt-1">
-
-            <h4>Filtrar por disponibilidad</h4>
-
-          </div>
-
-          <div class="col-md-1 mt-1">
-
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" id="switchFiltro">
-            </div>
-          </div>
-        </div>
-   
-    </div>
-    <br>
-    <table class="table-responsive" >
-
-      <tbody>
-        <tr *ngFor="let al of reservaArray" (click)="openForEdit(al)" [class.active]="al == seleReserva">
-
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> <img
-                src="../assets/img/armario.png" style="width:4rem"
-                alt="LockerPNG"> </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> <img
-                src="../assets/img/armario.png" style="width:4rem"
-                alt="LockerPNG"> </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> <img
-                src="../assets/img/armario.png" style="width:4rem"
-                alt="LockerPNG"> </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> <img
-                src="../assets/img/armario.png" style="width:4rem"
-                alt="LockerPNG"> </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> <img
-                src="../assets/img/armario.png" style="width:4rem"
-                alt="LockerPNG"> </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> <img
-                src="../assets/img/armario.png" style="width:4rem"
-                alt="LockerPNG"> </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> <img
-                src="../assets/img/armario.png" style="width:4rem"
-                alt="LockerPNG"> </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> <img
-                src="../assets/img/armario.png" style="width:4rem"
-                alt="LockerPNG"> </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> <img
-                src="../assets/img/armario.png" style="width:4rem"
-                alt="LockerPNG"> </button></td>
-
-        </tr>
-
-
-      </tbody>
-      <br>
-    </table>
-
-  </div>
-</div>
-
-<br>
-
-
-<div class="vstack gap-4 col-md-11 mx-auto">
-
-  <div id="reserve" class="card w-100 border border-gray border border-2">
-    
+    <div class="card w-100 border border-gray border border-2">
       <div class="row">
-        <div class=" col-md-10 ">
-          <h4 style="margin-top: 1.5%; margin-left: 1%"> <strong>Casillero Seleccionado: </strong></h4>
-          <input [(ngModel)]="seleReserva.fecha" type="text" class="form-control" disabled id="reserve" style="margin-bottom: 1%; font-size: 1.3rem;">
+  
+        <div class="col-md-5 mt-5">
+          <h2 class="text-body-secondary" class="text-center" id="cantidadLocker"> &nbsp;  <strong> Casilleros disponibles</strong> </h2>
+          <h2 class="text-body-secondary" class="text-center" id="cantidadLocker" style="color: grey;"> &nbsp; {{CasillerosDisponibles[0].disponibles}}</h2>
+        
         </div>
-
-        <div class=" col-md-2 mt-3" >
-          <button style = "font-size: 1.5rem; margin-top: 8%;" id="btn2" class="btn" (click)="open(mymodal)"> Pagar </button>
-          <ng-template #mymodal let-modal>
-            <div class="modal-header">
-              <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
-              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              Tu pago se ha realizado exitosamente!
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" id="ok" (click)="modal.close('Save click')">OK</button>
-            </div>
-          </ng-template>
-        </div>
-      </div>   
-  </div>
-
-  <div class="row">
-    <!-- Seccion del Preview de Comprobante, esto se encuentra en el componente de image-upload -->
-    <app-image-upload></app-image-upload>
-    
-
-    <!-- Ubicacion -->
-    <div class="col-md-5 mt-4">
-      <h3> <strong>Ubicación</strong> </h3>
-      <div class="card border border-grey border border-2" >
-
-        <h5 style="margin-left: 2%; margin-top: 1%">Primer piso - 102</h5>
       </div>
     </div>
-
-
-    <!-- Reseñas -->
-    <div class="col-md-7 mt-4">
-      <h3 style="display:inline-flex"> <strong>Reseñas</strong> </h3>
-
-      <button style = "font-size: 1rem; margin-left: 2%; margin-bottom: 1%;" id="btn3" class="btn" (click)="abrir(resenamodal)"> Calificar </button>
-          
-      <div class="card border border-grey border border-2">
-
-        <div class="row">
-          <br/>
-          <div class="col-md-9 mt-2">
-            <h5> &nbsp; Limpieza</h5>
+  </div>
+  
+  
+  <h2 style="margin-left: 4%; margin-top: 2%; margin-bottom: 0.5%;">  <strong> Reservación </strong> </h2>
+  
+  <div class="vstack gap-4 col-md-11 mx-auto" style="margin-top: 2%;">
+  
+    <div class="card w-100 border border-gray border border-2">
+      <!--
+      <div class="card-header">
+  
+          <div class="row">
+            <div class=" col-md-3 mt-1">
+  
+              <h4>Filtrar por disponibilidad</h4>
+  
+            </div>
+  
+            <div class="col-md-1 mt-1">
+  
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="switchFiltro">
+              </div>
+            </div>
           </div>
-
-          <div class="col-md-3 mt-2">
-            <h4>★★★★☆ 4 </h4>
-
+     
+      </div>
+    -->
+      <br>
+      <div class="vstack gap-4 col-md-11 mx-auto">
+        <div class="row row-cols-1 row-cols-md-3 g-4 table-wrapper">
+          <div class="col" *ngFor="let locker of casilleros" [class.active]="locker == seleReserva">
+            <div class="card border-light img-banner2" >
+              <img [src]="'../assets/img/lockers.jpeg'" height="250px" 
+                   class="card-img" alt="..." style="opacity: 0.4;">
+              <div class="card-img-overlay" style="border-color: transparent;">
+                <h2 class="card-title" style="margin-left : 2.3%; margin-top : 2.3%; font-size : 1.5rem;" id="prueba"> 
+                   Número: {{locker.id}} 
+                  <br>
+                   Ubicación: {{locker.ubicacion}}
+                  <br>
+                   Estado:  <strong *ngIf="locker.estatus == false" style="color: #06D913;"> {{locker.estatus ? 'Reservado' : 'Disponible'}} </strong>  <strong *ngIf="locker.estatus == true" style="color: #E30F0B;"> {{locker.estatus ? 'Reservado' : 'Disponible'}} </strong>
+                </h2>
+                <div class="text-center" style="margin-top: 22%;">
+                  <button id="btn" style="font-size: 1.5rem;" (click)="actulizarCasilleroSelecccionado(locker)"> 
+                    Seleccionar
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
+    
         </div>
+      </div>
+      <br>
+    </div>
+  </div>
 
+  <!--Resumen reserva -->
+  
+  <br>
+  
+  <div class="vstack gap-4 col-md-11 mx-auto">
+  
+    <div id="reserve" class="card w-100 border border-gray border border-2">
+      
         <div class="row">
+          <div class=" col-md-10 ">
+            <h4 style="margin-top: 1.5%; margin-left: 1%"> <strong>Casillero Seleccionado: </strong></h4>
+            
+            <div *ngIf="this.seleReserva.id != 0" style="margin-bottom: 1%; font-size: 1.3rem; margin-left: 1%;">
+              Número: {{seleReserva.id}}
+              <br>
+              Ubicación: {{seleReserva.ubicacion}}
+            </div>
+            
+          </div>
+  
+          <div *ngIf="this.seleReserva.id != 0"  class=" col-md-2 mt-3" >
+            <button style = "font-size: 1.5rem; margin-top: 8%;" id="btn2" class="btn" (click)="open(mymodal)" (click)=" crearReservaCasillero()" (click)=" actualizarEstadoCasillero()"> Reservar </button>
+            <ng-template #mymodal let-modal>
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Tu pago se ha realizado exitosamente!
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="refresh()">OK</button>
+              </div>
+            </ng-template>
+          </div>
+        </div>   
+    </div>
+ </div>
 
-          <div class="col-md-9 mt-2">
-            <h5> &nbsp; Calidad del equipo</h5>
+</div>
+
+<br>
+
+
+<div class="vstack gap-4 col-md-11 mx-auto">
+    <div class="row">
+ 
+      <div *ngIf="this.CasilleroReservado != null">
+         <!-- Información del casillero reservado -->
+      <div class="col-md-12 mt-4">
+
+        <h3> <strong>Información de tu casillero reservado</strong> </h3>
+
+        <div class="card border border-grey border border-2" style="margin-bottom: 2%;">
+
+          <div style="margin-left: 1%; margin-top: 1%; margin-bottom: 1%;">
+            <h5 > <Strong> Número de casillero: </Strong> {{this.CasilleroReservado.id_casillero}}</h5>
+            <h5 > <Strong> Ubicación: </Strong> {{this.CasilleroReservado.ubicacion}}</h5>
+            <h5 > <Strong> Estado de la reserva: </Strong> <strong *ngIf="this.CasilleroReservado.estado == false" style="color: #0653d9;" > {{this.CasilleroReservado.estado ? 'Aprobada' : 'En revisión'}} </strong>  <strong *ngIf="this.CasilleroReservado.estado == true" style="color: #1a8106;" > {{this.CasilleroReservado.estado ? 'Aprobada' : 'En revisión'}} </strong></h5>
+
           </div>
 
-          <div class="col-md-3 mt-2">
-            <h4>★★★★★ 5</h4>
-
-          </div>
-        </div>
-
-        <div class="row">
-
-          <div class="col-md-9 mt-2">
-            <h5> &nbsp; Ambiente</h5>
-          </div>
-
-          <div class="col-md-3 mt-2">
-            <h4>★★★☆☆ 3</h4>
-          </div>
         </div>
 
         <ng-template #resenamodal let-modal>
@@ -272,6 +235,58 @@
         </ng-template>
 
       </div>
+         <!-- Seccion del Preview de Comprobante, esto se encuentra en el componente de image-upload -->
+        <app-image-upload></app-image-upload>
+      </div>
 
-    </div>
+
+      <!-- Reseñas -->
+      <div *ngIf="this.CasilleroReservado == null"class="col-md-12 mt-4">
+        <h3> <strong>Reseñas</strong> </h3>
+        <div class="card border border-grey border border-2">
+          <div class="row">
+
+            <div class="col-md-9 mt-2">
+              <h5> &nbsp; Limpieza</h5>
+            </div>
+
+            <div class="col-md-3 mt-2">
+              <h4>★★★★☆ 4 </h4>
+
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-9 mt-2">
+              <h5> &nbsp; Calidad </h5>
+            </div>
+
+            <div class="col-md-3 mt-2">
+              <h4>★★★★★ 5</h4>
+
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-9 mt-2">
+              <h5> &nbsp; Tamaño</h5>
+            </div>
+
+            <div class="col-md-3 mt-2">
+              <h4>★★★☆☆ 3</h4>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
   </div>
+
+</div>
+
+  
+
+
+

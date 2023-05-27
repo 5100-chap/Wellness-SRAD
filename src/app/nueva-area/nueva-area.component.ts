@@ -24,14 +24,10 @@ export class NuevaAreaComponent  {
   resultado!: string;
   value!: string;
 
-  formularioContacto = new FormGroup({
-    nombre: new FormControl('', [Validators.required, Validators.minLength(10)]),
-    mail: new FormControl('', [Validators.required, Validators.email]),
-    mensaje: new FormControl('', [Validators.required, Validators.maxLength(500)])
-  });
 
+/* Validar si todos los campos han sido llenados */
   submit() {
-    if (this.formularioContacto.valid)
+    if (this.NuevaAreaForm.valid)
       this.resultado = "Todos los datos son válidos";
     else
       this.resultado = "Hay datos inválidos en el formulario";

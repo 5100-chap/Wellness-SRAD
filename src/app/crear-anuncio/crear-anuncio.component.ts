@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-crear-anuncio',
@@ -7,16 +9,74 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./crear-anuncio.component.css']
 })
 export class CrearAnuncioComponent {
+ 
+  pipe = new DatePipe('en-US');
+  
 
-  title = 'appBootstrap';
+   /* Validación de los campos */
+   NuevoAnuncioForm = new FormGroup({
+    titulo: new FormControl('', Validators.required),
+    fechaEventoInicio: new FormControl('', Validators.required  ),
+    fechaEventoFin: new FormControl('', Validators.required  ),
+    ubicacion: new FormControl('', Validators.required),
+    imagen: new FormControl('', Validators.required),
+    descripcion: new FormControl('', Validators.required),
+    DuracionAnuncioInicio: new FormControl('', Validators.required  ),
+    DuracionAnuncioFin: new FormControl('', Validators.required  ),
+
+  });
+
+  diaMin(){
+
+   let today = new Date();
+   let changedDate = this.pipe.transform(today, 'YYYY-MM-dd');
+   
+    return String(changedDate);
+  }
+
+
+
+  diaMAX(){
+
+    let after = new Date();
+
+    after.setDate(after.getDate() + 14)
+ 
+     let changedDate = this.pipe.transform(after, 'YYYY-MM-dd');
+    
+     return String(changedDate);
+   }
+
+
+   actualiza(){
+    console.log("fg")
+
+   }
+
+
+
+  ngOnInit():void{
+   // this.changeFormat()
+  }
+
+  resultado!: string;
+  value!: string;
+
+/* Validar si todos los campos han sido llenados */
+  submit() {
+    if (this.NuevoAnuncioForm.valid)
+      this.resultado = "Todos los datos son válidos";
+    else
+      this.resultado = "Hay datos inválidos en el formulario";
+  }
+
+
+
+  /* Creación del modal*/
     
   closeResult: string = '';
      
-  /*------------------------------------------
-  --------------------------------------------
-  Created constructor
-  --------------------------------------------
-  --------------------------------------------*/
+
   constructor(private modalService: NgbModal) {}
      
   /**

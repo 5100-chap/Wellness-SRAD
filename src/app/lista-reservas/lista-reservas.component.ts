@@ -3,6 +3,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../services/auth.service';
 import { ApiService } from '../services/api.service';
 import { ReservasAlumno } from '../models/reservas-alumno.model';
+import { AsesorNombre } from '../models/asesor-nombre';
 
 @Component({
   selector: 'app-lista-reservas',
@@ -11,7 +12,7 @@ import { ReservasAlumno } from '../models/reservas-alumno.model';
 })
 export class ListaReservasComponent {
 
-  title = 'appBootstrap';
+  /*Creación del modal*/
     
   closeResult: string = '';
   Reservas!: ReservasAlumno[];
@@ -41,6 +42,9 @@ export class ListaReservasComponent {
     });
   } 
 
+
+   /*Obtención de las reservas del alumno que ha iniciado sesión*/
+
   ngOnInit(): void{
     this.getTodasReservasAlumno();
   }
@@ -69,9 +73,29 @@ export class ListaReservasComponent {
 
   cancelarReserva(index: number){
     const usuario = this.authService.currentUserValue['username'];
-    this.apiService.cancelarReservaAlumno(usuario, this.Reservas[index]['id']).subscribe(error=>{
+    this.apiService.cancelarReservaAlumno(usuario, this.Reservas[index]['id']).subscribe(()=>{
+    },error=>{
       console.log(error);
     });
+    window.location.reload();
+  }
+
+  marcarLlegada(index: number){
+    const usuario = this.authService.currentUserValue['username'];
+    this.apiService.marcarLlegadaReserva(usuario, this.Reservas[index]['id_area_deportiva'], this.Reservas[index]['id']).subscribe(()=>{
+    },error=>{
+      console.log(error);
+    });
+    window.location.reload();
+  }
+
+  marcarSalida(index: number){
+    const usuario = this.authService.currentUserValue['username'];
+    this.apiService.marcarSalidaReserva(usuario, this.Reservas[index]['id']).subscribe(()=>{
+    }, error=>{
+      console.log(error);
+    });
+    window.location.reload();
   }
   
   tengoAsesor(dato: String): String{
