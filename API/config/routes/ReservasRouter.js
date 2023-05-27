@@ -91,7 +91,7 @@ router.post("/api/consultarReservaCasillero", async (req, res, next) => {
         }
         var request = new sql.Request();
         var search = `EXEC [dbo].[ExisteReservaCasillero] \'${req.body.matricula}\';`;
-        
+
         var result = await request.query(search);
         res.send(result.recordset[0]);
     }
@@ -101,7 +101,6 @@ router.post("/api/consultarReservaCasillero", async (req, res, next) => {
     
 
 });
-
 
 
 // Cancelar una reservación
@@ -129,6 +128,17 @@ router.put('/api/reservaEnCurso', async(req, res, next)=>{
     }
 });
 
+//Montitor de Ingresos
+router.get('/api/getDataMonitorIngresos',async(req,res,next)=>{
+    try{
+        var request = new sql.Request();
+        var result = await request.query(`EXEC [dbo].[GetDataMonitorIngresos];`);
+        res.json(result.recordset)
+    }catch(error){
+        console.log(error);
+        res.sendStatus(404);
+    }
+})
 // Marcar Entrada desde una reserva
 router.post('/api/marcarLlegadaReserva', async(req, res, next)=>{
     try{

@@ -29,8 +29,6 @@ router.get("/api/getCasillerosDisponibles", async (req,res, next) =>{
 
 });
 
-
-
 router.get("/api/TodasAreasInformacion", async (req, res, next) => {
     const request = new sql.Request();
     try {
