@@ -1,13 +1,11 @@
-
-
 <!--Encabezado de la página-->
-<div class="img-fluid" class = "opacity-30"  >
+<div class="img-fluid" class="opacity-30">
   <div class=" text-white">
 
     <div class="img-banner2">
-      <img src="../assets/img/principal.jpg" height="225px" class="card-img" alt="..."  style="opacity: 0.5;">
-  </div>
-   
+      <img src="../assets/img/principal.jpg" height="225px" class="card-img" alt="..." style="opacity: 0.5;">
+    </div>
+
     <div class="card-img-overlay">
       <h5 class="card-title">&nbsp;</h5>
       <h5 class="card-title">&nbsp;</h5>
@@ -15,8 +13,8 @@
       <h5 class="card-title">&nbsp;</h5>
       <h5 class="card-title">&nbsp;</h5>
       <h5 class="card-title">&nbsp;</h5>
-    
-      <h1 class="card-title" class = "text-center"> Athletics </h1>
+
+      <h1 class="card-title" class="text-center"> Athletics </h1>
     </div>
   </div>
 </div>
@@ -30,18 +28,16 @@
 <div class="vstack gap-4 col-md-11 mx-auto">
   <div class="row row-cols-1 row-cols-md-3 g-4">
     <div class="col" *ngFor="let area of areas">
-      <div class="card border-light" 
-           [ngClass]="{'img-banner': area.Estatus, 'img-bannerCerrado': !area.Estatus}">
-        <img [src]="'../assets/img/crossfit.jpg'" height="250px" 
-             class="card-img" alt="..." style="opacity: 0.4;">
+      <div class="card border-light" [ngClass]="{'img-banner': area.Estatus, 'img-bannerCerrado': !area.Estatus}">
+        <img [src]="'../assets/img/crossfit.jpg'" height="250px" class="card-img" alt="..." style="opacity: 0.4;">
         <div class="card-img-overlay" style="border-color: transparent;">
-          <h2 class="card-title" style="margin-left: 2.3%; margin-top:2.3%" id="prueba"> 
+          <h2 class="card-title" style="margin-left: 2.3%; margin-top:2.3%" id="prueba">
             <i> {{area.NombreArea}} </i>
           </h2>
           <div class="text-center" style="margin-top: 27%;">
-            <button [routerLink]="['/', area.NombreArea.toLowerCase()]" 
-                    class="btn btn-primary" id="btn2" style="font-size: 1.3rem;" 
-                    [disabled]="!area.Estatus"> 
+            <button
+              [routerLink]="[area.NombreArea.toLowerCase() == 'gimnasio' ? '/' : '/areaDeportiva', area.NombreArea.toLowerCase()]"
+              class="btn btn-primary" id="btn2" style="font-size: 1.3rem;" [disabled]="!area.Estatus">
               {{area.Estatus ? 'Reservar' : 'Cerrado'}}
             </button>
           </div>

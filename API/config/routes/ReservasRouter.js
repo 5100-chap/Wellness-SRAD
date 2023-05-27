@@ -18,8 +18,33 @@ router.post('/api/getTodasReservasAlumno', async(req, res, next)=>{
     }
 });
 
-// Para crear una reservación en un area deportiva
+// Obtener reservas de una semana
+router.post('/api/getReservasSemanales',async(req, res, next)=>{
+    try{
+        var request = new sql.Request();
+        var result = await request.query(`EXEC [dbo].[ObtenerReservasSemanal] \'${req.body.lunes}\', \'${req.body.domingo}\', ${req.body.area_id};`);
+        res.json(result.recordset);
+    }
+    catch(error){
+        res.json({'status': error});
+    }
+});
+
+// Para crear una reservación 
 router.put('/api/createReservacionArea', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();
+        await request.query(`EXEC [dbo].[CreateReservacionArea] \'${req.body.usuario}\', \'${req.body.fecha}\', \'${req.body.hora}\', \'${req.body.asesor}\', ${req.body.area_id}, \'Activa\';`);
+        res.sendStatus(200);
+    }
+    catch(error){
+        console.log(error);
+        res.sendStatus(404);
+    }
+});
+
+// Para crear una reservación (alt)
+router.put('/api/altCreateReservacionArea', async(req, res, next)=>{
     var currentTime = new Date();
     var dia = `${currentTime.getFullYear()}-${currentTime.getMonth()+1}-${currentTime.getDate()}`;
     var hora = `${currentTime.getHours()}:${currentTime.getMinutes()}:${currentTime.getSeconds()}`;
@@ -103,6 +128,17 @@ router.put('/api/reservaEnCurso', async(req, res, next)=>{
     }
 });
 
+//Montitor de Ingresos
+router.get('/api/getDataMonitorIngresos',async(req,res,next)=>{
+    try{
+        var request = new sql.Request();
+        var result = await request.query(`EXEC [dbo].[GetDataMonitorIngresos];`);
+        res.json(result.recordset)
+    }catch(error){
+        console.log(error);
+        res.sendStatus(404);
+    }
+})
 // Marcar Entrada desde una reserva
 router.post('/api/marcarLlegadaReserva', async(req, res, next)=>{
     try{

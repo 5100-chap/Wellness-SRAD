@@ -37,11 +37,6 @@
 	font-weight: bold;
 }
 
-button:hover {
-    text-decoration: none;
-    color: #003366 !important;
-    
-}
 
 
 #switchFiltro {
@@ -77,6 +72,42 @@ button:hover {
 	
 	
 }
+
+#btn3 {
+    background: #003399;
+    border-color: #ffffff;
+    color: #ffffff;
+	position:relative;
+	width: 6rem;
+}
+
+
+#boton1, #boton2, #boton3, #boton4, #boton5 {
+	color: #003399;
+	border-color: #003399;
+	background-color: #ffffff;
+	display:inline-flex;
+	justify-content: center;
+	position: relative;
+}
+#boton2, #boton3, #boton4, #boton5 {
+	margin-left: 2%;
+}
+#boton1:hover, #boton2:hover, #boton3:hover, #boton4:hover, #boton5:hover {
+	background-color:#D3D3D3
+}
+
+#boton1:hover, #boton2:hover, #boton3:hover, #boton4:hover, #boton5:hover {
+	background-color:#D3D3D3
+}
+
+
+#radiolimpieza, #radiocalidad, #radioambiente {
+	color:#003399;
+	border-color:#003399;
+	background-color:#ffffff;
+}
+
 
 .img-banner2{
     background: #000000;  /* fallback for old browsers */

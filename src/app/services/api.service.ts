@@ -10,10 +10,12 @@ import { AlumnoStatusResponse } from '../models/alumnoStatusResponse.model';
 import { AforoArea } from '../models/aforoArea.model';
 import { AforoSemanalResponse } from '../models/aforoSemanalResponse.model';
 import { IngresosPorHora } from '../models/ingresoPorHora.model';
+import { HorarioReserva } from '../models/horario-reserva';
 import { Casilleros } from '../models/casilleros';
 import { NumCasillerosDisponibles } from '../models/num-casilleros-disponibles';
 import { ReservaCasillero } from '../models/reserva-casillero';
 import { Anuncio } from '../models/anuncio';
+import { IngresosMonitor } from '../models/ingresos-monitor';
 
 @Injectable({
   providedIn: 'root',
@@ -93,6 +95,10 @@ export class ApiService {
     });
   }
 
+  getTodasReservas(lunes: string, domingo: string, area_id: number): Observable<HorarioReserva[]>{
+    return this.http.post<HorarioReserva[]>('/api/getReservasSemanales', {lunes, domingo, area_id});
+  }
+
   cancelarReservaAlumno(usuario: String, id: number) {
     return this.http.delete('/api/cancelReservacionArea', {
       body: { usuario: usuario, id: id },
@@ -107,6 +113,9 @@ export class ApiService {
     );
   }
 
+  getMonitorIngresos(): Observable<IngresosMonitor[]>{
+  return this.http.get<IngresosMonitor[]>('/api/getDataMonitorIngresos')
+  }
   crearReservaCasillero(alumno: String, casillero: number){
     
     return this.http.post('/api/createReservacionLocker',{
@@ -143,6 +152,25 @@ export class ApiService {
   updateAreaStatus(areaId: number, status: boolean): Observable<Area> {
     const body = { status: status };
     return this.http.put<Area>(`/api/AreaUpdateStatus?areaId=${areaId}`, body);
+  }
+
+  crearReserva(usuario: string, fecha: string, hora: string, asesor: string, area_id: number){
+    console.log(
+      {
+        usuario: usuario,
+        fecha: fecha,
+        hora: hora,
+        asesor: asesor,
+        area_id: area_id
+      }
+    );
+    return this.http.put('/api/createReservacionArea', {
+      usuario: usuario,
+      fecha: fecha,
+      hora: hora,
+      asesor: asesor,
+      area_id: area_id
+    });
   }
   
 }
