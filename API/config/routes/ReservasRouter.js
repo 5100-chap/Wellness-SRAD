@@ -91,7 +91,7 @@ router.post("/api/consultarReservaCasillero", async (req, res, next) => {
         }
         var request = new sql.Request();
         var search = `EXEC [dbo].[ExisteReservaCasillero] \'${req.body.matricula}\';`;
-        
+
         var result = await request.query(search);
         res.send(result.recordset[0]);
     }
@@ -101,7 +101,6 @@ router.post("/api/consultarReservaCasillero", async (req, res, next) => {
     
 
 });
-
 
 
 // Cancelar una reservación
