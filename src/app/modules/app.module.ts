@@ -7,6 +7,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { QRCodeModule } from 'angularx-qrcode';
 import { RouterModule, Routes } from '@angular/router';
 
+import {LOCALE_ID } from '@angular/core';
+
+import localeEs from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localeEs, 'ES'); //Esto no es un import, pero va justo despues de ellos!
+
 
 // Imported Modules
 import { AdminModule } from './Admin/admin.module';
@@ -40,7 +47,9 @@ import { DropdownBasicComponent } from '../dropdown-basic/dropdown-basic.compone
     AlumnoModule,
     SharedModule,
   ],
-  providers: [],
+  providers: [ { provide: LOCALE_ID, useValue: 'es' } ],
+
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
