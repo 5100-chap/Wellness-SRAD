@@ -189,7 +189,7 @@ export class GimnasioComponent implements OnInit {
         this.getDiasSemana();
         this.apiService.getTodasReservas(this.listaDias[0], this.listaDias[6], this.areaId).subscribe((data: HorarioReserva[])=>{
           this.listaDeHorariosReservados = data;
-          console.log(this.alumnoStatus);
+          console.log(this.listaDeHorariosReservados);
         }, error=>{
           console.log(error);
         });
@@ -240,8 +240,11 @@ export class GimnasioComponent implements OnInit {
 
   // Revisa si el horario del botón está ocupado
   ocupado(dia: number, hora: string): boolean{
-    if(this.listaDeHorariosReservados.length===0 || this.diaPasado(dia, hora)){
+    if(this.diaPasado(dia, hora)){
       return false;
+    }
+    else if(!this.diaPasado(dia, hora) && this.listaDeHorariosReservados.length===0){
+      return true;
     }
     for(let i=0; i<this.listaDeHorariosReservados.length; i++){
       if(this.listaDeHorariosReservados[i].dia.slice(0, 10) === this.listaDias[dia] && this.listaDeHorariosReservados[i].hora.slice(11, 19) === hora || this.diaPasado(dia, hora)){
@@ -253,6 +256,9 @@ export class GimnasioComponent implements OnInit {
 
   // Revisa si ese horario ya pasó de fecha
   diaPasado(dia: number, hora: string): boolean{
+    if(this.listaDias.length === 0){
+      return false;
+    }
     const ant = new Date(+this.listaDias[dia].slice(0, 4), +this.listaDias[dia].slice(5, 7)-1, +this.listaDias[dia].slice(8), +hora.slice(0, 2), +hora.slice(3, 5), +hora.slice(6));
     return ant < this.now;
   }
