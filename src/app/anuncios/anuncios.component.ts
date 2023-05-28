@@ -27,8 +27,6 @@ export class AnunciosComponent {
   getCasillerosDis(){
     this.apiService.getAnuncios().subscribe((data: Anuncio[]) => {
       this.anuncios = data;
-      console.log(this.anuncios)
-      
     });
   }
 

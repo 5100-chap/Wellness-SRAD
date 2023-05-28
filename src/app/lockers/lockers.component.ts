@@ -60,7 +60,7 @@ export class LockersComponent {
 
     this.apiService.consultarReservaCasillero(matricula).subscribe((data: ReservaCasillero) => {
       this.CasilleroReservado = data;
-      console.log(this.CasilleroReservado.id_casillero)
+      
     });
 
   }
