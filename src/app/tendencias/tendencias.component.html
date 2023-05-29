@@ -14,25 +14,20 @@
   </div>
 </div>
 
-
 <!-- Gráfica de tendencias -->
 
 <div class="card mt-4" style="width:70%; margin-left: 15%;">
   <h4 class="card-header">Tendencias de ingreso al gimnasio por hora</h4>
   <div class="col-md-3 mt-3" style="margin-left: 2%;">
-    <div class="col-md-3 mt-3" style="margin-left: 2%;">
-      <label for="dayPicker">Elige el día:</label>
-      <input type="date" id="dayPicker" [formControl]="dayControl">
-    </div>
-
+    <label for="fecha">Seleccione un día:</label>
+    <input type="date" id="fecha" name="fecha" (change)="cambiarFecha($event)">
   </div>
 
   <div class="row">
     <div class="col-md-1 mt-4"></div>
     <div class="col-md-10 mt-5">
       <div class="chart-container">
-        <canvas id="linea">{{ chart }}</canvas>
-        <br>
+        <canvas id="graficaPorHora"></canvas>
       </div>
     </div>
   </div>
@@ -43,16 +38,37 @@
 <div class="card mt-4" style="width:70%; margin-left: 15%;">
   <h4 class="card-header">Monitor de ingresos diarios</h4>
   <div class="col-md-3 mt-3" style="margin-left: 2%;">
-    <label for="weekPicker">Elige la semana:</label>
-    <input type="week" id="weekPicker" [formControl]="dateControl">
+    <label for="segmento">Seleccione un segmento:</label>
+    <select id="segmento" name="segmento" (change)="cambiarSegmento($event)">
+      <option value="Invierno">Invierno</option>
+      <option value="1er Semestre Regular">1er Semestre Regular</option>
+      <option value="Verano">Verano</option>
+      <option value="2do Semestre Regular">2do Semestre Regular</option>
+    </select>
+
+    <label for="bloque">Seleccione un bloque:</label>
+    <select id="bloque" name="bloque" (change)="cambiarBloque($event)">
+      <option value="1">Bloque 1</option>
+      <option value="2">Bloque 2</option>
+      <option value="3">Bloque 3</option>
+    </select>
+
+    <label for="semana">Seleccione una semana:</label>
+    <select id="semana" name="semana" (change)="cambiarSemana($event)">
+      <option value="1">Semana 1</option>
+      <option value="2">Semana 2</option>
+      <option value="3">Semana 3</option>
+      <option value="4">Semana 4</option>
+      <option value="5">Semana 5</option>
+      <option value="6">Semana 6</option>
+    </select>
   </div>
 
   <div class="row">
     <div class="col-md-1 mt-4"></div>
     <div class="col-md-10 mt-5">
       <div class="chart-container">
-        <canvas id="Dia">{{ chart }}</canvas>
-        <br>
+        <canvas id="graficaPorSegmentoBloque"></canvas>
       </div>
     </div>
   </div>

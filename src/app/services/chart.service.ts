@@ -12,7 +12,7 @@ import {
   PieController,
   ArcElement,
   Tooltip,
-  LinearScale
+  LinearScale,
 } from 'chart.js';
 
 Chart.register(
@@ -25,7 +25,7 @@ Chart.register(
   CategoryScale,
   ArcElement,
   Tooltip,
-  LinearScale,
+  LinearScale
 );
 
 @Injectable({
@@ -112,5 +112,12 @@ export class ChartService {
       this.charts[chartIndex].destroy();
       this.charts.splice(chartIndex, 1);
     }
+  }
+
+  // Método para actualizar los datos de la gráfica
+  actualizarDatosGrafica(chart: Chart, labels: string[], data: number[]): void {
+    chart.data.labels = labels;
+    chart.data.datasets[0].data = data;
+    chart.update();
   }
 }
