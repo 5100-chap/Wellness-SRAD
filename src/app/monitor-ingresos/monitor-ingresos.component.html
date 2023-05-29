@@ -6,46 +6,22 @@
   </div>
 <br>
 
-
+<!--Input para seleccionar el dia en que se desea hacer la consulta-->
 <div class="row">
    
-    <div class="col-md-2 mt-1" style="margin-left: 2%;">
-        <div ngbDropdown>
-          <button class="btn btn-primary" id="btn" 
-                  ngbDropdownToggle>Semana II: 20 - 26 de Marzo 2023</button>
-          <div ngbDropdownMenu="gfg">
-            <button ngbDropdownItem>Semana III: 20 - 26 de Marzo 2023</button>
-            <button ngbDropdownItem>Semana IV: 20 - 26 de Marzo 2023</button>
-            <button ngbDropdownItem>Semana V: 20 - 26 de Marzo 2023</button>
-          </div>
-        </div>
-      </div>
-    
-      <div class="col-md-4 mt-1" style="margin-left: 4%;">
-        
-        <div ngbDropdown>
-          <button class="btn btn-primary" id="btn" 
-                  ngbDropdownToggle>20 de Marzo 2023</button>
-          <div ngbDropdownMenu="gfg">
-            <button ngbDropdownItem>21 de Marzo 2023</button>
-            <button ngbDropdownItem>22 de Marzo 2023</button>
-            <button ngbDropdownItem>23 de Marzo 2023</button>
-            <button ngbDropdownItem>24 de Marzo 2023</button>
-            <button ngbDropdownItem>25 de Marzo 2023</button>
-            <button ngbDropdownItem>26 de Marzo 2023</button>
-          </div>
-        </div>
-      </div>
-
+  <div class=" col-md-6 mt-2 mb-2" style="margin-left:3%;">
+    <h5 style="font-size: 1.2rem "> Escoga una fecha de consulta</h5>
+    <input style="font-size: 1.3rem;" tabindex="1" required autocomplete="off" type="date" id="btn" #fechaInput name="trip-start" value="{{this.changedDate}}" (change)="obtenerRegistros(fechaInput.value)" >
   </div>
+
+</div>
   
 
+<!--Tabla para mostrar la información de los ingresos en el gimnasio-->
 
-<div class="card mt-5" style="width:75%; margin-left: 13%;">
-
-
+<div class="card mt-5 table-wrapper" style="width:75%; margin-left: 13%;">
 <table class="table table-striped">
-    <thead>
+    <thead class="text-center">
       <tr>
         <th scope="col">Matricula</th>
         <th scope="col">Nombre</th>
@@ -55,21 +31,22 @@
         <th scope="col">Marcar salida</th>
       </tr>
     </thead>
-    <tbody *ngFor="let r of ingresos">
-      <tr>
+    <tbody class="text-center" *ngFor="let r of ingresos">
+      <tr >
         <td>{{r.matricula}}</td>
         <td>{{r.nombre}}</td>
-        <td>{{r.hora_de_llegada}}</td>
-        <td *ngIf="r.hora_de_salida != null ">{{r.hora_de_salida}}</td>
+        <td>{{this.formatHora(r.hora_de_llegada)}}</td>
+        <td *ngIf="r.hora_de_salida != null ">{{this.formatHora(r.hora_de_salida) }}</td>
         <td *ngIf="r.hora_de_salida == null ">NA</td>
-        <td>{{r.fecha}}</td>
-        <td *ngIf="r.hora_de_salida == null "><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalSalida)">Marcar salida</button></td>
+        <td>{{this.formatDia(r.fecha)}}</td>
+        <td *ngIf="r.hora_de_salida == null "><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger"  (click)="open(modalSalida)">Marcar salida</button></td>
         <td *ngIf="r.hora_de_salida != null ">NA</td>
       </tr>
     </tbody>
   </table>
   </div>
 
+  <!--Botón para exportar la información en un archivo CSV-->
 
   <div class="row" style="margin-left: 35%; margin-top: 2.5%;">
 

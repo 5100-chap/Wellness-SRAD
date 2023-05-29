@@ -92,8 +92,6 @@ export class LockersComponent {
   refresh(){
     window.location.reload();
   }
-
-
   
 
 
