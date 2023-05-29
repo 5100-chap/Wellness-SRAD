@@ -16,6 +16,7 @@ import { NumCasillerosDisponibles } from '../models/num-casilleros-disponibles';
 import { ReservaCasillero } from '../models/reserva-casillero';
 import { Anuncio } from '../models/anuncio';
 import { IngresosMonitor } from '../models/ingresos-monitor';
+import { AsesorInfo } from '../models/asesor-info';
 
 @Injectable({
   providedIn: 'root',
@@ -170,6 +171,12 @@ export class ApiService {
       hora: hora,
       asesor: asesor,
       area_id: area_id
+    });
+  }
+
+  getAsesoresPorRol(rol: string): Observable<AsesorInfo[]>{
+    return this.http.post<AsesorInfo[]>('/api/getAsesoresPorRol', {
+      rol: rol
     });
   }
   

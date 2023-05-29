@@ -166,4 +166,17 @@ router.post('/api/marcarSalidaReserva', async(req, res, next)=>{
     }
 });
 
+// Mostrar lista de asesores por rol
+router.post('/api/getAsesoresPorRol', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();
+        const result = request.query(`EXEC [dbo].[GetAsesoresPorRol] '${req.body.rol}';`);
+        res.json((await result).recordset);
+    }
+    catch(error){
+        console.log(error);
+        res.sendStatus(404);
+    }
+});
+
 module.exports = router;

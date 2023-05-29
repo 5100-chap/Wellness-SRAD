@@ -4,8 +4,9 @@ import 'chartjs-plugin-labels';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { Reservas } from '../models/reservas.model';
 import { NgClass } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, Validators,ReactiveFormsModule, FormControl} from '@angular/forms';
+import { AsesorInfo } from '../models/asesor-info';
 
 @Component({
   selector: 'app-horario-asesor',
@@ -15,6 +16,7 @@ import { FormBuilder, FormGroup, Validators,ReactiveFormsModule, FormControl} fr
 export class HorarioAsesorComponent {
 
   websiteList: any = ['Semana 20 - 26 de Marzo 2023', 'Semana 27 - 31 de Marzo 2023', 'Semana 20 - 26 de Marzo 2023']  
+  asesor!: AsesorInfo;
     
   form = new FormGroup({  
     website: new FormControl('', Validators.required)  
@@ -68,8 +70,7 @@ export class HorarioAsesorComponent {
 
 
   ngOnInit(): void {
-
-    
+    console.log(this.route.snapshot.paramMap.get('asesor'));
   }
 
 
@@ -82,7 +83,7 @@ export class HorarioAsesorComponent {
   Created constructor
   --------------------------------------------
   --------------------------------------------*/
-  constructor(private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal, private route: ActivatedRoute) {}
      
   /**
    * Write code on Method

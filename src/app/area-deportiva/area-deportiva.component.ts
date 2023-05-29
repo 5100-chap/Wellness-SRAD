@@ -41,6 +41,7 @@ export class AreaDeportivaComponent implements OnInit {
   meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
   now!: Date;
+  totales!: number;
 
   getFormattedNombreArea(): string {
     return this.nombreArea
@@ -227,7 +228,7 @@ export class AreaDeportivaComponent implements OnInit {
       const cont = new Date(70, 0, 1, 18, 0, 0); // un dia completo
       const domingo = new Date(lunes.getTime()+week.getTime());
       for(let i=lunes; i<=domingo; i=new Date(i.getTime() + cont.getTime())){
-        this.listaDias.push(`${i.getFullYear()}-${(i.getMonth()+1>9)?i.getMonth()+1:`0${i.getMonth()+1}`}-${i.getDate()}`);
+        this.listaDias.push(`${i.getFullYear()}-${(i.getMonth()+1>9)?i.getMonth()+1:`0${i.getMonth()+1}`}-${(i.getDate()>9)?i.getDate():`0${i.getDate()}`}`);
       }
     }
   
@@ -236,7 +237,6 @@ export class AreaDeportivaComponent implements OnInit {
     diaSeleccionado!: string;
     crearReserva(){
       if(this.diaSeleccionado!=undefined && this.horaSeleccionada!=undefined){
-        console.log(`${this.diaSeleccionado} || ${this.horaSeleccionada}`);
         this.apiService.crearReserva(this.authService.currentUserValue['username'], this.diaSeleccionado, this.horaSeleccionada, '', this.areaActual.AreaId).subscribe(error=>{
           console.log(error);
         });
@@ -254,21 +254,47 @@ export class AreaDeportivaComponent implements OnInit {
       this.reservaArray[index].fecha = this.listaDias[dia] + " - " + this.reservaArray[index].hora.slice(0, 5) + " --> " + ((+this.reservaArray[index].hora.slice(0, 2)) + 2) + ":00";
     }
   
-    // Revisa si el horario del botón está ocupado
-    ocupado(dia: number, hora: string): boolean{
-      if(this.listaDeHorariosReservados.length===0 || this.diaPasado(dia, hora)){
-        return false;
+  // Revisa si el horario del botón está ocupado
+  ocupado(dia: number, hora: string): boolean{
+    if(this.diaPasado(dia, hora)){
+      return false;
+    }
+    else if(!this.diaPasado(dia, hora) && this.listaDeHorariosReservados.length===0){
+      return true;
+    }
+    let yaExistenEseDia = 0;
+    for(let each of this.listaDeHorariosReservados){
+      if(each.dia.slice(0, 10) === this.listaDias[dia] && each.hora.slice(11, 19) === hora){
+        yaExistenEseDia++;
       }
+    }
+    if(yaExistenEseDia/this.listaDeHorariosReservados.length < this.listaDeHorariosReservados.length){
+      // Esta condicion solo aplica a aquellas reservas hechas por el mismo usuario
       for(let i=0; i<this.listaDeHorariosReservados.length; i++){
-        if(this.listaDeHorariosReservados[i].dia.slice(0, 10) === this.listaDias[dia] && this.listaDeHorariosReservados[i].hora.slice(11, 19) === hora || this.diaPasado(dia, hora)){
+        if(this.listaDeHorariosReservados[i].dia.slice(0, 10) === this.listaDias[dia] && this.listaDeHorariosReservados[i].hora.slice(11, 19) === hora && this.listaDeHorariosReservados[i].usuario === this.authService.currentUserValue['username']){
           return false;
         }
       }
+      // Ahora falta verificar si ya ha reservado mucho en el mismo día, por el usuario que use la app
+      let reservasPorDia = 0;
+      for(let each of this.listaDeHorariosReservados){
+        if(each.dia.slice(0, 10) === this.listaDias[dia] && each.usuario === this.authService.currentUserValue['username']){
+          reservasPorDia++;
+        }
+      }
+      if(reservasPorDia>this.totales){
+        return false;
+      }
       return true;
     }
+    return false;
+  }
   
     // Revisa si ese horario ya pasó de fecha
     diaPasado(dia: number, hora: string): boolean{
+      if(this.listaDias.length === 0){
+        return false;
+      }
       const ant = new Date(+this.listaDias[dia].slice(0, 4), +this.listaDias[dia].slice(5, 7)-1, +this.listaDias[dia].slice(8), +hora.slice(0, 2), +hora.slice(3, 5), +hora.slice(6));
       return ant < this.now;
     }
@@ -329,7 +355,7 @@ export class AreaDeportivaComponent implements OnInit {
             this.getDiasSemana();
             this.apiService.getTodasReservas(this.listaDias[0], this.listaDias[6], this.areaActual.AreaId).subscribe((data: HorarioReserva[])=>{
               this.listaDeHorariosReservados = data;
-              console.log(this.alumnoStatus);
+              console.log(data);
             }, error=>{
               console.log(error);
             });
@@ -345,7 +371,8 @@ export class AreaDeportivaComponent implements OnInit {
         const actuales = Number(data['actuales']);
         const totales = Number(data['totales']);
         const ocupados = totales - actuales;
-  
+        
+        this.totales = totales;
         this.aforoData = actuales + '/' + totales;
         // Use service method to create chart
         this.chart = this.chartService.createPieChart('MyChart', ['Libre: ' + actuales, 'Ocupado: ' + ocupados], [ocupados, actuales]);
@@ -383,10 +410,13 @@ export class AreaDeportivaComponent implements OnInit {
    */
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
+      this.reload();
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      this.reload();
       return 'by clicking on a backdrop';
     } else {
+      this.reload();
       return `with: ${reason}`;
     }
   }

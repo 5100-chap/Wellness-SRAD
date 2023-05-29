@@ -213,7 +213,7 @@ export class GimnasioComponent implements OnInit {
     const cont = new Date(70, 0, 1, 18, 0, 0); // un dia completo
     const domingo = new Date(lunes.getTime()+week.getTime());
     for(let i=lunes; i<=domingo; i=new Date(i.getTime() + cont.getTime())){
-      this.listaDias.push(`${i.getFullYear()}-${(i.getMonth()+1>9)?i.getMonth()+1:`0${i.getMonth()+1}`}-${i.getDate()}`);
+      this.listaDias.push(`${i.getFullYear()}-${(i.getMonth()+1>9)?i.getMonth()+1:`0${i.getMonth()+1}`}-${(i.getDate()>9)?i.getDate():`0${i.getDate()}`}`);
     }
   }
 

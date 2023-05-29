@@ -141,7 +141,7 @@ const routesAlumno: Routes = [
         },
     },
     {
-        path: 'horarioAsesor',
+        path: 'horario-asesor/:asesor',
         component: HorarioAsesorComponent,
         canActivate: [authGuard(['Alumno'])],
         data: {
