@@ -21,7 +21,7 @@ import { IngresosMonitor } from '../models/ingresos-monitor';
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getXCredentials(username: string, password: string) {
     const authHeader = 'Basic ' + window.btoa(`${username}:${password}`);
@@ -201,8 +201,34 @@ export class ApiService {
   }
 
   // Método para obtener las tendencias de un bloque específico en un segmento
-  obtenerTendencias(segmento: string, bloque: number, semana: number): Observable<any> {
-    return this.http.get<any>(`/api/tendencias/${segmento}/${bloque}/${semana}`);
-}
+  obtenerTendencias(
+    segmento: string,
+    bloque: number,
+    semana: number
+  ): Observable<any> {
+    return this.http.get<any>(
+      `/api/tendencias/${segmento}/${bloque}/${semana}`
+    );
+  }
 
+  modificarAforoMaximo(
+    area_id: number,
+    nuevo_limite: number,
+    esIndefinido: boolean,
+    fechaInicio: Date | null,
+    fechaFinal: Date | null,
+    descripcion: string | null
+  ) {
+    const fechaActual = new Date();
+    const body = {
+      area_id,
+      nuevo_limite,
+      esIndefinido,
+      fechaInicio,
+      fechaFinal,
+      descripcion,
+      fechaActual,
+    };
+    return this.http.post('/api/modificarAforoMaximo', body);
+  }
 }

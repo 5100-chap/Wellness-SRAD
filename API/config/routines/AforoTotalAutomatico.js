@@ -5,7 +5,6 @@ const cron = require("node-cron");
 module.exports = function() {
     cron.schedule("* * * * *", async function () {
         try {
-            await sql.connect(database.config); // Necesitamos conectar a la base de datos
             var request = new sql.Request();
             const result = await request.query(
                 "SELECT * FROM RegistroAforo WHERE inicio <= GETDATE() AND (final >= GETDATE() OR esIndefinido = 1) ORDER BY inicio DESC"

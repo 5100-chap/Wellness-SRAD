@@ -40,7 +40,7 @@ const routesAdmin: Routes = [
         },
     },
     {
-        path: 'cerrarEspacios',
+        path: 'cerrarEspacios/:nombreArea',
         component: CerrarEspaciosComponent,
         canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])],
         data: {
