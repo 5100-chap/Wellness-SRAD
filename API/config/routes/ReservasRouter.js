@@ -132,9 +132,6 @@ router.put('/api/reservaEnCurso', async(req, res, next)=>{
 router.post('/api/getDataMonitorIngresos',async(req,res,next)=>{
     try{
         var request = new sql.Request();
-
-        
-        
         var result = await request.query(`EXEC [dbo].[GetMonitorIngresosRegistros] \'${req.body.dia}\'`);
         res.json(result.recordset)
     }catch(error){
@@ -142,6 +139,21 @@ router.post('/api/getDataMonitorIngresos',async(req,res,next)=>{
         res.sendStatus(404);
     }
 })
+
+//Marcar la salida de un alumno de forma manual
+router.post('/api/marcarSalidaAlumno',async(req,res,next)=>{
+    try{
+        var request = new sql.Request();
+        var result = await request.query(`EXEC [dbo].[marcarSalidaAlumno] \'${req.body.horaSalida}\', \'${req.body.matricula}\',\'${req.body.horaLlegada}\'`);
+        res.json(result.recordset)
+    }catch(error){
+        console.log(error);
+        res.sendStatus(404);
+    }
+})
+
+
+
 // Marcar Entrada desde una reserva
 router.post('/api/marcarLlegadaReserva', async(req, res, next)=>{
     try{

@@ -125,6 +125,15 @@ export class ApiService {
     });
   }
 
+  marcarSalidaAlumnoManual(horaSalida: string, matricula: string, horaLlegada: string){
+    return this.http.post('/api/marcarSalidaAlumno',{
+      horaSalida: horaSalida,
+      matricula : matricula, 
+      horaLlegada: horaLlegada
+    });
+
+  }
+
   actualizarEstadoCasillero(casillero: number){
     return this.http.post('/api/actualizarEstadoLocker',{
       id_casillero: casillero

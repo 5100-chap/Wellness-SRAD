@@ -39,7 +39,7 @@
         <td *ngIf="r.hora_de_salida != null ">{{this.formatHora(r.hora_de_salida) }}</td>
         <td *ngIf="r.hora_de_salida == null ">NA</td>
         <td>{{this.formatDia(r.fecha)}}</td>
-        <td *ngIf="r.hora_de_salida == null "><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger"  (click)="open(modalSalida)">Marcar salida</button></td>
+        <td *ngIf="r.hora_de_salida == null "><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger"  (click)="open(modalSalida)" (click)="marcarSalida(r.hora_de_llegada, r.matricula)">Marcar salida</button></td>
         <td *ngIf="r.hora_de_salida != null ">NA</td>
       </tr>
     </tbody>
@@ -103,11 +103,10 @@
         </button>
       </div>
       <div class="modal-body">
-        <p> Esta a punto de marcar la salida del alumno, ¿Desea continuar? </p>
+        <p> Salida registrada correctamente! </p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger"  id ="btn2"aria-label="Close" (click)="modal.dismiss('Cross click')">Cancelar</button>
-        <button type="button" class="btn btn-danger"  id ="btn" aria-label="Close" (click)="modal.dismiss('Cross click')">Confirmar</button>
+        <button type="button" class="btn btn-danger"  id ="btn" aria-label="Close" (click)="refresh()" > OK </button>
       </div>
     </ng-template>
   

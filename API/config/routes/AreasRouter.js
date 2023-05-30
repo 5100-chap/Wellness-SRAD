@@ -3,6 +3,8 @@ const router = express.Router();
 const sql = require("mssql");
 const queries = require("../database/queries");
 
+
+//Obtener la información 
 router.get("/api/AreaInformacion", async (req, res, next) => {
     const nombreArea = req.query.nombreArea;
     const request = new sql.Request();
@@ -29,6 +31,7 @@ router.get("/api/getCasillerosDisponibles", async (req,res, next) =>{
 
 });
 
+//Obtiene la información de todas las areas deportivas
 router.get("/api/TodasAreasInformacion", async (req, res, next) => {
     const request = new sql.Request();
     try {
@@ -39,6 +42,7 @@ router.get("/api/TodasAreasInformacion", async (req, res, next) => {
     }
 });
 
+//Actualizar el estado de un area deportiva
 router.put("/api/AreaUpdateStatus", async (req, res, next) => {
     const areaId = req.query.areaId;
     const request = new sql.Request();

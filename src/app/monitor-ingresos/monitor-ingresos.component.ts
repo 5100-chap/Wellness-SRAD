@@ -7,6 +7,7 @@ import { DatePipe, Time } from '@angular/common';
 
 
 
+declare var window: any;
 
 @Component({
   selector: 'app-monitor-ingresos',
@@ -32,9 +33,9 @@ export class MonitorIngresosComponent {
 
 
   //Función para formatear la hora
-  formatHora(hora: Date){
+  formatHora(hora: string){
    
-    let horaFormateada = this.pipe.transform(hora, 'hh:mm a', 'GMT');
+    let horaFormateada = this.pipe.transform(hora, 'hh:mm:ss a', 'GMT');
     return horaFormateada
   }
 
@@ -42,7 +43,7 @@ export class MonitorIngresosComponent {
   formatDia(dia: string){   
     const date = new Date(dia);
     date.setDate(date.getDate() + 1)
-    
+
     let diaFormateado = this.pipe.transform(date, 'd MMMM y');
     return diaFormateado
   }
@@ -60,10 +61,36 @@ export class MonitorIngresosComponent {
     this.apiservice.getMonitorIngresos(dia).subscribe((data: IngresosMonitor[]) => {
       this.ingresos = data;
 
-      console.log(data)
     });
-
   }
+
+    //Función para marcar la salida de un alumno
+
+  marcarSalida(horaEntrada: string, matricula: string ){
+
+    let hora = String(this.today.getHours() )
+
+ 
+    
+    let minutos = String(this.today.getMinutes())
+   
+    let segundos = String(this.today.getSeconds())
+
+  
+
+    
+    let horaSalidaFormateada = hora + ":" + minutos + ":" + segundos
+
+    this.apiservice.marcarSalidaAlumnoManual(horaSalidaFormateada,matricula,horaEntrada).subscribe(error => {
+      console.error('Error fetching area id status', error);
+    });
+  }
+
+
+  refresh(){
+    window.location.reload();
+  }
+  
 
 
 
@@ -81,9 +108,6 @@ export class MonitorIngresosComponent {
     
     this.obtenerRegistros(res);
 
-
-    this.today.setHours(this.today.getHours() );
-    console.log(this.today.getHours())
   }
 
 
@@ -133,10 +157,13 @@ export class MonitorIngresosComponent {
    */
    private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
+      this.refresh();
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      this.refresh();
       return 'by clicking on a backdrop';
     } else {
+      this.refresh();
       return  `with: ${reason}`;
     }
   }
