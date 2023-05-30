@@ -172,5 +172,28 @@ export class ApiService {
       area_id: area_id
     });
   }
+
+  crearAnuncio(fecha_inicio_evento:string, fecha_fin_evento:string, ubicacion:string, descripcion:string, duracionIni:string, duracionFin:string, imagen:string, titulo:string){
+    console.log({
+      fecha_inicio_evento :fecha_inicio_evento,
+      fecha_fin_evento : fecha_fin_evento,
+      ubicacion : ubicacion,
+      descripcion : descripcion,
+      duracionIni: duracionIni,
+      duracionFin: duracionFin,
+      imagen: imagen,
+      titulo: titulo
+    });
+    return this.http.put('/api/CrearAnuncio', {
+      fecha_inicio_evento :fecha_inicio_evento,
+      fecha_fin_evento : fecha_fin_evento,
+      ubicacion : ubicacion,
+      descripcion : descripcion,
+      duracionIni: duracionIni,
+      duracionFin: duracionFin,
+      imagen: imagen,
+      titulo: titulo
+    });
+  }
   
 }

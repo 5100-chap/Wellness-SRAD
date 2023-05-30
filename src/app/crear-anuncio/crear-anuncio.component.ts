@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-
+import { ApiService } from '../services/api.service';
 @Component({
   selector: 'app-crear-anuncio',
   templateUrl: './crear-anuncio.component.html',
@@ -14,16 +14,15 @@ export class CrearAnuncioComponent {
   
 
    /* Validación de los campos */
-   NuevoAnuncioForm = new FormGroup({
-    titulo: new FormControl('', Validators.required),
-    fechaEventoInicio: new FormControl('', Validators.required  ),
-    fechaEventoFin: new FormControl('', Validators.required  ),
-    ubicacion: new FormControl('', Validators.required),
-    imagen: new FormControl('', Validators.required),
-    descripcion: new FormControl('', Validators.required),
-    DuracionAnuncioInicio: new FormControl('', Validators.required  ),
-    DuracionAnuncioFin: new FormControl('', Validators.required  ),
-
+    NuevoAnuncioForm = new FormGroup({
+      titulo: new FormControl('', Validators.required),
+      fechaEventoInicio: new FormControl('', Validators.required  ),
+      fechaEventoFin: new FormControl('', Validators.required  ),
+      ubicacion: new FormControl('', Validators.required),
+      imagen: new FormControl('', Validators.required),
+      descripcion: new FormControl('', Validators.required),
+      DuracionAnuncioInicio: new FormControl('', Validators.required  ),
+      DuracionAnuncioFin: new FormControl('', Validators.required  ),
   });
 
   diaMin(){
@@ -48,10 +47,7 @@ export class CrearAnuncioComponent {
    }
 
 
-   actualiza(){
-    console.log("fg")
-
-   }
+  
 
 
 
@@ -63,10 +59,15 @@ export class CrearAnuncioComponent {
   value!: string;
 
 /* Validar si todos los campos han sido llenados */
-  submit() {
+  submit(titulo:string,fechaini:string,fechafin:string,ubicacion:string,imagen: string,desc:string,duracionIni:string,duracionFin:string) {
+  //submit(){
     if (this.NuevoAnuncioForm.valid)
-      this.resultado = "Todos los datos son válidos";
-    else
+      // this.resultado = "Todos los datos son válidos";
+      this.apiservice.crearAnuncio(fechaini,fechafin,ubicacion,desc,duracionIni,duracionFin,imagen,titulo).subscribe(error => {
+        console.log(error);
+      });
+      //console.log(titulo,fechaini,fechafin,ubicacion,imagen,desc,duracionIni,duracionFin);
+      else
       this.resultado = "Hay datos inválidos en el formulario";
   }
 
@@ -77,7 +78,7 @@ export class CrearAnuncioComponent {
   closeResult: string = '';
      
 
-  constructor(private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal, private apiservice: ApiService) {}
      
   /**
    * Write code on Method
