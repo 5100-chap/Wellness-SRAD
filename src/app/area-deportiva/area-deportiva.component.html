@@ -1,3 +1,4 @@
+<!-- Encabezado del área deportiva -->
 <div class="img-fluid" class="opacity-30">
   <div class="text-white img-banner">
     <img src="../assets/img/gym.jpeg" height="250" class="card-img" style="opacity: 0.5;">
@@ -10,28 +11,35 @@
   </div>
 </div>
 
-<h3 style="margin-left: 4%; margin-top: 2%; margin-bottom: 2%;"> <strong> Información </strong> </h3>
-
+<h3 style="margin-left: 4%; margin-top: 2%; margin-bottom: 2%;"> <strong> Información  de la sala de {{ getFormattedNombreArea() }}  </strong> </h3>
 
 <!-- Tarjeta de información del área deportiva -->
 <div class="container">
-  <div class="card p-4" style="border-width: 0.2rem;">
+  <div class="card p-4" style="border-width: 0.1rem;">
     <div class="row">
+
+      <!-- Gráfica con el numero de espacios disponibles y ocupados-->
       <div class="col-md-6 col-lg-4">
+        <h2 class="text-center"> <strong> Porcenta de ocupación </strong></h2>
         <div class="chart-container">
           <canvas id="MyChart">{{ chart }}</canvas>
         </div>
       </div>
+
+      <!-- Numero de espacios disponibles y ocupados-->
       <div class="col-md-6 col-lg-4">
-        <h2 class="text-center">Lugares disponibles</h2>
-        <div class="text-center">
+        <h2 class="text-center"> <strong>Lugares disponibles </strong></h2>
+        <div class="text-center" style="margin-top: 13%;">
           <h2>{{ aforoData }}</h2>
         </div>
       </div>
+
+      <!-- Materiales disponibles en el area deportiva-->
+
       <div class="col-md-12 col-lg-4">
-        <h2 class="text-center">Materiales disponibles</h2>
+        <h2 class="text-center"> <strong>Materiales disponibles</strong> </h2>
         <div class="text-center">
-          <ul class="materiales-list">
+          <ul class="materiales-list" style="margin-top: 5%;">
             <li *ngFor="let material of areaActual.MaterialDisponible.split(',')">- {{ material.trim() }}</li>
           </ul>
         </div>
@@ -41,45 +49,38 @@
 </div>
 
 
-
-
-
 <!-- Calendario de reservación-->
-
 
 <h3 style="margin-left: 4%; margin-top: 3%; margin-bottom: 2%;"> <strong> Reservación </strong> </h3>
 
-
-
-<div class="vstack gap-4 col-md-9 mx-auto">
+<div class="vstack gap-4 col-md-10 mx-auto">
 
   <div class="card w-100 ">
 
+     <!-- Encabezado de la tabla de reservación-->
 
     <div class="col card-header">
-
-
       <div class="row">
 
-        <div class="mt-1" id="circulo"> </div>
-
-        <div class=" col-md-2 mt-1">
-
+        <!-- Estado del area deportiva-->
+        <div style="margin-top: 0.8rem; margin-left: 0.8rem;" id="circulo"> </div>
+        <div class=" col-md-2 mt-3">
           <h4>Estado: <small class="text-success">Abierto</small></h4>
-
         </div>
 
+        <!-- Elección en la semana en la que desea hacer la reservación-->
         <div class="col-md-4 mt-1">
-          <div class="col-md-3 mt-3" style="margin-left: 2%;">
-            <label for="weekPicker">Elige la semana:</label>
-            <input type="week" id="weekPicker" [formControl]="dateControl">
+          <div class="col-md-5 " style="margin-left: 2%;">
+            <label for="weekPicker">Elige una semana:</label>
+            <input type="week" id="btn" [formControl]="dateControl">
           </div>
         </div>
       </div>
-
     </div>
 
     <br>
+
+    <!--Cuerpo de la tabla con la información de los horarios disponibles para reservar-->
 
     <table class="table">
       <thead>
@@ -149,7 +150,7 @@
 
 
 
-<div class="vstack gap-4 col-md-9 mx-auto mt-2">
+<div class="vstack gap-4 col-md-10 mx-auto mt-2">
 
   <div id="reserve" class="card w-100 border border-light border border-2">
     <br>
@@ -188,8 +189,6 @@
         </div>
       </div>
 
-
-
       <br>
 
     </div>
@@ -198,18 +197,19 @@
 
 
   <div class="row">
-
+     <!-- Tarjeta con la información de la ubicación del area deportiva-->
     <div class="col-md-5 mt-4">
       <h3> <strong>Ubicación</strong> </h3>
-      <div class="card border border-black border border-1">
-
+      <div class="card border border-grey border border-1">
         <h5 style="margin-left: 1%; margin-top:1%;">{{areaActual.Ubicacion}}</h5>
       </div>
     </div>
 
+    <!-- Tarjeta con la información de las reseñas del area deportiva-->
+
     <div class="col-md-7 mt-4">
       <h3> <strong>Reseñas</strong> </h3>
-      <div class="card border border-black border border-1">
+      <div class="card border border-grey border border-1">
         <div class="row">
 
           <div class="col-md-9 mt-2">
@@ -218,7 +218,6 @@
 
           <div class="col-md-3 mt-2">
             <h4>★★★★☆ 4 </h4>
-
           </div>
         </div>
 
@@ -230,7 +229,6 @@
 
           <div class="col-md-3 mt-2">
             <h4>★★★★★ 5</h4>
-
           </div>
         </div>
 

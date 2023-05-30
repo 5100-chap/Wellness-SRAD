@@ -3,6 +3,12 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { saveAs } from 'file-saver';
 import { IngresosMonitor } from '../models/ingresos-monitor';
 import { ApiService } from '../services/api.service';
+import { DatePipe, Time } from '@angular/common';
+
+
+
+declare var window: any;
+
 @Component({
   selector: 'app-monitor-ingresos',
   templateUrl: './monitor-ingresos.component.html',
@@ -10,11 +16,102 @@ import { ApiService } from '../services/api.service';
 })
 export class MonitorIngresosComponent {
 
-  title = 'appBootstrap';
-    
+  //Definición de variables
+  constructor(private modalService: NgbModal , private apiservice:ApiService) {}
   closeResult: string = '';
+
+  today = new Date();
+  ingresos : IngresosMonitor[] = [];
+
+  temp = new Date();
+
+
+  /** Pipe para darle formato la fecha y hora*/
+  pipe = new DatePipe('es');
+
+  changedDate = this.pipe.transform(this.today, 'YYYY-MM-dd');
+
+
+  //Función para formatear la hora
+  formatHora(hora: string){
+   
+    let horaFormateada = this.pipe.transform(hora, 'hh:mm:ss a', 'GMT');
+    return horaFormateada
+  }
+
+  //Función para formatear el dia
+  formatDia(dia: string){   
+    const date = new Date(dia);
+    date.setDate(date.getDate() + 1)
+
+    let diaFormateado = this.pipe.transform(date, 'd MMMM y');
+    return diaFormateado
+  }
+
+  //Función para obtener el dia al cambiar el input
+  alCambiar(dateString : string){
   
+    this.obtenerRegistros(dateString)
+  }
+
+  //Función para obtener la información de los ingresos
+
+  obtenerRegistros(dia : string){
+
+    this.apiservice.getMonitorIngresos(dia).subscribe((data: IngresosMonitor[]) => {
+      this.ingresos = data;
+
+    });
+  }
+
+    //Función para marcar la salida de un alumno
+
+  marcarSalida(horaEntrada: string, matricula: string ){
+
+    let hora = String(this.today.getHours() )
+
+ 
+    
+    let minutos = String(this.today.getMinutes())
+   
+    let segundos = String(this.today.getSeconds())
+
   
+
+    
+    let horaSalidaFormateada = hora + ":" + minutos + ":" + segundos
+
+    this.apiservice.marcarSalidaAlumnoManual(horaSalidaFormateada,matricula,horaEntrada).subscribe(error => {
+      console.error('Error fetching area id status', error);
+    });
+  }
+
+
+  refresh(){
+    window.location.reload();
+  }
+  
+
+
+
+  ngOnInit(): void{
+
+    let anio = String(this.today.getFullYear() )
+
+    this.today.setMonth(this.today.getMonth() + 1)
+    
+    let mes = String(this.today.getMonth())
+   
+    let diaN = String(this.today.getDate())
+
+    const res = anio + "-" +mes+"-"+diaN
+    
+    this.obtenerRegistros(res);
+
+  }
+
+
+  //Función para exportar la información de la tabla en un archivo con el formato csv
   exportarCSV(){
     const table = document.querySelector('.table') as HTMLTableElement;
     const rows = Array.from(table.querySelectorAll('tr'));
@@ -35,19 +132,8 @@ export class MonitorIngresosComponent {
     saveAs(blob, 'IngresoSemanal.csv');
   }
 
-  ingresos : IngresosMonitor[] = [];
+ 
 
-  ngOnInit(): void{
-    this.apiservice.getMonitorIngresos().subscribe((data: IngresosMonitor[]) => {
-      this.ingresos = data;
-    })
-  }
-  /*------------------------------------------
-  --------------------------------------------
-  Created constructor
-  --------------------------------------------
-  --------------------------------------------*/
-  constructor(private modalService: NgbModal , private apiservice:ApiService) {}
      
   /**
    * Write code on Method
@@ -71,10 +157,13 @@ export class MonitorIngresosComponent {
    */
    private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
+      this.refresh();
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      this.refresh();
       return 'by clicking on a backdrop';
     } else {
+      this.refresh();
       return  `with: ${reason}`;
     }
   }

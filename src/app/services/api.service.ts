@@ -113,9 +113,10 @@ export class ApiService {
     );
   }
 
-  getMonitorIngresos(): Observable<IngresosMonitor[]>{
-  return this.http.get<IngresosMonitor[]>('/api/getDataMonitorIngresos')
+  getMonitorIngresos(dia:string): Observable<IngresosMonitor[]>{    
+  return this.http.post<IngresosMonitor[]>('/api/getDataMonitorIngresos', {dia});
   }
+
   crearReservaCasillero(alumno: String, casillero: number){
     
     return this.http.post('/api/createReservacionLocker',{
@@ -124,14 +125,21 @@ export class ApiService {
     });
   }
 
+  marcarSalidaAlumnoManual(horaSalida: string, matricula: string, horaLlegada: string){
+    return this.http.post('/api/marcarSalidaAlumno',{
+      horaSalida: horaSalida,
+      matricula : matricula, 
+      horaLlegada: horaLlegada
+    });
+
+  }
+
   actualizarEstadoCasillero(casillero: number){
     return this.http.post('/api/actualizarEstadoLocker',{
       id_casillero: casillero
     });
   }
   
-
-
   marcarLlegadaReserva(usuario: String, area_id: number, id_reservacion: number){
     return this.http.post('/api/marcarLlegadaReserva', {
       usuario: usuario,
@@ -155,15 +163,7 @@ export class ApiService {
   }
 
   crearReserva(usuario: string, fecha: string, hora: string, asesor: string, area_id: number){
-    console.log(
-      {
-        usuario: usuario,
-        fecha: fecha,
-        hora: hora,
-        asesor: asesor,
-        area_id: area_id
-      }
-    );
+    
     return this.http.put('/api/createReservacionArea', {
       usuario: usuario,
       fecha: fecha,

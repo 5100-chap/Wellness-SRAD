@@ -9,22 +9,28 @@ import { ApiService } from '../services/api.service';
   styleUrls: ['./crear-anuncio.component.css']
 })
 export class CrearAnuncioComponent {
- 
+
+  //Definición de variables
+
+  resultado!: string;
+  value!: string;
   pipe = new DatePipe('en-US');
   
 
-   /* Validación de los campos */
-    NuevoAnuncioForm = new FormGroup({
-      titulo: new FormControl('', Validators.required),
-      fechaEventoInicio: new FormControl('', Validators.required  ),
-      fechaEventoFin: new FormControl('', Validators.required  ),
-      ubicacion: new FormControl('', Validators.required),
-      imagen: new FormControl('', Validators.required),
-      descripcion: new FormControl('', Validators.required),
-      DuracionAnuncioInicio: new FormControl('', Validators.required  ),
-      DuracionAnuncioFin: new FormControl('', Validators.required  ),
+   /*Definición del formulario para la validación de los campos */
+   NuevoAnuncioForm = new FormGroup({
+    titulo: new FormControl('', Validators.required),
+    fechaEventoInicio: new FormControl('', Validators.required  ),
+    fechaEventoFin: new FormControl('', Validators.required  ),
+    ubicacion: new FormControl('', Validators.required),
+    imagen: new FormControl('', Validators.required),
+    descripcion: new FormControl('', Validators.required),
+    DuracionAnuncioInicio: new FormControl('', Validators.required  ),
+    DuracionAnuncioFin: new FormControl('', Validators.required  ),
+
   });
 
+  // Función para obtener el dia actual
   diaMin(){
 
    let today = new Date();
@@ -33,8 +39,7 @@ export class CrearAnuncioComponent {
     return String(changedDate);
   }
 
-
-
+  // Función para obtener el dia que será dentro de 14 días 
   diaMAX(){
 
     let after = new Date();
@@ -47,16 +52,11 @@ export class CrearAnuncioComponent {
    }
 
 
-  
-
-
-
   ngOnInit():void{
-   // this.changeFormat()
+   
   }
 
-  resultado!: string;
-  value!: string;
+  
 
 /* Validar si todos los campos han sido llenados */
   submit(titulo:string,fechaini:string,fechafin:string,ubicacion:string,imagen: string,desc:string,duracionIni:string,duracionFin:string) {
@@ -70,7 +70,6 @@ export class CrearAnuncioComponent {
       else
       this.resultado = "Hay datos inválidos en el formulario";
   }
-
 
 
   /* Creación del modal*/
@@ -94,7 +93,6 @@ export class CrearAnuncioComponent {
 
 }
 
-     
   /**
    * Write code on Method
    *

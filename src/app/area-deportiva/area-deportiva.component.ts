@@ -34,7 +34,8 @@ import { AlumnoStatusResponse } from '../models/alumnoStatusResponse.model';
   styleUrls: ['./area-deportiva.component.css'],
 })
 export class AreaDeportivaComponent implements OnInit {
-  // Declaramos las variables y arrays que vamos a utilizar|
+
+  // Declaramos las variables y arrays que vamos a utilizar
   areaActual : Area = new Area;
   public nombreArea: string = '';
   aforoData: string = '';
@@ -168,8 +169,8 @@ export class AreaDeportivaComponent implements OnInit {
     },
   ];
   
-  
   seleReserva: Reservas = new Reservas();
+
   addOrEdit() {
     if (this.seleReserva.id == 0) {
       this.seleReserva.id = this.reservaArray.length + 1;
@@ -182,14 +183,6 @@ export class AreaDeportivaComponent implements OnInit {
     this.seleReserva = reserve;
   }
 
-  delete() {
-    if (confirm('Deseas realmente eliminar la reservación?')) {
-      this.reservaArray = this.reservaArray.filter(
-        (x) => x != this.seleReserva
-      );
-      this.seleReserva = new Reservas();
-    }
-  }
 
   public chart: any;
   alumnoStatus: number = -1;
@@ -236,7 +229,7 @@ export class AreaDeportivaComponent implements OnInit {
     diaSeleccionado!: string;
     crearReserva(){
       if(this.diaSeleccionado!=undefined && this.horaSeleccionada!=undefined){
-        console.log(`${this.diaSeleccionado} || ${this.horaSeleccionada}`);
+        
         this.apiService.crearReserva(this.authService.currentUserValue['username'], this.diaSeleccionado, this.horaSeleccionada, '', this.areaActual.AreaId).subscribe(error=>{
           console.log(error);
         });
@@ -298,9 +291,7 @@ export class AreaDeportivaComponent implements OnInit {
       });
     }
   
-    getStatus(): void {
-      console.log(this.alumnoStatus);
-    }
+    
   
 
   ngOnInit(): void {
@@ -311,7 +302,7 @@ export class AreaDeportivaComponent implements OnInit {
       this.nombreArea = nombreAreaParam;
       this.apiService.getAreaByName(this.nombreArea).subscribe((response) => {
         this.areaActual = response[0];
-        console.log(this.areaActual);
+        
         if (this.areaActual.NombreArea === null) {
           this.router.navigate(['/404']);
         }
@@ -329,7 +320,7 @@ export class AreaDeportivaComponent implements OnInit {
             this.getDiasSemana();
             this.apiService.getTodasReservas(this.listaDias[0], this.listaDias[6], this.areaActual.AreaId).subscribe((data: HorarioReserva[])=>{
               this.listaDeHorariosReservados = data;
-              console.log(this.alumnoStatus);
+              
             }, error=>{
               console.log(error);
             });

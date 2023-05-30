@@ -97,6 +97,7 @@ button:hover {
 	background: #003399;
 	border-color: transparent;
 	color: white;
+	border-radius: 0.3rem;
 }
 
 .materiales-list {
