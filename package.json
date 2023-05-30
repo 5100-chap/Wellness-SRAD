@@ -41,6 +41,7 @@
     "ngx-barcode-qrcode-sdk": "^1.0.1",
     "ngx-filesaver": "^15.0.1",
     "ngx-material-rating": "^2.0.0",
+    "node-cron": "^3.0.2",
     "popper.js": "^1.16.1",
     "rxjs": "~7.8.0",
     "simple-statistics": "^7.8.3",

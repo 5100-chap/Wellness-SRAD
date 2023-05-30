@@ -5,7 +5,6 @@ const app = express();
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const sql = require("mssql");
-const cancel = require('./config/middleware/cancelacionAutomatica');
 
 //Cargar la configuración de .env
 dotenv.config();
@@ -13,7 +12,8 @@ dotenv.config();
 const database = require("./config/credentials/database");
 
 const routes = require("./config/routes/router"); // Import the combined routes
-const cancelAuto = require("./config/middleware/cancelacionAutomatica");
+const cancelAuto = require("./config/routines/cancelacionAutomatica");
+const AforoTotalAutomatico = require("./config/routines/AforoTotalAutomatico");
 
 const port = process.env.PORT || 8080;
 
@@ -58,6 +58,7 @@ app.listen(port, function () {
     (async () => {
         await connectToDatabase();
         cancelAuto();
+        AforoTotalAutomatico();
         setInterval(cancelAuto, 5*60*1000);
     })();
 });

@@ -32,7 +32,7 @@ const routesAdmin: Routes = [
         },
     },
     {
-        path: 'editarAforo:/nombreArea',
+        path: 'editarAforo/:nombreArea',
         component: EditarAforoComponent,
         canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])],
         data: {
