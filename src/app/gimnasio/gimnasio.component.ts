@@ -191,7 +191,6 @@ export class GimnasioComponent implements OnInit {
         this.getDiasSemana();
         this.apiService.getTodasReservas(this.listaDias[0], this.listaDias[6], this.areaId).subscribe((data: HorarioReserva[])=>{
           this.listaDeHorariosReservados = data;
-          console.log(this.listaDeHorariosReservados);
         }, error=>{
           console.log(error);
         });

@@ -179,4 +179,17 @@ router.post('/api/getAsesoresPorRol', async(req, res, next)=>{
     }
 });
 
+// Obtener reservas de asesores
+router.post('/api/getReservasAsesores', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();
+        const result = await request.query(`EXEC [dbo].[GetReservasAsesor] '${req.body.lunes}', '${req.body.domingo}';`);
+        res.json(result.recordset);
+    }
+    catch(error){
+        console.log(error);
+        res.sendStatus(404);
+    }
+});
+
 module.exports = router;

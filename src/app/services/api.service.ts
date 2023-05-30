@@ -17,6 +17,7 @@ import { ReservaCasillero } from '../models/reserva-casillero';
 import { Anuncio } from '../models/anuncio';
 import { IngresosMonitor } from '../models/ingresos-monitor';
 import { AsesorInfo } from '../models/asesor-info';
+import { ReservaAsesor } from '../models/reserva-asesor';
 
 @Injectable({
   providedIn: 'root',
@@ -177,6 +178,13 @@ export class ApiService {
   getAsesoresPorRol(rol: string): Observable<AsesorInfo[]>{
     return this.http.post<AsesorInfo[]>('/api/getAsesoresPorRol', {
       rol: rol
+    });
+  }
+
+  getReservasAsesor(lunes: string, domingo: string): Observable<ReservaAsesor[]>{
+    return this.http.post<ReservaAsesor[]>('/api/getReservasAsesores', {
+      lunes: lunes,
+      domingo: domingo
     });
   }
   
