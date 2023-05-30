@@ -201,7 +201,8 @@ export class ApiService {
   }
 
   // Método para obtener las tendencias de un bloque específico en un segmento
-  obtenerTendencias(segmento: string, bloque: number): Observable<any> {
-    return this.http.get<any>(`/api/tendencias/${segmento}/${bloque}`);
-  }
+  obtenerTendencias(segmento: string, bloque: number, semana: number): Observable<any> {
+    return this.http.get<any>(`/api/tendencias/${segmento}/${bloque}/${semana}`);
+}
+
 }

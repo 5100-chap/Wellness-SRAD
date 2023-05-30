@@ -34,7 +34,7 @@ Chart.register(
 export class ChartService {
   private charts: Chart[] = [];
 
-  constructor() {}
+  constructor() { }
 
   createChart(
     chartId: string,
@@ -69,6 +69,51 @@ export class ChartService {
               display: true,
               text: 'Ingresos',
             },
+          },
+        },
+      },
+    };
+
+    const chart = new Chart(chartId, chartConfig);
+    this.charts.push(chart);
+    return chart;
+  }
+
+  createStackedChart(
+    chartId: string,
+    labels: string[],
+    datasets: any[],
+    chartType: ChartType
+  ): Chart {
+    const chartConfig: ChartConfiguration = {
+      type: chartType,
+      data: {
+        labels: labels,
+        datasets: datasets,
+      },
+      options: {
+        aspectRatio: 2.5,
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: chartType === 'bar' ? 'Día' : 'Hora',
+            },
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Ingresos',
+            },
+          },
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'Tendencias de ingreso al gimnasio',
+          },
+          legend: {
+            position: 'bottom',
           },
         },
       },
