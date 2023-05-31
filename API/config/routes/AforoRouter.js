@@ -130,7 +130,7 @@ router.post("/api/modificarAforoMaximo", async (req, res, next) => {
             .input("descripcion", sql.VarChar(200), req.body.descripcion || null)
             .input("fechaActual", sql.DateTime, fechaActual)
             .execute("[dbo].[ModificarAforoMaximo]");
-        res.send(200);
+            res.status(200).json({ success: true });
     } catch (err) {
         next(err);
     }
