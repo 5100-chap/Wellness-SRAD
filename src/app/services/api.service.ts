@@ -143,16 +143,8 @@ export class ApiService {
     });
   }
 
-  getTodasReservas(
-    lunes: string,
-    domingo: string,
-    area_id: number
-  ): Observable<HorarioReserva[]> {
-    return this.http.post<HorarioReserva[]>('/api/getReservasSemanales', {
-      lunes,
-      domingo,
-      area_id,
-    });
+  getTodasReservas(lunes: string, domingo: string, area_id: number): Observable<HorarioReserva[]>{
+    return this.http.post<HorarioReserva[]>('/api/getReservasSemanales', {lunes, domingo, area_id});
   }
 
   cancelarReservaAlumno(usuario: String, id: number) {
@@ -160,8 +152,6 @@ export class ApiService {
       body: { usuario: usuario, id: id },
     });
   }
-
-  
   getIngresosPorHora(
     day: string,
     areaId: number
@@ -280,4 +270,31 @@ export class ApiService {
       fechaApertura: fechaApertura.toISOString(),
     });
   }
+
+  getAsesoresPorRol(rol: string): Observable<AsesorInfo[]>{
+    return this.http.post<AsesorInfo[]>('/api/getAsesoresPorRol', {
+      rol: rol
+    });
+  }
+
+  getReservasAsesor(lunes: string, domingo: string, asesor: string): Observable<ReservaAsesor[]>{
+    return this.http.post<ReservaAsesor[]>('/api/getReservasAsesores', {
+      lunes: lunes,
+      domingo: domingo,
+      asesor: asesor
+    });
+  }
+
+  createReservaAsesor(asesor: string, lugar: string, fecha: string, usuario: string, hora: string, cancelada: number){
+    return this.http.post('/api/createReservaAsesor', 
+    {
+      asesor: asesor,
+      lugar: lugar,
+      fecha: fecha,
+      usuario: usuario,
+      hora: hora,
+      cancelada: cancelada
+    });
+  }
+  
 }

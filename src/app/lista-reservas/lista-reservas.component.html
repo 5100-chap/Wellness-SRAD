@@ -26,7 +26,7 @@
             <!-- Cada una de las reservas -->
             <div class="card w-100" *ngFor="let each of Reservas.slice(slices[eachSlice], item); let i=index;" style="margin-top: 2%;">
               <div class="card">
-                <div class="card-body" (click)="printIndex(i)">
+                <div class="card-body">
                   <!-- Informacion de la reservacion -->
                   <h4>
                     Fecha:
@@ -35,10 +35,6 @@
                   <h4>
                     Hora:
                     <small class="text-muted"> {{each['hora'].slice(11, 16)}} </small>
-                  </h4>
-                  <h4>
-                    Instructor:
-                    <small class="text-muted"> {{tengoAsesor((each['asesorNombre']))}} </small>
                   </h4>
 
                   <h4 *ngIf="each['estado']=='Activa'">

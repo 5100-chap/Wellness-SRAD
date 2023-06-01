@@ -68,7 +68,6 @@ export class ListaReservasComponent {
         }
         this.slices.push(data.length);
       }
-      console.log(this.slices);
     },
     error=>{
       console.error('Error fetching all reservas from alumno --> ', error);
@@ -78,8 +77,6 @@ export class ListaReservasComponent {
   cancelarReserva(index: number){
     const usuario = this.authService.currentUserValue['username'];
     this.apiService.cancelarReservaAlumno(usuario, this.Reservas[index]['id']).subscribe(()=>{
-    },error=>{
-      console.log(error);
     });
   }
 
@@ -87,16 +84,12 @@ export class ListaReservasComponent {
   marcarLlegada(index: number){
     const usuario = this.authService.currentUserValue['username'];
     this.apiService.marcarLlegadaReserva(usuario, this.Reservas[index]['id_area_deportiva'], this.Reservas[index]['id']).subscribe(()=>{
-    },error=>{
-      console.log(error);
     });
   }
 
   marcarSalida(index: number){
     const usuario = this.authService.currentUserValue['username'];
     this.apiService.marcarSalidaReserva(usuario, this.Reservas[index]['id']).subscribe(()=>{
-    }, error=>{
-      console.log(error);
     });
   }
   
@@ -115,10 +108,6 @@ export class ListaReservasComponent {
     const TodosLosDias = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado', 'Domingo'];
     const diaSemana = TodosLosDias[dia.getDay()];
     return `${diaSemana} ${dato.slice(8, 10)} de ${nombreMes}`;
-  }
-
-  printIndex(index: number){
-    console.log(index);
   }
 
   marcarLlegadaBtn(index: number): boolean{
