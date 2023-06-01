@@ -35,17 +35,21 @@ export class ApiService {
   }
 
   //Obtener la información de los casilleros disponibles
-  getCasillerosDisponibles():Observable<Casilleros[]> {
+  getCasillerosDisponibles(): Observable<Casilleros[]> {
     return this.http.get<Casilleros[]>('/api/getCasillerosDisponibles');
   }
 
   //Obtener el número de los casilleros disponibles
-  getDisponibilidadCasillero():Observable<NumCasillerosDisponibles[]> {
-    return this.http.get<NumCasillerosDisponibles[]>('/api/getDisponibilidadCasilleros');
+  getDisponibilidadCasillero(): Observable<NumCasillerosDisponibles[]> {
+    return this.http.get<NumCasillerosDisponibles[]>(
+      '/api/getDisponibilidadCasilleros'
+    );
   }
   //Consultar si el alumno actual tiene un casillero reservado
   consultarReservaCasillero(matricula: String): Observable<ReservaCasillero> {
-    return this.http.post<ReservaCasillero>('/api/consultarReservaCasillero', { matricula });
+    return this.http.post<ReservaCasillero>('/api/consultarReservaCasillero', {
+      matricula,
+    });
   }
 
   //Crear reserva de un casillero
@@ -60,7 +64,7 @@ export class ApiService {
   // Obtener todos los anuncios
   getAnuncios(): Observable<Anuncio[]> {
     return this.http.get<Anuncio[]>('/api/getAnuncios');
-  } 
+  }
 
    //Crear un anuncio
   createAnuncio(fechaInicio: string, fechaFin : string, ubicacion : string, descripcion: string, duracionIni : string, duracionFin : string, imagen : string, titulo: string) {
@@ -139,8 +143,16 @@ export class ApiService {
     });
   }
 
-  getTodasReservas(lunes: string, domingo: string, area_id: number): Observable<HorarioReserva[]>{
-    return this.http.post<HorarioReserva[]>('/api/getReservasSemanales', {lunes, domingo, area_id});
+  getTodasReservas(
+    lunes: string,
+    domingo: string,
+    area_id: number
+  ): Observable<HorarioReserva[]> {
+    return this.http.post<HorarioReserva[]>('/api/getReservasSemanales', {
+      lunes,
+      domingo,
+      area_id,
+    });
   }
 
   cancelarReservaAlumno(usuario: String, id: number) {
@@ -174,9 +186,9 @@ export class ApiService {
 
   }
 
-  actualizarEstadoCasillero(casillero: number){
-    return this.http.post('/api/actualizarEstadoLocker',{
-      id_casillero: casillero
+  actualizarEstadoCasillero(casillero: number) {
+    return this.http.post('/api/actualizarEstadoLocker', {
+      id_casillero: casillero,
     });
   }
   
@@ -184,14 +196,14 @@ export class ApiService {
     return this.http.post('/api/marcarLlegadaReserva', {
       usuario: usuario,
       area_id: area_id,
-      id_reservacion: id_reservacion
+      id_reservacion: id_reservacion,
     });
   }
 
-  marcarSalidaReserva(usuario: String, id: number){
+  marcarSalidaReserva(usuario: String, id: number) {
     return this.http.post('/api/marcarSalidaReserva', {
       usuario: usuario,
-      id: id
+      id: id,
     });
   }
   getTodasAreasInformacion(): Observable<Area[]> {
@@ -209,8 +221,63 @@ export class ApiService {
       fecha: fecha,
       hora: hora,
       asesor: asesor,
-      area_id: area_id
+      area_id: area_id,
     });
   }
-  
+
+  getGymTrends(segment: string, weekNumber: number): Observable<number[]> {
+    return this.http.get<number[]>(
+      `/api/trendsGym?segment=${segment}&weekNumber=${weekNumber}`
+    );
+  }
+
+  // Método para obtener tendencias por hora de un día específico
+  obtenerTendenciasPorHora(dia: string): Observable<any> {
+    return this.http.get<any>(`/api/tendencias_por_hora/${dia}`);
+  }
+
+  // Método para obtener las tendencias de un bloque específico en un segmento
+  obtenerTendencias(
+    segmento: string,
+    bloque: number,
+    semana: number
+  ): Observable<any> {
+    return this.http.get<any>(
+      `/api/tendencias/${segmento}/${bloque}/${semana}`
+    );
+  }
+
+  modificarAforoMaximo(
+    area_id: number,
+    nuevo_limite: number,
+    esIndefinido: boolean,
+    fechaInicio: Date | null,
+    fechaFinal: Date | null,
+    descripcion: string | null
+  ) {
+    const fechaActual = new Date();
+    const body = {
+      area_id,
+      nuevo_limite,
+      esIndefinido,
+      fechaInicio,
+      fechaFinal,
+      descripcion,
+      fechaActual,
+    };
+    return this.http.post('/api/modificarAforoMaximo', body);
+  }
+
+  // Método para actualizar el cierre de un área
+  updateAreaClose(
+    areaId: number,
+    fechaCierre: Date,
+    fechaApertura: Date
+  ): Observable<any> {
+    return this.http.post('/api/AreaUpdateClose', {
+      areaId: areaId,
+      fechaCierre: fechaCierre.toISOString(),
+      fechaApertura: fechaApertura.toISOString(),
+    });
+  }
 }

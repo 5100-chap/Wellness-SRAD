@@ -49,6 +49,10 @@ export class ListaReservasComponent {
     this.getTodasReservasAlumno();
   }
 
+  reload(){
+    window.location.reload();
+  }
+
   getTodasReservasAlumno(){
     const usuario = this.authService.currentUserValue['username'];
     this.apiService.getTodasReservasAlumno(usuario).subscribe((data: ReservasAlumno[])=>{
@@ -77,7 +81,6 @@ export class ListaReservasComponent {
     },error=>{
       console.log(error);
     });
-    window.location.reload();
   }
 
   
@@ -87,7 +90,6 @@ export class ListaReservasComponent {
     },error=>{
       console.log(error);
     });
-    window.location.reload();
   }
 
   marcarSalida(index: number){
@@ -96,7 +98,6 @@ export class ListaReservasComponent {
     }, error=>{
       console.log(error);
     });
-    window.location.reload();
   }
   
   tengoAsesor(dato: String): String{
@@ -156,10 +157,13 @@ export class ListaReservasComponent {
    */
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
+      this.reload();
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      this.reload();
       return 'by clicking on a backdrop';
     } else {
+      this.reload();
       return  `with: ${reason}`;
     }
   }
