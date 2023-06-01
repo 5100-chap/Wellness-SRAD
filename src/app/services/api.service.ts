@@ -21,7 +21,7 @@ import { IngresosMonitor } from '../models/ingresos-monitor';
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getXCredentials(username: string, password: string) {
     const authHeader = 'Basic ' + window.btoa(`${username}:${password}`);
@@ -230,5 +230,18 @@ export class ApiService {
       fechaActual,
     };
     return this.http.post('/api/modificarAforoMaximo', body);
+  }
+
+  // Método para actualizar el cierre de un área
+  updateAreaClose(
+    areaId: number,
+    fechaCierre: Date,
+    fechaApertura: Date
+  ): Observable<any> {
+    return this.http.post('/api/AreaUpdateClose', {
+      areaId: areaId,
+      fechaCierre: fechaCierre.toISOString(),
+      fechaApertura: fechaApertura.toISOString(),
+    });
   }
 }

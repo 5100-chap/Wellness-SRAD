@@ -11,9 +11,10 @@ dotenv.config();
 
 const database = require("./config/credentials/database");
 
-const routes = require("./config/routes/router"); // Import the combined routes
+const routes = require("./config/routes/router"); 
 const cancelAuto = require("./config/routines/cancelacionAutomatica");
 const AforoTotalAutomatico = require("./config/routines/AforoTotalAutomatico");
+const AbrirCerrarAreas = require("./config/routines/AbrirCerrarAreas");
 
 const port = process.env.PORT || 8080;
 
@@ -58,6 +59,7 @@ app.listen(port, function () {
     (async () => {
         await connectToDatabase();
         cancelAuto();
+        AbrirCerrarAreas();
         AforoTotalAutomatico();
         setInterval(cancelAuto, 5*60*1000);
     })();

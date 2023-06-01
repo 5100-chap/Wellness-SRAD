@@ -52,5 +52,24 @@ router.put("/api/AreaUpdateStatus", async (req, res, next) => {
     }
 });
 
+router.post("/api/AreaUpdateClose", async (req, res, next) => {
+    const areaId = req.body.areaId;
+    const fechaCierre = req.body.fechaCierre;
+    const fechaApertura = req.body.fechaApertura;
+    const diaActual = new Date();
+    const request = new sql.Request();
+    try {
+        const result = await request
+            .input('AreaId', sql.Int, areaId)
+            .input('FechaCierre', sql.DateTime, fechaCierre)
+            .input('FechaApertura', sql.DateTime, fechaApertura)
+            .input('DiaActual', sql.DateTime, diaActual)
+            .execute('CerrarArea');
+        res.json({success: ''});
+    } catch (err) {
+        next(err);
+    }
+});
+
 
 module.exports = router;
