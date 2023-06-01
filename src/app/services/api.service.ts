@@ -148,6 +148,8 @@ export class ApiService {
       body: { usuario: usuario, id: id },
     });
   }
+
+  
   getIngresosPorHora(
     day: string,
     areaId: number

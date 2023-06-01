@@ -106,7 +106,7 @@
             <td *ngIf="r.asesorNombre == null"> No asignado</td>
             <td *ngIf="r.asesorNombre != null"> {{r.asesorNombre}}</td>
             <td *ngIf="r.estado == 'Cancelada'">NA</td>
-            <td *ngIf="r.estado != 'Cancelada'"><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalcancelar)">Cancelar Reserva</button></td>
+            <td *ngIf="r.estado != 'Cancelada'"><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalcancelar)" (click)="cancelarReserva(r.id, r.matriculaAlumno)" >Cancelar Reserva</button></td>
           </tr>
          
         </tbody>
@@ -203,11 +203,10 @@
       </button>
     </div>
     <div class="modal-body">
-      <p> Esta a punto de cancelar la reserva, ¿Desea continuar? </p>
+      <p> Cancelación exitosa! </p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-danger"  id ="btn2"aria-label="Close" (click)="modal.dismiss('Cross click')">Cancelar</button>
-      <button type="button" class="btn btn-danger"  id ="btn" aria-label="Close" (click)="modal.dismiss('Cross click')">Confirmar</button>
+      <button type="button" class="btn btn-danger"  id ="btn" aria-label="Close" (click)="this.refresh()">Confirmar</button>
     </div>
   </ng-template>
 

@@ -8,6 +8,8 @@ import { saveAs } from 'file-saver';
 import { MonitorReservas } from '../models/monitor-reservas';
 import { InfoNombreAreasD } from '../models/info-nombre-areas-d';
 
+declare var window: any;
+
 @Component({
   selector: 'app-monitor-reservas',
   templateUrl: './monitor-reservas.component.html',
@@ -30,10 +32,8 @@ export class MonitorReservasComponent {
   pipe = new DatePipe('es');
   changedDate = this.pipe.transform(this.today, 'YYYY-MM-dd');
 
-
   areas: InfoNombreAreasD[] = [];
   
-
   //Formulario   
   form = new FormGroup({  
     website: new FormControl('', Validators.required)  
@@ -70,7 +70,6 @@ export class MonitorReservasComponent {
 
    //Función para formatear la hora
   formatHora(hora: string){
-   
     let horaFormateada = this.pipe.transform(hora, 'hh:mm:ss a', 'GMT');
     return horaFormateada
   }
@@ -83,13 +82,25 @@ export class MonitorReservasComponent {
     let diaFormateado = this.pipe.transform(date, 'd MMMM y');
     return diaFormateado
   }
-
+  
+  //Función que obtiene el nombre de todas las areas deportivas
   getNombreAreas(){
     this.apiservice.getNombreAreasDeportivas().subscribe((data: InfoNombreAreasD[]) => {
       this.areas = data;
-  
     });
+  }
 
+  //Función que cancela la reservación seleccionada
+  cancelarReserva(idReserva : number, matricula : string){
+    this.apiservice.cancelarReservaAlumno(matricula,idReserva).subscribe(()=>{
+    },error=>{
+      console.log(error);
+    });
+  }
+
+  //Funcion para refrescar la pagina
+  refresh(){
+    window.location.reload();
   }
 
 
@@ -169,10 +180,13 @@ export class MonitorReservasComponent {
    */
    private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
+      this.refresh()
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      this.refresh()
       return 'by clicking on a backdrop';
     } else {
+      this.refresh()
       return  `with: ${reason}`;
     }
   }
