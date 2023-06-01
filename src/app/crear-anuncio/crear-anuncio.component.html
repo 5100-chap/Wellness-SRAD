@@ -107,10 +107,15 @@
 
             </div>
 
-             <!--Validar que el campo ubicación no este vacio -->
+             <!--Validar que el campo imagen no este vacio -->
             <span *ngIf="this.NuevoAnuncioForm.get('imagen')?.errors?.['required']"  style= "color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
                 Una imagen debe de ser seleccionada
-            </span>   
+            </span>
+            
+            <!--Validar que el campo imagen no no tenga más de 30 caracteres -->
+            <span *ngIf="this.NuevoAnuncioForm.get('imagen')?.errors?.['maxlength']"  style= "color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
+                El nombre de la imagen no debe de tener más de 15 caracteres
+            </span>
         
             
         </div>

@@ -19,6 +19,9 @@ import { IngresosMonitor } from '../models/ingresos-monitor';
 import { ReservasCasillero } from '../models/reservas-casillero';
 import { MonitorReservas } from '../models/monitor-reservas';
 import { InfoNombreAreasD } from '../models/info-nombre-areas-d';
+import { AsesorInfo } from '../models/asesor-info';
+import { ReservaAsesor } from '../models/reserva-asesor';
+
 
 @Injectable({
   providedIn: 'root',

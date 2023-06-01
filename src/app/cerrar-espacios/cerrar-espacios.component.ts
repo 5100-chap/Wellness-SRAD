@@ -4,6 +4,8 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../services/api.service';
 import { Area } from '../models/area.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-cerrar-espacios',
@@ -11,11 +13,18 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./cerrar-espacios.component.css'],
 })
 export class CerrarEspaciosComponent implements OnInit {
+
+  //Definición de variables
   formGroup!: FormGroup;
   closeResult: string = '';
   modalBody: string = 'Esperando...';
   areaActual: Area = new Area();
   modalRef!: any;
+  today = new Date();
+
+   /** Pipe para darle formato la fecha y hora*/
+   pipe = new DatePipe('es');
+   changedDate = this.pipe.transform(this.today, 'YYYY-MM-dd');
 
   constructor(
     private modalService: NgbModal,
@@ -89,7 +98,6 @@ export class CerrarEspaciosComponent implements OnInit {
       this.modalBody = 'Área cerrada correctamente!';
     }
 
-    console.log(isBefore);
 
     return new Promise((resolve, reject) => {
       this.apiService
