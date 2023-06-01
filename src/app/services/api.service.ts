@@ -16,6 +16,9 @@ import { NumCasillerosDisponibles } from '../models/num-casilleros-disponibles';
 import { ReservaCasillero } from '../models/reserva-casillero';
 import { Anuncio } from '../models/anuncio';
 import { IngresosMonitor } from '../models/ingresos-monitor';
+import { ReservasCasillero } from '../models/reservas-casillero';
+import { MonitorReservas } from '../models/monitor-reservas';
+import { InfoNombreAreasD } from '../models/info-nombre-areas-d';
 
 @Injectable({
   providedIn: 'root',
@@ -45,10 +48,51 @@ export class ApiService {
     return this.http.post<ReservaCasillero>('/api/consultarReservaCasillero', { matricula });
   }
 
+  //Crear reserva de un casillero
+  crearReservaCasillero(alumno: String, casillero: number){
+    
+    return this.http.post('/api/createReservacionLocker',{
+      matricula: alumno,
+      id_casillero: casillero
+    });
+  }
+
   // Obtener todos los anuncios
   getAnuncios(): Observable<Anuncio[]> {
     return this.http.get<Anuncio[]>('/api/getAnuncios');
   } 
+
+   //Crear un anuncio
+  createAnuncio(fechaInicio: string, fechaFin : string, ubicacion : string, descripcion: string, duracionIni : string, duracionFin : string, imagen : string, titulo: string) {
+    return this.http.post('/api/createAnuncio',{
+      fechaInicio: fechaInicio,
+      fechaFin: fechaFin,
+      ubicacion: ubicacion,
+      descripcion: descripcion,
+      duracionIni: duracionIni,
+      duracionFin: duracionFin,
+      imagen: imagen,
+      titulo: titulo
+    });
+  }
+
+  //Obtener información de todas las reservas de los casilleros
+  getReservasCasillero():Observable<ReservasCasillero[]> {
+    return this.http.get<ReservasCasillero[]>('/api/getReservasCasilleros');
+  }
+
+  //Obtener información de todas las reservas de los casilleros
+  getMonitorReservas(dia:string, area:string):Observable<MonitorReservas[]> {
+    return this.http.post<MonitorReservas[]>('/api/getDataMonitorReservas',{
+      dia:dia,
+      area:area
+    });
+  }
+   
+  //Obtiene el nombre de todas las areas deportivas
+  getNombreAreasDeportivas(): Observable<InfoNombreAreasD[]> {
+    return this.http.get<InfoNombreAreasD[]>('/api/getNombresAreas');
+  }
 
 
   marcar(usuario: String, area_id: number) {
@@ -117,13 +161,7 @@ export class ApiService {
   return this.http.post<IngresosMonitor[]>('/api/getDataMonitorIngresos', {dia});
   }
 
-  crearReservaCasillero(alumno: String, casillero: number){
-    
-    return this.http.post('/api/createReservacionLocker',{
-      matricula: alumno,
-      id_casillero: casillero
-    });
-  }
+
 
   marcarSalidaAlumnoManual(horaSalida: string, matricula: string, horaLlegada: string){
     return this.http.post('/api/marcarSalidaAlumno',{

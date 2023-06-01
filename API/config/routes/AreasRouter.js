@@ -4,7 +4,7 @@ const sql = require("mssql");
 const queries = require("../database/queries");
 
 
-//Obtener la información 
+//Obtener la información de todas la areas deportivas
 router.get("/api/AreaInformacion", async (req, res, next) => {
     const nombreArea = req.query.nombreArea;
     const request = new sql.Request();
@@ -16,6 +16,19 @@ router.get("/api/AreaInformacion", async (req, res, next) => {
     } catch (err) {
         next(err);
     }
+});
+
+//Obtiene el nombre de todas las areas deportivas
+router.get("/api/getNombresAreas", async (req,res, next) =>{
+    const request = new sql.Request();
+    try{
+        const result = await request.execute('GetNombreAreasDeportivas');
+        res.json(result.recordset);
+
+    } catch (err){
+        next(err);
+    }
+
 });
 
 //Consigue la lista de todos los casilleros disponibles

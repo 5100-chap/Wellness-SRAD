@@ -1,4 +1,4 @@
-
+<!--Encabezado-->
  <div class="row">
     <div class=" col-md-6 mt-4">
       <h3> &nbsp; &nbsp; <strong> Monitor de reservas </strong> </h3>
@@ -6,61 +6,42 @@
   </div>
 <br>
 
-
+<!--Selección del area deportiva-->
 <div class="row">
    
     <div class="col-md-3 mt-1" style="margin-left: 2%;">
   
-        <form [formGroup]="form" (ngSubmit)="submit()" >  
+        <form [formGroup]="form"  >  
     
             <div class="form-group">  
-                
-                <select formControlName="website" class="form-control" id="btn"  (change)="changeOpcion($event)" #area >   
-                    <option >Selecciona un área deportiva</option>
-                    <option *ngFor="let web of areas">{{web}}</option>  
+
+              <label style="margin-bottom: 2%; font-size:1.3rem"> <strong>Selecciona un área deportiva:</strong> </label>  
+                <select formControlName="website" class="form-control" id="btn"  (change)="changeArea($event)" #area >   
+                    <option *ngFor="let area of areas">{{area.nombre}}</option>  
                 </select>  
              
             </div>  
         </form>  
-
-    </div>
-    
-    <div *ngIf= "area.value != 'Lockers' "  class="col-md-4 mt-1" style="margin-left: 1%;">
-  
-        <form [formGroup]="form" (ngSubmit)="submit()" >  
-    
-            <div class="form-group">  
-                
-                <select formControlName="website" class="form-control" id="btn"  (change)="changeOpcion($event)" >   
-                    <option >Selecciona una semana</option>
-                    <option *ngFor="let web of semanas">{{web}}</option>  
-                </select>  
-            </div>  
-        </form>  
-    </div>
-
-    <div *ngIf= "area.value != 'Lockers' "  class="col-md-4 mt-1" style="margin-left: 1%;">
-  
-        <form [formGroup]="form" (ngSubmit)="submit()" >  
-    
-            <div class="form-group">  
-                
-                <select formControlName="website" class="form-control" id="btn"  (change)="changeOpcion($event)" >   
-                    <option >Selecciona un día</option>
-
-                    <option *ngFor="let web of dias">{{web}}</option>  
-
-                </select>  
-            </div>  
-        </form>  
     </div>
 
 
+
+  <!--Selección del día -->
+  <div *ngIf= "area.value != 'Lockers' "  class="col-md-4 mt-1" style="margin-left: 1%;">
+    <!--Input para seleccionar el dia en que se desea hacer la consulta-->
+    <div class="row">
+      <div class=" col-md-11  mb-2" style="margin-left:3%;">
+        <label style="margin-bottom: 2%; font-size:1.3rem"> <strong>Selecciona un día:</strong> </label>  
+        <input style="font-size: 1.3rem;"  autocomplete="off" type="date" id="btn" #fechaInput name="trip-start" value="{{this.changedDate}}" (change)="changeDia($event)" >
+      </div>
+    </div>
+  </div>
   </div>
 
 
-<div  *ngIf= "area.value == 'Lockers' " class="card mt-5" style="width:75%; margin-left: 13%;">
+  <!-- Tabla con la información de las reservas de los lockers -->
 
+<div  *ngIf= "area.value == 'Lockers' " class="card mt-5" style="width:75%; margin-left: 13%;">
 
   <table class="table table-striped">
       <thead >
@@ -76,147 +57,73 @@
           <th scope="col">Cancelar</th>
         </tr>
       </thead>
-      <tbody>
-        <tr class="text-center">
-          <th scope="row">1</th>
-          <td>A01276919</td>
-          <td>Alessandro Tolentino Hernández</td>
-          <td>1</td>
-          <td>Por confirmar</td>
+      <tbody class="text-center" *ngFor="let r of reservasCasillero">
+        <tr>
+          <th scope="row"> {{r.id}}</th>
+          <td>{{r.matricula}}</td>
+          <td>{{r.nombre}}</td>
+          <td>{{r.id_casillero}}</td>
+          <td *ngIf="r.estado == false">Por confirmar</td>
+          <td *ngIf="r.estado == true"> Confirmada </td>
           <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-primary" (click)="open(modalcomprobante)">Ver Comprobante</button></td>
-          <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-primary" (click)="open(modalConfirmar)">Confirmar Reserva</button></td>
-
-          <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalcancelar)">Cancelar Reserva</button></td>
-        </tr>
-        <tr class="text-center">
-          <th scope="row">2</th>
-          <td>A01276919</td>
-          <td>Alessandro Tolentino Hernández</td>
-          <td>1</td>
-          <td>Por confirmar</td>
-          <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-primary" (click)="open(modalcomprobante)">Ver Comprobante</button></td>
-          <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-primary" (click)="open(modalConfirmar)">Confirmar Reserva</button></td>
-
-          <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalcancelar)">Cancelar Reserva</button></td>
-        </tr>
-        <tr class="text-center">
-          <th scope="row">3</th>
-          <td>A01276919</td>
-          <td>Alessandro Tolentino Hernández</td>
-          <td>1</td>
-          <td>Por confirmar</td>
-          <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-primary" (click)="open(modalcomprobante)">Ver Comprobante</button></td>
-          <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-primary" (click)="open(modalConfirmar)">Confirmar Reserva</button></td>
-
-          <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalcancelar)">Cancelar Reserva</button></td>
+          <td *ngIf="r.estado == false"><button style = "margin-top: 1%;" id="btn2" class="btn btn-primary" (click)="open(modalConfirmar)">Confirmar Reserva</button></td>
+          <td *ngIf="r.estado == false"><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalcancelar)">Cancelar Reserva</button></td>
+          <td *ngIf="r.estado == true"> NA </td>
+          <td *ngIf="r.estado == true"> NA </td>
         </tr>
       </tbody>
     </table>
   </div>
 
 
-
+  <!-- Tabla con la información del area deportiva seleccionada-->
 
   <div  *ngIf= "area.value != 'Lockers' " class="card mt-5" style="width:75%; margin-left: 13%;">
-
     <table class="table table-striped">
         <thead>
           <tr class="text-center">
             <th scope="col">Id</th>
             <th scope="col">Matricula</th>
             <th scope="col">Nombre</th>
-            <th scope="col">Hora de inicio</th>
-            <th scope="col">Hora de fin</th>
+            <th scope="col">Hora</th>
             <th scope="col">Fecha</th>
             <th scope="col">Estado</th>
+            <th scope="col">Area Deportiva</th>
+            <th scope="col">Asesor</th>
             <th scope="col">Cancelar</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="text-center" *ngFor="let r of reservasArea">
           <tr class="text-center">
-            <th scope="row">1</th>
-            <td>A01276919</td>
-            <td>Alessandro Tolentino Hernández</td>
-            <td>13:24</td>
-            <td>17:00</td>
-            <td>28/04/2023</td>
-            <td>Activa</td>
-            <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalcancelar)">Cancelar Reserva</button></td>
+            <th scope="row">{{r.id}}</th>
+            <td>{{r.matriculaAlumno}}</td>
+            <td>{{r.nombreAlumno}}</td>
+            <td>{{this.formatHora(r.hora)}}</td>
+            <td>{{this.formatDia(r.fecha)}}</td>
+            <td>{{r.estado}}</td>
+            <td>{{r.AreaNombre}}</td>
+            <td *ngIf="r.asesorNombre == null"> No asignado</td>
+            <td *ngIf="r.asesorNombre != null"> {{r.asesorNombre}}</td>
+            <td *ngIf="r.estado == 'Cancelada'">NA</td>
+            <td *ngIf="r.estado != 'Cancelada'"><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalcancelar)">Cancelar Reserva</button></td>
           </tr>
-          <tr class="text-center">
-            <th scope="row">2</th>
-            <td>A01276919</td>
-            <td>Alessandro Tolentino Hernández</td>
-            <td>13:24</td>
-            <td>17:00</td>
-            <td>28/04/2023</td>
-            <td>Activa</td>
-            <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalcancelar)">Cancelar Reserva</button></td>
-          </tr>
-          <tr class="text-center">
-            <th scope="row">3</th>
-            <td>A01276919</td>
-            <td>Alessandro Tolentino Hernández</td>
-            <td>13:24</td>
-            <td>17:00</td>
-            <td>28/04/2023</td>
-            <td>Activa</td>
-            <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalcancelar)">Cancelar Reserva</button></td>
-          </tr>
+         
         </tbody>
       </table>
     </div>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   <!--Botones-->
   <div class="row" style="margin-left: 35%; margin-top: 2.5%;">
 
     <div class="col-md-2">
-        <button class="btn btn-primary btn-lg" id="btn" style="font-size: 1.3rem;" > Exportar 
+        <button *ngIf="this.AreaSeleccionada == 'Lockers'" class="btn btn-primary btn-lg" id="btn" style="font-size: 1.3rem;" (click)="exportarCSVCasilleros()"> Exportar 
             <img src="../assets/img/descargas.png" height="25" width="25" class="card-img" alt="...">
+        </button>
+
+        <button *ngIf="this.AreaSeleccionada != 'Lockers'" class="btn btn-primary btn-lg" id="btn" style="font-size: 1.3rem;" (click)="exportarCSVAreas()"> Exportar 
+          <img src="../assets/img/descargas.png" height="25" width="25" class="card-img" alt="...">
         </button>
     </div>
     <div class="col-md-3">
