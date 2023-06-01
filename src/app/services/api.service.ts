@@ -181,10 +181,23 @@ export class ApiService {
     });
   }
 
-  getReservasAsesor(lunes: string, domingo: string): Observable<ReservaAsesor[]>{
+  getReservasAsesor(lunes: string, domingo: string, asesor: string): Observable<ReservaAsesor[]>{
     return this.http.post<ReservaAsesor[]>('/api/getReservasAsesores', {
       lunes: lunes,
-      domingo: domingo
+      domingo: domingo,
+      asesor: asesor
+    });
+  }
+
+  createReservaAsesor(asesor: string, lugar: string, fecha: string, usuario: string, hora: string, cancelada: number){
+    return this.http.post('/api/createReservaAsesor', 
+    {
+      asesor: asesor,
+      lugar: lugar,
+      fecha: fecha,
+      usuario: usuario,
+      hora: hora,
+      cancelada: cancelada
     });
   }
   

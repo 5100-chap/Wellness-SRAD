@@ -24,12 +24,14 @@ export class HorarioAsesorComponent {
   dateControl = new FormControl();
   private subscription: Subscription | undefined;
   semanaSeleccionada!: number;
-  diaSeleccionado!: string;
-  horaSeleccionada!: string;
+  diaSeleccionado: string = "";
+  horaSeleccionada: string = "";
   listaDias: string[] = [];
   now!: Date;
   asesorInfo!: AsesorInfo;
   listaReservasConAsesor!: ReservaAsesor[];
+  activateButton: boolean = false;
+  horarioSeleccionadoInput: string = "";
     
   form = new FormGroup({  
     website: new FormControl('', Validators.required)  
@@ -38,6 +40,10 @@ export class HorarioAsesorComponent {
   get f(){  
     return this.form.controls;  
   }  
+
+  reload(){
+    window.location.reload();
+  }
     
   submit(){  
     console.log(this.form.value);  
@@ -48,14 +54,14 @@ export class HorarioAsesorComponent {
   }  
 
   reservaArray: Reservas[] = [
-    {id:1, id_matricula_alumno: "A00960720", id_area_deportiva:7, fecha: "17-04-2023 6:00 - 8:00", rangoDeHora: "6:00 - 8:00", hora: "06:00:00", estado: "", id_instructor: ""},
-    {id:2, id_matricula_alumno: "A00952209", id_area_deportiva:6, fecha: "18-04-2023 8:00 - 10:00 ", rangoDeHora: "8:00 - 10:00", hora: "08:00:00", estado: "", id_instructor: ""},
-    {id:2, id_matricula_alumno: "A00952209", id_area_deportiva:6, fecha: "18-04-2023 10:00 - 12:00", rangoDeHora: "10:00 - 12:00", hora: "10:00:00", estado: "", id_instructor: ""},
-    {id:3, id_matricula_alumno: "A00149174", id_area_deportiva:8, fecha: "19-04-2023 12:00 - 14:00", rangoDeHora: "12:00 - 14:00", hora: "12:00:00", estado: "", id_instructor: ""},
-    {id:4, id_matricula_alumno: "A00640163", id_area_deportiva:7, fecha: "20-04-2023 14:00 - 16:00 ", rangoDeHora: "14:00 - 16:00", hora: "14:00:00", estado: "", id_instructor: ""},
-    {id:5, id_matricula_alumno: "A00773407", id_area_deportiva:8, fecha: "21-04-2023 16:00 - 18:00", rangoDeHora: "16:00 - 18:00", hora: "16:00:00", estado: "", id_instructor: ""},
-    {id:5, id_matricula_alumno: "A00773407", id_area_deportiva:8, fecha: "21-04-2023 18:00 - 20:00", rangoDeHora: "18:00 - 20:00", hora: "18:00:00", estado: "", id_instructor: ""},
-    {id:5, id_matricula_alumno: "A00773407", id_area_deportiva:8, fecha: "21-04-2023 20:00 - 22:00" , rangoDeHora: "20:00 - 22:00", hora: "20:00:00", estado: "", id_instructor: ""}
+    {id:1, id_matricula_alumno: "A00960720", id_area_deportiva:7, fecha: "", rangoDeHora: "6:00 - 8:00", hora: "06:00:00", estado: "", id_instructor: ""},
+    {id:2, id_matricula_alumno: "A00952209", id_area_deportiva:6, fecha: "", rangoDeHora: "8:00 - 10:00", hora: "08:00:00", estado: "", id_instructor: ""},
+    {id:2, id_matricula_alumno: "A00952209", id_area_deportiva:6, fecha: "", rangoDeHora: "10:00 - 12:00", hora: "10:00:00", estado: "", id_instructor: ""},
+    {id:3, id_matricula_alumno: "A00149174", id_area_deportiva:8, fecha: "", rangoDeHora: "12:00 - 14:00", hora: "12:00:00", estado: "", id_instructor: ""},
+    {id:4, id_matricula_alumno: "A00640163", id_area_deportiva:7, fecha: " ", rangoDeHora: "14:00 - 16:00", hora: "14:00:00", estado: "", id_instructor: ""},
+    {id:5, id_matricula_alumno: "A00773407", id_area_deportiva:8, fecha: "", rangoDeHora: "16:00 - 18:00", hora: "16:00:00", estado: "", id_instructor: ""},
+    {id:5, id_matricula_alumno: "A00773407", id_area_deportiva:8, fecha: "", rangoDeHora: "18:00 - 20:00", hora: "18:00:00", estado: "", id_instructor: ""},
+    {id:5, id_matricula_alumno: "A00773407", id_area_deportiva:8, fecha: "" , rangoDeHora: "20:00 - 22:00", hora: "20:00:00", estado: "", id_instructor: ""}
   ];
   
   seleReserva: Reservas = new Reservas();
@@ -102,14 +108,38 @@ export class HorarioAsesorComponent {
     this.subscription = this.dateControl.valueChanges.subscribe(()=>{
       this.semanaSeleccionada = +this.dateControl.value.slice(6);
       this.getDiasSemana();
-      this.apiService.getReservasAsesor(this.listaDias[0], this.listaDias[6]).subscribe(
+      this.apiService.getReservasAsesor(this.listaDias[0], this.listaDias[6], this.asesorInfo.asesor).subscribe(
         (data: ReservaAsesor[])=>{
           this.listaReservasConAsesor = data;
-          console.log(data);
         });
     });
   }
 
+  // Al picarle al boton del dia y hora, se colocarán como los dia y hora seleccionados
+  seleccionar(dia: number, hora: string, i: number){
+    this.diaSeleccionado = this.listaDias[dia];
+    this.horaSeleccionada = hora;
+    this.horarioSeleccionadoInput = `${this.diaSeleccionado} -> ${this.reservaArray[i].rangoDeHora}`;
+    this.activateButton = true;
+  }
+
+  // Para realizar la reserva dependiendo del horario seleccionado
+  // Falta agregar la opcion de elegir lugar
+  reservar(){
+    this.apiService.createReservaAsesor(this.asesorInfo.asesor, 'Gimnasio', this.diaSeleccionado, this.authService.currentUserValue['username'], this.horaSeleccionada, 0).subscribe(()=>{
+      console.log('ok');
+    },
+      error=>{
+      console.log(error);
+    });
+  }
+
+  // Posible eliminacion de esta funcion
+  selecDisable(){
+    this.activateButton = false;
+  }
+
+  // Checar si un horario esta ocupado
   ocupado(hora: string, dia: number): boolean{
     if(this.diaPasado(dia, hora) || this.listaReservasConAsesor === undefined){
       return false;
@@ -130,6 +160,12 @@ export class HorarioAsesorComponent {
     }
     const ant = new Date(+this.listaDias[dia].slice(0, 4), +this.listaDias[dia].slice(5, 7)-1, +this.listaDias[dia].slice(8), +hora.slice(0, 2), +hora.slice(3, 5), +hora.slice(6));
     return ant < this.now;
+  }
+
+  cambiarFechaDelDia(dia: number, hora: string){
+    for(let each of this.reservaArray){
+      each.fecha = `${this.listaDias[dia]} --> ${hora}`
+    }
   }
 
 
@@ -167,10 +203,13 @@ export class HorarioAsesorComponent {
    */
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
+      this.reload();
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      this.reload();
       return 'by clicking on a backdrop';
     } else {
+      this.reload();
       return  `with: ${reason}`;
     }
   }

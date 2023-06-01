@@ -183,8 +183,20 @@ router.post('/api/getAsesoresPorRol', async(req, res, next)=>{
 router.post('/api/getReservasAsesores', async(req, res, next)=>{
     try{
         var request = new sql.Request();
-        const result = await request.query(`EXEC [dbo].[GetReservasAsesor] '${req.body.lunes}', '${req.body.domingo}';`);
+        const result = await request.query(`EXEC [dbo].[GetReservasAsesor] '${req.body.lunes}', '${req.body.domingo}', '${req.body.asesor}';`);
         res.json(result.recordset);
+    }
+    catch(error){
+        console.log(error);
+        res.sendStatus(404);
+    }
+});
+
+// Crear una reserva para asesor
+router.post('/api/createReservaAsesor', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();
+        const result = await request.query(`EXEC [dbo].[CreateReservaAsesor] '${req.body.asesor}', '${req.body.lugar}', '${req.body.fecha}', '${req.body.usuario}', '${req.body.hora}', ${req.body.cancelada};`);
     }
     catch(error){
         console.log(error);
