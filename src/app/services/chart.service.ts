@@ -12,7 +12,7 @@ import {
   PieController,
   ArcElement,
   Tooltip,
-  LinearScale
+  LinearScale,
 } from 'chart.js';
 
 Chart.register(
@@ -25,7 +25,7 @@ Chart.register(
   CategoryScale,
   ArcElement,
   Tooltip,
-  LinearScale,
+  LinearScale
 );
 
 @Injectable({
@@ -34,7 +34,7 @@ Chart.register(
 export class ChartService {
   private charts: Chart[] = [];
 
-  constructor() {}
+  constructor() { }
 
   createChart(
     chartId: string,
@@ -79,6 +79,51 @@ export class ChartService {
     return chart;
   }
 
+  createStackedChart(
+    chartId: string,
+    labels: string[],
+    datasets: any[],
+    chartType: ChartType
+  ): Chart {
+    const chartConfig: ChartConfiguration = {
+      type: chartType,
+      data: {
+        labels: labels,
+        datasets: datasets,
+      },
+      options: {
+        aspectRatio: 2.5,
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: chartType === 'bar' ? 'Día' : 'Hora',
+            },
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Ingresos',
+            },
+          },
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'Tendencias de ingreso al gimnasio',
+          },
+          legend: {
+            position: 'bottom',
+          },
+        },
+      },
+    };
+
+    const chart = new Chart(chartId, chartConfig);
+    this.charts.push(chart);
+    return chart;
+  }
+
   createPieChart(chartId: string, labels: string[], data: number[]): Chart {
     const chartConfig: ChartConfiguration = {
       type: 'pie',
@@ -112,5 +157,12 @@ export class ChartService {
       this.charts[chartIndex].destroy();
       this.charts.splice(chartIndex, 1);
     }
+  }
+
+  // Método para actualizar los datos de la gráfica
+  actualizarDatosGrafica(chart: Chart, labels: string[], data: number[]): void {
+    chart.data.labels = labels;
+    chart.data.datasets[0].data = data;
+    chart.update();
   }
 }

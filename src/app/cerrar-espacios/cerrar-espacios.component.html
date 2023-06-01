@@ -13,102 +13,79 @@
 </div>
 
 
-<form class="row mb-3" style="margin-left: 2.5%;">
-    <!-- 2 column grid layout with text inputs for the first and last names -->
-    <div class="row mb-4">
-      <div class="col">
-        <div class="form-outline">
-
-            <div class="card col-md-12 mt-4" style="margin-left: 2.5%;">
-                <h5 class="card-header text-center" id="title">Lapso de tiempo</h5>
-            
-                <div class="row">
-            
-                    <div class=" col-md-6 mt-4 mb-4" style="margin-left:5%;">
-                        <h5 style="font-size: 1.7rem ">Fecha de inicio</h5>
-                        <input style="font-size: 1.7rem;" type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31">
-            
-                    </div>
-            
-                    <div class=" col-md-5 mt-4 mb-4" >
-                        <h5 style="font-size: 1.7rem">Fecha de final</h5>
-                        <input style="font-size: 1.7rem" type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31">
-                    </div>
-            
-                </div>    
-            </div>
-          
-          
-        </div>
-      </div>
-      <div class="col">
-        <div class="form-outline">
-          
-            <div class="card col-md-11 mt-4" style="margin-left: 2.5%;">
-                <h5 class="card-header text-center" id="title">Número de días de cierre</h5>
+<div class="vstack gap-4 col-md-11 mx-auto mt-3" >
     
-                <h4 class="text-center mt-5 mb-5" style="font-size: 2rem;">10</h4>      
-            </div>
-            
-        </div>
-      </div>
-    </div>
-</form>
-    
-<div class="card col-md-11"  style="margin-left: 4%;">
-
-        <h4 class=" card-header text-center" id="title"> Motivo de cierre</h4>
-
-        <input type="text"  placeholder="El area deportiva ha sido cerrada por..."  style="font-size: 1.5rem; width: 100%; height: 100%;" class="mt-4 mb-5">
+    <form class="row mb-3" style="margin-left: 2.5%;" [formGroup]="formGroup">
         
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <div class="card col-md-11 mt-4" style="margin-left: 2.5%;">
+                        <h4 class="card-header text-center" id="title">Lapso de tiempo</h4>
+                        <div class="row">
+                            <div class=" col-md-3 mt-4 mb-4" style="margin-left:4%;">
+                                <h5 style="font-size: 1.7rem ">Fecha de cierre</h5>
+                                <input formControlName="fechaCierre" style="font-size: 1.7rem;" type="date" class="form-control" id="fechaCierre" value="{{this.changedDate}}" min="{{this.changedDate}}">
+                            </div>
+
+                            <div class=" col-md-5 mt-4 mb-4" ></div>
+
+                            <div class=" col-md-3 mt-4 mb-4" >
+                                <h5 style="font-size: 1.7rem">Fecha de apertura</h5>
+                                <input formControlName="fechaApertura" style="font-size: 1.7rem;" type="date" class="form-control" id="fechaApertura" value="{{this.changedDate}}" min="{{this.changedDate}}">
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+
+                    <div class="card col-md-11"  style="margin-left: 2.7%;">
+                        <h4 class=" card-header text-center" id="title"> Motivo de cierre</h4>
+                        <input formControlName="motivo" type="text"  placeholder="El area deportiva ha sido cerrada por..."  style="font-size: 1.5rem; width: 100%; height: 100%;" class="mt-4 mb-5">
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+      
+
+
+
+        <div class="row">
+            <div  class="col-md-3 mt-5" id="align"></div>
+            <div  class="col-md-3 mt-5" id="align">
+                <div class="input-group">
+                    <button class="btn btn-danger btn-lg " style="font-size: 1.7rem;" routerLink="/inicioAdmin" id="btn2"> <strong> Cancelar </strong> </button>
+                </div>
+            </div>
+            <div  class="col-md-1 mt-5" id="align"></div>
+            <div  class="col-md-3 mt-5 " id="align">
+                <div class="input-group">
+                    <button type="submit" class="btn btn-success btn-lg" style="font-size: 1.7rem;" (click)="onSubmit(mymodal)" id="btn"> <strong>Guardar</strong> </button>
+                    <ng-template #mymodal let-modal>
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+                            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                <span  aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {{modalBody}}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" routerLink="/inicioAdmin">OK</button>
+                        </div>
+                    </ng-template>
+                </div>        
+            </div>
+        </div>
+    </form>
 </div>
-
-
-
-    <div class="row">
-
-        <div  class="col-md-3 mt-5" id="align"></div>
-
-        <div  class="col-md-3 mt-5" id="align">
-            <div class="input-group">
-            <button class="btn btn-danger btn-lg " style="font-size: 1.7rem;" routerLink="/inicioAdmin"> <strong> Cancelar </strong> </button>
-            </div>
-        </div>
-     
-        <div  class="col-md-1 mt-5" id="align"></div>
-        
-
-        <div  class="col-md-3 mt-5 " id="align">
-
-            <div class="input-group">
-
-
-            <button class="btn btn-success btn-lg" style="font-size: 1.7rem;" (click)="open(mymodal) "> <strong>Guardar</strong> </button>
-            <ng-template #mymodal let-modal>
-            <div class="modal-header">
-                <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                <span  aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Area cerrada correctamente!
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" routerLink="/inicioAdmin">OK</button>
-            </div>
-            </ng-template>
-
-        </div>
-
-            
-        </div>
-
-    </div>
-    <br>
-    <br>
-    <br>
-
-
-
-

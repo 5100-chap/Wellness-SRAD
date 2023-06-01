@@ -28,9 +28,7 @@
         <div class="form-outline">
             <div class="card col-md-12 mt-4" style="margin-left: 1.5%;">
                 <h5 class="card-header text-center" id="title" > Título </h5>
-        
-                <input type="text" formControlName="titulo" tabindex="1" required autocomplete="off"  id = "nuevoAforo"  style="font-size: 1.4rem; margin-left: 1%;" placeholder="Título del anuncio" #titulo>
-            
+                <input type="text" formControlName="titulo" tabindex="1" required autocomplete="off" style="font-size: 1.4rem; margin-left: 1%;" placeholder="Título del anuncio" #titulo>
             </div>
             
             <!--Validar si el campo nombre está vacio -->
@@ -51,7 +49,7 @@
             
                     <div class=" col-md-6 mt-2 mb-2" style="margin-left:3%;">
                         <h5 style="font-size: 1.2rem ">Fecha de inicio</h5>
-                        <input style="font-size: 1.3rem;" formControlName="fechaEventoInicio" tabindex="2" required autocomplete="off" type="date" id="start" name="trip-start" value={{diaMin()}} min = {{diaMin()}} #fechaini>
+                        <input style="font-size: 1.3rem;" formControlName="fechaEventoInicio" tabindex="2" required autocomplete="off" type="date" id="start" name="trip-start" value={{diaMin()}} min = {{diaMin()}}  #fechaEventoInicio>
 
                         <br>
                         <!--Validar que el campo fecha no este vacio -->
@@ -65,7 +63,7 @@
                     <div class=" col-md-5 mt-2 mb-2" style="margin-left:5%;">
                         <h5 style="font-size: 1.2rem">Fecha de final</h5>
                         
-                        <input style="font-size: 1.3rem" formControlName="fechaEventoFin" tabindex="3" required autocomplete="off" type="date" id="start" name="trip-start" value={{diaMin()}} min = {{diaMin()}}  #fechafin>
+                        <input style="font-size: 1.3rem" formControlName="fechaEventoFin" tabindex="3" required autocomplete="off" type="date" id="start" name="trip-start" value={{diaMin()}} min = {{diaMin()}}  #fechaEventoFin>
                         <br>
 
                         <!--Validar que el campo fecha no este vacio -->
@@ -87,7 +85,6 @@
         <div class="form-outline">
             <div class="card col-md-12 mt-2" style="margin-left: 1.5%;">
                 <h5 class="card-header text-center mb-2" id="title"> Ubicación </h5>
-        
                 <input type="text"  formControlName="ubicacion" tabindex="4" required autocomplete="off"  id = "nuevoAforo"  style="font-size: 1.4rem; margin-left: 1%;" placeholder="Ubicación del evento" #ubicacion>
                     
             </div>     
@@ -105,15 +102,20 @@
                 <h5 class="card-header text-center" id="title">Imágen </h5>
             
                 <div name="subida-imagenes"  style="margin-left: 1.5%; margin-bottom: 1.5%;" class="mt-2" >
-                    <input type="file" formControlName="imagen" tabindex="5" required autocomplete="off" class="mt-2 mb-2" name="imagen" #imagen/>
+                    <input type="file" formControlName="imagen" accept="image/*"  tabindex="5" required autocomplete="off" class="mt-2 mb-2" name="imagen" #imagen />
                 </div> 
 
             </div>
 
-             <!--Validar que el campo ubicación no este vacio -->
+             <!--Validar que el campo imagen no este vacio -->
             <span *ngIf="this.NuevoAnuncioForm.get('imagen')?.errors?.['required']"  style= "color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
                 Una imagen debe de ser seleccionada
-            </span>   
+            </span>
+            
+            <!--Validar que el campo imagen no no tenga más de 30 caracteres -->
+            <span *ngIf="this.NuevoAnuncioForm.get('imagen')?.errors?.['maxlength']"  style= "color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
+                El nombre de la imagen no debe de tener más de 15 caracteres
+            </span>
         
             
         </div>
@@ -127,7 +129,7 @@
             <div class="card col-md-12 mt-2" style="margin-left: 1.5%; margin-left: 1.5%;">
                 <h5 class="card-header text-center mb-2" id="title"> Descripción </h5>
                 
-                <input type="text" id = "nuevoAforo"  formControlName="descripcion" tabindex="6" required autocomplete="off" style="font-size: 1.4rem; margin-left: 1%;" placeholder="Descripción del evento" #desc>
+                <input type="text" id = "nuevoAforo"  formControlName="descripcion" tabindex="6" required autocomplete="off" style="font-size: 1.4rem; margin-left: 1%;" placeholder="Descripción del evento" #descripcion>
             
             </div>
             
@@ -152,7 +154,7 @@
                             <div class=" col-md-6 mt-2 mb-2" style="margin-left:3%;">
                                 <h5 style="font-size: 1.2rem ">Fecha de inicio</h5>
 
-                                <input style="font-size: 1.3rem" formControlName="DuracionAnuncioInicio" tabindex="3" required autocomplete="off" type="date" id="start" name="trip-start" value={{diaMin()}} min = {{diaMin()}} #duracionIni >
+                                <input style="font-size: 1.3rem" formControlName="DuracionAnuncioInicio" tabindex="3" required autocomplete="off" type="date" id="start" name="trip-start" value={{diaMin()}} min = {{diaMin()}}  #DuracionAnuncioInicio>
                                 <br>
         
                                 <!--Validar que el campo fecha no este vacio -->
@@ -162,11 +164,10 @@
                     
                             </div>
         
-                            
                     
                             <div class=" col-md-5 mt-2 mb-2" >
                                 <h5 style="font-size: 1.2rem">Fecha de final</h5>
-                                <input style="font-size: 1.3rem" formControlName="DuracionAnuncioFin" tabindex="3" required autocomplete="off" type="date" id="start" name="trip-start"  value={{diaMin()}} min = {{diaMin()}} max= {{diaMAX()}} #duracionFin>
+                                <input style="font-size: 1.3rem" formControlName="DuracionAnuncioFin" tabindex="3" required autocomplete="off" type="date" id="start" name="trip-start"  value={{diaMin()}} min = {{diaMin()}}  #DuracionAnuncioFin>
                                 <br>
         
                                 <!--Validar que el campo fecha no este vacio -->
@@ -211,11 +212,8 @@
 
         <div class="input-group">
 
-
-
-        <button class="btn btn-success btn-lg" id="btn" style="font-size: 1.7rem;" [disabled]="NuevoAnuncioForm.invalid" (click)="open(mymodal)" (click)="submit(titulo.value,fechaini.value,fechafin.value,ubicacion.value,imagen.value,desc.value,duracionIni.value,duracionFin.value)" >Guardar </button>
-        
-       
+        <button class="btn btn-success btn-lg" id="btn" style="font-size: 1.7rem;" [disabled]="NuevoAnuncioForm.invalid" (click)="open(mymodal)" (click)="enviar(fechaEventoInicio.value, fechaEventoFin.value, ubicacion.value, descripcion.value, DuracionAnuncioInicio.value, DuracionAnuncioFin.value, imagen.value, titulo.value)">Guardar </button>
+               
 
         <ng-template #mymodal let-modal>
         <div class="modal-header">
@@ -225,10 +223,10 @@
             </button>
         </div>
         <div class="modal-body">
-            Aforo actualizado correctamente!
+            Anuncio creado correctamente!
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
+            <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="this.refresh()">OK</button>
         </div>
         </ng-template>
 
@@ -240,8 +238,6 @@
 
         
     </div>
-
-
     
 
 </div>

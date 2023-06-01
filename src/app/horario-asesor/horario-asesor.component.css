@@ -39,7 +39,6 @@ li{
 	background: #003399;
     color: white;
     border-color: transparent;
-    
 	
 }
 
@@ -81,4 +80,10 @@ button:hover {
     background: #003399;
     border-color: transparent;
     color: white;
+}
+
+#btn-disabled{
+	background: #c2c2c2;
+	border-color: transparent;
+	color: black;
 }

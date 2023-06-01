@@ -16,11 +16,5 @@ const config = {
 
 
 module.exports = {
-  config, //Esta linea devuelve las credenciales
-  //Deprecated: Esta funcion es para conectarse directamente a la base de datos
-  /*
-  connect: function () {
-    return sql.connect(config);
-  }
-  */
+  config,
 };

@@ -25,9 +25,9 @@
 <h5 class="card-title">&nbsp;</h5>
 <h5 class="card-title">&nbsp;</h5>
 
-<h1 class = "text-center"> Arnold S.
+<h1 class = "text-center"> {{asesorInfo.nombre}}
     <br/>
-    <small class="text-muted" style="font-size: 2rem;"> Entrenador </small></h1>
+    <small class="text-muted" style="font-size: 2rem;"> Asesor </small></h1>
 
 
 <!--Reservación-->
@@ -50,21 +50,11 @@
     
               </div>
     
-              <div class="col-md-3 mt-1">
-    
-                  <form [formGroup]="form" (ngSubmit)="submit()" >  
-              
-                      <div class="form-group">  
-                          
-                          <select formControlName="website" class="form-control" id="btn"  (change)="changeWebsite($event)" >  
-                              <option disabled>Selecciona una semana</option>  
-                              <option> Selecciona una semana </option>  
-                              <option *ngFor="let web of websiteList">{{web}}</option>  
-                          </select>  
-                       
-                      </div>  
-                      
-                  </form>  
+              <div class="col-md-4 mt-1">
+                <div class="col-md-3 mt-3" style="margin-left: 2%;">
+                  <label for="weekPicker">Elige la semana:</label>
+                  <input type="week" id="weekPicker" [formControl]="dateControl">
+                </div>
               </div>
             </div>
        
@@ -91,15 +81,64 @@
             <tbody>
       
       
-              <tr *ngFor="let al of reservaArray" (click)="openForEdit(al)" [class.active]="al == seleReserva">
+              <tr *ngFor="let al of reservaArray; let i=index;" (click)="openForEdit(al)">
       
-                <td class="text-center"> <button class="btn btn-primary" id="btn" disabled> {{al.hora}} </button></td>
-                <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
-                <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
-                <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
-                <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
-                <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
-                <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+                <td class="text-center"> 
+                  <button class="btn btn-primary" id="btn-disabled" *ngIf="!ocupado(al.hora, 0)" disabled (click)="selecDisable()">
+                    {{al.rangoDeHora}} 
+                  </button>
+                  <button class="btn btn-primary" id="btn" *ngIf="ocupado(al.hora, 0)" (click)="seleccionar(0, al.hora, i)">
+                    {{al.rangoDeHora}} 
+                  </button>
+                </td>
+                <td class="text-center"> 
+                  <button class="btn btn-primary" id="btn-disabled" *ngIf="!ocupado(al.hora, 1)" disabled (click)="selecDisable()">
+                    {{al.rangoDeHora}} 
+                  </button>
+                  <button class="btn btn-primary" id="btn" *ngIf="ocupado(al.hora, 1)" (click)="seleccionar(1, al.hora, i)">
+                    {{al.rangoDeHora}} 
+                  </button>
+                </td>
+                <td class="text-center"> 
+                  <button class="btn btn-primary" id="btn-disabled" *ngIf="!ocupado(al.hora, 2)" disabled (click)="selecDisable()">
+                    {{al.rangoDeHora}} 
+                  </button>
+                  <button class="btn btn-primary" id="btn" *ngIf="ocupado(al.hora, 2)" (click)="seleccionar(2, al.hora, i)">
+                    {{al.rangoDeHora}} 
+                  </button>
+                </td>
+                <td class="text-center"> 
+                  <button class="btn btn-primary" id="btn-disabled" *ngIf="!ocupado(al.hora, 3)" disabled (click)="selecDisable()">
+                    {{al.rangoDeHora}} 
+                  </button>
+                  <button class="btn btn-primary" id="btn" *ngIf="ocupado(al.hora, 3)" (click)="seleccionar(3, al.hora, i)">
+                    {{al.rangoDeHora}} 
+                  </button>
+                </td>
+                <td class="text-center"> 
+                  <button class="btn btn-primary" id="btn-disabled" *ngIf="!ocupado(al.hora, 4)" disabled (click)="selecDisable()">
+                    {{al.rangoDeHora}} 
+                  </button>
+                  <button class="btn btn-primary" id="btn" *ngIf="ocupado(al.hora, 4)" (click)="seleccionar(4, al.hora, i)">
+                    {{al.rangoDeHora}} 
+                  </button>
+                </td>
+                <td class="text-center"> 
+                  <button class="btn btn-primary" id="btn-disabled" *ngIf="!ocupado(al.hora, 5)" disabled (click)="selecDisable()">
+                    {{al.rangoDeHora}} 
+                  </button>
+                  <button class="btn btn-primary" id="btn" *ngIf="ocupado(al.hora, 5)" (click)="seleccionar(5, al.hora, i)">
+                    {{al.rangoDeHora}} 
+                  </button>
+                </td>
+                <td class="text-center"> 
+                  <button class="btn btn-primary" id="btn-disabled" *ngIf="!ocupado(al.hora, 6)" disabled (click)="selecDisable()">
+                    {{al.rangoDeHora}} 
+                  </button>
+                  <button class="btn btn-primary" id="btn" *ngIf="ocupado(al.hora, 6)" (click)="seleccionar(6, al.hora, i)">
+                    {{al.rangoDeHora}} 
+                  </button>
+                </td>
       
               </tr>
       
@@ -124,16 +163,18 @@
       
               <div class=" col-md-10 ">
                 <h4> <strong> &nbsp; Horario Seleccionado: </strong></h4>
-                <input [(ngModel)]="seleReserva.fecha" type="text" class="form-control" disabled id="reserve">
+                <input type="text" class="form-control" disabled id="reserve" [value]="horarioSeleccionadoInput">
       
               </div>
       
               <div class=" col-md-2 mt-3">
-                <button id="btn2" style = "font-size: 1.4rem;" class="btn" (click)="open(mymodal)"> Reservar </button>
+                <button id="btn2" style = "font-size: 1.4rem;" class="btn" (click)="open(mymodal)" *ngIf="activateButton" (click)="reservar()"> 
+                  Reservar 
+                </button>
                 <ng-template #mymodal let-modal>
                   <div class="modal-header">
                     <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
-                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="reload()">
                       <span aria-hidden="true">×</span>
                     </button>
                   </div>
@@ -141,9 +182,12 @@
                     Tu reservación ha sido exitosa!
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
+                    <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="reload()">OK</button>
                   </div>
                 </ng-template>
+                <button class="btn" id="btn-disabled" style="font-size: 1.4rem;" *ngIf="!activateButton" disabled>
+                  Reservar
+                </button>
               </div>
       
             </div>
@@ -158,7 +202,7 @@
     <div class="col-md-5 mt-4">
         <h3> <strong>Especialidad</strong> </h3> 
         <div class = "card border border-black border border-2">
-        <h5 style="margin-left: 1%; margin-top:1%;">Acondicionamiento Fisico</h5>
+        <h5 style="margin-left: 1%; margin-top:1%;"> {{asesorInfo.especialidad}} </h5>
         </div>
     </div>
 

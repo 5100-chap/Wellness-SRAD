@@ -17,19 +17,17 @@ declare var window: any;
 export class MonitorIngresosComponent {
 
   //Definición de variables
-  constructor(private modalService: NgbModal , private apiservice:ApiService) {}
+  constructor(private modalService: NgbModal, private apiservice:ApiService) {}
   closeResult: string = '';
-
   today = new Date();
   ingresos : IngresosMonitor[] = [];
-
-  temp = new Date();
-
+  temp !: string;
 
   /** Pipe para darle formato la fecha y hora*/
   pipe = new DatePipe('es');
 
   changedDate = this.pipe.transform(this.today, 'YYYY-MM-dd');
+  
 
 
   //Función para formatear la hora
@@ -55,30 +53,20 @@ export class MonitorIngresosComponent {
   }
 
   //Función para obtener la información de los ingresos
-
   obtenerRegistros(dia : string){
 
     this.apiservice.getMonitorIngresos(dia).subscribe((data: IngresosMonitor[]) => {
       this.ingresos = data;
-
     });
   }
 
-    //Función para marcar la salida de un alumno
-
+  //Función para marcar la salida de un alumno
   marcarSalida(horaEntrada: string, matricula: string ){
 
     let hora = String(this.today.getHours() )
-
- 
-    
     let minutos = String(this.today.getMinutes())
-   
     let segundos = String(this.today.getSeconds())
-
   
-
-    
     let horaSalidaFormateada = hora + ":" + minutos + ":" + segundos
 
     this.apiservice.marcarSalidaAlumnoManual(horaSalidaFormateada,matricula,horaEntrada).subscribe(error => {
@@ -86,27 +74,18 @@ export class MonitorIngresosComponent {
     });
   }
 
-
+  //Funcion para refrescar la pagina
   refresh(){
     window.location.reload();
   }
+
   
 
+ngOnInit(): void{
 
+  const res = String(this.changedDate)
 
-  ngOnInit(): void{
-
-    let anio = String(this.today.getFullYear() )
-
-    this.today.setMonth(this.today.getMonth() + 1)
-    
-    let mes = String(this.today.getMonth())
-   
-    let diaN = String(this.today.getDate())
-
-    const res = anio + "-" +mes+"-"+diaN
-    
-    this.obtenerRegistros(res);
+  this.obtenerRegistros(res);
 
   }
 

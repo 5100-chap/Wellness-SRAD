@@ -81,6 +81,12 @@ button:hover {
     color: white;
 }
 
+#btn-disabled{
+	background: #c2c2c2;
+	border-color: transparent;
+	color: black;
+}
+
 
 .img-banner{
     background: #000000;  /* fallback for old browsers */
