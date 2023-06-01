@@ -34,7 +34,8 @@ import { AlumnoStatusResponse } from '../models/alumnoStatusResponse.model';
   styleUrls: ['./area-deportiva.component.css'],
 })
 export class AreaDeportivaComponent implements OnInit {
-  // Declaramos las variables y arrays que vamos a utilizar|
+
+  // Declaramos las variables y arrays que vamos a utilizar
   areaActual : Area = new Area;
   public nombreArea: string = '';
   aforoData: string = '';
@@ -169,8 +170,8 @@ export class AreaDeportivaComponent implements OnInit {
     },
   ];
   
-  
   seleReserva: Reservas = new Reservas();
+
   addOrEdit() {
     if (this.seleReserva.id == 0) {
       this.seleReserva.id = this.reservaArray.length + 1;
@@ -337,7 +338,7 @@ export class AreaDeportivaComponent implements OnInit {
       this.nombreArea = nombreAreaParam;
       this.apiService.getAreaByName(this.nombreArea).subscribe((response) => {
         this.areaActual = response[0];
-        console.log(this.areaActual);
+        
         if (this.areaActual.NombreArea === null) {
           this.router.navigate(['/404']);
         }
@@ -355,7 +356,7 @@ export class AreaDeportivaComponent implements OnInit {
             this.getDiasSemana();
             this.apiService.getTodasReservas(this.listaDias[0], this.listaDias[6], this.areaActual.AreaId).subscribe((data: HorarioReserva[])=>{
               this.listaDeHorariosReservados = data;
-              console.log(data);
+              
             }, error=>{
               console.log(error);
             });

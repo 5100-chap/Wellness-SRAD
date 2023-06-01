@@ -39,34 +39,18 @@
   <div class="vstack gap-4 col-md-11 mx-auto" style="margin-top: 2%;">
   
     <div class="card w-100 border border-gray border border-2">
-      <!--
-      <div class="card-header">
-  
-          <div class="row">
-            <div class=" col-md-3 mt-1">
-  
-              <h4>Filtrar por disponibilidad</h4>
-  
-            </div>
-  
-            <div class="col-md-1 mt-1">
-  
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="switchFiltro">
-              </div>
-            </div>
-          </div>
-     
-      </div>
-    -->
+    
       <br>
       <div class="vstack gap-4 col-md-11 mx-auto">
         <div class="row row-cols-1 row-cols-md-3 g-4 table-wrapper">
           <div class="col" *ngFor="let locker of casilleros" [class.active]="locker == seleReserva">
             <div class="card border-light img-banner2" >
+
               <img [src]="'../assets/img/lockers.jpeg'" height="250px" 
                    class="card-img" alt="..." style="opacity: 0.4;">
+
               <div class="card-img-overlay" style="border-color: transparent;">
+                
                 <h2 class="card-title" style="margin-left : 2.3%; margin-top : 2.3%; font-size : 1.5rem;" id="prueba"> 
                    Número: {{locker.id}} 
                   <br>
@@ -74,11 +58,13 @@
                   <br>
                    Estado:  <strong *ngIf="locker.estatus == false" style="color: #06D913;"> {{locker.estatus ? 'Reservado' : 'Disponible'}} </strong>  <strong *ngIf="locker.estatus == true" style="color: #E30F0B;"> {{locker.estatus ? 'Reservado' : 'Disponible'}} </strong>
                 </h2>
+
                 <div class="text-center" style="margin-top: 22%;">
                   <button id="btn" style="font-size: 1.5rem;" (click)="actulizarCasilleroSelecccionado(locker)"> 
                     Seleccionar
                   </button>
                 </div>
+
               </div>
             </div>
           </div>
@@ -154,6 +140,8 @@
           </div>
 
         </div>
+
+        <!-- Calificar el area de lockers -->
 
         <ng-template #resenamodal let-modal>
           <div class="modal-header">

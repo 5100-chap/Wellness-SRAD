@@ -1,30 +1,44 @@
 label {
-    font: 4rem 'Fira Sans', sans-serif;
+    font: 4rem "Fira Sans", sans-serif;
 }
 
 input,
 label {
     margin: 0.4rem 0;
-    font: 1rem 'Fira Sans', sans-serif;
+    font: 1rem "Fira Sans", sans-serif;
     border-color: transparent;
 }
 
-#title{
+#title {
     background-color: #003399;
     color: white;
 }
 
-
-
 #btn {
-
     background: #003399;
     border-color: transparent;
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-	
 }
 
+.custom-input {
+    border: 2px solid #2a5dbb;
+    /* Cambia el color del borde según tu preferencia */
+    padding: 8px;
+    /* Ajusta el valor del relleno según tu preferencia */
+    border-radius: 4px;
+    /* Ajusta el valor del radio de borde según tu preferencia */
+}
 
+.centered-message-warning {
+    font-size: 1.5rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Esto asegurará que ocupe toda la altura de la ventana */
+    color: orange;
+    /* Establece el color del texto como naranja */
+}
