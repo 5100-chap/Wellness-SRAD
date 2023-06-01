@@ -195,5 +195,10 @@ export class ApiService {
       titulo: titulo
     });
   }
+
+  getIngresosAforo( idArea: number, weekday: string): Observable<IngresosMonitor[]> {
+    
+    return this.http.get<IngresosMonitor[]>(`/api/ExportarAforo?Id=${idArea}&Date=${weekday}`);
+  }
   
 }
