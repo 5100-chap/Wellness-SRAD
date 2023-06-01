@@ -18,6 +18,7 @@
               <label style="margin-bottom: 2%; font-size:1.3rem"> <strong>Selecciona un área deportiva:</strong> </label>  
                 <select formControlName="website" class="form-control" id="btn"  (change)="changeArea($event)" #area >   
                     <option *ngFor="let area of areas">{{area.nombre}}</option>  
+                    <option>Lockers</option>  
                 </select>  
              
             </div>  

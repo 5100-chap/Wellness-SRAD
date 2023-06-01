@@ -23,6 +23,7 @@ export class CrearAnuncioComponent {
   value!: string;
   pipe = new DatePipe('en-US');
   
+  
 
    /*Definición del formulario para la validación de los campos */
    NuevoAnuncioForm = new FormGroup({
@@ -36,6 +37,7 @@ export class CrearAnuncioComponent {
     DuracionAnuncioFin: new FormControl('', Validators.required  ),
 
   });
+
   
 
   // Función para obtener el dia actual
@@ -49,11 +51,12 @@ export class CrearAnuncioComponent {
 
   // Función para obtener el dia que será dentro de 14 días 
   diaMAX(){
-    let after = new Date();
+    let temp = new Date();
 
-    after.setDate(after.getDate() + 14)
+
+    temp.setDate(temp.getDate() + 14)
  
-     let changedDate = this.pipe.transform(after, 'YYYY-MM-dd');
+     let changedDate = this.pipe.transform(temp, 'YYYY-MM-dd');
     
      return String(changedDate);
    }
@@ -71,8 +74,6 @@ export class CrearAnuncioComponent {
 
       this.apiService.createAnuncio(fechaInicio, fechaFin, ubicacion, descripcion, duracionIni, duracionFin, imagen, titulo).subscribe(error => {
         console.log(error);
-
-        //const result = window.alert("Anuncio creado correctamente!");
         
       });
 
