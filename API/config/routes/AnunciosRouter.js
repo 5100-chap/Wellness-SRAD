@@ -27,7 +27,7 @@ router.post('/api/createAnuncio', async(req, res, next)=>{
         request.input('descripcion', sql.VarChar(300), req.body.descripcion);
         request.input('duracionIni', sql.Date, req.body.duracionIni);
         request.input('duracionFin', sql.Date, req.body.duracionFin);
-        request.input('imagen', sql.VarChar(1000), req.body.imagen);
+        request.input('imagen', sql.VarChar(8000), req.body.imagen);
         request.input('titulo', sql.VarChar(100), req.body.titulo);
         let result = await request.execute('[dbo].[CrearAnuncio]');
         res.status(200).json({message: 'Anuncio creado con éxito'});

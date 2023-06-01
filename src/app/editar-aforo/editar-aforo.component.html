@@ -75,13 +75,13 @@
 
 <div class="row justify-content-around mt-5">
     <div class="col-md-4 col-sm-12">
-        <button class="btn btn-danger btn-lg w-100" style="font-size: 1.7rem" routerLink="/inicioAdmin">
+        <button class="btn btn-danger btn-lg w-100 input-group" style="font-size: 1.7rem" routerLink="/inicioAdmin">
             <strong> Cancelar </strong>
         </button>
     </div>
 
     <div class="col-md-4 col-sm-12 mt-md-1 mt-3">
-        <button [disabled]="!isFormValid()" class="btn btn-success btn-lg w-100" style="font-size: 1.7rem" (click)="onSubmit(mymodal)">
+        <button [disabled]="!isFormValid()" class="btn btn-success btn-lg w-100 input-group" style="font-size: 1.7rem" (click)="onSubmit(mymodal)">
             <strong>Guardar</strong>
         </button>
         <ng-template #mymodal let-modal>
