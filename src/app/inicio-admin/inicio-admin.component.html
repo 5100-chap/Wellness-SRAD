@@ -1,3 +1,5 @@
+<!--Encabezado-->
+
 <div class="img-fluid" class="opacity-30">
     <div class="text-white">
         <img src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80"
@@ -13,15 +15,20 @@
     </div>
 </div>
 
+
+<!--Titulo de la pantalla-->
 <div class="row">
     <div class="col-md-6 mt-4">
         <h3>&nbsp; &nbsp; <strong> Administración de áreas deportivas </strong></h3>
     </div>
 </div>
-<br />
+<br>
+
+
+<!--Tarjetas con la información del area deportivas del wellness center-->
 
 <ng-container *ngFor="let area of areas">
-    <div class="vstack gap-3 col-md-9 mx-auto mt-4" *ngIf="area.Estatus == true">
+    <div class="vstack gap-3 col-md-10 mx-auto mt-3" *ngIf="area.Estatus == true">
         <div class="card" id="card">
             <div class="card-body">
                 <div class="row">

@@ -297,7 +297,7 @@ export class GimnasioComponent implements OnInit {
 
         this.aforoData = actuales + '/' + totales;
         this.chart = this.chartService.createPieChart('MyChart', ['Libre: ' + actuales, 'Ocupado: ' + ocupados], [ocupados, actuales]);
-        console.log(this.chart);
+        
       },
       (error) => {
         console.log('Error fetching aforo status:', error);

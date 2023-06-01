@@ -83,6 +83,7 @@ export class ListaReservasComponent {
     });
   }
 
+  
   marcarLlegada(index: number){
     const usuario = this.authService.currentUserValue['username'];
     this.apiService.marcarLlegadaReserva(usuario, this.Reservas[index]['id_area_deportiva'], this.Reservas[index]['id']).subscribe(()=>{

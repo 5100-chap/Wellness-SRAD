@@ -26,6 +26,8 @@ router.get("/api/llamarAforo", async (req, res, next) => {
     }
 });
 
+
+// Consultar el aforo de un área deportiva
 router.post("/api/consultarAforo", async (req, res, next) => {
     try {
         if (req.body === undefined) {
