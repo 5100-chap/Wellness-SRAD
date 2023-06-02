@@ -51,12 +51,24 @@ export class CalendarioComponent implements OnInit{
     initialView: 'dayGridMonth',
     plugins: [dayGridPlugin, timeGridPlugin, bootstrap5Plugin],
     headerToolbar: {
-      left: 'prev,today,next',
-      center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      left: 'title',
+      center: '',
+      right: 'prev,today,next dayGridMonth,timeGridWeek,timeGridDay'
     },
     themeSystem: 'bootstrap5',
-    firstDay: 0
+    firstDay: 0,
+    eventTimeFormat: {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    },
+    dayHeaderFormat:{
+      weekday:'long'
+    },
+    buttonText: {
+      prev: '<',
+      next: '>'
+    }
   };
   
 }
