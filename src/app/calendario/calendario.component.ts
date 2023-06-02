@@ -49,6 +49,15 @@ export class CalendarioComponent implements OnInit{
   calendarOptions: CalendarOptions = {
     locale: esLocale,
     initialView: 'dayGridMonth',
+    firstDay: 0,
+    slotLabelFormat: {
+      hour: '2-digit',
+      minute: '2-digit',
+      omitZeroMinute: true,
+      meridiem: 'short',
+      hour12: true
+    },
+    nowIndicator: true,
     plugins: [dayGridPlugin, timeGridPlugin, bootstrap5Plugin],
     headerToolbar: {
       left: 'title',
@@ -56,11 +65,10 @@ export class CalendarioComponent implements OnInit{
       right: 'prev,today,next dayGridMonth,timeGridWeek,timeGridDay'
     },
     themeSystem: 'bootstrap5',
-    firstDay: 0,
     eventTimeFormat: {
-      hour: 'numeric',
+      hour: '2-digit',
       minute: '2-digit',
-      hour12: true
+      hour12: true,
     },
     dayHeaderFormat:{
       weekday:'long'
@@ -68,6 +76,11 @@ export class CalendarioComponent implements OnInit{
     buttonText: {
       prev: '<',
       next: '>'
+    },
+    views: {
+      timeGridWeek: {
+        hour12: true
+      }
     }
   };
   
