@@ -24,6 +24,11 @@ import { AreaDeportivaComponent } from 'src/app/area-deportiva/area-deportiva.co
 import { AlumnoRoutingModule } from './alumno-routing.module';
 import { SharedModule } from '../Shared/shared.module';
 
+import { CalendarModule } from 'angular-calendar';
+
+import { DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+
 @NgModule({
     declarations: [
         ListaAreasComponent,
@@ -49,7 +54,9 @@ import { SharedModule } from '../Shared/shared.module';
         QRCodeModule,
         AlumnoRoutingModule,
         NgbModule,
-        SharedModule
+        SharedModule,
+        CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+
     ]
 })
 export class AlumnoModule { }
