@@ -19,6 +19,10 @@ import { IngresosMonitor } from '../models/ingresos-monitor';
 import { ReservasCasillero } from '../models/reservas-casillero';
 import { MonitorReservas } from '../models/monitor-reservas';
 import { InfoNombreAreasD } from '../models/info-nombre-areas-d';
+import { ReservaAsesor } from '../models/reserva-asesor';
+import { AsesorInfo } from '../models/asesor-info';
+import { ReservaAsesorAlumno } from '../models/reserva-asesor-alumno';
+
 
 @Injectable({
   providedIn: 'root',
@@ -294,6 +298,32 @@ export class ApiService {
       usuario: usuario,
       hora: hora,
       cancelada: cancelada
+    });
+  }
+
+  getReservasAsesorDeAlumno(usuario: string): Observable<ReservaAsesorAlumno[]>{
+    return this.http.post<ReservaAsesorAlumno[]>('/api/getReservasAsesorDeAlumno', {
+      usuario: usuario
+    });
+  }
+
+  marcarLlegadaAsesor(hora: string, id: number){
+    return this.http.post('/api/marcarLlegadaAsesor', {
+      hora: hora,
+      id: id
+    });
+  }
+
+  marcarSalidaAsesor(hora: string, id: number){
+    return this.http.post('/api/marcarSalidaAsesor', {
+      hora: hora,
+      id: id
+    });
+  }
+
+  cancelarReservaAsesor(id: number){
+    return this.http.post('/api/cancelarReservaAsesor', {
+      id: id
     });
   }
   
