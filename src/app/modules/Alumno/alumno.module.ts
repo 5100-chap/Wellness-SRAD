@@ -5,6 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { QRCodeModule } from 'angularx-qrcode';
 
+import { FullCalendarModule } from '@fullcalendar/angular';
+
+
 //Alumno components
 import { ListaAreasComponent } from '../../lista-areas/lista-areas.component';
 import { ListaReservasComponent } from '../../lista-reservas/lista-reservas.component';
@@ -24,10 +27,7 @@ import { AreaDeportivaComponent } from 'src/app/area-deportiva/area-deportiva.co
 import { AlumnoRoutingModule } from './alumno-routing.module';
 import { SharedModule } from '../Shared/shared.module';
 
-import { CalendarModule } from 'angular-calendar';
 
-import { DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 @NgModule({
     declarations: [
@@ -55,8 +55,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
         AlumnoRoutingModule,
         NgbModule,
         SharedModule,
-        CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
-
+        FullCalendarModule
     ]
 })
 export class AlumnoModule { }

@@ -19,11 +19,8 @@ import { AppComponent } from '../app.component';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { DropdownBasicComponent } from '../dropdown-basic/dropdown-basic.component';
-import { CalendarModule } from 'angular-calendar';
 
-import { DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @NgModule({
   declarations: [
@@ -44,7 +41,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     AdminModule,
     AlumnoModule,
     SharedModule,
-    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+    FullCalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
