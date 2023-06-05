@@ -13,91 +13,99 @@
     </div>
 </div>
 
-<form class="mb-1" [formGroup]="formGroup">
-    <div class="mb-4 row">
-        <div class="col-md-4 col-sm-12">
-            <div class="card mt-4">
-                <h5 class="card-header text-center" id="title">Lapso de tiempo</h5>
-                <div class="row m-3">
-                    <div class="col-md-6 mt-4 mb-4">
-                        <h5 style="font-size: 1.3rem">Fecha de inicio</h5>
-                        <input formControlName="fechaInicio" style="font-size: 1.0rem" type="date" id="start"
-                            name="trip-start" />
-                    </div>
 
-                    <div class="col-md-6 mt-4 mb-4">
-                        <h5 style="font-size: 1.3rem">Fecha de final</h5>
-                        <input formControlName="fechaFinal" style="font-size: 1.0rem" type="date" id="start"
-                            name="trip-start" />
+<div class="vstack gap-3 col-md-11 mx-auto mt-3" >
+    <form class="mb-1" [formGroup]="formGroup">
+
+        <div class="mb-4 row">
+            <div class="col-md-5 col-sm-12">
+                <div class="card mt-4">
+                    <h5 class="card-header text-center" id="title">Lapso de tiempo</h5>
+                    <div class="row m-3">
+                        <div class="col-md-6 mt-4 ">
+                            <h5 style="font-size: 1.3rem">Fecha inicial</h5>
+                            <input formControlName="fechaInicio" style="font-size: 1.5rem" type="date" id="start"
+                                name="trip-start" value="{{this.changedDate}}" min="{{this.changedDate}}"/>
+                        </div>
+    
+                        <div *ngIf="!checkBox1.checked" class="col-md-6 mt-4 ">
+                            <h5 style="font-size: 1.3rem">Fecha final</h5>
+                            <input formControlName="fechaFinal" style="font-size: 1.5rem" type="date" id="start"
+                                name="trip-start" value="{{this.changedDate}}" min="{{this.changedDate}}"/>
+                        </div>
                     </div>
-                </div>
-                <div class="form-check input-group m-3">
-                    <input formControlName="esIndefinido" class="form-check-input" type="checkbox" id="check1"
-                        name="option1" value="something" style="border-color: rgba(128, 128, 128, 0.413)" />
-                    <label class="form-check-label"> &nbsp; Indefinido</label>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-12">
-            <div class="card mt-4">
-                <h5 class="card-header text-center" id="title">Nuevo aforo</h5>
-                <div class="row m-3">
-                    <div class="col-12 text-center mt-4 mb-3">
-                        <input formControlName="nuevo_limite" type="number" id="nuevoAforo" min="1" value="1"
-                            style="font-size: 1.6rem" class="mb-4 mt-2 custom-input" />
+                    <div class="form-check input-group m-3">
+                        <input formControlName="esIndefinido" class="form-check-input" type="checkbox" id="check1"
+                            name="option1" value="something" style="border-color: rgba(128, 128, 128, 0.413)" #checkBox1/>
+                        <label class="form-check-label"> &nbsp; Indefinido</label>
                     </div>
                 </div>
             </div>
+    
+    
+            <div class="col-md-4 col-sm-12">
+                <div class="card mt-4" style="height: 91%;">
+                    <h5 class="card-header text-center" id="title">Nuevo aforo</h5>
+                    <div class="row m-3">
+                        <div class="col-12 text-center mt-5 mb-3">
+                            <input formControlName="nuevo_limite" type="number" id="nuevoAforo" min="1" value="1"
+                                style="font-size: 1.8rem" class="mb-4 mt-2 custom-input" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="col-md-3 col-sm-12">
+                <div class="card mt-4" style="height: 91%;">
+                    <h5 class="card-header text-center mb-4" id="title">Aforo actual</h5>
+                    <h4 class="text-center mt-5" style="font-size: 2.3rem">{{this.areaActual.LugaresTotales}}</h4>
+                </div>
+            </div>
+    
+        </div> <!-- Cierre del div con clase 'mb-4 row' -->
+        <div class="card mt-2 mb-5">
+            <h4 class="card-header text-center" id="title">
+                Descripción del cambio de aforo
+            </h4>
+    
+            <input formControlName="descripcion" type="text"
+                placeholder="El aforo del area deportiva ha sido modificado por..."
+                style="font-size: 1.5rem; width: 100%; height: 100%" class="mt-4 mb-5" />
         </div>
-
-        <div class="col-md-4 col-sm-12">
-            <div class="card mt-4">
-                <h5 class="card-header text-center" id="title">Aforo actual</h5>
-                <h4 class="text-center mt-5 mb-4" style="font-size: 1.7rem">{{this.areaActual.LugaresTotales}}</h4>
-            </div>
-        </div>
-
-    </div> <!-- Cierre del div con clase 'mb-4 row' -->
-    <div class="card mt-2 mb-5">
-        <h4 class="card-header text-center" id="title">
-            Descripción del cambio de aforo
-        </h4>
-
-        <input formControlName="descripcion" type="text"
-            placeholder="El aforo del area deportiva ha sido modificado por..."
-            style="font-size: 1.5rem; width: 100%; height: 100%" class="mt-4 mb-5" />
-    </div>
-</form>
-
-<div *ngIf="!isFormValid()" class="centered-message-warning">
-    Favor de colocar todos los datos
-</div>
-
-<div class="row justify-content-around mt-5">
-    <div class="col-md-4 col-sm-12">
-        <button class="btn btn-danger btn-lg w-100" style="font-size: 1.7rem" routerLink="/inicioAdmin">
-            <strong> Cancelar </strong>
-        </button>
-    </div>
-
-    <div class="col-md-4 col-sm-12 mt-md-1 mt-3">
-        <button [disabled]="!isFormValid()" class="btn btn-success btn-lg w-100" style="font-size: 1.7rem" (click)="onSubmit(mymodal)">
-            <strong>Guardar</strong>
-        </button>
-        <ng-template #mymodal let-modal>
-            <div class="modal-header">
-                <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">{{modalBody}}</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">
-                    OK
-                </button>
-            </div>
-        </ng-template>
         
+    </form>
+    
+    <div *ngIf="!isFormValid()" class="centered-message-warning">
+        Favor de rellenar todos los campos
+    </div>
+    
+    <div class="row justify-content-around mt-5">
+        <div class="col-md-4 col-sm-12">
+            <button class="btn btn-danger btn-lg w-100 input-group" style="font-size: 1.7rem" routerLink="/inicioAdmin" id="btn2">
+                <strong> Cancelar </strong>
+            </button>
+        </div>
+    
+        <div class="col-md-4 col-sm-12 mt-md-1 mt-3">
+            <button [disabled]="!isFormValid()" class="btn btn-success btn-lg w-100 input-group" style="font-size: 1.7rem" (click)="onSubmit(mymodal)" id="btn">
+                <strong>Guardar</strong>
+            </button>
+            <ng-template #mymodal let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">{{modalBody}}</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">
+                        OK
+                    </button>
+                </div>
+            </ng-template>
+            
+        </div>
     </div>
 </div>
+

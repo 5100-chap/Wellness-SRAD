@@ -9,7 +9,8 @@ const queries = require("../database/queries");
 router.post('/api/getTodasReservasAlumno', async(req, res, next)=>{
     try{
         var request = new sql.Request();
-        var result = await request.query(`EXEC [dbo].[GetTodasReservasAlumno] \'${req.body.usuario}\';`);
+        var hoy = new Date();
+        var result = await request.query(`EXEC [dbo].[GetTodasReservasAlumno] \'${req.body.usuario}\', '${hoy.getFullYear()}-${(hoy.getMonth+1>9)?hoy.getMonth()+1:`0${hoy.getMonth()+1}`}-${(hoy.getDate()>9)?hoy.getDate():`0${hoy.getDate()}`}';`);
         res.json(result.recordset);
     }
     catch(error){
@@ -201,6 +202,58 @@ router.post('/api/marcarSalidaReserva', async(req, res, next)=>{
     }catch(error){
         console.log(error);
         res.json({'status': 'error'});
+    }
+});
+
+// Mostrar lista de asesores por rol
+router.post('/api/getAsesoresPorRol', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();
+        const result = request.query(`EXEC [dbo].[GetAsesoresPorRol] '${req.body.rol}';`);
+        res.json((await result).recordset);
+    }
+    catch(error){
+        console.log(error);
+        res.sendStatus(404);
+    }
+});
+
+// Obtener reservas de asesores
+router.post('/api/getReservasAsesores', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();
+        const result = await request.query(`EXEC [dbo].[GetReservasAsesor] '${req.body.lunes}', '${req.body.domingo}', '${req.body.asesor}';`);
+        res.json(result.recordset);
+    }
+    catch(error){
+        console.log(error);
+        res.sendStatus(404);
+    }
+});
+
+// Crear una reserva para asesor
+router.post('/api/createReservaAsesor', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();
+        const result = await request.query(`EXEC [dbo].[CreateReservaAsesor] '${req.body.asesor}', '${req.body.lugar}', '${req.body.fecha}', '${req.body.usuario}', '${req.body.hora}', ${req.body.cancelada};`);
+    }
+    catch(error){
+        console.log(error);
+        res.sendStatus(404);
+    }
+});
+
+// Obtener reservas de asesor del estudiante
+router.post('/api/getReservasAsesorDeAlumno', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();
+        const hoy = new Date();
+        const result = await request.query(`EXEC [dbo].[GetReservasAsesorDeAlumno] '${req.body.usuario}', '${hoy.getFullYear()}-${(hoy.getMonth+1>9)?hoy.getMonth()+1:`0${hoy.getMonth()+1}`}-${(hoy.getDate()>9)?hoy.getDate():`0${hoy.getDate()}`}';`);
+        res.json(result.recordset);
+    }
+    catch(error){
+        console.log(error);
+        res.json(error);
     }
 });
 

@@ -21,7 +21,11 @@ export class CrearAnuncioComponent {
   closeResult: string = '';
   resultado!: string;
   value!: string;
-  pipe = new DatePipe('en-US');
+  today = new Date();
+
+  /** Pipe para darle formato la fecha y hora*/
+  pipe = new DatePipe('es');
+  changedDate = this.pipe.transform(this.today, 'YYYY-MM-dd');
   
   
 
@@ -31,7 +35,7 @@ export class CrearAnuncioComponent {
     fechaEventoInicio: new FormControl('', Validators.required  ),
     fechaEventoFin: new FormControl('', Validators.required  ),
     ubicacion: new FormControl('', Validators.required),
-    imagen: new FormControl('', Validators.required),
+    imagen: new FormControl('', [Validators.required, Validators.maxLength(25)]),
     descripcion: new FormControl('', Validators.required),
     DuracionAnuncioInicio: new FormControl('', Validators.required  ),
     DuracionAnuncioFin: new FormControl('', Validators.required  ),

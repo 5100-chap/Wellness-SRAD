@@ -23,6 +23,18 @@ label {
     justify-content: center;
 }
 
+#btn2 {
+
+    background: #ffffff;
+    border-color: #003399;
+    color: #003399;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	
+}
+
+
 .custom-input {
     border: 2px solid #2a5dbb;
     /* Cambia el color del borde según tu preferencia */

@@ -102,15 +102,20 @@
                 <h5 class="card-header text-center" id="title">Imágen </h5>
             
                 <div name="subida-imagenes"  style="margin-left: 1.5%; margin-bottom: 1.5%;" class="mt-2" >
-                    <input type="file" formControlName="imagen" tabindex="5" required autocomplete="off" class="mt-2 mb-2" name="imagen" #imagen />
+                    <input type="file" formControlName="imagen" accept="image/*"  tabindex="5" required autocomplete="off" class="mt-2 mb-2" name="imagen" #imagen />
                 </div> 
 
             </div>
 
-             <!--Validar que el campo ubicación no este vacio -->
+             <!--Validar que el campo imagen no este vacio -->
             <span *ngIf="this.NuevoAnuncioForm.get('imagen')?.errors?.['required']"  style= "color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
                 Una imagen debe de ser seleccionada
-            </span>   
+            </span>
+            
+            <!--Validar que el campo imagen no no tenga más de 30 caracteres -->
+            <span *ngIf="this.NuevoAnuncioForm.get('imagen')?.errors?.['maxlength']"  style= "color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
+                El nombre de la imagen no debe de tener más de 15 caracteres
+            </span>
         
             
         </div>

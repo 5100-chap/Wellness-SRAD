@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Area } from '../models/area.model';
 import { ApiService } from '../services/api.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-editar-aforo',
@@ -11,12 +12,18 @@ import { ApiService } from '../services/api.service';
   styleUrls: ['./editar-aforo.component.css'],
 })
 export class EditarAforoComponent implements OnInit {
+   
+  //Definición de variables
   formGroup!: FormGroup;
   areaActual: Area = new Area();
   modalBody: string = 'Esperando...';
+  today = new Date();
 
-  title = 'appBootstrap';
+  /** Pipe para darle formato la fecha y hora*/
+  pipe = new DatePipe('es');
+  changedDate = this.pipe.transform(this.today, 'YYYY-MM-dd');
 
+  
   closeResult: string = '';
   modalRef!: any;
 

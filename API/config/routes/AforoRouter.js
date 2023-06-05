@@ -114,6 +114,21 @@ router.get("/api/ingresosPorHora/", async (req, res, next) => {
     }
 });
 
+// Obtener los ingresos por id del area en base a un intervalo semanal
+router.get('/api/ExportarAforo', async(req,res,next) => {
+    const id = req.query.Id;
+    const date = req.query.Date;
+    const request = new sql.Request();
+    try{
+        const result = await request
+            .input('Id',sql.Int, id)
+            .input('Date',sql.Date, date)
+            .execute('ExportarAforo');
+        res.json(result.recordset);
+    } catch(err){
+        next(err);
+    }
+})
 // Modificar el aforo máximo
 router.post("/api/modificarAforoMaximo", async (req, res, next) => {
     try {

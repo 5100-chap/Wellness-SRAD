@@ -4,49 +4,7 @@
 <!--meterle imagen-->
 <div class="vstack gap-4 col-md-8 mx-auto mt-5">
 
-
-    <div class="card w-100" >
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-2"> 
-                        <img src="https://2.bp.blogspot.com/-wUD2SGHiBCg/XGVk3D2_6FI/AAAAAAACkqc/LWNsgSdN5YwQNqy7IsRj95GrjqauK5ZzACLcBGAs/s1600/thispersondoesnotexist-2.jpg"  class="rounded-circle" height="150px" alt=""loading="lazy" />
-                    </div>
-                    <div class="col-md-7" style="margin-left: 2%; margin-top: 3%;">
-                        <strong style="font-size: 1.5rem ;"> Sylvester Silver</strong> <br>
-                        <small class="text-muted" style="font-size: 1.4rem ;">   Especialidad: Calistenia</small>
-                    </div>
-                    <div class="col-md-2" style="margin-top: 4%;">
-                        <button routerLink="/horarioAsesor" type="button" class="btn btn-primary" id="btn">
-                            <strong style="font-size: 1.25rem ;"> Reservar </strong> 
-                        </button>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
-    
-<div class="card w-100" >
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-2"> 
-                    <img src="https://live.staticflickr.com/65535/50630706993_00b8c57751_w.jpg"  class="rounded-circle" height="150px" alt=""loading="lazy" />
-                </div>
-                <div class="col-md-7" style="margin-left: 2%; margin-top: 3%;">
-                    <strong style="font-size: 1.5rem ;"> Marlon Brando</strong> <br>
-                    <small class="text-muted" style="font-size: 1.4rem ;">   Especialidad: Pesas</small>
-                </div>
-                <div class="col-md-2" style="margin-top: 4%;">
-                    <button routerLink="/horarioAsesor" type="button" class="btn btn-primary" id="btn">
-                        <strong style="font-size: 1.25rem ;"> Reservar </strong> 
-                    </button>
-                </div>
-            </div>
-            </div>
-        </div>
-    </div>
-
+<div *ngFor="let each of listaAsesores;">
     <div class="card w-100" >
         <div class="card">
             <div class="card-body">
@@ -55,15 +13,16 @@
                         <img src="https://i.redd.it/qm2eo6qvlot51.jpg"  class="rounded-circle" height="150px" alt=""loading="lazy" />
                     </div>
                     <div class="col-md-7" style="margin-left: 2%; margin-top: 3%;">
-                        <strong style="font-size: 1.5rem ;"> Guillermo del Toro</strong> <br>
-                        <small class="text-muted" style="font-size: 1.4rem ;">   Especialidad: Funcional</small>
+                        <strong style="font-size: 1.5rem ;"> {{each.nombre}}</strong> <br>
+                        <small class="text-muted" style="font-size: 1.4rem ;">   Especialidad: {{each.especialidad}} </small>
                     </div>
                     <div class="col-md-2" style="margin-top: 4%;">
-                        <button routerLink="/horarioAsesor" type="button" class="btn btn-primary" id="btn">
+                        <button (click)="mandarCalendario(each)" routerLink="/horarioAsesor" type="button" class="btn btn-primary" id="btn">
                             <strong style="font-size: 1.25rem ;"> Reservar </strong> 
                         </button>
                     </div>
                 </div>
-                </div>
             </div>
         </div>
+    </div>
+</div>

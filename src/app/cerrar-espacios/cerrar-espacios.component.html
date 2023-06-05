@@ -13,22 +13,26 @@
 </div>
 
 
-<div class="container">
+<div class="vstack gap-4 col-md-11 mx-auto mt-3" >
+    
     <form class="row mb-3" style="margin-left: 2.5%;" [formGroup]="formGroup">
-        <!-- 2 column grid layout with text inputs for the first and last names -->
+        
         <div class="row mb-4">
             <div class="col">
                 <div class="form-outline">
-                    <div class="card col-md-12 mt-4" style="margin-left: 2.5%;">
-                        <h5 class="card-header text-center" id="title">Lapso de tiempo</h5>
+                    <div class="card col-md-11 mt-4" style="margin-left: 2.5%;">
+                        <h4 class="card-header text-center" id="title">Lapso de tiempo</h4>
                         <div class="row">
-                            <div class=" col-md-6 mt-4 mb-4" style="margin-left:5%;">
+                            <div class=" col-md-3 mt-4 mb-4" style="margin-left:4%;">
                                 <h5 style="font-size: 1.7rem ">Fecha de cierre</h5>
-                                <input formControlName="fechaCierre" style="font-size: 1.7rem;" type="date" class="form-control" id="fechaCierre">
+                                <input formControlName="fechaCierre" style="font-size: 1.7rem;" type="date" class="form-control" id="fechaCierre" value="{{this.changedDate}}" min="{{this.changedDate}}">
                             </div>
-                            <div class=" col-md-5 mt-4 mb-4" >
+
+                            <div class=" col-md-5 mt-4 mb-4" ></div>
+
+                            <div class=" col-md-3 mt-4 mb-4" >
                                 <h5 style="font-size: 1.7rem">Fecha de apertura</h5>
-                                <input formControlName="fechaApertura" style="font-size: 1.7rem;" type="date" class="form-control" id="fechaApertura">
+                                <input formControlName="fechaApertura" style="font-size: 1.7rem;" type="date" class="form-control" id="fechaApertura" value="{{this.changedDate}}" min="{{this.changedDate}}">
                             </div>
                         </div>    
                     </div>
@@ -36,22 +40,36 @@
             </div>
         </div>
 
-        <div class="card col-md-11"  style="margin-left: 4%;">
-            <h4 class=" card-header text-center" id="title"> Motivo de cierre</h4>
-            <input formControlName="motivo" type="text"  placeholder="El area deportiva ha sido cerrada por..."  style="font-size: 1.5rem; width: 100%; height: 100%;" class="mt-4 mb-5">
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+
+                    <div class="card col-md-11"  style="margin-left: 2.7%;">
+                        <h4 class=" card-header text-center" id="title"> Motivo de cierre</h4>
+                        <input formControlName="motivo" type="text"  placeholder="El area deportiva ha sido cerrada por..."  style="font-size: 1.5rem; width: 100%; height: 100%;" class="mt-4 mb-5">
+                    </div>
+
+
+                </div>
+            </div>
+
         </div>
+
+      
+
+
 
         <div class="row">
             <div  class="col-md-3 mt-5" id="align"></div>
             <div  class="col-md-3 mt-5" id="align">
                 <div class="input-group">
-                    <button class="btn btn-danger btn-lg " style="font-size: 1.7rem;" routerLink="/inicioAdmin"> <strong> Cancelar </strong> </button>
+                    <button class="btn btn-danger btn-lg " style="font-size: 1.7rem;" routerLink="/inicioAdmin" id="btn2"> <strong> Cancelar </strong> </button>
                 </div>
             </div>
             <div  class="col-md-1 mt-5" id="align"></div>
             <div  class="col-md-3 mt-5 " id="align">
                 <div class="input-group">
-                    <button type="submit" class="btn btn-success btn-lg" style="font-size: 1.7rem;" (click)="onSubmit(mymodal)"> <strong>Guardar</strong> </button>
+                    <button type="submit" class="btn btn-success btn-lg" style="font-size: 1.7rem;" (click)="onSubmit(mymodal)" id="btn"> <strong>Guardar</strong> </button>
                     <ng-template #mymodal let-modal>
                         <div class="modal-header">
                             <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
