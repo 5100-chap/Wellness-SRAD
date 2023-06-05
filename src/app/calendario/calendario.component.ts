@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../services/api.service';
+import { AuthService } from '../services/auth.service';
 
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -6,6 +8,11 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 
 import esLocale from '@fullcalendar/core/locales/es';
+import { Event } from '../models/event.model';
+import { Anuncio } from '../models/anuncio';
+
+
+
 
 
 @Component({
@@ -16,11 +23,20 @@ import esLocale from '@fullcalendar/core/locales/es';
 
 
 export class CalendarioComponent implements OnInit{
-
+  public event : Event;
   public events: any[];
   public options: any;
-  ngOnInit() {
 
+  constructor(private apiService: ApiService, private authService: AuthService) {
+    this.event = new Event();
+
+   
+  }
+
+  ngOnInit() {
+    this.getCasillerosDis();
+
+/*
     this.events = [
       {
         title: "Gimnasio",
@@ -42,8 +58,10 @@ export class CalendarioComponent implements OnInit{
         start: "2023-06-20T13:00:00",
         end: "2023-06-20T1:00:00"
       },
-
     ]
+    */
+
+
   }
 
   calendarOptions: CalendarOptions = {
@@ -83,5 +101,17 @@ export class CalendarioComponent implements OnInit{
       }
     }
   };
+
+  anuncios : Anuncio [] = [];
+
+  getCasillerosDis(){
+    this.apiService.getAnuncios().subscribe((data: Anuncio[]) => {
+      this.anuncios = data;
+      console.log(this.anuncios)
+      
+    });
+  }
+
+
   
 }
