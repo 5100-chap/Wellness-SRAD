@@ -47,7 +47,6 @@
   <table class="table table-striped">
       <thead >
         <tr class="text-center">
-          <th scope="col">Id</th>
           <th scope="col">Matricula</th>
           <th scope="col">Nombre</th>
           <th scope="col">#Locker</th>
@@ -60,7 +59,6 @@
       </thead>
       <tbody class="text-center" *ngFor="let r of reservasCasillero">
         <tr>
-          <th scope="row"> {{r.id}}</th>
           <td>{{r.matricula}}</td>
           <td>{{r.nombre}}</td>
           <td>{{r.id_casillero}}</td>
@@ -83,7 +81,6 @@
     <table class="table table-striped">
         <thead>
           <tr class="text-center">
-            <th scope="col">Id</th>
             <th scope="col">Matricula</th>
             <th scope="col">Nombre</th>
             <th scope="col">Hora</th>
@@ -96,7 +93,6 @@
         </thead>
         <tbody class="text-center" *ngFor="let r of reservasArea">
           <tr class="text-center">
-            <th scope="row">{{r.id}}</th>
             <td>{{r.matriculaAlumno}}</td>
             <td>{{r.nombreAlumno}}</td>
             <td>{{this.formatHora(r.hora)}}</td>

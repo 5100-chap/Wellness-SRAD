@@ -22,6 +22,7 @@ import { InfoNombreAreasD } from '../models/info-nombre-areas-d';
 import { ReservaAsesor } from '../models/reserva-asesor';
 import { AsesorInfo } from '../models/asesor-info';
 import { ReservaAsesorAlumno } from '../models/reserva-asesor-alumno';
+import { ExisteAlumno } from '../models/existe-alumno';
 
 
 @Injectable({
@@ -103,6 +104,22 @@ export class ApiService {
   }
 
 
+  //Saber si existe un alumno en la base de datos
+  consultarAlumno(matricula: string): Observable<ExisteAlumno[]> {
+    return this.http.post<ExisteAlumno[]>('/api/existeAlumno', { matricula: matricula});
+  }
+
+  //Marcar la llegada de un alumno al gimnasio desde la pantalla del administrador
+  marcarLlegadaGimnasioAlumno(matricula: string, dia: string, hora: string){
+    return this.http.post('/api/marcarLlegadaAlumnoManual', { 
+      matricula: matricula,
+      dia: dia,
+      hora: hora 
+    });
+  }
+
+
+  //Marcar la llegada de un alumno desde la pantalla del alumno
   marcar(usuario: String, area_id: number) {
     return this.http.post('/api/marcarLlegada', {
       usuario: usuario || '',

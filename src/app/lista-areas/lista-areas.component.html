@@ -38,7 +38,7 @@
             <i> {{area.NombreArea}} </i>
           </h2>
 
-          <div class="text-center" style="margin-top: 27%;">
+          <div class="text-center" style="margin-top: 20%;">
             <button
               [routerLink]="[area.NombreArea.toLowerCase() == 'gimnasio' ? '/' : '/areaDeportiva', area.NombreArea.toLowerCase()]"
               class="btn btn-primary" id="btn2" style="font-size: 1.3rem;" [disabled]="!area.Estatus">
@@ -56,7 +56,7 @@
         <div class="card-img-overlay" style="border-color: transparent;">
           <h3 class="card-title" style="margin-left: 2.3%; margin-top:2.3%" id="prueba"> <i> Sesión con entrenador</i>
           </h3>
-          <div class="text-center" style="margin-top: 27%;">
+          <div class="text-center" style="margin-top: 20%;">
             <button routerLink="/entrenadores" class="btn btn-primary" id="btn2" style="font-size: 1.3rem;"> Reservar
             </button>
           </div>
@@ -69,7 +69,7 @@
         <div class="card-img-overlay" style="border-color: transparent;">
           <h3 class="card-title" style="margin-left: 2.3%; margin-top:2.3%" id="prueba"> <i> Sesión con nutriólogo</i>
           </h3>
-          <div class="text-center" style="margin-top: 27%;">
+          <div class="text-center" style="margin-top: 20%;">
             <button routerLink="/nutriologos" class="btn btn-primary" id="btn2" style="font-size: 1.3rem;"> Reservar
             </button>
           </div>
