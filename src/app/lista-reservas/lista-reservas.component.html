@@ -2,122 +2,231 @@
 
 <!--Encabezado de la página-->
 <div class="img-fluid" class = "opacity-30"  >
-    <div class=" text-white">
-      <img src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="130" class="card-img" alt="...">
-      <div class="card-img-overlay">
-        <h5 class="card-title">&nbsp;</h5>
-        <h5 class="card-title">&nbsp;</h5>
-        <h5 class="card-title">&nbsp;</h5>
-        <h5 class="card-title">&nbsp;</h5>
-    
-        <h1 class="card-title" class = "text-center"> Mis Reservaciones </h1>
+  <div class=" text-white">
+    <img src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="130" class="card-img" alt="...">
+    <div class="card-img-overlay">
+      <h5 class="card-title">&nbsp;</h5>
+      <h5 class="card-title">&nbsp;</h5>
+      <h5 class="card-title">&nbsp;</h5>
+      <h5 class="card-title">&nbsp;</h5>
+  
+      <h1 class="card-title" class = "text-center"> Mis Reservaciones </h1>
+    </div>
+  </div>
+</div>
+<br>
+
+<!-- Conectado a la base de datos -->
+<div class="vstack gap-4 col-md-8 mx-auto" *ngFor="let item of slices.slice(1); let eachSlice = index;">
+  <div class="card w-100">
+    <div class="card">
+      <h5 class="card-header">{{Reservas[item-1]['nombre']}}</h5>
+      <div class="card-body">
+        <div class="row-cols-1 row-cols-md-3 g-6">
+          <!-- Cada una de las reservas -->
+          <div class="card w-100" *ngFor="let each of Reservas.slice(slices[eachSlice], item); let i=index;" style="margin-top: 2%;">
+            <div class="card">
+              <div class="card-body">
+                <!-- Informacion de la reservacion -->
+                <h4>
+                  Fecha:
+                  <small class="text-muted"> {{fechaPretty(each['fecha'])}} </small>
+                </h4>
+                <h4>
+                  Hora:
+                  <small class="text-muted"> {{each['hora'].slice(11, 16)}} </small>
+                </h4>
+
+                <h4 *ngIf="each['estado']=='Activa'">
+                  Estado:
+                  <small class="text-success" id="estado-html"> {{each['estado']}} </small>
+                </h4>
+
+                <h4 *ngIf="each['estado']=='Cancelada'">
+                  Estado:
+                  <small class="text-danger" id="estado-html"> {{each['estado']}} </small>
+                </h4>
+
+                <h4 *ngIf="each['estado']=='En curso'">
+                  Estado:
+                  <small class="text-primary" id="estado-html"> {{each['estado']}} </small>
+                </h4>
+
+                <!-- Botones -->
+                <div class="btn-group me-2" role="group" aria-label="First group" *ngIf="marcarLlegadaBtn(i+slices[eachSlice]);">
+                  
+                  <button id = "confirmar" class="btn btn-primary" (click)="open(mymodal)" (click)="marcarLlegada(i+slices[eachSlice])"> Marcar llegada </button>
+                      <ng-template #mymodal let-modal>
+                        <div class="modal-header">
+                          <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+                          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="reload()">
+                            <span  aria-hidden="true">×</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          Tu llegada ha sido registrada exitosamente!
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="reload()">OK</button>
+                        </div>
+                      </ng-template>
+                </div>
+                <!-- <div class="btn-group me-2" role="group" aria-label="Second group" *ngIf="reagendarBtn(i+slices[eachSlice]);">
+                  <button type="button" class="btn btn-warning" href="#">Reagendar</button>
+                </div>   -->
+                <div class="btn-group me-2" role="group" aria-label="Second group" *ngIf="cancelarReservaBtn(i+slices[eachSlice]);">
+                  <button id = "confirmar" class="btn btn-danger" (click)="open(cancel)" (click)="cancelarReserva(i+slices[eachSlice])"> Cancelar reserva</button>
+                  <ng-template #cancel let-modal>
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+                      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="reload()">
+                        <span  aria-hidden="true">×</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      Se ha cancelado tu reservación exitosamente!
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="reload()">OK</button>
+                    </div>
+                  </ng-template>
+                </div>
+                <div class="btn-group me-2" role="group" aria-label="Second group" *ngIf="marcarSalidaBtn(i+slices[eachSlice]);">
+                  
+                  <button id = "confirmar" class="btn btn-primary" (click)="open(salida)" (click)="marcarSalida(i+slices[eachSlice])"> Marcar salida</button>
+                  <ng-template #salida let-modal>
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+                      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="reload()">
+                        <span  aria-hidden="true">×</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      Se ha registrado su salida exitosamente!
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="reload()">OK</button>
+                    </div>
+                  </ng-template>
+                </div>  
+              </div>
+            </div>
+          </div>
+          <br>
+        </div>
       </div>
     </div>
   </div>
   <br>
+</div>
 
-  <!-- Conectado a la base de datos -->
-  <div class="vstack gap-4 col-md-8 mx-auto" *ngFor="let item of slices.slice(1); let eachSlice = index;">
-    <div class="card w-100">
-      <div class="card">
-        <h5 class="card-header">{{Reservas[item-1]['nombre']}}</h5>
-        <div class="card-body">
-          <div class="row-cols-1 row-cols-md-3 g-6">
-            <!-- Cada una de las reservas -->
-            <div class="card w-100" *ngFor="let each of Reservas.slice(slices[eachSlice], item); let i=index;" style="margin-top: 2%;">
-              <div class="card">
-                <div class="card-body" (click)="printIndex(i)">
-                  <!-- Informacion de la reservacion -->
-                  <h4>
-                    Fecha:
-                    <small class="text-muted"> {{fechaPretty(each['fecha'])}} </small>
-                  </h4>
-                  <h4>
-                    Hora:
-                    <small class="text-muted"> {{each['hora'].slice(11, 16)}} </small>
-                  </h4>
-                  <h4>
-                    Instructor:
-                    <small class="text-muted"> {{tengoAsesor((each['asesorNombre']))}} </small>
-                  </h4>
+<div class="vstack gap-4 col-md-8 mx-auto">
+  <div class="card w-100">
+    <div class="card">
+      <h5 class="card-header">Asesores</h5>
+      <div class="card-body">
+        <div class="row-cols-1 row-cols-md-3 g-6">
+          <!-- Cada una de las reservas -->
+          <div class="card w-100"  style="margin-top: 2%;" *ngFor="let each of ReservasAsesor;let i=index;">
+            <div class="card">
+              <div class="card-body">
+                <!-- Informacion de la reservacion -->
+                <h4>
+                  Fecha:
+                  <small class="text-muted"> {{each.fecha.slice(0, 10)}} </small>
+                </h4>
+                <h4>
+                  Hora:
+                  <small class="text-muted"> {{each.hora.slice(11, 16)}} </small>
+                </h4>
+                <h4>
+                  Quien:
+                  <small class="text-muted"> {{ each.nombre }} </small>
+                </h4>
+                <h4>
+                  Rol:
+                  <small class="text-muted"> {{ each.tipo }} </small>
+                </h4>
+                <h4>
+                  Lugar:
+                  <small class="text-muted"> {{ each.lugar }} </small>
+                </h4>
+                
+                <h4 *ngIf="getEstadoAsesor(i)==='Activa'">
+                  Estado:
+                  <small class="text-success"> Activa </small>
+                </h4>
+                <h4 *ngIf="getEstadoAsesor(i)==='En curso'">
+                  Estado:
+                  <small class="text-primary"> En curso </small>
+                </h4>
+                <h4 *ngIf="getEstadoAsesor(i)==='Cancelada'">
+                  Estado:
+                  <small class="text-danger"> Cancelada </small>
+                </h4>
 
-                  <h4 *ngIf="each['estado']=='Activa'">
-                    Estado:
-                    <small class="text-success" id="estado-html"> {{each['estado']}} </small>
-                  </h4>
-
-                  <h4 *ngIf="each['estado']=='Cancelada'">
-                    Estado:
-                    <small class="text-danger" id="estado-html"> {{each['estado']}} </small>
-                  </h4>
-
-                  <h4 *ngIf="each['estado']=='En curso'">
-                    Estado:
-                    <small class="text-primary" id="estado-html"> {{each['estado']}} </small>
-                  </h4>
-
-                  <!-- Botones -->
-                  <div class="btn-group me-2" role="group" aria-label="First group" *ngIf="marcarLlegadaBtn(i+slices[eachSlice]);">
-                    
-                    <button id = "confirmar" class="btn btn-primary" (click)="open(mymodal)"> Marcar llegada </button>
-                        <ng-template #mymodal let-modal>
-                          <div class="modal-header">
-                            <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
-                            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="marcarLlegada(i+slices[eachSlice])">
-                              <span  aria-hidden="true">×</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            Tu llegada ha sido registrada exitosamente!
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="marcarLlegada(i+slices[eachSlice])">OK</button>
-                          </div>
-                        </ng-template>
-                  </div>
-                  <!-- <div class="btn-group me-2" role="group" aria-label="Second group" *ngIf="reagendarBtn(i+slices[eachSlice]);">
-                    <button type="button" class="btn btn-warning" href="#">Reagendar</button>
-                  </div>   -->
-                  <div class="btn-group me-2" role="group" aria-label="Second group" *ngIf="cancelarReservaBtn(i+slices[eachSlice]);">
-                    <button id = "confirmar" class="btn btn-danger" (click)="open(cancel)"> Cancelar reserva</button>
-                    <ng-template #cancel let-modal>
-                      <div class="modal-header">
-                        <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
-                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="cancelarReserva(i+slices[eachSlice])">
-                          <span  aria-hidden="true">×</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        Se ha cancelado tu reservación exitosamente!
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')"  (click)="cancelarReserva(i+slices[eachSlice])">OK</button>
-                      </div>
-                    </ng-template>
-                  </div>
-                  <div class="btn-group me-2" role="group" aria-label="Second group" *ngIf="marcarSalidaBtn(i+slices[eachSlice]);">
-                    
-                    <button id = "confirmar" class="btn btn-primary" (click)="open(salida)"> Marcar salida</button>
-                    <ng-template #salida let-modal>
-                      <div class="modal-header">
-                        <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
-                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="marcarSalida(i+slices[eachSlice])">
-                          <span  aria-hidden="true">×</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        Se ha registrado su salida exitosamente!
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="marcarSalida(i+slices[eachSlice])">OK</button>
-                      </div>
-                    </ng-template>
-                  </div>  
+                <!-- Botones -->
+                <!-- Marcar Llegada -->
+                <div class="btn-group me-2" role="group" aria-label="First group" *ngIf="getEstadoAsesor(i)==='Activa'">
+                  <button id = "confirmar" class="btn btn-primary" (click)="open(mymodal)" (click)="marcarLlegadaAsesor( each.id)"> Marcar llegada </button>
+                  <ng-template #mymodal let-modal>
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+                      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="reload()">
+                        <span  aria-hidden="true">×</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      Tu llegada ha sido registrada exitosamente!
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="reload()">OK</button>
+                    </div>
+                  </ng-template>
                 </div>
+
+                <!-- Cancelar -->
+                <div class="btn-group me-2" role="group" aria-label="Second group" *ngIf="getEstadoAsesor(i)==='Activa'">
+                  <button id = "confirmar" class="btn btn-danger" (click)="open(cancel)" (click)="cancelarReservaAsesor(each.id)"> Cancelar reserva</button>
+                  <ng-template #cancel let-modal>
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+                      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="reload()">
+                        <span  aria-hidden="true">×</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      Se ha cancelado tu reservación exitosamente!
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="reload()">OK</button>
+                    </div>
+                  </ng-template>
+                </div> 
+
+                <!-- Marcar Salida -->
+                <div class="btn-group me-2" role="group" aria-label="Second group" *ngIf="getEstadoAsesor(i)==='En curso'">
+                  <button id = "confirmar" class="btn btn-primary" (click)="open(salida)" (click)="marcarSalidaAsesor(each.id)"> Marcar salida</button>
+                  <ng-template #salida let-modal>
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+                      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="reload()">
+                        <span  aria-hidden="true">×</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      Se ha registrado su salida exitosamente!
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="reload()">OK</button>
+                    </div>
+                  </ng-template>
+                </div>
+                </div>  
               </div>
             </div>
-            <br>
           </div>
+          <br>
         </div>
       </div>
     </div>
