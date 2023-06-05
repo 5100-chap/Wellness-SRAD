@@ -196,7 +196,6 @@ export class GimnasioComponent implements OnInit {
         });
       });
     });
-    this.finesDeSemana("20:30:40");
   }
 
   // Obtener el rango de días de la semana, desde lunes hasta domingo, en base a la semana que seleccionó
@@ -251,11 +250,11 @@ export class GimnasioComponent implements OnInit {
     if(this.diaPasado(dia, hora)){
       return false;
     }
-    else if(!this.diaPasado(dia, hora) && this.listaDeHorariosReservados.length===0){
-      return true;
-    }
     else if(dia>4 && this.finesDeSemana(hora)){
       return false;
+    }
+    else if(!this.diaPasado(dia, hora) && this.listaDeHorariosReservados.length===0){
+      return true;
     }
     let yaExistenEseDia = 0;
     for(let each of this.listaDeHorariosReservados){
