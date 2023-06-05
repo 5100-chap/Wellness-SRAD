@@ -120,7 +120,7 @@
     <br>
   </div>
 
-  <div class="vstack gap-4 col-md-8 mx-auto">
+  <div class="vstack gap-4 col-md-8 mx-auto" *ngIf="ReservasAsesor.length!==0">
     <div class="card w-100">
       <div class="card">
         <h5 class="card-header">Asesores</h5>
@@ -232,6 +232,15 @@
       </div>
       <br>
     </div>
+
+  <!-- No haya reservas que mostrar -->
+  <div class="vstack gap-4 col-md-8 mx-auto" *ngIf="ReservasAsesor.length===0 && Reservas.length===0">
+    <div class="card w-100">
+      <div class="card">
+        <h1 class="card-header">No hay reservas que mostrar</h1>
+      </div>
+    </div>
+  </div>
 
 
 
