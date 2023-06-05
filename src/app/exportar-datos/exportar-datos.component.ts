@@ -29,8 +29,8 @@ export class ExportarDatosComponent {
   exportarAforoCSV(id: number, areaNombre: string) {
     const nombreArchivo = areaNombre +"_Aforo_"+ this.dateControl.value + ".csv";
     const semana = this.selectedDate;
-    this.apiservice.getIngresosAforo(id, semana).subscribe((usuarios: IngresosMonitor[]) => {
-      this.usuarios = usuarios;
+    this.apiservice.getIngresosAforo(id, semana).subscribe((data: IngresosMonitor[]) => {
+      this.usuarios = data;
       const csvContent = this.convertArrayToCSV(this.usuarios);
       const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
       saveAs(blob, nombreArchivo);
@@ -39,17 +39,6 @@ export class ExportarDatosComponent {
     });
 
   }
-
-
-  
-  // GuardarAforo(id: number, formattedDate: any) {
-  //   this.apiservice.getIngresosAforo(id, formattedDate).subscribe((usuarios: IngresosMonitor[]) => {
-  //     this.usuarios = usuarios;
-  //     console.log(usuarios);
-  //   }, (error) => {
-  //     console.log(error);
-  //   });
-  // }
 
   convertArrayToCSV(array: any[]): string {
     const csvRows = [];

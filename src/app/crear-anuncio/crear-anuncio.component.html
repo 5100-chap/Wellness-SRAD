@@ -212,32 +212,31 @@
 
         <div class="input-group">
 
-        <button class="btn btn-success btn-lg" id="btn" style="font-size: 1.7rem;" [disabled]="NuevoAnuncioForm.invalid" (click)="open(mymodal)" (click)="enviar(fechaEventoInicio.value, fechaEventoFin.value, ubicacion.value, descripcion.value, DuracionAnuncioInicio.value, DuracionAnuncioFin.value, imagen.value, titulo.value)">Guardar </button>
-               
+            <button class="btn btn-success btn-lg" id="btn" style="font-size: 1.7rem;" [disabled]="NuevoAnuncioForm.invalid" (click)="open(mymodal)" (click)="enviar(fechaEventoInicio.value, fechaEventoFin.value, ubicacion.value, descripcion.value, DuracionAnuncioInicio.value, DuracionAnuncioFin.value, imagen.value, titulo.value)">Guardar </button>
 
-        <ng-template #mymodal let-modal>
-        <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
-            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span  aria-hidden="true">×</span>
-            </button>
         </div>
-        <div class="modal-body">
-            Anuncio creado correctamente!
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="this.refresh()">OK</button>
-        </div>
-        </ng-template>
 
-    </div>
+        <div style="color: #aa730d" *ngIf="NuevoAnuncioForm.invalid">
+            Favor de ingresar todos los datos
+        </div> 
 
-    <div style="color: #aa730d" *ngIf="NuevoAnuncioForm.invalid">
-        Favor de ingresar todos los datos
     </div> 
 
-        
+</div>
+
+
+<ng-template #mymodal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span  aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Anuncio creado correctamente!
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="this.refresh()">OK</button>
     </div>
     
-
-</div>
+</ng-template>

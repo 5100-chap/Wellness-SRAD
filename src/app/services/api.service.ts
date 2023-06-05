@@ -19,8 +19,10 @@ import { IngresosMonitor } from '../models/ingresos-monitor';
 import { ReservasCasillero } from '../models/reservas-casillero';
 import { MonitorReservas } from '../models/monitor-reservas';
 import { InfoNombreAreasD } from '../models/info-nombre-areas-d';
-import { AsesorInfo } from '../models/asesor-info';
 import { ReservaAsesor } from '../models/reserva-asesor';
+import { AsesorInfo } from '../models/asesor-info';
+import { ReservaAsesorAlumno } from '../models/reserva-asesor-alumno';
+import { ExisteAlumno } from '../models/existe-alumno';
 
 
 @Injectable({
@@ -102,6 +104,22 @@ export class ApiService {
   }
 
 
+  //Saber si existe un alumno en la base de datos
+  consultarAlumno(matricula: string): Observable<ExisteAlumno[]> {
+    return this.http.post<ExisteAlumno[]>('/api/existeAlumno', { matricula: matricula});
+  }
+
+  //Marcar la llegada de un alumno al gimnasio desde la pantalla del administrador
+  marcarLlegadaGimnasioAlumno(matricula: string, dia: string, hora: string){
+    return this.http.post('/api/marcarLlegadaAlumnoManual', { 
+      matricula: matricula,
+      dia: dia,
+      hora: hora 
+    });
+  }
+
+
+  //Marcar la llegada de un alumno desde la pantalla del alumno
   marcar(usuario: String, area_id: number) {
     return this.http.post('/api/marcarLlegada', {
       usuario: usuario || '',
@@ -326,6 +344,32 @@ export class ApiService {
   getIngresosAforo( idArea: number, weekday: string): Observable<IngresosMonitor[]> {
     
     return this.http.get<IngresosMonitor[]>(`/api/ExportarAforo?Id=${idArea}&Date=${weekday}`);
+  }
+
+  getReservasAsesorDeAlumno(usuario: string): Observable<ReservaAsesorAlumno[]>{
+    return this.http.post<ReservaAsesorAlumno[]>('/api/getReservasAsesorDeAlumno', {
+      usuario: usuario
+    });
+  }
+
+  marcarLlegadaAsesor(hora: string, id: number){
+    return this.http.post('/api/marcarLlegadaAsesor', {
+      hora: hora,
+      id: id
+    });
+  }
+
+  marcarSalidaAsesor(hora: string, id: number){
+    return this.http.post('/api/marcarSalidaAsesor', {
+      hora: hora,
+      id: id
+    });
+  }
+
+  cancelarReservaAsesor(id: number){
+    return this.http.post('/api/cancelarReservaAsesor', {
+      id: id
+    });
   }
   
 }

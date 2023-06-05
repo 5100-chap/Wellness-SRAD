@@ -243,4 +243,18 @@ router.post('/api/createReservaAsesor', async(req, res, next)=>{
     }
 });
 
+// Obtener reservas de asesor del estudiante
+router.post('/api/getReservasAsesorDeAlumno', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();
+        const hoy = new Date();
+        const result = await request.query(`EXEC [dbo].[GetReservasAsesorDeAlumno] '${req.body.usuario}', '${hoy.getFullYear()}-${(hoy.getMonth+1>9)?hoy.getMonth()+1:`0${hoy.getMonth()+1}`}-${(hoy.getDate()>9)?hoy.getDate():`0${hoy.getDate()}`}';`);
+        res.json(result.recordset);
+    }
+    catch(error){
+        console.log(error);
+        res.json(error);
+    }
+});
+
 module.exports = router;
