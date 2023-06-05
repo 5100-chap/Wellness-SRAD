@@ -5,9 +5,9 @@ const cancelAuto = async () => {
     try {
         const now = new Date();
         const consulta = `UPDATE Reservacion SET estado = 'Cancelada' WHERE fecha <= '${now.getFullYear()}-${(now.getMonth()+1>9)?now.getMonth()+1:`0${now.getMonth()+1}`}-${now.getDate()}' AND DATEADD(MINUTE, 15, CAST(hora AS TIME)) <= CAST('${now.getHours()}:${(now.getMinutes()>9)?now.getMinutes():`0${now.getMinutes()}`}:${(now.getSeconds()>9)?now.getSeconds():`0${now.getSeconds()}`}' AS TIME) AND estado != 'Completada' AND estado != 'En curso';`;
-        console.log(consulta);
+        // console.log(consulta);
         const result = await request.query(consulta);
-        console.log(result.recordset);
+        // console.log(result.recordset);
     } catch(err) {
         console.error('Error executing query:', err);
     }

@@ -42,19 +42,48 @@ acceptcharset="utf-8" role="form" >
     <div class="input-group mb-3">
       <span class="input-group-text" id="title" >Número de aforo</span>
       <input type="number" formControlName="aforo" tabindex="2" required autocomplete="off" class="form-control" placeholder="Insertar aforo aquí" aria-label="Username" aria-describedby="basic-addon1" min="1">
-
-      
     </div>
+
       <!--Validar si el campo número de aforo está vacio -->
       <span *ngIf="this.NuevaAreaForm.get('aforo')?.errors?.['required']"  style= "color: rgba(203, 23, 10, 0.913);">
         El aforo no puede quedar vacío
       </span>
 
-       
-
-
 
   </div>
+</div>
+
+<br>
+
+<div class="row" style="margin-left: 1.5%;">
+  <div class = "col-md-6 mt-2" >
+
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="title">Hora de apertura</span>
+      <input formControlName="horaInicio" style="font-size: 1.5rem" type="time" id="start" name="trip-start"/>
+    </div>
+
+    <!--Validar si el campo ubicación está vacio -->
+    <span *ngIf="this.NuevaAreaForm.get('horaInicio')?.errors?.['required']"  style= "color: rgba(203, 23, 10, 0.913);">
+      La hora de apertura no puede estar vacia
+    </span>
+
+  </div>
+
+  <div class = "col-md-5 mt-2" >
+
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="title">Hora de cierre</span>
+      <input formControlName="horaFinal" style="font-size: 1.5rem" type="time" id="start" name="trip-start"/>
+    </div>
+
+    <!--Validar si el campo ubicación está vacio -->
+    <span *ngIf="this.NuevaAreaForm.get('horaFinal')?.errors?.['required']"  style= "color: rgba(203, 23, 10, 0.913);">
+      La hora de cierre no puede estar vacia
+    </span>
+
+  </div>
+
 </div>
 
 <br>

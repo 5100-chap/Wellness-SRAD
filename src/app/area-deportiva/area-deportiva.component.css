@@ -97,6 +97,7 @@ button:hover {
 	background: #003399;
 	border-color: transparent;
 	color: white;
+	border-radius: 0.3rem;
 }
 
 .materiales-list {
@@ -109,4 +110,10 @@ button:hover {
 
 .materiales-list li {
 	margin-bottom: 5px;
+}
+
+#btn-disabled{
+	background: #c2c2c2;
+	border-color: transparent;
+	color: black;
 }
