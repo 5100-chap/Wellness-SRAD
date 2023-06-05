@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ReservasAlumno } from './../models/reservas-alumno.model';
 import { AsesorNombre } from './../models/asesor-nombre';
@@ -355,4 +355,18 @@ export class ApiService {
     });
   }
   
+  //Añade las llamadas para subir archivos
+  upload(file: File): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+
+    formData.append('file', file);
+
+    const req = new HttpRequest('POST', '/api/upload', formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(req);
+  }
+
 }

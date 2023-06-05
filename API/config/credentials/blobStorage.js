@@ -6,3 +6,5 @@ const AZURE_STORAGE_CONNECTION_STRING = process.env.AZURE_STORAGE_CONNECTION_STR
 
 // Crea un cliente de servicio blob de Azure Storage
 const blobServiceClient = BlobServiceClient.fromConnectionString(AZURE_STORAGE_CONNECTION_STRING);
+
+module.exports = blobServiceClient;
