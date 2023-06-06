@@ -11,7 +11,6 @@ import { FileUploadService } from 'src/app/services/file-upload.service';
 export class ImageUploadComponent implements OnInit {
   @Input() uploadId?: number;
   @Input() uploadType?: string;
-  selectedFiles?: FileList;
   currentFile?: File;
   progress = 0;
   message = '';
@@ -23,60 +22,27 @@ export class ImageUploadComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  selectFile(event: any): void {
-    this.message = '';
-    this.preview = '';
-    this.progress = 0;
-    this.selectedFiles = event.target.files;
-
-    if (this.selectedFiles) {
-      const file: File | null = this.selectedFiles.item(0);
-
-      if (file) {
-        this.preview = '';
-        this.currentFile = file;
-
-        const reader = new FileReader();
-
-        reader.onload = (e: any) => {
-          console.log(e.target.result);
-          this.preview = e.target.result;
-        };
-
-        reader.readAsDataURL(this.currentFile);
-      }
-    }
-  }
-
-  upload(uploadType : string = ''): void {
+  upload(): void {
     this.progress = 0;
 
-    if (this.selectedFiles) {
-      const file: File | null = this.selectedFiles.item(0);
-
-      if (file) {
-        this.currentFile = file;
-
-        switch (this.uploadType) {
-          case 'reserva':
-            this.uploadFile(this.currentFile, this.uploadId);
-            break;
-          case 'anuncio':
-            this.uploadFile(this.currentFile, undefined, this.uploadId);
-            break;
-          case 'area':
-            this.uploadFile(
-              this.currentFile,
-              undefined,
-              undefined,
-              this.uploadId
-            );
-            break;
-          default:
-            console.log('Tipo de carga no reconocido');
-        }
-
-        this.selectedFiles = undefined;
+    if (this.currentFile) {
+      switch (this.uploadType) {
+        case 'reserva':
+          this.uploadFile(this.currentFile, this.uploadId);
+          break;
+        case 'anuncio':
+          this.uploadFile(this.currentFile, undefined, this.uploadId);
+          break;
+        case 'area':
+          this.uploadFile(
+            this.currentFile,
+            undefined,
+            undefined,
+            this.uploadId
+          );
+          break;
+        default:
+          console.log('Tipo de carga no reconocido');
       }
     }
   }
@@ -108,5 +74,17 @@ export class ImageUploadComponent implements OnInit {
         this.currentFile = undefined;
       },
     });
+  }
+
+  onFileSelected(file: File) {
+    this.currentFile = file;
+
+    const reader = new FileReader();
+
+    reader.onload = (e: any) => {
+      this.preview = e.target.result;
+    };
+
+    reader.readAsDataURL(this.currentFile);
   }
 }
