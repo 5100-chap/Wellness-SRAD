@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FileUploadService } from 'src/app/services/file-upload.service';
@@ -6,9 +6,11 @@ import { FileUploadService } from 'src/app/services/file-upload.service';
 @Component({
   selector: 'app-image-upload',
   templateUrl: './image-upload.component.html',
-  styleUrls: ['./image-upload.component.css']
+  styleUrls: ['./image-upload.component.css'],
 })
 export class ImageUploadComponent implements OnInit {
+  @Input() uploadId?: number;
+  @Input() uploadType?: string;
   selectedFiles?: FileList;
   currentFile?: File;
   progress = 0;
@@ -19,9 +21,7 @@ export class ImageUploadComponent implements OnInit {
 
   constructor(private uploadService: FileUploadService) {}
 
-  ngOnInit(): void {
-    this.imageInfos = this.uploadService.getFiles();
-  }
+  ngOnInit(): void {}
 
   selectFile(event: any): void {
     this.message = '';
@@ -48,7 +48,7 @@ export class ImageUploadComponent implements OnInit {
     }
   }
 
-  upload(): void {
+  upload(uploadType : string = ''): void {
     this.progress = 0;
 
     if (this.selectedFiles) {
@@ -57,31 +57,56 @@ export class ImageUploadComponent implements OnInit {
       if (file) {
         this.currentFile = file;
 
-        this.uploadService.upload(this.currentFile).subscribe({
-          next: (event: any) => {
-            if (event.type === HttpEventType.UploadProgress) {
-              this.progress = Math.round((100 * event.loaded) / event.total);
-            } else if (event instanceof HttpResponse) {
-              this.message = event.body.message;
-              this.imageInfos = this.uploadService.getFiles();
-            }
-          },
-          error: (err: any) => {
-            console.log(err);
-            this.progress = 0;
+        switch (this.uploadType) {
+          case 'reserva':
+            this.uploadFile(this.currentFile, this.uploadId);
+            break;
+          case 'anuncio':
+            this.uploadFile(this.currentFile, undefined, this.uploadId);
+            break;
+          case 'area':
+            this.uploadFile(
+              this.currentFile,
+              undefined,
+              undefined,
+              this.uploadId
+            );
+            break;
+          default:
+            console.log('Tipo de carga no reconocido');
+        }
 
-            if (err.error && err.error.message) {
-              this.message = err.error.message;
-            } else {
-              this.message = 'Could not upload the image!';
-            }
-
-            this.currentFile = undefined;
-          },
-        });
+        this.selectedFiles = undefined;
       }
-
-      this.selectedFiles = undefined;
     }
+  }
+
+  uploadFile(
+    file: File,
+    id_reserva?: number,
+    id_anuncio?: number,
+    id_area?: number
+  ): void {
+    this.uploadService.upload(file, id_reserva, id_anuncio, id_area).subscribe({
+      next: (event: any) => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.progress = Math.round((100 * event.loaded) / event.total);
+        } else if (event instanceof HttpResponse) {
+          this.message = event.body.message;
+        }
+      },
+      error: (err: any) => {
+        console.log(err);
+        this.progress = 0;
+
+        if (err.error && err.error.message) {
+          this.message = err.error.message;
+        } else {
+          this.message = 'Could not upload the image!';
+        }
+
+        this.currentFile = undefined;
+      },
+    });
   }
 }

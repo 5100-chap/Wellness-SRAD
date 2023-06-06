@@ -354,19 +354,4 @@ export class ApiService {
       id: id
     });
   }
-  
-  //Añade las llamadas para subir archivos
-  upload(file: File): Observable<HttpEvent<any>> {
-    const formData: FormData = new FormData();
-
-    formData.append('file', file);
-
-    const req = new HttpRequest('POST', '/api/upload', formData, {
-      reportProgress: true,
-      responseType: 'json'
-    });
-
-    return this.http.request(req);
-  }
-
 }

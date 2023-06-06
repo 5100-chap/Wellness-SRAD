@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const sql = require("mssql");
+const fs = require("fs");
 
 const multer = require("multer");
 const upload = multer({ dest: 'uploads/' }); // sube los archivos a la carpeta 'uploads'
@@ -11,7 +12,7 @@ router.post('/api/upload', upload.single('image'), async (req, res, next) => {
     try {
         // Sube el archivo a Blob Storage
         const blobName = Date.now() + req.file.originalname;
-        const containerClient = blobServiceClient.getContainerClient('mycontainer'); // reemplaza 'mycontainer' con el nombre de tu contenedor
+        const containerClient = blobServiceClient.getContainerClient('wellness-files'); // reemplaza 'mycontainer' con el nombre de tu contenedor
         const blockBlobClient = containerClient.getBlockBlobClient(blobName);
         const uploadBlobResponse = await blockBlobClient.uploadStream(fs.createReadStream(req.file.path));
 
