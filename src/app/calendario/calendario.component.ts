@@ -38,26 +38,6 @@ export class CalendarioComponent implements OnInit{
   ngOnInit() {
     this.getTodasReservasAlumno();
 
-    var arr = [
-      {
-        title: "Gimnasio",
-        start: "2023-06-02T12:00:00",
-        end: "2023-06-02T14:00:00",
-      },
-      {
-        title: "Gimnasio",
-        start: "2023-06-12T16:00:00",
-        end: "2023-06-12T18:00:00"
-      },
-      {
-        title: "Gimnasio",
-        start: "2023-06-20T10:00:00",
-        end: "2023-06-20T12:00:00"
-      },
-    ]
-    console.log("arr.slice(1,2 : " + arr.slice(1,2));
-
-
 /*
     this.events = [
       {
