@@ -23,6 +23,7 @@ import { ReservaAsesor } from '../models/reserva-asesor';
 import { AsesorInfo } from '../models/asesor-info';
 import { ReservaAsesorAlumno } from '../models/reserva-asesor-alumno';
 import { ExisteAlumno } from '../models/existe-alumno';
+import { Eventos } from '../models/event.model';
 
 
 @Injectable({
@@ -370,6 +371,13 @@ export class ApiService {
     return this.http.post('/api/cancelarReservaAsesor', {
       id: id
     });
+  }
+
+  getEventos(titulo: string, inicio: Date, fin?:Date){
+    return this.http.get('/api/getEventos', {
+   
+
+    })
   }
   
 }

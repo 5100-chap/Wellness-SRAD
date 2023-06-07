@@ -62,20 +62,6 @@ export class ListaReservasComponent {
     return `${(now.getHours()>9)?now.getHours():`0${now.getHours()}`}:${(now.getMinutes()>9)?now.getMinutes():`0${now.getMinutes()}`}:${(now.getSeconds()>9)?now.getSeconds():`0${now.getSeconds()}`}`;
   }
 
-  // Marcar Llegada Asesor
-  marcarLlegadaAsesor(id: number){
-    this.apiService.marcarLlegadaAsesor(this.generateHoraActualString(), id).subscribe();
-  }
-
-  // Marcar Salida Asesor
-  marcarSalidaAsesor(id: number){
-    this.apiService.marcarSalidaAsesor(this.generateHoraActualString(), id);
-  }
-
-  // Cancelar Reserva Asesor
-  cancelarReservaAsesor(id: number){
-    this.apiService.cancelarReservaAsesor(id).subscribe(error=>{});
-  }
 
   getEstadoAsesor(index: number): string{
     if(this.ReservasAsesor[index].llegada === null && !this.ReservasAsesor[index].cancelada){

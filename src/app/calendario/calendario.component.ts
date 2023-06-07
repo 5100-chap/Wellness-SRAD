@@ -8,8 +8,12 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 
 import esLocale from '@fullcalendar/core/locales/es';
-import { Event } from '../models/event.model';
+import { Eventos } from '../models/event.model';
 import { Anuncio } from '../models/anuncio';
+import { ReservasAlumno } from '../models/reservas-alumno.model';
+import { ReservaAsesorAlumno } from '../models/reserva-asesor-alumno';
+
+
 
 
 
@@ -23,18 +27,36 @@ import { Anuncio } from '../models/anuncio';
 
 
 export class CalendarioComponent implements OnInit{
-  public event : Event;
+  public event : Event[];
   public events: any[];
   public options: any;
 
   constructor(private apiService: ApiService, private authService: AuthService) {
-    this.event = new Event();
-
    
   }
 
   ngOnInit() {
-    this.getCasillerosDis();
+    this.getTodasReservasAlumno();
+
+    var arr = [
+      {
+        title: "Gimnasio",
+        start: "2023-06-02T12:00:00",
+        end: "2023-06-02T14:00:00",
+      },
+      {
+        title: "Gimnasio",
+        start: "2023-06-12T16:00:00",
+        end: "2023-06-12T18:00:00"
+      },
+      {
+        title: "Gimnasio",
+        start: "2023-06-20T10:00:00",
+        end: "2023-06-20T12:00:00"
+      },
+    ]
+    console.log("arr.slice(1,2 : " + arr.slice(1,2));
+
 
 /*
     this.events = [
@@ -102,14 +124,19 @@ export class CalendarioComponent implements OnInit{
     }
   };
 
-  anuncios : Anuncio [] = [];
+  Reservas!: ReservasAlumno[];
+  slices: number[] = [];
 
-  getCasillerosDis(){
-    this.apiService.getAnuncios().subscribe((data: Anuncio[]) => {
-      this.anuncios = data;
-      console.log(this.anuncios)
-      
+  getTodasReservasAlumno(){
+    const usuario = this.authService.currentUserValue['username'];
+    this.apiService.getTodasReservasAlumno(usuario).subscribe((data: ReservasAlumno[])=>{
+      this.Reservas = data;
+      console.log(this.Reservas);
     });
+
+    error=>{
+      console.error('Error fetching all reservas from alumno --> ', error);
+    };
   }
 
 
