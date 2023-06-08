@@ -62,8 +62,8 @@
                     style="color: #E30F0B;"> {{locker.estatus ? 'Reservado' : 'Disponible'}} </strong>
                 </h2>
 
-                <div class="text-center" style="margin-top: 22%;">
-                  <button id="btn" style="font-size: 1.5rem;" (click)="actulizarCasilleroSelecccionado(locker)">
+                <div class="text-center" style="margin-top: 17%;">
+                  <button id="btn" style="font-size: 1.5rem;" (click)="actulizarCasilleroSelecccionado(locker)"> 
                     Seleccionar
                   </button>
                 </div>
@@ -138,13 +138,17 @@
         <div class="card border border-grey border border-2" style="margin-bottom: 2%;">
 
           <div style="margin-left: 1%; margin-top: 1%; margin-bottom: 1%;">
-            <h5> <Strong> Número de casillero: </Strong> {{this.CasilleroReservado.id_casillero}}</h5>
-            <h5> <Strong> Ubicación: </Strong> {{this.CasilleroReservado.ubicacion}}</h5>
-            <h5> <Strong> Estado de la reserva: </Strong> <strong *ngIf="this.CasilleroReservado.estatus == false"
-                style="color: #0653d9;"> {{this.CasilleroReservado.estatus ? 'Aprobada' : 'En revisión'}} </strong>
-              <strong *ngIf="this.CasilleroReservado.estatus == true" style="color: #1a8106;">
-                {{this.CasilleroReservado.estatus ? 'Aprobada' : 'En revisión'}} </strong>
+            <h5 > <Strong> Número de casillero: </Strong> {{this.CasilleroReservado.id_casillero}}</h5>
+            <h5 > <Strong> Ubicación: </Strong> {{this.CasilleroReservado.ubicacion}}</h5>
+            <h5 > <Strong> Estado de la reserva: </Strong> 
+              <strong *ngIf="this.CasilleroReservado.estado == 'En revisión'" style="color: #0653d9;" > {{this.CasilleroReservado.estado}} </strong> 
+              <strong *ngIf="this.CasilleroReservado.estado == 'Confirmada' " style="color: #1a8106;" > {{this.CasilleroReservado.estado}} </strong>
+              <strong *ngIf="this.CasilleroReservado.estado == 'Cancelada' " style="color: #cb1605;" > {{this.CasilleroReservado.estado}} </strong>
             </h5>
+            
+            <br>
+            <h5 *ngIf="this.CasilleroReservado.estado == 'Cancelada' "> &#9888; Su reserva ha sido cancelada por el administrador por problemas con su comprobante de pago. <br> <br>
+              &#9888; Si desea hacer otra reservación haga clic en el siguiente botón.</h5>
 
           </div>
 
@@ -247,10 +251,13 @@
         </ng-template>
 
       </div>
-      <!-- Seccion del Preview de Comprobante, esto se encuentra en el componente de image-upload -->
-      <app-image-upload *ngIf="this.checarImagenSubida()" #imageUploadComponent [uploadId]="this.CasilleroReservado.id_casillero"
-        [uploadType]="'reservaLockers'"></app-image-upload>
-    </div>
+         <!-- Seccion del Preview de Comprobante, esto se encuentra en el componente de image-upload -->
+         <div *ngIf="this.CasilleroReservado.estado == 'En revisión'">
+          <app-image-upload *ngIf="this.checarImagenSubida()" #imageUploadComponent [uploadId]="this.CasilleroReservado.id_casillero"
+          [uploadType]="'reservaLockers'"></app-image-upload>
+         </div>
+        
+      </div>
 
 
     <!-- Reseñas -->

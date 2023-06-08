@@ -266,10 +266,25 @@
 
         <div style="color: #aa730d" *ngIf="NuevoAnuncioForm.invalid">
             Favor de ingresar todos los datos
-        </div>
+        </div> 
 
-
-    </div>
-
+    </div> 
 
 </div>
+
+
+<ng-template #mymodal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span  aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Anuncio creado correctamente!
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="this.refresh()">OK</button>
+    </div>
+    
+</ng-template>

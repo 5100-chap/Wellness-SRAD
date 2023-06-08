@@ -4,6 +4,10 @@ import { saveAs } from 'file-saver';
 import { IngresosMonitor } from '../models/ingresos-monitor';
 import { ApiService } from '../services/api.service';
 import { DatePipe, Time } from '@angular/common';
+import {FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { ExisteAlumno } from '../models/existe-alumno';
+import { ChangeDetectorRef } from '@angular/core';
+
 
 
 
@@ -17,22 +21,34 @@ declare var window: any;
 export class MonitorIngresosComponent {
 
   //Definición de variables
-  constructor(private modalService: NgbModal, private apiservice:ApiService) {}
+
+  constructor(private modalService: NgbModal, private apiservice:ApiService, private cdr: ChangeDetectorRef) {}
+
   closeResult: string = '';
   today = new Date();
   ingresos : IngresosMonitor[] = [];
   temp !: string;
+  existe : ExisteAlumno[] = [];
+
+  modalBody: string = 'Esperando...';
 
   /** Pipe para darle formato la fecha y hora*/
   pipe = new DatePipe('es');
 
   changedDate = this.pipe.transform(this.today, 'YYYY-MM-dd');
+
+
+  /*Definición del formulario para la validación de los campos */
+     
+  NuevoIngresoForm = new FormGroup({
+    matricula: new FormControl('', [Validators.required, Validators.pattern(/^A0.*/), Validators.maxLength(9)]),
+  
+  });
   
 
 
   //Función para formatear la hora
   formatHora(hora: string){
-   
     let horaFormateada = this.pipe.transform(hora, 'hh:mm:ss a', 'GMT');
     return horaFormateada
   }
@@ -70,7 +86,42 @@ export class MonitorIngresosComponent {
     let horaSalidaFormateada = hora + ":" + minutos + ":" + segundos
 
     this.apiservice.marcarSalidaAlumnoManual(horaSalidaFormateada,matricula,horaEntrada).subscribe(error => {
-      console.error('Error fetching area id status', error);
+      console.error(error);
+    
+      this.modalBody = "Salida registrada correctamente!"
+
+
+    });
+
+  }
+
+  //Función para marcar un ingreso de un alumno de forma manual
+  marcarLlegada(matricula: string){
+
+    let hora = String(this.today.getHours() )
+    let minutos = String(this.today.getMinutes())
+    let segundos = String(this.today.getSeconds())
+  
+    let horaFormateada = hora + ":" + minutos + ":" + segundos
+
+    const res = String(this.changedDate)
+
+    
+    this.apiservice.consultarAlumno(matricula).subscribe((data: ExisteAlumno[]) => {
+      this.existe = data;
+
+      if(this.existe[0].existe == 0){
+        this.modalBody = "Matricula no registrada"
+        
+
+      } else if(this.existe[0].existe == 1){
+
+        this.apiservice.marcarLlegadaGimnasioAlumno(matricula, res, horaFormateada).subscribe(error => {
+          console.error(error);
+          this.modalBody = "Llegada registrada correctamente!"
+
+        });
+      }
     });
   }
 
@@ -141,6 +192,8 @@ ngOnInit(): void{
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       this.refresh();
       return 'by clicking on a backdrop';
+    } else if(reason == "okay"){
+      return 'okay'
     } else {
       this.refresh();
       return  `with: ${reason}`;
