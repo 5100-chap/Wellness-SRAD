@@ -373,11 +373,13 @@ export class ApiService {
     });
   }
 
-  getEventos(titulo: string, inicio: Date, fin?:Date){
-    return this.http.get('/api/getEventos', {
-   
+  getEventos(matricula: string): Observable<Eventos[]>{
+    return this.http.post<Eventos[]>('/api/getEventos', {
+      usuario: matricula
+    });
 
-    })
   }
+
+
   
 }

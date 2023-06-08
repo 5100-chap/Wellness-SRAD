@@ -1,5 +1,5 @@
 export class Eventos {
-    desc: string;
-    inicio: Date;
-    fin?: Date;
+    title: string;
+    start: Date;
+    end : Date;
 }

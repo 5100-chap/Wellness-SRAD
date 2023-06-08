@@ -261,7 +261,7 @@ router.post('/api/getEventos', async(req, res, next)=>{
     try{
         var request = new sql.Request();
         var hoy = new Date();
-        var result = await request.query(`EXEC [dbo].[GetTodasReservasAlumno] \'${req.body.usuario}\', '${hoy.getFullYear()}-${(hoy.getMonth+1>9)?hoy.getMonth()+1:`0${hoy.getMonth()+1}`}-${(hoy.getDate()>9)?hoy.getDate():`0${hoy.getDate()}`}';`);
+        var result = await request.query(`EXEC [dbo].[GetEventos] \'${req.body.usuario}\';`);
         res.json(result.recordset);
     }
     catch(error){

@@ -31,6 +31,8 @@ export class CalendarioComponent implements OnInit{
   public events: any[];
   public options: any;
 
+  
+
   constructor(private apiService: ApiService, private authService: AuthService) {
    
   }
@@ -38,30 +40,8 @@ export class CalendarioComponent implements OnInit{
   ngOnInit() {
     this.getTodasReservasAlumno();
 
-/*
-    this.events = [
-      {
-        title: "Gimnasio",
-        start: "2023-06-02T12:00:00",
-        end: "2023-06-02T14:00:00",
-      },
-      {
-        title: "Gimnasio",
-        start: "2023-06-12T16:00:00",
-        end: "2023-06-12T18:00:00"
-      },
-      {
-        title: "Gimnasio",
-        start: "2023-06-20T10:00:00",
-        end: "2023-06-20T12:00:00"
-      },
-      {
-        title: "Crossfit",
-        start: "2023-06-20T13:00:00",
-        end: "2023-06-20T1:00:00"
-      },
-    ]
-    */
+
+
 
 
   }
@@ -74,33 +54,27 @@ export class CalendarioComponent implements OnInit{
       hour: '2-digit',
       minute: '2-digit',
       omitZeroMinute: true,
-      meridiem: 'short',
-      hour12: true
+      meridiem: 'short'
     },
     nowIndicator: true,
     plugins: [dayGridPlugin, timeGridPlugin, bootstrap5Plugin],
     headerToolbar: {
       left: 'title',
       center: '',
-      right: 'prev,today,next dayGridMonth,timeGridWeek,timeGridDay'
+      right: 'prev,today,next dayGridMonth'
     },
     themeSystem: 'bootstrap5',
     eventTimeFormat: {
       hour: '2-digit',
-      minute: '2-digit',
-      hour12: true,
+      minute: '2-digit'
     },
+    displayEventTime: false,
     dayHeaderFormat:{
       weekday:'long'
     },
     buttonText: {
       prev: '<',
       next: '>'
-    },
-    views: {
-      timeGridWeek: {
-        hour12: true
-      }
     }
   };
 
@@ -109,8 +83,9 @@ export class CalendarioComponent implements OnInit{
 
   getTodasReservasAlumno(){
     const usuario = this.authService.currentUserValue['username'];
-    this.apiService.getTodasReservasAlumno(usuario).subscribe((data: ReservasAlumno[])=>{
-      this.Reservas = data;
+    this.apiService.getEventos(usuario).subscribe((data: Eventos[])=>{
+      this.events = data;
+     // this.events = data;
       console.log(this.Reservas);
     });
 
