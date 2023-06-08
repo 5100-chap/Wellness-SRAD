@@ -30,7 +30,7 @@
                   <!-- Informacion de la reservacion -->
                   <h4>
                     Fecha:
-                    <small class="text-muted"> {{fechaPretty(each['fecha'])}} </small>
+                    <small class="text-muted"> {{fechaPretty(each.fecha)}} </small>
                   </h4>
                   <h4>
                     Hora:
@@ -54,8 +54,7 @@
 
                   <!-- Botones -->
                   <div class="btn-group me-2" role="group" aria-label="First group" *ngIf="marcarLlegadaBtn(i+slices[eachSlice]);">
-                    
-                    <button id = "confirmar" class="btn btn-primary" (click)="open(mymodal)" (click)="marcarLlegada(i+slices[eachSlice])"> Marcar llegada </button>
+                    <button *ngIf="fechaPretty(each.fecha) == fechaPretty(this.tdy)" id = "confirmar" class="btn btn-primary" (click)="open(mymodal)" (click)="marcarLlegada(i+slices[eachSlice])"> Marcar llegada </button>
                         <ng-template #mymodal let-modal>
                           <div class="modal-header">
                             <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
@@ -133,7 +132,7 @@
                   <!-- Informacion de la reservacion -->
                   <h4>
                     Fecha:
-                    <small class="text-muted"> {{each.fecha.slice(0, 10)}} </small>
+                    <small class="text-muted"> {{fechaPretty(each.fecha)}} </small>
                   </h4>
                   <h4>
                     Hora:
@@ -168,7 +167,7 @@
                   <!-- Botones -->
                   <!-- Marcar Llegada -->
                   <div class="btn-group me-2" role="group" aria-label="First group" *ngIf="getEstadoAsesor(i)==='Activa'">
-                    <button id = "confirmar" class="btn btn-primary" (click)="open(mymodal)" (click)="marcarLlegadaAsesor( each.id)"> Marcar llegada </button>
+                    <button *ngIf="fechaPretty(each.fecha) == fechaPretty(this.tdy)" id = "confirmar" class="btn btn-primary" (click)="open(mymodal)" (click)="marcarLlegadaAsesor( each.id)"> Marcar llegada </button>
                     <ng-template #mymodal let-modal>
                       <div class="modal-header">
                         <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
