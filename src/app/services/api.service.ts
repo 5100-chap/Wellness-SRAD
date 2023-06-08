@@ -23,6 +23,7 @@ import { ReservaAsesor } from '../models/reserva-asesor';
 import { AsesorInfo } from '../models/asesor-info';
 import { ReservaAsesorAlumno } from '../models/reserva-asesor-alumno';
 import { ExisteAlumno } from '../models/existe-alumno';
+import { Time } from '@angular/common';
 
 
 @Injectable({
@@ -369,6 +370,37 @@ export class ApiService {
   cancelarReservaAsesor(id: number){
     return this.http.post('/api/cancelarReservaAsesor', {
       id: id
+    });
+  }
+
+  //Service que sirve para crear Area
+  createArea(
+    nombre: string | null,
+    descrip: string | null,
+    lugDisp: number,
+    lugTotales: number,
+    ubicacion: string | null,
+    matDisp: string | null,
+    estatus: boolean,
+    fechaCierre: string | null,
+    fechaApertura: string | null,
+    imag: string | null,
+    hCierre: string | null,
+    hApertura: string | null
+  ){
+    return this.http.post('/api/CrearArea', {
+      nombre : nombre,
+      descrip : descrip,
+      lugDisp :lugDisp,
+      lugTotales :lugTotales ,
+      ubicacion : ubicacion,
+      matDisp : matDisp,
+      estatus : estatus,
+      fechaCierre :fechaCierre,
+      fechaApertura : fechaApertura,
+      imag : imag,
+      hCierre : hCierre,
+      hApertura : hApertura
     });
   }
   
