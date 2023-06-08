@@ -18,6 +18,7 @@ export class AnunciosComponent {
    /** Definiciones de variables*/
    constructor(private apiService: ApiService, private modalService: NgbModal, private authService: AuthService) {}
    anuncios : Anuncio [] = [];
+   today = new Date();
 
    /** Pipe para darle formato a la fecha*/
    pipe = new DatePipe('es');
@@ -25,7 +26,7 @@ export class AnunciosComponent {
 
    /** Función que se ejecuta al inic */
    ngOnInit(): void {
-    this.getCasillerosDis()
+    this.getAnuncios()
   }
 
   // Función para cambiar el formato de la fecha que se pase como parametro
@@ -35,7 +36,7 @@ export class AnunciosComponent {
   }
 
   // Función para obtener los casilleros disponibles de la base de datos
-  getCasillerosDis(){
+  getAnuncios(){
     this.apiService.getAnuncios().subscribe((data: Anuncio[]) => {
       this.anuncios = data;
     });

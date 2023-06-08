@@ -59,12 +59,35 @@ export class MonitorReservasComponent {
     });
   }
 
+  //Función para confirmar la reservación de un casillero
+  confirmarReservaCasillero(id: number){
+    this.apiservice.confirmarReservaCasillero(id).subscribe(()=>{
+    },error=>{
+      console.log(error);
+    });
+  }
+
+  //Cancelar la reserva de un casillero 
+  cancelarReservaCasillero(id: number, idCasillero: number){
+    
+    this.apiservice.cancelarReservaCasillero(id,idCasillero).subscribe(()=>{
+    },error=>{
+      console.log(error);
+    });
+
+    this.apiservice.actualizarEstadoCasillero(idCasillero, 0).subscribe(error => {
+      console.error('Error fetching area id status', error);
+  });
+
+
+  }
+
+
   //Función para obtener los registros de las reservas en las areas deportivas
   getDataReservas(dia:string, area:string)
   {
     this.apiservice.getMonitorReservas(dia,area).subscribe((data: MonitorReservas[]) => {
       this.reservasArea = data;
-      
     });
   }
 
@@ -153,10 +176,8 @@ export class MonitorReservasComponent {
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
     saveAs(blob, 'ReservasAreasDeportivas.csv');
   }
-    
 
-     
-  
+
      
   /**
    * Write code on Method

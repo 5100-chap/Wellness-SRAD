@@ -83,7 +83,7 @@ export class LockersComponent {
     const casillero = this.seleReserva.id
     
 
-    this.apiService.actualizarEstadoCasillero(casillero).subscribe(error => {
+    this.apiService.actualizarEstadoCasillero(casillero, 1).subscribe(error => {
       console.error('Error fetching area id status', error);
   });
   }

@@ -66,6 +66,23 @@ export class ApiService {
     });
   }
 
+  //Confirmar la reserva de un casillero
+  confirmarReservaCasillero(id: number){
+    return this.http.post('/api/confirmarReservaLocker',{
+      id: id
+    });
+  }
+
+  //Cancelar la reserva de un casillero
+  cancelarReservaCasillero(id:number, idCasillero:number){
+    return this.http.post('/api/cancelarReservaLocker',{
+      id: id,
+      idCasillero: idCasillero
+    });
+
+
+  }
+
   // Obtener todos los anuncios
   getAnuncios(): Observable<Anuncio[]> {
     return this.http.get<Anuncio[]>('/api/getAnuncios');
@@ -197,9 +214,10 @@ export class ApiService {
 
   }
 
-  actualizarEstadoCasillero(casillero: number) {
+  actualizarEstadoCasillero(casillero: number, estado: number) {
     return this.http.post('/api/actualizarEstadoLocker', {
       id_casillero: casillero,
+      estado: estado
     });
   }
   

@@ -62,13 +62,13 @@
           <td>{{r.matricula}}</td>
           <td>{{r.nombre}}</td>
           <td>{{r.id_casillero}}</td>
-          <td *ngIf="r.estado == false">Por confirmar</td>
-          <td *ngIf="r.estado == true"> Confirmada </td>
-          <td><button style = "margin-top: 1%;" id="btn2" class="btn btn-primary" (click)="open(modalcomprobante)">Ver Comprobante</button></td>
-          <td *ngIf="r.estado == false"><button style = "margin-top: 1%;" id="btn2" class="btn btn-primary" (click)="open(modalConfirmar)">Confirmar Reserva</button></td>
-          <td *ngIf="r.estado == false"><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalcancelar)">Cancelar Reserva</button></td>
-          <td *ngIf="r.estado == true"> NA </td>
-          <td *ngIf="r.estado == true"> NA </td>
+          <td>{{r.estado}}</td>
+          <td *ngIf="r.estado == 'En revisión' || r.estado == 'Confirmada'"><button style = "margin-top: 1%;" id="btn2" class="btn btn-primary" (click)="open(modalcomprobante)">Ver Comprobante</button></td>
+          <td *ngIf="r.estado == 'Cancelada'" > NA </td>
+          <td *ngIf="r.estado == 'En revisión'"><button style = "margin-top: 1%;" id="btn2" class="btn btn-primary" (click)="open(modalConfirmar)" (click)="confirmarReservaCasillero(r.id)">Confirmar Reserva</button></td>
+          <td *ngIf="r.estado == 'En revisión'"><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalcancelar)" (click)="cancelarReservaCasillero(r.id, r.id_casillero)">Cancelar Reserva</button></td>
+          <td *ngIf="r.estado == 'Confirmada' || r.estado == 'Cancelada'" > NA </td>
+          <td *ngIf="r.estado == 'Confirmada' || r.estado == 'Cancelada'"> NA </td>
         </tr>
       </tbody>
     </table>
