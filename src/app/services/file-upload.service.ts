@@ -12,7 +12,7 @@ export class FileUploadService {
 
   upload(file: File, id_reserva?: number, id_anuncio?: number, id_area?: number): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
-    formData.append('file', file);
+    formData.append('image', file);
     if (id_reserva) formData.append('id_reserva', id_reserva.toString());
     if (id_anuncio) formData.append('id_anuncio', id_anuncio.toString());
     if (id_area) formData.append('id_area', id_area.toString());

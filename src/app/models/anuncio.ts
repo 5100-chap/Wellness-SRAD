@@ -3,9 +3,9 @@ export class Anuncio {
     titulo !: String;
     fecha_inicio_evento !: Date;
     fecha_fin_evento !: Date;
-    ubicacion !: string
-    descripcion !: string
-
+    ubicacion !: string;
+    descripcion !: string;
+    imagen !: string;
 
 
 }

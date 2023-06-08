@@ -1,5 +1,5 @@
 <div class="row">
-  <h3><strong>Subir comprobante de Pago</strong></h3>
+  <h3 *ngIf="this.router == '/lockers'"><strong>Subir comprobante de Pago</strong></h3>
 
   <div class="vstack gap-4 col-md-11 mx-auto">
 
@@ -17,7 +17,8 @@
         </div>
 
         <div class="col-2" style="margin-top: 1.6%;">
-          <button class="btn btn-sm float-right" [disabled]="!selectedFiles" (click)="upload()" id="btn"> Subir
+          <button class="btn btn-sm float-right" *ngIf="this.router == '/lockers'" [disabled]="!selectedFiles"
+            (click)="upload()" id="btn"> Subir
             comprobante </button>
         </div>
 

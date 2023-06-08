@@ -69,6 +69,13 @@ export class LockersComponent {
     this.seleReserva = seleccionado;
   }
 
+  checarImagenSubida(){
+    if(this.CasilleroReservado.comprobante.length > 0){
+      return false;
+    }
+    else return true;
+  }
+
   crearReservaCasillero(){
     const alumno = this.authService.currentUserValue['username']; // Obtener la matricula del alumno
     const casillero = this.seleReserva.id

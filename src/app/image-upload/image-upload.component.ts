@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FileUploadService } from 'src/app/services/file-upload.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-image-upload',
   templateUrl: './image-upload.component.html',
@@ -15,19 +15,37 @@ export class ImageUploadComponent implements OnInit {
   progress = 0;
   message = '';
   preview = '';
+  router = '';
+  private isImageSelected = false;
+  selectedFiles!: FileList; // Definición de selectedFiles
 
   imageInfos?: Observable<any>;
 
-  constructor(private uploadService: FileUploadService) {}
+  constructor(
+    private uploadService: FileUploadService,
+    private __router: Router
+  ) {
+    this.router = __router.url;
+  }
 
   ngOnInit(): void {}
+
+  selectFile(event: any): void {
+    // Definición de la función selectFile
+    this.selectedFiles = event.target.files;
+    if (this.selectedFiles.length > 0) {
+      this.currentFile = this.selectedFiles[0];
+      this.onFileSelected(this.currentFile);
+      this.isImageSelected = true;
+    }
+  }
 
   upload(): void {
     this.progress = 0;
 
     if (this.currentFile) {
       switch (this.uploadType) {
-        case 'reserva':
+        case 'reservaLockers':
           this.uploadFile(this.currentFile, this.uploadId);
           break;
         case 'anuncio':
@@ -46,6 +64,20 @@ export class ImageUploadComponent implements OnInit {
       }
     }
   }
+
+  //Regresa un booleano dependiendo si hay una imagen seleccionada
+  getValidation(){
+    return this.isImageSelected;
+  }
+
+  //Regresa el numero de caracteres del nombre del archivo seleccionado
+  getFileLenght(): number{
+    if(this.currentFile){
+      return this.currentFile.name.length
+    }
+    else return -999;
+  }
+
 
   uploadFile(
     file: File,
