@@ -247,7 +247,7 @@ export class GimnasioComponent implements OnInit {
 
   // Revisa si el horario del botón está ocupado
   ocupado(dia: number, hora: string): boolean{
-    if(this.diaPasado(dia, hora)){
+    if(this.diaPasado(dia, hora) || this.semanaSeleccionada===undefined){
       return false;
     }
     else if(dia>4 && this.finesDeSemana(hora)){
@@ -262,7 +262,7 @@ export class GimnasioComponent implements OnInit {
         yaExistenEseDia++;
       }
     }
-    if(yaExistenEseDia/this.listaDeHorariosReservados.length < this.listaDeHorariosReservados.length){
+    if(yaExistenEseDia/this.listaDeHorariosReservados.length <= this.listaDeHorariosReservados.length){
       // Esta condicion solo aplica a aquellas reservas hechas por el mismo usuario
       for(let i=0; i<this.listaDeHorariosReservados.length; i++){
         if(this.listaDeHorariosReservados[i].dia.slice(0, 10) === this.listaDias[dia] && this.listaDeHorariosReservados[i].hora.slice(11, 19) === hora && this.listaDeHorariosReservados[i].usuario === this.authService.currentUserValue['username']){
