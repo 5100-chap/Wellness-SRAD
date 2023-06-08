@@ -129,8 +129,11 @@ button:hover {
 }
 
 
-#radiolimpieza, #radiocalidad, #radioambiente {
-	color:#003399;
+#ReviewLimpieza, #ReviewCalidad, #ReviewAmbiente{
 	border-color:#003399;
-	background-color:#ffffff;
+	width: 5rem;
+	border-radius: 0.5rem;
+	font-size:1.3rem;
+	padding-left: 1.6rem;
+	height:2rem;
 }
