@@ -3,7 +3,9 @@ export class ReservaCasillero {
     id_alumno !: string;
     id_casillero !: number;
     estado !: string;
+    comprobante!: string;
     IdCasillero !: number;
     ubicacion !: string;
     estatus !: boolean;
+    
 }
