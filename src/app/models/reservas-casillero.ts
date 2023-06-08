@@ -4,4 +4,5 @@ export class ReservasCasillero {
     nombre !: string;
     id_casillero !: number;
     estado !: string;
+    Comprobante !: string;
 }
