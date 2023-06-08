@@ -123,6 +123,17 @@ router.post('/api/cancelarReservaLocker', async(req, res, next)=>{
     }
 });
 
+//Descartar la reserva de un casillero
+router.post('/api/descartaReservaLocker', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();       
+        var result = await request.query(`EXEC [dbo].[descartarReservaCasillero] \ ${req.body.id};`);
+    }catch(error){
+        next(err);
+        res.json({'status': 'error'});
+    }
+});
+
 
 
 //Obtiene todas las reservaciones de los casilleros

@@ -17,6 +17,7 @@ import { Area } from '../models/area.model';
 import { Subscription } from 'rxjs';
 import { HorarioReserva } from '../models/horario-reserva';
 import { ChartService } from '../services/chart.service';
+import { DatePipe } from '@angular/common';
 
 declare var window: any;
 
@@ -29,6 +30,11 @@ export class GimnasioComponent implements OnInit {
   meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
   now!: Date;
+
+  today = new Date();
+  pipe = new DatePipe('es');
+
+  changedDate = this.pipe.transform(this.today, 'longDate');
 
   getSemanaRange(l: number, r: number): String {
     const now = new Date();
