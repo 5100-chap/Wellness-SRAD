@@ -1,46 +1,49 @@
+<!--Encabezado-->
+
 <div class="img-fluid" class="opacity-30">
-    <div class=" text-white">
+    <div class="text-white">
         <img src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80"
-            height="130" class="card-img" alt="...">
+            height="130" class="card-img" alt="..." />
         <div class="card-img-overlay">
             <h5 class="card-title">&nbsp;</h5>
             <h5 class="card-title">&nbsp;</h5>
             <h5 class="card-title">&nbsp;</h5>
             <h5 class="card-title">&nbsp;</h5>
 
-            <h1 class="card-title" class="text-center"> Bienvenido administrador </h1>
+            <h1 class="card-title" class="text-center">Bienvenido administrador</h1>
         </div>
     </div>
 </div>
 
 
-
+<!--Titulo de la pantalla-->
 <div class="row">
-    <div class=" col-md-6 mt-4">
-        <h3> &nbsp; &nbsp; <strong> Administración de áreas deportivas </strong> </h3>
+    <div class="col-md-6 mt-4">
+        <h3>&nbsp; &nbsp; <strong> Administración de áreas deportivas </strong></h3>
     </div>
 </div>
 <br>
 
 
+<!--Tarjetas con la información del area deportivas del wellness center-->
 
 <ng-container *ngFor="let area of areas">
-    <div class="vstack gap-3 col-md-9 mx-auto mt-4" *ngIf="area.Estatus == true">
+    <div class="vstack gap-3 col-md-10 mx-auto mt-3" *ngIf="area.Estatus == true">
         <div class="card" id="card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-2 mt-2">
-                        <img [src]="'../assets/img/principal.jpg'" height="90%" class="card-img" alt="...">
+                        <img [src]="area.Imagen" (error)="updateUrl($event)" height="90%" class="card-img" alt="..." />
                     </div>
                     <div class="col-md-2 mt-2">
                         <div class="text-center" id="abierto">
-                            Abierto <br>
-                            Aforo: {{area.LugaresDisponibles}}/{{area.LugaresTotales}}
+                            Abierto <br />
+                            Aforo: {{ area.LugaresDisponibles }}/{{ area.LugaresTotales }}
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div id="text">
-                            <i><strong>{{area.NombreArea}}</strong></i>
+                            <i><strong>{{ area.NombreArea }}</strong></i>
                         </div>
                     </div>
                     <div class="col-md-2" id="align">
@@ -52,18 +55,20 @@
 
                         <button id="btn2" class="btn btn-primary btn-lg"
                             *ngIf="area.NombreArea.toLowerCase() !== 'gimnasio'"
-                            [routerLink]="['/estadisticas' , area.NombreArea.toLowerCase()]">
+                            [routerLink]="['/estadisticas', area.NombreArea.toLowerCase()]">
                             Estadísticas
                         </button>
-
-
                     </div>
                     <div class="col-md-2" id="align">
-                        <button id="btn2" class="btn btn-primary btn-lg" routerLink="/editarAforo"> Editar aforo
+                        <button id="btn2" class="btn btn-primary btn-lg"
+                            [routerLink]="['/editarAforo', area.NombreArea.toLowerCase()]">
+                            Editar aforo
                         </button>
                     </div>
                     <div class="col-md-2" id="align">
-                        <button id="btn2" class="btn btn-primary btn-lg" routerLink="/cerrarEspacios"> Cerrar área
+                        <button id="btn2" class="btn btn-primary btn-lg"
+                            [routerLink]="['/cerrarEspacios', area.NombreArea.toLowerCase()]">
+                            Cerrar área
                         </button>
                     </div>
                 </div>
@@ -71,36 +76,44 @@
         </div>
     </div>
 
-    <div class="vstack gap-3 col-md-9 mx-auto mt-4" *ngIf="area.Estatus == false">
+    <div class="vstack gap-3 col-md-10 mx-auto mt-4" *ngIf="area.Estatus == false">
         <div class="card" id="card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-2 mt-2">
-                        <img [src]="'../assets/img/principal.jpg'" height="90%" class="card-img" alt="...">
+                        <img [src]="area.Imagen" (error)="updateUrl($event)" height="90%" class="card-img" alt="..." />
                     </div>
                     <div class="col-md-2 mt-2">
-                        <div class="text-center" id="cerrado">
-                            Cerrado
-                        </div>
+                        <div class="text-center" id="cerrado">Cerrado</div>
                     </div>
                     <div class="col-md-2">
                         <div id="text">
-                            <i><strong>{{area.NombreArea}}</strong></i>
+                            <i><strong>{{ area.NombreArea }}</strong></i>
                         </div>
                     </div>
                     <div class="col-md-2" id="align">
                         <button id="btn2" class="btn btn-primary btn-lg"
-                            [routerLink]="[area.NombreArea.toLowerCase() !== 'gimnasio' ? '/estadisticas' : '/estadisticasGimnasio']">
+                            *ngIf="area.NombreArea.toLowerCase() === 'gimnasio'"
+                            [routerLink]="['/estadisticasGimnasio']">
+                            Estadísticas
+                        </button>
+
+                        <button id="btn2" class="btn btn-primary btn-lg"
+                            *ngIf="area.NombreArea.toLowerCase() !== 'gimnasio'"
+                            [routerLink]="['/estadisticas', area.NombreArea.toLowerCase()]">
                             Estadísticas
                         </button>
                     </div>
                     <div class="col-md-2" id="align">
-                        <button id="btn2" class="btn btn-primary btn-lg" routerLink="/editarAforo"> Editar aforo
+                        <button id="btn2" class="btn btn-primary btn-lg"
+                            [routerLink]="['/editarAforo', area.NombreArea.toLowerCase()]">
+                            Editar aforo
                         </button>
                     </div>
                     <div class="col-md-2" id="align">
-                        <button id="btn2" class="btn btn-primary btn-lg" (click)="openArea(area.AreaId, mymodal)"> Abrir
-                            área </button>
+                        <button id="btn2" class="btn btn-primary btn-lg" (click)="openArea(area.AreaId, mymodal)">
+                            Abrir área
+                        </button>
                         <ng-template #mymodal let-modal>
                             <div class="modal-header">
                                 <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
@@ -109,12 +122,11 @@
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                Área abierta correctamente!
-                            </div>
+                            <div class="modal-body">Área abierta correctamente!</div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary"
-                                    (click)="modal.close('Save click')">OK</button>
+                                <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">
+                                    OK
+                                </button>
                             </div>
                         </ng-template>
                     </div>

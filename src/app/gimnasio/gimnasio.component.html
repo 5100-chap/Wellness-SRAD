@@ -14,7 +14,7 @@
 <div class="vstack gap-4 col-md-9 mx-auto">
 
   <div class="card w-100 ">
-    <h3 class="card-header">18 de Abril de 2023</h3>
+    <h3 class="card-header">{{this.changedDate}}</h3>
 
 
     <div class="row">
@@ -107,31 +107,31 @@
 
           <td class="text-center"> 
             <button *ngIf="ocupado(0, al.hora)" (click)="imprimirFechaCorrecta(i, 0)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
-            <button *ngIf="!ocupado(0, al.hora)" class="btn btn-primary" id="btn" disabled> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(0, al.hora)" class="btn btn-primary" id="btn-disabled" disabled> {{al.rangoDeHora}} </button>
           </td>
           <td class="text-center"> 
             <button *ngIf="ocupado(1, al.hora)" (click)="imprimirFechaCorrecta(i, 1)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
-            <button *ngIf="!ocupado(1, al.hora)" class="btn btn-primary" id="btn" disabled> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(1, al.hora)" class="btn btn-primary" id="btn-disabled" disabled> {{al.rangoDeHora}} </button>
           </td>
           <td class="text-center"> 
             <button *ngIf="ocupado(2, al.hora)" (click)="imprimirFechaCorrecta(i, 2)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
-            <button *ngIf="!ocupado(2, al.hora)" class="btn btn-primary" id="btn" disabled> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(2, al.hora)" class="btn btn-primary" id="btn-disabled" disabled> {{al.rangoDeHora}} </button>
           </td>
           <td class="text-center"> 
             <button *ngIf="ocupado(3, al.hora)" (click)="imprimirFechaCorrecta(i, 3)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
-            <button *ngIf="!ocupado(3, al.hora)" class="btn btn-primary" id="btn" disabled> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(3, al.hora)" class="btn btn-primary" id="btn-disabled" disabled> {{al.rangoDeHora}} </button>
           </td>
           <td class="text-center"> 
             <button *ngIf="ocupado(4, al.hora)" (click)="imprimirFechaCorrecta(i, 4)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
-            <button *ngIf="!ocupado(4, al.hora)" class="btn btn-primary" id="btn" disabled> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(4, al.hora)" class="btn btn-primary" id="btn-disabled" disabled> {{al.rangoDeHora}} </button>
           </td>
           <td class="text-center"> 
             <button *ngIf="ocupado(5, al.hora)" (click)="imprimirFechaCorrecta(i, 5)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
-            <button *ngIf="!ocupado(5, al.hora)" class="btn btn-primary" id="btn" disabled> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(5, al.hora)" class="btn btn-primary" id="btn-disabled" disabled> {{al.rangoDeHora}} </button>
           </td>
           <td class="text-center"> 
             <button *ngIf="ocupado(6, al.hora)" (click)="imprimirFechaCorrecta(i, 6)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
-            <button *ngIf="!ocupado(6, al.hora)" class="btn btn-primary" id="btn" disabled> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(6, al.hora)" class="btn btn-primary" id="btn-disabled" disabled> {{al.rangoDeHora}} </button>
           </td>
 
         </tr>

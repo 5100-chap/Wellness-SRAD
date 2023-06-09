@@ -1,4 +1,6 @@
 
+ 
+ <!-- Titulo de la pantalla -->
  <div class="row">
     <div class=" col-md-6 mt-4">
       <h3> &nbsp; &nbsp; <strong> Monitor de ingresos </strong> </h3>
@@ -6,46 +8,22 @@
   </div>
 <br>
 
-
+<!--Input para seleccionar el dia en que se desea hacer la consulta-->
 <div class="row">
    
-    <div class="col-md-2 mt-1" style="margin-left: 2%;">
-        <div ngbDropdown>
-          <button class="btn btn-primary" id="btn" 
-                  ngbDropdownToggle>Semana II: 20 - 26 de Marzo 2023</button>
-          <div ngbDropdownMenu="gfg">
-            <button ngbDropdownItem>Semana III: 20 - 26 de Marzo 2023</button>
-            <button ngbDropdownItem>Semana IV: 20 - 26 de Marzo 2023</button>
-            <button ngbDropdownItem>Semana V: 20 - 26 de Marzo 2023</button>
-          </div>
-        </div>
-      </div>
-    
-      <div class="col-md-4 mt-1" style="margin-left: 4%;">
-        
-        <div ngbDropdown>
-          <button class="btn btn-primary" id="btn" 
-                  ngbDropdownToggle>20 de Marzo 2023</button>
-          <div ngbDropdownMenu="gfg">
-            <button ngbDropdownItem>21 de Marzo 2023</button>
-            <button ngbDropdownItem>22 de Marzo 2023</button>
-            <button ngbDropdownItem>23 de Marzo 2023</button>
-            <button ngbDropdownItem>24 de Marzo 2023</button>
-            <button ngbDropdownItem>25 de Marzo 2023</button>
-            <button ngbDropdownItem>26 de Marzo 2023</button>
-          </div>
-        </div>
-      </div>
-
+  <div class=" col-md-6 mt-2 mb-2" style="margin-left:3%;">
+    <h5 style="font-size: 1.2rem "> Escoga una fecha de consulta</h5>
+    <input style="font-size: 1.3rem;" tabindex="1" required autocomplete="off" type="date" id="btn" #fechaInput name="trip-start" value="{{this.changedDate}}" (change)="obtenerRegistros(fechaInput.value)" >
   </div>
+
+</div>
   
 
+<!--Tabla para mostrar la información de los ingresos en el gimnasio-->
 
-<div class="card mt-5" style="width:75%; margin-left: 13%;">
-
-
+<div class="card mt-5 table-wrapper" style="width:75%; margin-left: 13%;">
 <table class="table table-striped">
-    <thead>
+    <thead class="text-center">
       <tr>
         <th scope="col">Matricula</th>
         <th scope="col">Nombre</th>
@@ -55,21 +33,22 @@
         <th scope="col">Marcar salida</th>
       </tr>
     </thead>
-    <tbody *ngFor="let r of ingresos">
-      <tr>
+    <tbody class="text-center" *ngFor="let r of ingresos">
+      <tr >
         <td>{{r.matricula}}</td>
         <td>{{r.nombre}}</td>
-        <td>{{r.hora_de_llegada}}</td>
-        <td *ngIf="r.hora_de_salida != null ">{{r.hora_de_salida}}</td>
+        <td>{{this.formatHora(r.hora_de_llegada)}}</td>
+        <td *ngIf="r.hora_de_salida != null ">{{this.formatHora(r.hora_de_salida) }}</td>
         <td *ngIf="r.hora_de_salida == null ">NA</td>
-        <td>{{r.fecha}}</td>
-        <td *ngIf="r.hora_de_salida == null "><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger" (click)="open(modalSalida)">Marcar salida</button></td>
+        <td>{{this.formatDia(r.fecha)}}</td>
+        <td *ngIf="r.hora_de_salida == null "><button style = "margin-top: 1%;" id="btn2" class="btn btn-danger"  (click)="open(modalSalida)" (click)="marcarSalida(r.hora_de_llegada, r.matricula)">Marcar salida</button></td>
         <td *ngIf="r.hora_de_salida != null ">NA</td>
       </tr>
     </tbody>
   </table>
   </div>
 
+  <!--Botón para exportar la información en un archivo CSV-->
 
   <div class="row" style="margin-left: 35%; margin-top: 2.5%;">
 
@@ -83,7 +62,6 @@
 
   </div>
 
-
   <br>
   <br>
   <br>
@@ -94,7 +72,7 @@
 
 <!--Modal de añadir registro-->
 
-  <ng-template #mymodal let-modal>
+<ng-template #mymodal let-modal>
   <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Añadir registro </h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -102,16 +80,43 @@
       </button>
   </div>
   <div class="modal-body">
-    <div class="input-group flex-nowrap">
-        <span class="input-group-text" id="addon-wrapping">Matricula</span>
-        <input type="text" class="form-control" placeholder="A0xxxxxxx" aria-label="Username" aria-describedby="addon-wrapping">
+  <!--Formulario de creación de un nuevo ingreso-->
+    <form class="row mb-1"[formGroup]="NuevoIngresoForm"   name="NuevoIngresoForm" id="NuevoIngresoForm"
+    acceptcharset="utf-8" role="form" >
+      <div class="input-group flex-nowrap">
+          <span class="input-group-text" id="addon-wrapping">Matricula</span>
+          <input type="text" class="form-control" formControlName="matricula" placeholder="A0xxxxxxx" aria-label="Username" aria-describedby="addon-wrapping" #matricula>
       </div>
+
+       <!--Validar si el campo matricula está vacia -->
+       <span *ngIf="this.NuevoIngresoForm.get('matricula')?.errors?.['required']"  style= "color: rgba(203, 23, 10, 0.913); margin-left: 1.5%; margin-top: 1.8%;">
+        La matricula no puede estar vacía
+      </span>
+
+      <!--Validar si la matricula ingresada sea de 9 caracteres -->
+      <span *ngIf="this.NuevoIngresoForm.get('matricula')?.errors?.['pattern']"  style= "color: rgba(203, 23, 10, 0.913); margin-left: 1.5%; margin-top: 1.8%;">
+        La matricula debe de empezar con A0 ó a0
+      </span>
+
+      <!--Validar si la matricula ingresada sea de 9 caracteres -->
+      <span *ngIf="this.NuevoIngresoForm.get('matricula')?.errors?.['maxlength']"  style= "color: rgba(203, 23, 10, 0.913); margin-left: 1.5%; margin-top: 1.8%;">
+        La matricula solamente debe de tener 9 caracteres
+      </span>
+
+
+      <!--Botones -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger"  id ="btn2"aria-label="Close" (click)="modal.dismiss('Cross click')"> Cancelar</button>
+        <button type="button" class="btn btn-primary" [disabled]="NuevoIngresoForm.invalid"  id = "btn"(click)="open(modalSalida)" (click)="marcarLlegada(matricula.value)">Agregar</button>
+      </div>
+
+
+    </form>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-danger"  id ="btn2"aria-label="Close" (click)="modal.dismiss('Cross click')"> Cancelar</button>
-    <button type="button" class="btn btn-primary" id = "btn" (click)="modal.close('Save click')">Crear</button>
-      
-  </div>
+  
+
+  
+
   </ng-template>
 
 
@@ -120,17 +125,16 @@
     <!--Modal marcar salida -->
     <ng-template #modalSalida let-modal>
       <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title"> Marcar salida </h4>
+        <h4 class="modal-title" id="modal-basic-title"> Aviso </h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span  aria-hidden="true">×</span>
         </button>
       </div>
       <div class="modal-body">
-        <p> Esta a punto de marcar la salida del alumno, ¿Desea continuar? </p>
+        <p> {{modalBody}} </p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger"  id ="btn2"aria-label="Close" (click)="modal.dismiss('Cross click')">Cancelar</button>
-        <button type="button" class="btn btn-danger"  id ="btn" aria-label="Close" (click)="modal.dismiss('Cross click')">Confirmar</button>
+        <button type="button" class="btn btn-danger"  id ="btn" aria-label="Close" (click)="modal.dismiss('okay')" (click)="this.refresh()" > OK </button>
       </div>
     </ng-template>
   

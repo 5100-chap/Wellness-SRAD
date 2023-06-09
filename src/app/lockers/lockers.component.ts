@@ -60,13 +60,23 @@ export class LockersComponent {
 
     this.apiService.consultarReservaCasillero(matricula).subscribe((data: ReservaCasillero) => {
       this.CasilleroReservado = data;
-      console.log(this.CasilleroReservado.id_casillero)
+      
     });
 
   }
 
   actulizarCasilleroSelecccionado(seleccionado : Casilleros){
     this.seleReserva = seleccionado;
+  }
+
+  checarImagenSubida(){
+    if(this.CasilleroReservado.estado === "Confirmada"){
+      if (this.CasilleroReservado.comprobante.length > 0){
+        return false;
+      }
+      else return true;
+    }
+    else return true;
   }
 
   crearReservaCasillero(){
@@ -83,7 +93,7 @@ export class LockersComponent {
     const casillero = this.seleReserva.id
     
 
-    this.apiService.actualizarEstadoCasillero(casillero).subscribe(error => {
+    this.apiService.actualizarEstadoCasillero(casillero, 1).subscribe(error => {
       console.error('Error fetching area id status', error);
   });
   }
@@ -92,8 +102,6 @@ export class LockersComponent {
   refresh(){
     window.location.reload();
   }
-
-
   
 
 

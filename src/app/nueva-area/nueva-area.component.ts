@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { ApiService } from '../services/api.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-nueva-area',
@@ -18,11 +20,43 @@ export class NuevaAreaComponent  {
     aforo: new FormControl('', Validators.required  ),
     ubicación: new FormControl('', Validators.required),
     imagen: new FormControl('', Validators.required),
-    
+    horaInicio: new FormControl('', Validators.required),
+    horaFinal: new FormControl('', Validators.required),
+    material: new FormControl(''),
   });
 
   resultado!: string;
   value!: string;
+  today = new Date();
+
+   /** Pipe para darle formato la fecha y hora*/
+   pipe = new DatePipe('es');
+   changedDate = this.pipe.transform(this.today, 'YYYY-MM-dd');
+
+
+
+  crearArea(nombre:string,aforo:string,ubicacion:string,matDisp:string, horaFinal:string,horaInicio:string,imag:string){
+  // Función auxiliar para verificar si el valor es un string vacío con espacios en blanco
+  function esStringVacio(valor: string): boolean {
+    return valor.trim() === '';
+  }
+  //console.log(nombre,aforo,ubicacion,matDisp,horaFinal,horaInicio,imag);
+  //Convertir aforo a numero
+  var numAforo : number = parseInt(aforo)
+  //Revisamos si el usuario agrego información a los materiales
+  // Verificar y asignar null si el valor es un string vacío con espacios en blanco
+  var matDispFinal: string | null = esStringVacio(matDisp) ? null : matDisp;
+  var nombreFinal: string | null = esStringVacio(nombre) ? null : nombre;
+  var ubicacionFinal: string | null = esStringVacio(ubicacion) ? null : ubicacion;
+  var horaFinalFinal: string | null = esStringVacio(horaFinal) ? null : horaFinal;
+  var horaInicioFinal: string | null = esStringVacio(horaInicio) ? null : horaInicio;
+  var imagFinal: string | null = esStringVacio(imag) ? null : imag;
+
+  // Llamar a la función createArea del ApiService con los valores actualizados
+  this.apiService.createArea(nombreFinal, null, 0, numAforo, ubicacionFinal, matDispFinal, true, null, null, imagFinal, horaFinalFinal, horaInicioFinal).subscribe(error => {
+    console.log(error);
+  });
+}
 
 
 /* Validar si todos los campos han sido llenados */
@@ -33,13 +67,13 @@ export class NuevaAreaComponent  {
       this.resultado = "Hay datos inválidos en el formulario";
   }
 
-   
+
 
   /* Creación del modal*/
 
   closeResult: string = '';
      
-  constructor(private modalService: NgbModal) {  }
+  constructor(private modalService: NgbModal, private apiService: ApiService) {  }
 
 
   ngOnInit() {}

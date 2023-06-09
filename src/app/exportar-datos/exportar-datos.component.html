@@ -1,121 +1,66 @@
 
 
-    <div class="col-md-6 mt-4" style="margin-left: 1.5%; margin-bottom: 1.5%;">
-      <h3> <strong> Exportar datos de aforo </strong> </h3>
-    </div>
- 
+<div class="col-md-6 mt-4" style="margin-left: 1.5%; margin-bottom: 1.5%;">
+    <h3> <strong> Exportar datos de aforo </strong> </h3>
+</div>
+
 
 
 <h5 style="margin-left: 1.5%;" >Descarga de datos de aforo de áreas deportivas diarias por semana.</h5>
 
+
+<br/>
+
+<!-- "col-md-5 mt-3" para acomodar el Elige la Semana-->
 <div class="col-md-2" style="margin-left: 1.5%; margin-top: 1.5%; margin-bottom: 1.5%;">
-    <div ngbDropdown>
-      <button class="btn btn-primary" id="btn" 
-              ngbDropdownToggle>Semana II: 20 - 26 de Marzo 2023</button>
-      <div ngbDropdownMenu="gfg">
-        <button ngbDropdownItem>Semana III: 20 - 26 de Marzo 2023</button>
-        <button ngbDropdownItem>Semana IV: 20 - 26 de Marzo 2023</button>
-        <button ngbDropdownItem>Semana V: 20 - 26 de Marzo 2023</button>
-      </div>
-    </div>
-  </div>
+    <div class="col-md-8 mt-3" style="margin-left: 2%;">
+        <label for="weekPicker">Elige una semana:</label> <br> 
+        <input style="margin-top: 4%; " type="week" id="weekPicker" [formControl]="dateControl" #semana>
+    </div> 
+</div>
+    
+<br/>
 
-  <br/>
 
-  <div class="card mt-3" id="btn" style="width: 60%; margin-left: 20%; margin-top: 4%;">
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-6 mt-2">
-                <h3> <i>Crossfit </i></h3>
+<div *ngIf="semana.value != '' " >
+
+    <div class="card mt-3" id="btn" style="width: 60%; margin-left: 20%; margin-top: 4%;" *ngFor="let area of areas">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8 mt-2">
+                    <h3> <i> {{area.NombreArea}} </i></h3>
+                </div>
+                <div class="col-md-2">
+    
+                    <button class="btn btn-primary btn-lg" id="btn2" style="font-size: 1.3rem;" (click)="exportarAforoCSV( area.AreaId , area.NombreArea) "> Exportar 
+                        <img src="../assets/img/descargar.png" height="25" width="25" class="card-img" alt="...">
+                    </button>
+    
+    
+                </div>
             </div>
-            <div class="col-md-4">
-                <button class="btn btn-primary btn-lg" id="btn2" style="font-size: 1.3rem;" > Exportar 
-                    <img src="../assets/img/descargar.png" height="25" width="25" class="card-img" alt="...">
-                </button>
-
-            </div>
-
         </div>
-        
     </div>
-
 </div>
 
-<div class="card mt-3" id="btn" style="width: 60%; margin-left: 20%; margin-top: 4%;">
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-6 mt-2">
-                <h3> <i> Gimnasio </i></h3>
-            </div>
-            <div class="col-md-4">
-                <button class="btn btn-primary btn-lg" id="btn2" style="font-size: 1.3rem;" > Exportar 
-                    <img src="../assets/img/descargar.png" height="25" width="25" class="card-img" alt="...">
-                </button>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-            </div>
-
-        </div>
-        
-    </div>
-
-</div>
-
-<div class="card mt-3" id="btn" style="width: 60%; margin-left: 20%; margin-top: 4%;">
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-6 mt-2">
-                <h3> <i> E-sports </i></h3>
-            </div>
-            <div class="col-md-4">
-                <button class="btn btn-primary btn-lg" id="btn2" style="font-size: 1.3rem;" > Exportar 
-                    <img src="../assets/img/descargar.png" height="25" width="25" class="card-img" alt="...">
-                </button>
-
-            </div>
-
-        </div>
-        
-    </div>
-
-</div>
-
-<div class="card mt-3" id="btn" style="width: 60%; margin-left: 20%; margin-top: 4%;">
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-6 mt-2">
-                <h3> <i>Arena Tec </i></h3>
-            </div>
-            <div class="col-md-4">
-                <button class="btn btn-primary btn-lg" id="btn2" style="font-size: 1.3rem;" > Exportar 
-                    <img src="../assets/img/descargar.png" height="25" width="25" class="card-img" alt="...">
-                </button>
-
-            </div>
-
-        </div>
-        
-    </div>
-
-</div>
-
-<div class="card mt-3" id="btn" style="width: 60%; margin-left: 20%; margin-top: 4%;">
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-6 mt-2">
-                <h3> <i> Alberca </i></h3>
-            </div>
-            <div class="col-md-4">
-                <button class="btn btn-primary btn-lg" id="btn2" style="font-size: 1.3rem;" > Exportar 
-                    <img src="../assets/img/descargar.png" height="25" width="25" class="card-img" alt="...">
-                </button>
-
-            </div>
-
-        </div>
-        
-    </div>
-
-</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 
-  

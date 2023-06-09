@@ -12,6 +12,10 @@ export class ListaAreasComponent implements OnInit {
 
   constructor(private apiService: ApiService) {}
 
+  updateUrl(event: any) {
+    event.target.src = '../assets/img/fondo.jpeg';
+  }
+
   ngOnInit() {
     this.apiService.getTodasAreasInformacion().subscribe((data: Area[]) => {
       this.areas = data;
