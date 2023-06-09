@@ -5,7 +5,8 @@ export class Anuncio {
     fecha_fin_evento !: Date;
     ubicacion !: string
     descripcion !: string
-
-
+    imagen !: string
+    duracion_inicio !: Date;
+    duracion_fin !: Date;
 
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ReservasAlumno } from './../models/reservas-alumno.model';
 import { AsesorNombre } from './../models/asesor-nombre';
@@ -24,6 +24,7 @@ import { AsesorInfo } from '../models/asesor-info';
 import { ReservaAsesorAlumno } from '../models/reserva-asesor-alumno';
 import { ExisteAlumno } from '../models/existe-alumno';
 import { Eventos } from '../models/event.model';
+import { Time } from '@angular/common';
 
 
 @Injectable({
@@ -65,6 +66,23 @@ export class ApiService {
       matricula: alumno,
       id_casillero: casillero
     });
+  }
+
+  //Confirmar la reserva de un casillero
+  confirmarReservaCasillero(id: number){
+    return this.http.post('/api/confirmarReservaLocker',{
+      id: id
+    });
+  }
+
+  //Cancelar la reserva de un casillero
+  cancelarReservaCasillero(id:number, idCasillero:number){
+    return this.http.post('/api/cancelarReservaLocker',{
+      id: id,
+      idCasillero: idCasillero
+    });
+
+
   }
 
   // Obtener todos los anuncios
@@ -198,9 +216,10 @@ export class ApiService {
 
   }
 
-  actualizarEstadoCasillero(casillero: number) {
+  actualizarEstadoCasillero(casillero: number, estado: number) {
     return this.http.post('/api/actualizarEstadoLocker', {
       id_casillero: casillero,
+      estado: estado
     });
   }
   
@@ -381,5 +400,35 @@ export class ApiService {
   }
 
 
+  //Service que sirve para crear Area
+  createArea(
+    nombre: string | null,
+    descrip: string | null,
+    lugDisp: number,
+    lugTotales: number,
+    ubicacion: string | null,
+    matDisp: string | null,
+    estatus: boolean,
+    fechaCierre: string | null,
+    fechaApertura: string | null,
+    imag: string | null,
+    hCierre: string | null,
+    hApertura: string | null
+  ){
+    return this.http.post('/api/CrearArea', {
+      nombre : nombre,
+      descrip : descrip,
+      lugDisp :lugDisp,
+      lugTotales :lugTotales ,
+      ubicacion : ubicacion,
+      matDisp : matDisp,
+      estatus : estatus,
+      fechaCierre :fechaCierre,
+      fechaApertura : fechaApertura,
+      imag : imag,
+      hCierre : hCierre,
+      hApertura : hApertura
+    });
+  }
   
 }

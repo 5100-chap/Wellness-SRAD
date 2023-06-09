@@ -5,6 +5,7 @@ import { ApiService } from '../services/api.service';
 import { ReservasAlumno } from '../models/reservas-alumno.model';
 import { AsesorNombre } from '../models/asesor-nombre';
 import { ReservaAsesorAlumno } from '../models/reserva-asesor-alumno';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-lista-reservas',
@@ -13,26 +14,31 @@ import { ReservaAsesorAlumno } from '../models/reserva-asesor-alumno';
 })
 export class ListaReservasComponent {
 
-  /*Creación del modal*/
-    
+  //Definición del constructor
+  constructor( private modalService: NgbModal, private authService: AuthService, private apiService: ApiService) {}
+
+  // Definición de variables
   closeResult: string = '';
   Reservas!: ReservasAlumno[];
   slices: number[] = [];
+  today = new Date();
+  tdy = String (new Date());
+
 
   // Reservas con asesor
   ReservasAsesor: ReservaAsesorAlumno[] = [];
-     
-  /*------------------------------------------
-  --------------------------------------------
-  Created constructor
-  --------------------------------------------
-  --------------------------------------------*/
-  constructor(
-    private modalService: NgbModal,
-    private authService: AuthService,
-    private apiService: ApiService
-    ) {}
-     
+
+  /** Pipe para darle formato la fecha y hora*/
+  pipe = new DatePipe('es');
+  //changedDate = this.pipe.transform(this.today, 'fullDate');
+  changedHour = this.pipe.transform(this.today, 'hh:mm');
+
+
+
+
+  /*Creación del modal*/
+    
+
   /**
    * Write code on Method
    *
@@ -47,9 +53,11 @@ export class ListaReservasComponent {
   } 
 
 
-   /*Obtención de las reservas del alumno que ha iniciado sesión*/
+  
+  /*Obtención de las reservas del alumno que ha iniciado sesión*/
 
   ngOnInit(): void{
+
     this.getTodasReservasAlumno();
     this.apiService.getReservasAsesorDeAlumno(this.authService.currentUserValue['username']).subscribe((data: ReservaAsesorAlumno[])=>{
       this.ReservasAsesor = data;
@@ -62,6 +70,21 @@ export class ListaReservasComponent {
     return `${(now.getHours()>9)?now.getHours():`0${now.getHours()}`}:${(now.getMinutes()>9)?now.getMinutes():`0${now.getMinutes()}`}:${(now.getSeconds()>9)?now.getSeconds():`0${now.getSeconds()}`}`;
   }
 
+  // Marcar Llegada Asesor
+  marcarLlegadaAsesor(id: number){
+    this.apiService.marcarLlegadaAsesor(this.generateHoraActualString(), id).subscribe();
+  }
+
+  // Marcar Salida Asesor
+  marcarSalidaAsesor(id: number){
+    console.log(`${this.generateHoraActualString()} - ${id}`);
+    this.apiService.marcarSalidaAsesor(this.generateHoraActualString(), id).subscribe();
+  }
+
+  // Cancelar Reserva Asesor
+  cancelarReservaAsesor(id: number){
+    this.apiService.cancelarReservaAsesor(id).subscribe();
+  }
 
   getEstadoAsesor(index: number): string{
     if(this.ReservasAsesor[index].llegada === null && !this.ReservasAsesor[index].cancelada){
@@ -131,7 +154,7 @@ export class ListaReservasComponent {
     const nombreMes = dia.toLocaleString('es', {month: 'long'}).charAt(0).toUpperCase() + dia.toLocaleString('es', {month: 'long'}).slice(1);
     const TodosLosDias = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado', 'Domingo'];
     const diaSemana = TodosLosDias[dia.getDay()];
-    return `${diaSemana} ${dato.slice(8, 10)} de ${nombreMes}`;
+    return ` ${dato.slice(8, 10)} de ${nombreMes}`;
   }
 
   marcarLlegadaBtn(index: number): boolean{
