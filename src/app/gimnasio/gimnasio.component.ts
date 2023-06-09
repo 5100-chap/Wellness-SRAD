@@ -427,13 +427,17 @@ export class GimnasioComponent implements OnInit {
       );
   }
   
-  confirmarReview(){
-    var selectLimpieza = document.getElementById('ReviewLimpieza') as HTMLSelectElement;
-    var selectCalidad = document.getElementById('ReviewCalidad') as HTMLSelectElement;
-    var selectAmbiente = document.getElementById('ReviewAmbiente') as HTMLSelectElement;
-    console.log('Limpieza:', selectLimpieza.value);
-    console.log('Calidad:', selectCalidad.value);
-    console.log('Ambiente:', selectAmbiente.value);
+  confirmarReview(limpieza: string, calidad: string, ambiente: string){
+    var selectLimpieza = Number(limpieza);
+    var selectCalidad = Number(calidad);
+    var selectAmbiente = Number(ambiente);
+  
+    this.apiService.calificarArea(this.areaId, selectLimpieza, selectCalidad, selectAmbiente, 'Limpieza', 'Calidad del equipo', 'Ambiente').subscribe(error=>{
+      console.log(error);
+    });
+    
+   
+
   }
 
 

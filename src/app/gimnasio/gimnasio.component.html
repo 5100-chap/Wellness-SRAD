@@ -257,7 +257,7 @@
         <strong>Limpieza</strong>
         <br/>
 
-        <select name="ReviewLimpieza" id="ReviewLimpieza">
+        <select name="ReviewLimpieza" id="ReviewLimpieza" #limpieza>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -268,7 +268,7 @@
         <br/>
         <strong>Calidad del equipo</strong>
         <br/>
-        <select name="ReviewCalidad" id="ReviewCalidad">
+        <select name="ReviewCalidad" id="ReviewCalidad" #calidad>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -279,7 +279,7 @@
         <br/>
         <strong>Ambiente</strong>
         <br/>
-        <select name="ReviewAmbiente" id="ReviewAmbiente">
+        <select name="ReviewAmbiente" id="ReviewAmbiente" #Ambiente>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -290,7 +290,7 @@
         <br/>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="confirmarReview()">OK</button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="confirmarReview(limpieza.value, calidad.value, Ambiente.value)">OK</button>
       </div>
     </ng-template>
 

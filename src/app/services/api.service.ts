@@ -399,6 +399,19 @@ export class ApiService {
 
   }
 
+  // Crear reseña de un area deportiva
+  calificarArea(idArea: number, calif1: number,calif2: number,calif3: number, rubro1:string, rubro2:string, rubro3:string, ) {
+    return this.http.post('/api/calificarArea', {
+      idArea: idArea,
+      calif1 : calif1,
+      calif2 : calif2,
+      calif3 : calif3,
+      rubro1 : rubro1,
+      rubro2 : rubro2,
+      rubro3 : rubro3
+    })
+  }
+
 
   //Service que sirve para crear Area
   createArea(
