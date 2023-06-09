@@ -203,6 +203,8 @@
     <div class="col-md-7 mt-4">
       <h3> <strong>Reseñas</strong> </h3>
       <div class="card border border-black border border-1">
+        <button style = "font-size: 1rem; margin-bottom: 1%;" id="btn3" class="btn" (click)="abrir(resenamodal)"> Calificar </button>
+
         <div class="row">
 
           <div class="col-md-9 mt-2">
@@ -241,5 +243,56 @@
       </div>
 
     </div>
+  
+    <ng-template #resenamodal let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-resena">Reseñas</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        La calificación es de 1 a 5 (de peor a mejor).
+        <br/>
+        <strong>Limpieza</strong>
+        <br/>
+
+        <select name="ReviewLimpieza" id="ReviewLimpieza">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+
+        <br/>
+        <strong>Calidad del equipo</strong>
+        <br/>
+        <select name="ReviewCalidad" id="ReviewCalidad">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+
+        <br/>
+        <strong>Ambiente</strong>
+        <br/>
+        <select name="ReviewAmbiente" id="ReviewAmbiente">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+
+        <br/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="confirmarReview()">OK</button>
+      </div>
+    </ng-template>
+
   </div>
 </div>

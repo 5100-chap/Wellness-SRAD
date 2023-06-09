@@ -23,6 +23,7 @@ import { ReservaAsesor } from '../models/reserva-asesor';
 import { AsesorInfo } from '../models/asesor-info';
 import { ReservaAsesorAlumno } from '../models/reserva-asesor-alumno';
 import { ExisteAlumno } from '../models/existe-alumno';
+import { Eventos } from '../models/event.model';
 import { Time } from '@angular/common';
 
 
@@ -390,6 +391,14 @@ export class ApiService {
       id: id
     });
   }
+
+  getEventos(matricula: string): Observable<Eventos[]>{
+    return this.http.post<Eventos[]>('/api/getEventos', {
+      usuario: matricula
+    });
+
+  }
+
 
   //Service que sirve para crear Area
   createArea(

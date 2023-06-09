@@ -7,6 +7,7 @@ import {
   ViewChild,
   ChangeDetectorRef,
 } from '@angular/core';
+
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Reservas } from '../models/reservas.model';
 import { ApiService } from '../services/api.service';
@@ -30,6 +31,7 @@ export class GimnasioComponent implements OnInit {
   meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
   now!: Date;
+  
 
   today = new Date();
   pipe = new DatePipe('es');
@@ -324,6 +326,10 @@ export class GimnasioComponent implements OnInit {
     });
   }
 
+  getCalif(calif:any ){
+    console.log(calif)
+  }
+
   getAforoArea(): void {
     this.apiService.consultarAforo(this.areaId).subscribe(
       (data: any) => {
@@ -335,7 +341,7 @@ export class GimnasioComponent implements OnInit {
 
         this.aforoData = actuales + '/' + totales;
         this.chart = this.chartService.createPieChart('MyChart', ['Libre: ' + actuales, 'Ocupado: ' + ocupados], [ocupados, actuales]);
-        
+      
       },
       (error) => {
         console.log('Error fetching aforo status:', error);
@@ -407,4 +413,28 @@ export class GimnasioComponent implements OnInit {
     this.getAforoArea();
     window.location.reload();
   }
+
+  abrir(content: any) {
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-resena' })
+      .result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${result}`;
+        },
+        (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        }
+      );
+  }
+  
+  confirmarReview(){
+    var selectLimpieza = document.getElementById('ReviewLimpieza') as HTMLSelectElement;
+    var selectCalidad = document.getElementById('ReviewCalidad') as HTMLSelectElement;
+    var selectAmbiente = document.getElementById('ReviewAmbiente') as HTMLSelectElement;
+    console.log('Limpieza:', selectLimpieza.value);
+    console.log('Calidad:', selectCalidad.value);
+    console.log('Ambiente:', selectAmbiente.value);
+  }
+
+
 }
