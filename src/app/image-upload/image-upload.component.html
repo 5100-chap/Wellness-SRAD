@@ -1,0 +1,52 @@
+<div class="row">
+  <h3 *ngIf="this.router == '/lockers'"><strong>Subir comprobante de Pago</strong></h3>
+
+  <div class="vstack gap-4 col-md-11 mx-auto">
+
+    <div class="card border border-grey border border-2">
+
+      <div class="row">
+        <div class="col-2">
+          <label class="btn btn-default p-0" style="margin-top: 10%; margin-left: 4%;">
+            <input type="file" style="display: none" accept="image/*, .pdf" (change)="selectFile($event)"
+              #hiddenfileinput />
+
+            <button class="btn btn-sm" (click)="hiddenfileinput.click()" id="btn">Seleccionar archivo</button>
+
+          </label>
+        </div>
+
+        <div class="col-2" style="margin-top: 1.6%;">
+          <button class="btn btn-sm float-right" *ngIf="this.router == '/lockers'" [disabled]="!selectedFiles"
+            (click)="upload()" id="btn"> Subir
+            comprobante </button>
+        </div>
+
+      </div>
+
+
+      <div class="col-4" style="margin-top: 2%; margin-left: 2%; width: 30%; height: 30%;">
+
+        <div style="align-items: center;">
+          <img [src]="preview" class="preview" />
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+  <div *ngIf="currentFile && progress" class="progress my-3">
+    <div class="progress-bar progress-bar-info" role="progressbar" attr.aria-valuenow="{{ progress }}" aria-valuemin="0"
+      aria-valuemax="50" [ngStyle]="{ width: progress + '%' }">
+      {{ progress }}%
+    </div>
+  </div>
+
+  <div *ngIf="message" class="alert alert-secondary" role="alert">
+    {{ message }}
+  </div>
+
+</div>

@@ -1,13 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ApiService } from '../api.service';
-import Chart from 'chart.js/auto';
+import { ApiService } from '../services/api.service';
 import { Subscription } from 'rxjs';
-
-interface AforoSemanalResponse {
-  DayOfWeek: number;
-  AttendanceCount: number;
-}
+import { AforoSemanalResponse } from '../models/aforoSemanalResponse.model';
+import { Area } from '../models/area.model';
+import { IngresosPorHora } from '../models/ingresoPorHora.model';
+import { ChartService } from '../services/chart.service';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-stats-gym-admin',
@@ -15,50 +14,64 @@ interface AforoSemanalResponse {
   styleUrls: ['./stats-gym-admin.component.css'],
 })
 export class StatsGymAdminComponent implements OnInit, OnDestroy {
+  //Creacion de las variables para las graficas
   public chart: any;
+  public lineChart: any;
   dateControl = new FormControl();
+  dayControl = new FormControl();
+  public AreaInfo: Area[] = [];
   private subscription: Subscription | undefined;
+  private subscription2: Subscription | undefined;
+  // Definir los nombres de los días de la semana
+  private daysOfWeek = [
+    'Lunes',
+    'Martes',
+    'Miércoles',
+    'Jueves',
+    'Viernes',
+    'Sábado',
+    'Domingo',
+  ];
+  //Define el nombre de los meses
+  private monthNames = [
+    'Enero',
+    'Febrero',
+    'Marzo',
+    'Abril',
+    'Mayo',
+    'Junio',
+    'Julio',
+    'Agosto',
+    'Septiembre',
+    'Octubre',
+    'Noviembre',
+    'Diciembre',
+  ];
 
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    private chartService: ChartService
+  ) {}
 
   createChart(labels: string[], data: number[]) {
-    // Si ya existe un gráfico, lo destruimos
-    if (this.chart) {
-      this.chart.destroy();
-    }
+    this.chartService.destroyChart(this.chart);
+    this.chart = this.chartService.createChart('Dia', labels, data, 'bar');
+  }
 
-    this.chart = new Chart('Dia', {
-      type: 'bar',
-
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: 'Ingresos',
-            data: data,
-            backgroundColor: 'blue',
-          },
-        ],
-      },
-      options: {
-        aspectRatio: 2.5,
-      },
-    });
+  createLineChart(labels: string[], data: number[]) {
+    this.chartService.destroyChart(this.lineChart);
+    this.lineChart = this.chartService.createChart(
+      'linea',
+      labels,
+      data,
+      'line'
+    );
   }
 
   ngOnInit(): void {
-    const areaId = 52;
-
-    // Definir los nombres de los días de la semana
-    const daysOfWeek = [
-      'Lunes',
-      'Martes',
-      'Miércoles',
-      'Jueves',
-      'Viernes',
-      'Sábado',
-      'Domingo',
-    ];
+    this.apiService.getAreaByName('gimnasio').subscribe((response) => {
+      this.AreaInfo = response;
+    });
 
     this.subscription = this.dateControl.valueChanges.subscribe(
       (value: string) => {
@@ -75,7 +88,7 @@ export class StatsGymAdminComponent implements OnInit, OnDestroy {
         const formattedDate = ISOweekStart.toISOString().split('T')[0];
 
         this.apiService
-          .getAforoSemanal(formattedDate, areaId)
+          .getAforoSemanal(formattedDate, this.AreaInfo[0].AreaId)
           .subscribe((data: AforoSemanalResponse[]) => {
             // Inicializar un objeto con todos los días de la semana y aforo 0
             const attendanceByDay: { [day: string]: number } = {
@@ -90,15 +103,47 @@ export class StatsGymAdminComponent implements OnInit, OnDestroy {
 
             // Llenar el objeto con los datos obtenidos
             for (const item of data) {
-              attendanceByDay[daysOfWeek[item.DayOfWeek - 1]] =
+              attendanceByDay[this.daysOfWeek[item.DayOfWeek - 1]] =
                 item.AttendanceCount;
             }
-
             // Crear los arreglos labels y dataPoints a partir del objeto
-            const labels = Object.keys(attendanceByDay);
+            const labels = Object.keys(attendanceByDay).map((day, index) => {
+              const currentDay = new Date(ISOweekStart);
+              currentDay.setDate(currentDay.getDate() + index);
+              return `${day} ${currentDay.getDate()} de ${
+                this.monthNames[currentDay.getMonth()]
+              }`;
+            });
             const dataPoints = Object.values(attendanceByDay);
 
             this.createChart(labels, dataPoints);
+          });
+      }
+    );
+
+    this.subscription2 = this.dayControl.valueChanges.subscribe(
+      (value: string) => {
+        this.apiService
+          .getIngresosPorHora(value, this.AreaInfo[0].AreaId)
+          .subscribe((data: IngresosPorHora[]) => {
+            // Inicializar un objeto con todas las horas del día y ingresos 0
+            const ingresosPorHora: { [hora: number]: number } = {};
+            for (let i = 0; i < 24; i++) {
+              ingresosPorHora[i] = 0;
+            }
+
+            // Llenar el objeto con los datos obtenidos
+            for (const item of data) {
+              ingresosPorHora[item.Hora] = item.Ingresos;
+            }
+
+            // Crear los arreglos labels y dataPoints a partir del objeto
+            const labels = Object.keys(ingresosPorHora).map(
+              (hour) => `${hour}:00 hrs`
+            );
+            const dataPoints = Object.values(ingresosPorHora);
+
+            this.createLineChart(labels, dataPoints);
           });
       }
     );
@@ -106,5 +151,6 @@ export class StatsGymAdminComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
+    this.subscription2?.unsubscribe();
   }
 }

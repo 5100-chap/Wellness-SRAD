@@ -1,68 +1,164 @@
-import { Component } from '@angular/core';
-import Chart, { Legend, plugins } from 'chart.js/auto';
-
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { ApiService } from '../services/api.service';
+import { ChartService } from '../services/chart.service';
+import { TendenciasModel } from '../models/tendencias.model';
+import { TendenciasHoraData  } from '../models/tendenciaHora.model';
 @Component({
   selector: 'app-tendencias',
   templateUrl: './tendencias.component.html',
-  styleUrls: ['./tendencias.component.css']
+  styleUrls: ['./tendencias.component.css'],
 })
-export class TendenciasComponent {
+export class TendenciasComponent implements OnInit, OnDestroy {
+  graficaPorSegmentoBloque: any;
+  graficaPorHora: any;
+  segmentoControl = new FormControl();
+  bloqueControl = new FormControl();
+  semanaControl = new FormControl();
+  fechaControl = new FormControl();
+  private subscription: Subscription | undefined;
+  private subscription2: Subscription | undefined;
 
-  public chart: any;
+  constructor(
+    private apiService: ApiService,
+    private chartService: ChartService
+  ) {}
 
-  createChart(){
+  ngOnInit() {
+    
+    //Llamamos los datos de la API y los graficamos en la pagina
+    this.subscription = this.semanaControl.valueChanges.subscribe(
+      (semana: string) => {
+        let segmento = this.segmentoControl.value;
+        const bloque = this.bloqueControl.value;
 
-   
-    this.chart = new Chart("MyChart", {
-      type: 'line', //this denotes tha type of chart
-      
+        this.apiService
+          .obtenerTendencias(segmento, +bloque, +semana)
+          .subscribe((res) => {
+            const tendencias = new TendenciasModel(res.tendencias);
+            const datosFormateados = this.formatearDatos(tendencias);
+            this.chartService.destroyChart(this.graficaPorSegmentoBloque);
+            this.graficaPorSegmentoBloque =
+              this.chartService.createStackedChart(
+                'graficaPorSegmentoBloque',
+                datosFormateados.labels,
+                datosFormateados.datasets,
+                'bar'
+              );
+          });
+      }
+    );
 
-      data: {// values on X-Axis
-        labels: ['6:00 AM', '7:00 AM', '8:00 AM','9:00 AM',
-								 '10:00 AM', '11:00 AM', '12:00 PM','1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM', '7:00 PM', '8:00 PM', '9:00 PM', '10:00 PM'], 
-	       datasets: [
-          {
-            label: "Ingresos",
-            data: ['2982', '556', '2021','2087',
-            '2966', '2229', '3524','2246', '2995', '1052', '2658', '2098', '2302', '2676', '2525', '1503', '254'],
-            backgroundColor: 'blue'
-          }
-        ]
-      },
-      options: {
-        aspectRatio:2.5,
-
-          }
-    });
-
-    this.chart = new Chart("Dia", {
-      type: 'bar', //this denotes tha type of chart
-      
-
-      data: {// values on X-Axis
-        labels: ['20/03/2023', '21/03/2023', '22/03/2023','23/03/2023',
-								 '24/03/2023', '25/03/2023', '26/03/2023'], 
-	       datasets: [
-          {
-            label: "Ingresos",
-            data: ['2982', '556', '2021','2087',
-            '2966', '2229', '2254'],
-            backgroundColor: 'blue'
-          }
-        ]
-      },
-      options: {
-        aspectRatio:2.5,
-
-          }
-    });
-
-
+    this.subscription2 = this.fechaControl.valueChanges.subscribe(
+      (fecha: string) => {
+        this.apiService
+          .obtenerTendenciasPorHora(fecha)
+          .subscribe((res: any) => {
+            const graficaData = this.prepararDatosGraficoLineas(res);
+            this.chartService.destroyChart(this.graficaPorHora);
+            this.graficaPorHora = this.chartService.createStackedChart(
+              'graficaPorHora',
+              graficaData.labels,
+              graficaData.datasets,
+              'line'
+            );
+          });
+      }
+    );
   }
 
-
-  ngOnInit(): void {
-    this.createChart();
+  prepararDatosGraficoLineas(data: TendenciasHoraData) {
+    const labels: string[] = [];
+    const dataset: number[] = [];
+  
+    // Generar etiquetas y asignar valor 0 a cada hora
+    for (let hour = 6; hour <= 22; hour++) {
+      const label = hour.toString().padStart(2, '0') + ':00';
+      labels.push(label);
+      dataset.push(0);
+    }
+  
+    // Asignar valores correspondientes según los datos recibidos
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        const hour = parseInt(key);
+        if (hour >= 6 && hour <= 22) {
+          dataset[hour - 6] = data[key].media;
+        }
+      }
+    }
+  
+    const datasets = [
+      {
+        label: 'Media',
+        data: dataset,
+        borderColor: 'blue',
+        fill: false
+      }
+    ];
+  
+    return { labels, datasets };
   }
 
+  formatearDatos(tendencias: TendenciasModel) {
+    const labels = [
+      'Lunes',
+      'Martes',
+      'Miércoles',
+      'Jueves',
+      'Viernes',
+      'Sábado',
+      'Domingo',
+    ];
+    const datasets = [
+      {
+        label: 'Media',
+        data: labels.map(
+          (_, i) => tendencias[`Dia${i + 1}_media` as keyof TendenciasModel]
+        ),
+        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+      },
+      {
+        label: 'Máximo',
+        data: labels.map(
+          (_, i) => tendencias[`Dia${i + 1}_maximo` as keyof TendenciasModel]
+        ),
+        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+      },
+      {
+        label: 'Mínimo',
+        data: labels.map(
+          (_, i) => tendencias[`Dia${i + 1}_minimo` as keyof TendenciasModel]
+        ),
+        backgroundColor: 'rgba(255, 206, 86, 0.6)',
+      },
+      {
+        label: 'Mediana',
+        data: labels.map(
+          (_, i) => tendencias[`Dia${i + 1}_mediana` as keyof TendenciasModel]
+        ),
+        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+      },
+      {
+        label: 'Desviación Estándar',
+        data: labels.map(
+          (_, i) =>
+            tendencias[
+              `Dia${i + 1}_desviacionEstandar` as keyof TendenciasModel
+            ]
+        ),
+        backgroundColor: 'rgba(153, 102, 255, 0.6)',
+      },
+    ];
+
+    return { labels, datasets };
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+    this.subscription2?.unsubscribe();
+    this.chartService.destroyChart(this.graficaPorSegmentoBloque);
+    this.chartService.destroyChart(this.graficaPorHora);
+  }
 }

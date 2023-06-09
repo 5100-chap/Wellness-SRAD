@@ -2,7 +2,7 @@
   <div class="text-white img-banner2">
     <img src="../assets/img/gym.jpeg" height="250" class="card-img" style="opacity: 0.5;">
     <div class="card-img-overlay">
-      <h2 class="card-title text-center" style="margin-left: 2.3%; margin-top:10%" id="prueba"> <i> Gimnasio</i></h2>
+      <h2 class="card-title text-center" style="margin-left: 2.3%; margin-top:10%; font-size: 3rem;" id="prueba"> <i> Gimnasio</i></h2>
     </div>
   </div>
 </div>
@@ -14,7 +14,7 @@
 <div class="vstack gap-4 col-md-9 mx-auto">
 
   <div class="card w-100 ">
-    <h3 class="card-header">18 de Abril de 2023</h3>
+    <h3 class="card-header">{{this.changedDate}}</h3>
 
 
     <div class="row">
@@ -39,7 +39,7 @@
           <button type="submit" class="btn btn-warning text-center" id="marcarSalida" style="font-size: 1.3rem; margin-left: 0.7%;" *ngIf="alumnoStatus" (click)="disminuirAforo()">Marcar salida
           </button>
         </form>
-      -->
+      
 
       </div>
 
@@ -76,14 +76,9 @@
           </div>
 
           <div class="col-md-4 mt-1">
-
-            <div ngbDropdown>
-              <button class="btn btn-primary" id="btn" ngbDropdownToggle>Semana 20 - 26 de Marzo 2023</button>
-              <div ngbDropdownMenu="gfg">
-                <button ngbDropdownItem>Semana 20 - 26 de Marzo 2023</button>
-                <button ngbDropdownItem>Semana 20 - 26 de Marzo 2023</button>
-                <button ngbDropdownItem>Semana 20 - 26 de Marzo 2023</button>
-              </div>
+            <div class="col-md-3 mt-3" style="margin-left: 2%;">
+              <label for="weekPicker">Elige la semana:</label>
+              <input type="week" id="weekPicker" [formControl]="dateControl">
             </div>
           </div>
         </div>
@@ -108,15 +103,36 @@
       <tbody>
 
 
-        <tr *ngFor="let al of reservaArray" (click)="openForEdit(al)" [class.active]="al == seleReserva">
+        <tr *ngFor="let al of reservaArray; let i= index;" (click)="openForEdit(al)" [class.active]="al == seleReserva">
 
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
-          <td class="text-center"> <button class="btn btn-primary" id="btn"> {{al.hora}} </button></td>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(0, al.hora)" (click)="imprimirFechaCorrecta(i, 0)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(0, al.hora)" class="btn btn-primary" id="btn-disabled" disabled> {{al.rangoDeHora}} </button>
+          </td>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(1, al.hora)" (click)="imprimirFechaCorrecta(i, 1)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(1, al.hora)" class="btn btn-primary" id="btn-disabled" disabled> {{al.rangoDeHora}} </button>
+          </td>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(2, al.hora)" (click)="imprimirFechaCorrecta(i, 2)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(2, al.hora)" class="btn btn-primary" id="btn-disabled" disabled> {{al.rangoDeHora}} </button>
+          </td>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(3, al.hora)" (click)="imprimirFechaCorrecta(i, 3)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(3, al.hora)" class="btn btn-primary" id="btn-disabled" disabled> {{al.rangoDeHora}} </button>
+          </td>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(4, al.hora)" (click)="imprimirFechaCorrecta(i, 4)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(4, al.hora)" class="btn btn-primary" id="btn-disabled" disabled> {{al.rangoDeHora}} </button>
+          </td>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(5, al.hora)" (click)="imprimirFechaCorrecta(i, 5)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(5, al.hora)" class="btn btn-primary" id="btn-disabled" disabled> {{al.rangoDeHora}} </button>
+          </td>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(6, al.hora)" (click)="imprimirFechaCorrecta(i, 6)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
+            <button *ngIf="!ocupado(6, al.hora)" class="btn btn-primary" id="btn-disabled" disabled> {{al.rangoDeHora}} </button>
+          </td>
 
         </tr>
 
@@ -148,11 +164,11 @@
         </div>
 
         <div class=" col-md-2 mt-3">
-          <button id="confirmar" class="btn" (click)="open(mymodal)"> Reservar </button>
+          <button *ngIf="horaSeleccionada!==undefined && diaSeleccionado!==undefined" id="confirmar" class="btn" (click)="open(mymodal)" (click)="crearReserva()"> Reservar </button>
           <ng-template #mymodal let-modal>
             <div class="modal-header">
               <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
-              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="reload()">
                 <span aria-hidden="true">×</span>
               </button>
             </div>
@@ -160,11 +176,11 @@
               Tu reservación ha sido exitosa!
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
+              <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="reload()">OK</button>
             </div>
           </ng-template>
+          <button *ngIf="horaSeleccionada===undefined || diaSeleccionado===undefined" id="confirmar" class="btn" disabled> Reservar </button>
         </div>
-
       </div>
 
 
@@ -187,6 +203,8 @@
     <div class="col-md-7 mt-4">
       <h3> <strong>Reseñas</strong> </h3>
       <div class="card border border-black border border-1">
+        <button style = "font-size: 1rem; margin-bottom: 1%;" id="btn3" class="btn" (click)="abrir(resenamodal)"> Calificar </button>
+
         <div class="row">
 
           <div class="col-md-9 mt-2">
@@ -225,5 +243,56 @@
       </div>
 
     </div>
+  
+    <ng-template #resenamodal let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-resena">Reseñas</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        La calificación es de 1 a 5 (de peor a mejor).
+        <br/>
+        <strong>Limpieza</strong>
+        <br/>
+
+        <select name="ReviewLimpieza" id="ReviewLimpieza">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+
+        <br/>
+        <strong>Calidad del equipo</strong>
+        <br/>
+        <select name="ReviewCalidad" id="ReviewCalidad">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+
+        <br/>
+        <strong>Ambiente</strong>
+        <br/>
+        <select name="ReviewAmbiente" id="ReviewAmbiente">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+
+        <br/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="confirmarReview()">OK</button>
+      </div>
+    </ng-template>
+
   </div>
 </div>

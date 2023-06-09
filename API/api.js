@@ -11,7 +11,12 @@ dotenv.config();
 
 const database = require("./config/credentials/database");
 
-const routes = require("./config/routes/router"); // Import the combined routes
+const routes = require("./config/routes/router"); 
+const cancelAuto = require("./config/routines/cancelacionAutomatica");
+const cancelReservaAsesorAuto = require("./config/routines/cancelarReservasAsesor");
+const AforoTotalAutomatico = require("./config/routines/AforoTotalAutomatico");
+const AbrirCerrarAreas = require("./config/routines/AbrirCerrarAreas");
+const eliminarAnuncios = require("./config/routines/EliminarAnuncio")
 
 const port = process.env.PORT || 8080;
 
@@ -53,5 +58,14 @@ app.set("port", port);
 app.listen(port, function () {
     console.log(`Servidor iniciado en el puerto ${port}`);
     console.log(database.config);
-    connectToDatabase();
+    (async () => {
+        await connectToDatabase();
+        cancelAuto();
+        cancelReservaAsesorAuto();
+        AbrirCerrarAreas();
+        AforoTotalAutomatico();
+        eliminarAnuncios();
+        setInterval(cancelAuto, 5*60*1000);
+        setInterval(cancelReservaAsesorAuto, 5*60*1000);
+    })();
 });

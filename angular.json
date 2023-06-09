@@ -25,12 +25,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
-
+              "src/styles.css",
             ],
             "scripts": [
-             
-
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]
           },
           "configurations": {
@@ -91,6 +89,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/angular-calendar/css/angular-calendar.css",
               "src/styles.css"
             ],
             "scripts": []
