@@ -19,44 +19,47 @@
 <!--Se muestra el area de reservación en caso de no contar con un casillero reservado -->
 
 <div *ngIf="this.CasilleroReservado == null">
-  <div  class="vstack gap-4 col-md-11 mx-auto">
+  <div class="vstack gap-4 col-md-11 mx-auto">
 
     <div class="card w-100 border border-gray border border-2">
       <div class="row">
-  
+
         <div class="col-md-5 mt-5">
-          <h2 class="text-body-secondary" class="text-center" id="cantidadLocker"> &nbsp;  <strong> Casilleros disponibles</strong> </h2>
-          <h2 class="text-body-secondary" class="text-center" id="cantidadLocker" style="color: grey;"> &nbsp; {{CasillerosDisponibles[0].disponibles}}</h2>
-        
+          <h2 class="text-body-secondary" class="text-center" id="cantidadLocker"> &nbsp; <strong> Casilleros
+              disponibles</strong> </h2>
+          <h2 class="text-body-secondary" class="text-center" id="cantidadLocker" style="color: grey;"> &nbsp;
+            {{CasillerosDisponibles[0].disponibles}}</h2>
+
         </div>
       </div>
     </div>
   </div>
-  
-  
-  <h2 style="margin-left: 4%; margin-top: 2%; margin-bottom: 0.5%;">  <strong> Reservación </strong> </h2>
-  
+
+
+  <h2 style="margin-left: 4%; margin-top: 2%; margin-bottom: 0.5%;"> <strong> Reservación </strong> </h2>
+
   <div class="vstack gap-4 col-md-11 mx-auto" style="margin-top: 2%;">
-  
+
     <div class="card w-100 border border-gray border border-2">
-    
+
       <br>
       <div class="vstack gap-4 col-md-11 mx-auto">
         <div class="row row-cols-1 row-cols-md-3 g-4 table-wrapper">
           <div class="col" *ngFor="let locker of casilleros" [class.active]="locker == seleReserva">
-            <div class="card border-light img-banner2" >
+            <div class="card border-light img-banner2">
 
-              <img [src]="'../assets/img/lockers.jpeg'" height="250px" 
-                   class="card-img" alt="..." style="opacity: 0.4;">
+              <img [src]="'../assets/img/lockers.jpeg'" height="250px" class="card-img" alt="..." style="opacity: 0.4;">
 
               <div class="card-img-overlay" style="border-color: transparent;">
-                
-                <h2 class="card-title" style="margin-left : 2.3%; margin-top : 2.3%; font-size : 1.5rem;" id="prueba"> 
-                   Número: {{locker.id}} 
+
+                <h2 class="card-title" style="margin-left : 2.3%; margin-top : 2.3%; font-size : 1.5rem;" id="prueba">
+                  Número: {{locker.id}}
                   <br>
-                   Ubicación: {{locker.ubicacion}}
+                  Ubicación: {{locker.ubicacion}}
                   <br>
-                   Estado:  <strong *ngIf="locker.estatus == false" style="color: #06D913;"> {{locker.estatus ? 'Reservado' : 'Disponible'}} </strong>  <strong *ngIf="locker.estatus == true" style="color: #E30F0B;"> {{locker.estatus ? 'Reservado' : 'Disponible'}} </strong>
+                  Estado: <strong *ngIf="locker.estatus == false" style="color: #06D913;"> {{locker.estatus ?
+                    'Reservado' : 'Disponible'}} </strong> <strong *ngIf="locker.estatus == true"
+                    style="color: #E30F0B;"> {{locker.estatus ? 'Reservado' : 'Disponible'}} </strong>
                 </h2>
 
                 <div class="text-center" style="margin-top: 17%;">
@@ -68,7 +71,7 @@
               </div>
             </div>
           </div>
-    
+
         </div>
       </div>
       <br>
@@ -76,45 +79,47 @@
   </div>
 
   <!--Resumen reserva -->
-  
+
   <br>
-  
+
   <div class="vstack gap-4 col-md-11 mx-auto">
-  
+
     <div id="reserve" class="card w-100 border border-gray border border-2">
-      
-        <div class="row">
-          <div class=" col-md-10 ">
-            <h4 style="margin-top: 1.5%; margin-left: 1%"> <strong>Casillero Seleccionado: </strong></h4>
-            
-            <div *ngIf="this.seleReserva.id != 0" style="margin-bottom: 1%; font-size: 1.3rem; margin-left: 1%;">
-              Número: {{seleReserva.id}}
-              <br>
-              Ubicación: {{seleReserva.ubicacion}}
+
+      <div class="row">
+        <div class=" col-md-10 ">
+          <h4 style="margin-top: 1.5%; margin-left: 1%"> <strong>Casillero Seleccionado: </strong></h4>
+
+          <div *ngIf="this.seleReserva.id != 0" style="margin-bottom: 1%; font-size: 1.3rem; margin-left: 1%;">
+            Número: {{seleReserva.id}}
+            <br>
+            Ubicación: {{seleReserva.ubicacion}}
+          </div>
+
+        </div>
+
+        <div *ngIf="this.seleReserva.id != 0" class=" col-md-2 mt-3">
+          <button style="font-size: 1.5rem; margin-top: 8%;" id="btn2" class="btn" (click)="open(mymodal)"
+            (click)=" crearReservaCasillero()" (click)=" actualizarEstadoCasillero()"> Reservar </button>
+          <ng-template #mymodal let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">×</span>
+              </button>
             </div>
-            
-          </div>
-  
-          <div *ngIf="this.seleReserva.id != 0"  class=" col-md-2 mt-3" >
-            <button style = "font-size: 1.5rem; margin-top: 8%;" id="btn2" class="btn" (click)="open(mymodal)" (click)=" crearReservaCasillero()" (click)=" actualizarEstadoCasillero()"> Reservar </button>
-            <ng-template #mymodal let-modal>
-              <div class="modal-header">
-                <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                  <span aria-hidden="true">×</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                Tu pago se ha realizado exitosamente!
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="refresh()">OK</button>
-              </div>
-            </ng-template>
-          </div>
-        </div>   
+            <div class="modal-body">
+              Tu pago se ha realizado exitosamente!
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="modal.close('Save click')"
+                (click)="refresh()">OK</button>
+            </div>
+          </ng-template>
+        </div>
+      </div>
     </div>
- </div>
+  </div>
 
 </div>
 
@@ -122,10 +127,10 @@
 
 
 <div class="vstack gap-4 col-md-11 mx-auto">
-    <div class="row">
- 
-      <div *ngIf="this.CasilleroReservado != null">
-         <!-- Información del casillero reservado -->
+  <div class="row">
+
+    <div *ngIf="this.CasilleroReservado != null">
+      <!-- Información del casillero reservado -->
       <div class="col-md-12 mt-4">
 
         <h3> <strong>Información de tu casillero reservado</strong> </h3>
@@ -135,7 +140,15 @@
           <div style="margin-left: 1%; margin-top: 1%; margin-bottom: 1%;">
             <h5 > <Strong> Número de casillero: </Strong> {{this.CasilleroReservado.id_casillero}}</h5>
             <h5 > <Strong> Ubicación: </Strong> {{this.CasilleroReservado.ubicacion}}</h5>
-            <h5 > <Strong> Estado de la reserva: </Strong> <strong *ngIf="this.CasilleroReservado.estado == false" style="color: #0653d9;" > {{this.CasilleroReservado.estado ? 'Aprobada' : 'En revisión'}} </strong>  <strong *ngIf="this.CasilleroReservado.estado == true" style="color: #1a8106;" > {{this.CasilleroReservado.estado ? 'Aprobada' : 'En revisión'}} </strong></h5>
+            <h5 > <Strong> Estado de la reserva: </Strong> 
+              <strong *ngIf="this.CasilleroReservado.estado == 'En revisión'" style="color: #0653d9;" > {{this.CasilleroReservado.estado}} </strong> 
+              <strong *ngIf="this.CasilleroReservado.estado == 'Confirmada' " style="color: #1a8106;" > {{this.CasilleroReservado.estado}} </strong>
+              <strong *ngIf="this.CasilleroReservado.estado == 'Cancelada' " style="color: #cb1605;" > {{this.CasilleroReservado.estado}} </strong>
+            </h5>
+
+            <br>
+            <h5 *ngIf="this.CasilleroReservado.estado == 'Cancelada' "> &#9888; Su reserva ha sido cancelada por el administrador por problemas con su comprobante de pago. <br> <br>
+              &#9888; Si desea hacer otra reservación haga clic en el siguiente botón.</h5>
 
           </div>
 
@@ -152,70 +165,85 @@
           </div>
           <div class="modal-body">
             La calificación es de 1 a 5 (de peor a mejor).
-            <br/>
+            <br />
             <strong>Limpieza</strong>
-            <br/>
+            <br />
 
             <div class="btn-group btn-group-toggle" data-toggle="buttons" id="radiolimpieza">
               <label class="btn active">
-                <input class="form-check-input" type="radio" name="options" id="option1" name="grupo1" autocomplete="off"> 1
+                <input class="form-check-input" type="radio" name="options" id="option1" name="grupo1"
+                  autocomplete="off"> 1
               </label>
               <label class="btn active">
-                <input class="form-check-input" type="radio" name="options" id="option2" name="grupo1" autocomplete="off"> 2
+                <input class="form-check-input" type="radio" name="options" id="option2" name="grupo1"
+                  autocomplete="off"> 2
               </label>
               <label class="btn active">
-                <input class="form-check-input" type="radio" name="options" id="option3" name="grupo1" autocomplete="off"> 3
+                <input class="form-check-input" type="radio" name="options" id="option3" name="grupo1"
+                  autocomplete="off"> 3
               </label>
               <label class="btn active">
-                <input class="form-check-input" type="radio" name="options" id="option4" name="grupo1" autocomplete="off"> 4
+                <input class="form-check-input" type="radio" name="options" id="option4" name="grupo1"
+                  autocomplete="off"> 4
               </label>
               <label class="btn active">
-                <input class="form-check-input" type="radio" name="options" id="option5" name="grupo1" autocomplete="off"> 5
+                <input class="form-check-input" type="radio" name="options" id="option5" name="grupo1"
+                  autocomplete="off"> 5
               </label>
             </div>
-            <br/>
+            <br />
             <strong>Calidad del equipo</strong>
-            <br/>
+            <br />
             <div class="btn-group btn-group-toggle" data-toggle="buttons" id="radiocalidad">
               <label class="btn active">
-                <input class="form-check-input" type="radio" name="options" id="option1" name="grupo2" autocomplete="off"> 1
+                <input class="form-check-input" type="radio" name="options" id="option1" name="grupo2"
+                  autocomplete="off"> 1
               </label>
               <label class="btn active">
-                <input class="form-check-input" type="radio" name="options" id="option2" name="grupo2"  autocomplete="off"> 2
+                <input class="form-check-input" type="radio" name="options" id="option2" name="grupo2"
+                  autocomplete="off"> 2
               </label>
               <label class="btn active">
-                <input class="form-check-input" type="radio" name="options" id="option3" name="grupo2"  autocomplete="off"> 3
+                <input class="form-check-input" type="radio" name="options" id="option3" name="grupo2"
+                  autocomplete="off"> 3
               </label>
               <label class="btn active">
-                <input class="form-check-input" type="radio" name="options" id="option4" name="grupo2"  autocomplete="off"> 4
+                <input class="form-check-input" type="radio" name="options" id="option4" name="grupo2"
+                  autocomplete="off"> 4
               </label>
               <label class="btn active">
-                <input class="form-check-input" type="radio" name="options" id="option5" name="grupo2"  autocomplete="off"> 5
+                <input class="form-check-input" type="radio" name="options" id="option5" name="grupo2"
+                  autocomplete="off"> 5
               </label>
             </div>
 
-            <br/>
+            <br />
             <strong>Ambiente</strong>
-            <br/>
+            <br />
             <div class="btn-group btn-group-toggle" data-toggle="buttons" id="radioambiente">
               <label class="btn active">
-                <input class="form-check-input" type="radio" name="options" id="option1" name="grupo3" autocomplete="off"> 1
+                <input class="form-check-input" type="radio" name="options" id="option1" name="grupo3"
+                  autocomplete="off"> 1
               </label>
               <label class="btn active">
-                <input class="form-check-input" type="radio" name="options" id="option2" name="grupo3" autocomplete="off"> 2
+                <input class="form-check-input" type="radio" name="options" id="option2" name="grupo3"
+                  autocomplete="off"> 2
               </label>
               <label class="btn active">
-                <input class="form-check-input" type="radio" name="options" id="option3" name="grupo3" autocomplete="off"> 3
+                <input class="form-check-input" type="radio" name="options" id="option3" name="grupo3"
+                  autocomplete="off"> 3
               </label>
               <label class="btn active">
-                <input class="form-check-input" type="radio" name="options" id="option4" name="grupo3" autocomplete="off"> 4
+                <input class="form-check-input" type="radio" name="options" id="option4" name="grupo3"
+                  autocomplete="off"> 4
               </label>
               <label class="btn active">
-                <input class="form-check-input" type="radio" name="options" id="option5" name="grupo3" autocomplete="off"> 5
+                <input class="form-check-input" type="radio" name="options" id="option5" name="grupo3"
+                  autocomplete="off"> 5
               </label>
             </div>
 
-            <br/>
+            <br />
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">OK</button>
@@ -224,56 +252,73 @@
 
       </div>
          <!-- Seccion del Preview de Comprobante, esto se encuentra en el componente de image-upload -->
-        <app-image-upload></app-image-upload>
+         <div *ngIf="this.CasilleroReservado.estado == 'En revisión'">
+          <app-image-upload *ngIf="this.checarImagenSubida()" #imageUploadComponent [uploadId]="this.CasilleroReservado.id_casillero"
+          [uploadType]="'reservaLockers'"></app-image-upload>
+         </div>
+        
       </div>
 
 
-      <!-- Reseñas -->
-      <div *ngIf="this.CasilleroReservado == null"class="col-md-12 mt-4">
-        <h3> <strong>Reseñas</strong> </h3>
-        <div class="card border border-grey border border-2">
-          <div class="row">
+    <!-- Reseñas -->
+    <div *ngIf="this.CasilleroReservado == null" class="col-md-12 mt-4">
+      <h3> <strong>Reseñas</strong> </h3>
+      <div class="card border border-grey border border-2">
+        <div class="row">
 
-            <div class="col-md-9 mt-2">
-              <h5> &nbsp; Limpieza</h5>
-            </div>
-
-            <div class="col-md-3 mt-2">
-              <h4>★★★★☆ 4 </h4>
-
-            </div>
+          <div class="col-md-9 mt-2">
+            <h5> &nbsp; Limpieza</h5>
           </div>
 
-          <div class="row">
+          <div class="col-md-3 mt-2">
+            <h4>★★★★☆ 4 </h4>
 
-            <div class="col-md-9 mt-2">
-              <h5> &nbsp; Calidad </h5>
-            </div>
-
-            <div class="col-md-3 mt-2">
-              <h4>★★★★★ 5</h4>
-
-            </div>
           </div>
-
-          <div class="row">
-
-            <div class="col-md-9 mt-2">
-              <h5> &nbsp; Tamaño</h5>
-            </div>
-
-            <div class="col-md-3 mt-2">
-              <h4>★★★☆☆ 3</h4>
-
-            </div>
-          </div>
-
         </div>
+
+        <div class="row">
+
+          <div class="col-md-9 mt-2">
+            <h5> &nbsp; Calidad </h5>
+          </div>
+
+          <div class="col-md-3 mt-2">
+            <h4>★★★★★ 5</h4>
+
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-9 mt-2">
+            <h5> &nbsp; Tamaño</h5>
+          </div>
+
+          <div class="col-md-3 mt-2">
+            <h4>★★★☆☆ 3</h4>
+
+          </div>
+        </div>
+
       </div>
+    </div>
   </div>
 
 </div>
 
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
   
 
 

@@ -75,7 +75,7 @@ router.post('/api/createReservacionLocker', async(req, res, next)=>{
 router.post('/api/actualizarEstadoLocker', async(req, res, next)=>{
     try{
         var request = new sql.Request();       
-        var result = await request.query(`EXEC [dbo].[ActualizarEstadoCasillero] \ ${req.body.id_casillero};`);
+        var result = await request.query(`EXEC [dbo].[ActualizarEstadoCasillero] \ ${req.body.id_casillero},  ${req.body.estado};`);
     }catch(error){
         console.log(error);
         res.json({'status': 'error'});
@@ -100,6 +100,42 @@ router.post("/api/consultarReservaCasillero", async (req, res, next) => {
     }
 });
 
+//Confirmar la reserva de un casillero
+router.post('/api/confirmarReservaLocker', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();       
+        var result = await request.query(`EXEC [dbo].[confirmarReservaCasillero] \ ${req.body.id};`);
+    }catch(error){
+        next(err);
+        res.json({'status': 'error'});
+    }
+});
+
+//Cancelar la reserva de un casillero
+
+router.post('/api/cancelarReservaLocker', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();       
+        var result = await request.query(`EXEC [dbo].[cancelarReservaCasillero] \ ${req.body.id}, ${req.body.idCasillero};`);
+    }catch(error){
+        next(err);
+        res.json({'status': 'error'});
+    }
+});
+
+//Descartar la reserva de un casillero
+router.post('/api/descartaReservaLocker', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();       
+        var result = await request.query(`EXEC [dbo].[descartarReservaCasillero] \ ${req.body.id};`);
+    }catch(error){
+        next(err);
+        res.json({'status': 'error'});
+    }
+});
+
+
+
 //Obtiene todas las reservaciones de los casilleros
 router.get("/api/getReservasCasilleros", async (req,res, next) =>{
     const request = new sql.Request();
@@ -114,7 +150,7 @@ router.get("/api/getReservasCasilleros", async (req,res, next) =>{
 });
 
 
-// Cancelar una reservación
+// Cancelar una reservación en un áre deportiva
 router.delete('/api/cancelReservacionArea', async(req, res, next)=>{
     try{
         var request = new sql.Request();

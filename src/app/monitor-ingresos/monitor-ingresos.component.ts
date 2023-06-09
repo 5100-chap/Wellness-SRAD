@@ -41,7 +41,7 @@ export class MonitorIngresosComponent {
   /*Definición del formulario para la validación de los campos */
      
   NuevoIngresoForm = new FormGroup({
-    matricula: new FormControl('', [Validators.required, Validators.pattern(/^A0.*/), Validators.maxLength(9)]),
+    matricula: new FormControl('', [Validators.required, Validators.pattern(/^A0|a0.*/), Validators.maxLength(9)]),
   
   });
   
