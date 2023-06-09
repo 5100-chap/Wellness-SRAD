@@ -77,12 +77,13 @@ export class ListaReservasComponent {
 
   // Marcar Salida Asesor
   marcarSalidaAsesor(id: number){
-    this.apiService.marcarSalidaAsesor(this.generateHoraActualString(), id);
+    console.log(`${this.generateHoraActualString()} - ${id}`);
+    this.apiService.marcarSalidaAsesor(this.generateHoraActualString(), id).subscribe();
   }
 
   // Cancelar Reserva Asesor
   cancelarReservaAsesor(id: number){
-    this.apiService.cancelarReservaAsesor(id).subscribe(error=>{});
+    this.apiService.cancelarReservaAsesor(id).subscribe();
   }
 
   getEstadoAsesor(index: number): string{

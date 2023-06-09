@@ -202,7 +202,6 @@ export class GimnasioComponent implements OnInit {
         });
       });
     });
-    this.finesDeSemana("20:30:40");
   }
 
   // Obtener el rango de días de la semana, desde lunes hasta domingo, en base a la semana que seleccionó
@@ -254,14 +253,14 @@ export class GimnasioComponent implements OnInit {
 
   // Revisa si el horario del botón está ocupado
   ocupado(dia: number, hora: string): boolean{
-    if(this.diaPasado(dia, hora)){
+    if(this.diaPasado(dia, hora) || this.semanaSeleccionada===undefined){
+      return false;
+    }
+    else if(dia>4 && this.finesDeSemana(hora)){
       return false;
     }
     else if(!this.diaPasado(dia, hora) && this.listaDeHorariosReservados.length===0){
       return true;
-    }
-    else if(dia>4 && this.finesDeSemana(hora)){
-      return false;
     }
     let yaExistenEseDia = 0;
     for(let each of this.listaDeHorariosReservados){
@@ -269,7 +268,7 @@ export class GimnasioComponent implements OnInit {
         yaExistenEseDia++;
       }
     }
-    if(yaExistenEseDia/this.listaDeHorariosReservados.length < this.listaDeHorariosReservados.length){
+    if(yaExistenEseDia/this.listaDeHorariosReservados.length <= this.listaDeHorariosReservados.length){
       // Esta condicion solo aplica a aquellas reservas hechas por el mismo usuario
       for(let i=0; i<this.listaDeHorariosReservados.length; i++){
         if(this.listaDeHorariosReservados[i].dia.slice(0, 10) === this.listaDias[dia] && this.listaDeHorariosReservados[i].hora.slice(11, 19) === hora && this.listaDeHorariosReservados[i].usuario === this.authService.currentUserValue['username']){
