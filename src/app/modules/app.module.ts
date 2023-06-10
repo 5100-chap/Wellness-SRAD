@@ -27,6 +27,8 @@ import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { DropdownBasicComponent } from '../dropdown-basic/dropdown-basic.component';
 
+import { FullCalendarModule } from '@fullcalendar/angular';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +48,7 @@ import { DropdownBasicComponent } from '../dropdown-basic/dropdown-basic.compone
     AdminModule,
     AlumnoModule,
     SharedModule,
+    FullCalendarModule
   ],
   providers: [ { provide: LOCALE_ID, useValue: 'es' } ],
 

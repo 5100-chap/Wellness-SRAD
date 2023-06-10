@@ -7,6 +7,7 @@ import {
   ViewChild,
   ChangeDetectorRef,
 } from '@angular/core';
+
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Reservas } from '../models/reservas.model';
 import { ApiService } from '../services/api.service';
@@ -30,6 +31,7 @@ export class GimnasioComponent implements OnInit {
   meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
   now!: Date;
+  
 
   today = new Date();
   pipe = new DatePipe('es');
@@ -202,7 +204,6 @@ export class GimnasioComponent implements OnInit {
         });
       });
     });
-    this.finesDeSemana("20:30:40");
   }
 
   // Obtener el rango de días de la semana, desde lunes hasta domingo, en base a la semana que seleccionó
@@ -254,14 +255,14 @@ export class GimnasioComponent implements OnInit {
 
   // Revisa si el horario del botón está ocupado
   ocupado(dia: number, hora: string): boolean{
-    if(this.diaPasado(dia, hora)){
+    if(this.diaPasado(dia, hora) || this.semanaSeleccionada===undefined){
+      return false;
+    }
+    else if(dia>4 && this.finesDeSemana(hora)){
       return false;
     }
     else if(!this.diaPasado(dia, hora) && this.listaDeHorariosReservados.length===0){
       return true;
-    }
-    else if(dia>4 && this.finesDeSemana(hora)){
-      return false;
     }
     let yaExistenEseDia = 0;
     for(let each of this.listaDeHorariosReservados){
@@ -269,7 +270,7 @@ export class GimnasioComponent implements OnInit {
         yaExistenEseDia++;
       }
     }
-    if(yaExistenEseDia/this.listaDeHorariosReservados.length < this.listaDeHorariosReservados.length){
+    if(yaExistenEseDia/this.listaDeHorariosReservados.length <= this.listaDeHorariosReservados.length){
       // Esta condicion solo aplica a aquellas reservas hechas por el mismo usuario
       for(let i=0; i<this.listaDeHorariosReservados.length; i++){
         if(this.listaDeHorariosReservados[i].dia.slice(0, 10) === this.listaDias[dia] && this.listaDeHorariosReservados[i].hora.slice(11, 19) === hora && this.listaDeHorariosReservados[i].usuario === this.authService.currentUserValue['username']){
@@ -325,6 +326,10 @@ export class GimnasioComponent implements OnInit {
     });
   }
 
+  getCalif(calif:any ){
+    console.log(calif)
+  }
+
   getAforoArea(): void {
     this.apiService.consultarAforo(this.areaId).subscribe(
       (data: any) => {
@@ -336,7 +341,7 @@ export class GimnasioComponent implements OnInit {
 
         this.aforoData = actuales + '/' + totales;
         this.chart = this.chartService.createPieChart('MyChart', ['Libre: ' + actuales, 'Ocupado: ' + ocupados], [ocupados, actuales]);
-        
+      
       },
       (error) => {
         console.log('Error fetching aforo status:', error);
@@ -408,4 +413,32 @@ export class GimnasioComponent implements OnInit {
     this.getAforoArea();
     window.location.reload();
   }
+
+  abrir(content: any) {
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-resena' })
+      .result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${result}`;
+        },
+        (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        }
+      );
+  }
+  
+  confirmarReview(limpieza: string, calidad: string, ambiente: string){
+    var selectLimpieza = Number(limpieza);
+    var selectCalidad = Number(calidad);
+    var selectAmbiente = Number(ambiente);
+  
+    this.apiService.calificarArea(this.areaId, selectLimpieza, selectCalidad, selectAmbiente, 'Limpieza', 'Calidad del equipo', 'Ambiente').subscribe(error=>{
+      console.log(error);
+    });
+    
+   
+
+  }
+
+
 }

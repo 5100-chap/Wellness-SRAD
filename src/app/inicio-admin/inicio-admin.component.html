@@ -33,7 +33,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-2 mt-2">
-                        <img [src]="'../assets/img/principal.jpg'" height="90%" class="card-img" alt="..." />
+                        <img [src]="area.Imagen" (error)="updateUrl($event)" height="90%" class="card-img" alt="..." />
                     </div>
                     <div class="col-md-2 mt-2">
                         <div class="text-center" id="abierto">
@@ -81,7 +81,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-2 mt-2">
-                        <img [src]="'../assets/img/principal.jpg'" height="90%" class="card-img" alt="..." />
+                        <img [src]="area.Imagen" (error)="updateUrl($event)" height="90%" class="card-img" alt="..." />
                     </div>
                     <div class="col-md-2 mt-2">
                         <div class="text-center" id="cerrado">Cerrado</div>

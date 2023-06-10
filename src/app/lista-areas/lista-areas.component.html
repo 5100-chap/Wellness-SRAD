@@ -30,8 +30,9 @@
     <div class="col" *ngFor="let area of areas">
 
       <div class="card border-light" [ngClass]="{'img-banner': area.Estatus, 'img-bannerCerrado': !area.Estatus}">
-        
-        <img [src]="'../assets/img/crossfit.jpg'" height="250px" class="card-img" alt="..." style="opacity: 0.4;">
+
+        <img [src]="area.Imagen" (error)="updateUrl($event)" height="250px" class="card-img" alt="..."
+          style="opacity: 0.4;">
 
         <div class="card-img-overlay" style="border-color: transparent;">
           <h2 class="card-title" style="margin-left: 2.3%; margin-top:2.3%" id="prueba">

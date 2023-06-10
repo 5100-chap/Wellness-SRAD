@@ -293,4 +293,30 @@ router.post('/api/getReservasAsesorDeAlumno', async(req, res, next)=>{
     }
 });
 
+router.post('/api/getEventos', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();
+        var hoy = new Date();
+        var result = await request.query(`EXEC [dbo].[GetEventos] \'${req.body.usuario}\';`);
+        res.json(result.recordset);
+    }
+    catch(error){
+        console.log(error);
+        res.sendStatus(404);
+    }
+
+})
+// Cancelar todas las reservas en caso de cierre de un área
+router.put('/api/cancelarTodasDeArea', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();
+        await request.query(``);
+        res.json('ok');
+    }
+    catch(error){
+        console.log(error);
+        res.json(error);
+    }
+});
+
 module.exports = router;
