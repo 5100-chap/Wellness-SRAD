@@ -207,4 +207,14 @@ router.get("/api/tendencias_por_hora/:dia", async (req, res) => {
     }
 });
 
+router.post("/api/obtenerReseñasArea/", async(req, res) => {
+    try{
+        var request = new sql.Request();
+        await request.query(`EXEC [dbo].[obtenerReseñasArea] ${req.body.idArea};`);
+    }
+    catch(error){
+        res.json(error);
+    }
+})
+
 module.exports = router;

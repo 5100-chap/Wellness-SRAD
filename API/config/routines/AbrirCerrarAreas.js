@@ -14,8 +14,7 @@ module.exports = function () {
             const formattedDate = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 
             var request = new sql.Request();
-            const result = await request.query(
-                `SELECT * FROM Area WHERE fecha_cierre IS NOT NULL AND fecha_apertura IS NOT NULL`
+            const result = await request.query(`SELECT * FROM Area WHERE fecha_cierre IS NOT NULL AND fecha_apertura IS NOT NULL; UPDATE Reservacion SET estado = 'Cancelada' WHERE estado = 'Activa' AND id_area_deportiva IN (SELECT id FROM Area WHERE estatus = 0);`
             );
             const areas = result.recordset;
 

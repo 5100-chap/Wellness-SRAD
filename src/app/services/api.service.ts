@@ -23,6 +23,8 @@ import { ReservaAsesor } from '../models/reserva-asesor';
 import { AsesorInfo } from '../models/asesor-info';
 import { ReservaAsesorAlumno } from '../models/reserva-asesor-alumno';
 import { ExisteAlumno } from '../models/existe-alumno';
+import { Eventos } from '../models/event.model';
+import { Time } from '@angular/common';
 
 
 @Injectable({
@@ -389,4 +391,57 @@ export class ApiService {
       id: id
     });
   }
+
+  getEventos(matricula: string): Observable<Eventos[]>{
+    return this.http.post<Eventos[]>('/api/getEventos', {
+      usuario: matricula
+    });
+
+  }
+
+  // Crear reseña de un area deportiva
+  calificarArea(idArea: number, calif1: number,calif2: number,calif3: number, rubro1:string, rubro2:string, rubro3:string, ) {
+    return this.http.post('/api/calificarArea', {
+      idArea: idArea,
+      calif1 : calif1,
+      calif2 : calif2,
+      calif3 : calif3,
+      rubro1 : rubro1,
+      rubro2 : rubro2,
+      rubro3 : rubro3
+    })
+  }
+
+
+  //Service que sirve para crear Area
+  createArea(
+    nombre: string | null,
+    descrip: string | null,
+    lugDisp: number,
+    lugTotales: number,
+    ubicacion: string | null,
+    matDisp: string | null,
+    estatus: boolean,
+    fechaCierre: string | null,
+    fechaApertura: string | null,
+    imag: string | null,
+    hCierre: string | null,
+    hApertura: string | null
+  ){
+    return this.http.post('/api/CrearArea', {
+      nombre : nombre,
+      descrip : descrip,
+      lugDisp :lugDisp,
+      lugTotales :lugTotales ,
+      ubicacion : ubicacion,
+      matDisp : matDisp,
+      estatus : estatus,
+      fechaCierre :fechaCierre,
+      fechaApertura : fechaApertura,
+      imag : imag,
+      hCierre : hCierre,
+      hApertura : hApertura
+    });
+  }
+  
 }
