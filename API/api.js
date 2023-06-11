@@ -15,6 +15,7 @@ const routes = require("./config/routes/router");
 const cancelAuto = require("./config/routines/cancelacionAutomatica");
 const AforoTotalAutomatico = require("./config/routines/AforoTotalAutomatico");
 const AbrirCerrarAreas = require("./config/routines/AbrirCerrarAreas");
+const eliminarAnuncios = require("./config/routines/EliminarAnuncio")
 
 const port = process.env.PORT || 8080;
 
@@ -61,6 +62,7 @@ app.listen(port, function () {
         cancelAuto();
         AbrirCerrarAreas();
         AforoTotalAutomatico();
+        eliminarAnuncios();
         setInterval(cancelAuto, 5*60*1000);
     })();
 });

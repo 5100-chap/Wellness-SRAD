@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ReservasAlumno } from './../models/reservas-alumno.model';
 import { AsesorNombre } from './../models/asesor-nombre';
@@ -65,6 +65,23 @@ export class ApiService {
       matricula: alumno,
       id_casillero: casillero
     });
+  }
+
+  //Confirmar la reserva de un casillero
+  confirmarReservaCasillero(id: number){
+    return this.http.post('/api/confirmarReservaLocker',{
+      id: id
+    });
+  }
+
+  //Cancelar la reserva de un casillero
+  cancelarReservaCasillero(id:number, idCasillero:number){
+    return this.http.post('/api/cancelarReservaLocker',{
+      id: id,
+      idCasillero: idCasillero
+    });
+
+
   }
 
   // Obtener todos los anuncios
@@ -198,9 +215,10 @@ export class ApiService {
 
   }
 
-  actualizarEstadoCasillero(casillero: number) {
+  actualizarEstadoCasillero(casillero: number, estado: number) {
     return this.http.post('/api/actualizarEstadoLocker', {
       id_casillero: casillero,
+      estado: estado
     });
   }
   

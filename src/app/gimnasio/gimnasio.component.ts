@@ -17,6 +17,7 @@ import { Area } from '../models/area.model';
 import { Subscription } from 'rxjs';
 import { HorarioReserva } from '../models/horario-reserva';
 import { ChartService } from '../services/chart.service';
+import { DatePipe } from '@angular/common';
 
 declare var window: any;
 
@@ -29,6 +30,11 @@ export class GimnasioComponent implements OnInit {
   meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
   now!: Date;
+
+  today = new Date();
+  pipe = new DatePipe('es');
+
+  changedDate = this.pipe.transform(this.today, 'longDate');
 
   getSemanaRange(l: number, r: number): String {
     const now = new Date();
@@ -196,6 +202,7 @@ export class GimnasioComponent implements OnInit {
         });
       });
     });
+    this.finesDeSemana("20:30:40");
   }
 
   // Obtener el rango de días de la semana, desde lunes hasta domingo, en base a la semana que seleccionó
@@ -239,6 +246,12 @@ export class GimnasioComponent implements OnInit {
     this.reservaArray[index].fecha = this.listaDias[dia] + " - " + this.reservaArray[index].hora.slice(0, 5) + " --> " + ((+this.reservaArray[index].hora.slice(0, 2)) + 2) + ":00";
   }
 
+  // Para sabados y domingos
+  finesDeSemana(hora: string){
+    const horaDate = new Date(0, 0, 0, +hora.slice(0, 2), +hora.slice(3, 5), +hora.slice(6))
+    return (horaDate < new Date(0, 0, 0, 9, 0, 0) || horaDate > new Date(0, 0, 0, 17, 0, 0))
+  }
+
   // Revisa si el horario del botón está ocupado
   ocupado(dia: number, hora: string): boolean{
     if(this.diaPasado(dia, hora)){
@@ -247,13 +260,15 @@ export class GimnasioComponent implements OnInit {
     else if(!this.diaPasado(dia, hora) && this.listaDeHorariosReservados.length===0){
       return true;
     }
+    else if(dia>4 && this.finesDeSemana(hora)){
+      return false;
+    }
     let yaExistenEseDia = 0;
     for(let each of this.listaDeHorariosReservados){
       if(each.dia.slice(0, 10) === this.listaDias[dia] && each.hora.slice(11, 19) === hora){
         yaExistenEseDia++;
       }
     }
-    // (yaExistenEseDia/this.listaDeHorariosReservados.length < this.listaDeHorariosReservados.length)?true:false
     if(yaExistenEseDia/this.listaDeHorariosReservados.length < this.listaDeHorariosReservados.length){
       // Esta condicion solo aplica a aquellas reservas hechas por el mismo usuario
       for(let i=0; i<this.listaDeHorariosReservados.length; i++){
