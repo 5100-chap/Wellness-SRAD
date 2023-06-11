@@ -71,6 +71,9 @@ export class AreaDeportivaComponent implements OnInit {
   Calidad !: number;
   Ambiente !: number;
 
+  horario !: boolean;
+  actuales!: number;
+
  
 
 
