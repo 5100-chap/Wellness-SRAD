@@ -103,6 +103,7 @@ export class GimnasioComponent implements OnInit {
 
 
 
+  // Horarios de reserva 
   reservaArray: Reservas[] = [
     {
       id: 1,
@@ -193,7 +194,21 @@ export class GimnasioComponent implements OnInit {
     this.seleReserva = reserve;
   }
 
-  
+  delete() {
+    if (confirm('Deseas realmente eliminar la reservación?')) {
+      this.reservaArray = this.reservaArray.filter(
+        (x) => x != this.seleReserva
+      );
+      this.seleReserva = new Reservas();
+    }
+  }
+
+
+
+  // Revisa si el aforo del lugar ya está lleno
+  lleno(): boolean{
+    return this.totales > this.actuales;
+  }
 
   ngOnInit(): void {
     this.obtenerReseñas();
@@ -211,6 +226,11 @@ export class GimnasioComponent implements OnInit {
         this.getDiasSemana();
         this.apiService.getTodasReservas(this.listaDias[0], this.listaDias[6], this.areaId).subscribe((data: HorarioReserva[])=>{
           this.listaDeHorariosReservados = data;
+          this.apiService.getDiasEscolares(this.listaDias[0]).subscribe(
+            (data: any)=>{
+              this.horario = data;
+            }
+          );
         }, error=>{
           console.log(error);
         });
@@ -246,8 +266,8 @@ export class GimnasioComponent implements OnInit {
       });
     }
   }
-  
-  // Metodo para recargar la pagina
+
+  // Recarga la página desde el HTML
   reload(){
     window.location.reload();
   }
@@ -267,7 +287,13 @@ export class GimnasioComponent implements OnInit {
 
   // Revisa si el horario del botón está ocupado
   ocupado(dia: number, hora: string): boolean{
-    if(this.diaPasado(dia, hora) || this.semanaSeleccionada===undefined){
+    if(!this.horario){
+      return false;
+    }
+    else if(!this.lleno()){
+      return false;
+    }
+    else if(this.diaPasado(dia, hora) || this.semanaSeleccionada===undefined){
       return false;
     }
     else if(dia>4 && this.finesDeSemana(hora)){
@@ -398,8 +424,7 @@ export class GimnasioComponent implements OnInit {
     }
   }
 
-  
-//Método para marcar la salida o entrada al gimansio del alumno, dependiendo en el estado que se encuentre
+  // Dependiendo si esta afuera o adentro del gimnasio, crea un registro o marca la salida del registro ya existente
   marcarLlegadaOSalida() {
     this.apiService
       .marcar(this.authService.currentUserValue['username'], this.areaId)
