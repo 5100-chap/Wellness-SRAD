@@ -186,6 +186,7 @@ async function obtenerTendenciasPorHora(dia) {
 
         return tendenciasPorHora;
     } catch (err) {
+        console.log(err);
         throw new Error("Error al obtener las tendencias por hora");
     }
 }
@@ -205,6 +206,36 @@ router.get("/api/tendencias_por_hora/:dia", async (req, res) => {
             .json({ error: "Ocurrió un error al procesar la solicitud" });
     }
 });
+
+// Obtener las reseñas de un area deportiva
+router.post("/api/obtenerCalifArea", async(req, res) => {
+    try{
+        var request = new sql.Request();
+        var result = await request.query(`EXEC [dbo].[obtenerCalifArea] ${req.body.idArea} ;`);
+        res.json(result.recordset);
+
+    }
+    catch(error){
+        console.error(error)
+        res.json(error);
+    }
+})
+
+
+//Obtener el numero total de registros de un rubro que se pase como parametro
+router.post("/api/obtenerNumeroRegistrosRubro", async(req, res) => {
+    try{
+        var request = new sql.Request();
+        var result = await request.query(`EXEC [dbo].[obtenerNumeroRegistrosRubro] ${req.body.idArea}, \'${req.body.rubro}\' ;`);
+        res.json(result.recordset);
+    }
+    catch(error){
+        res.json(error);
+    }
+})
+
+
+
 
 // Retorna los días escolares dependiendo del semestre en el que se está cursando
 function getDiasEscolares(hoy){

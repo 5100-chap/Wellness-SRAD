@@ -3,6 +3,5 @@ export class ReservasCasillero {
     matricula !: string;
     nombre !: string;
     id_casillero !: number;
-    estado !: string;
-    Comprobante !: string;
+    estado !: boolean;
 }

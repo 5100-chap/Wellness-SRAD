@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ReservasAlumno } from './../models/reservas-alumno.model';
 import { AsesorNombre } from './../models/asesor-nombre';
@@ -22,6 +22,10 @@ import { InfoNombreAreasD } from '../models/info-nombre-areas-d';
 import { ReservaAsesor } from '../models/reserva-asesor';
 import { AsesorInfo } from '../models/asesor-info';
 import { ReservaAsesorAlumno } from '../models/reserva-asesor-alumno';
+import { ExisteAlumno } from '../models/existe-alumno';
+import { Eventos } from '../models/event.model';
+import { Time } from '@angular/common';
+import { ReseñaArea } from '../models/reseña-area';
 
 
 @Injectable({
@@ -65,6 +69,23 @@ export class ApiService {
     });
   }
 
+  //Confirmar la reserva de un casillero
+  confirmarReservaCasillero(id: number){
+    return this.http.post('/api/confirmarReservaLocker',{
+      id: id
+    });
+  }
+
+  //Cancelar la reserva de un casillero
+  cancelarReservaCasillero(id:number, idCasillero:number){
+    return this.http.post('/api/cancelarReservaLocker',{
+      id: id,
+      idCasillero: idCasillero
+    });
+
+
+  }
+
   // Obtener todos los anuncios
   getAnuncios(): Observable<Anuncio[]> {
     return this.http.get<Anuncio[]>('/api/getAnuncios');
@@ -103,6 +124,22 @@ export class ApiService {
   }
 
 
+  //Saber si existe un alumno en la base de datos
+  consultarAlumno(matricula: string): Observable<ExisteAlumno[]> {
+    return this.http.post<ExisteAlumno[]>('/api/existeAlumno', { matricula: matricula});
+  }
+
+  //Marcar la llegada de un alumno al gimnasio desde la pantalla del administrador
+  marcarLlegadaGimnasioAlumno(matricula: string, dia: string, hora: string){
+    return this.http.post('/api/marcarLlegadaAlumnoManual', { 
+      matricula: matricula,
+      dia: dia,
+      hora: hora 
+    });
+  }
+
+
+  //Marcar la llegada de un alumno desde la pantalla del alumno
   marcar(usuario: String, area_id: number) {
     return this.http.post('/api/marcarLlegada', {
       usuario: usuario || '',
@@ -180,9 +217,10 @@ export class ApiService {
 
   }
 
-  actualizarEstadoCasillero(casillero: number) {
+  actualizarEstadoCasillero(casillero: number, estado: number) {
     return this.http.post('/api/actualizarEstadoLocker', {
       id_casillero: casillero,
+      estado: estado
     });
   }
   
@@ -200,16 +238,17 @@ export class ApiService {
       id: id,
     });
   }
+
   getTodasAreasInformacion(): Observable<Area[]> {
     return this.http.get<Area[]>('/api/TodasAreasInformacion');
   }
+
   updateAreaStatus(areaId: number, status: boolean): Observable<Area> {
     const body = { status: status };
     return this.http.put<Area>(`/api/AreaUpdateStatus?areaId=${areaId}`, body);
   }
 
   crearReserva(usuario: string, fecha: string, hora: string, asesor: string, area_id: number){
-    
     return this.http.put('/api/createReservacionArea', {
       usuario: usuario,
       fecha: fecha,
@@ -307,16 +346,6 @@ export class ApiService {
   }
 
   crearAnuncio(fecha_inicio_evento:string, fecha_fin_evento:string, ubicacion:string, descripcion:string, duracionIni:string, duracionFin:string, imagen:string, titulo:string){
-    console.log({
-      fecha_inicio_evento :fecha_inicio_evento,
-      fecha_fin_evento : fecha_fin_evento,
-      ubicacion : ubicacion,
-      descripcion : descripcion,
-      duracionIni: duracionIni,
-      duracionFin: duracionFin,
-      imagen: imagen,
-      titulo: titulo
-    });
     return this.http.put('/api/CrearAnuncio', {
       fecha_inicio_evento :fecha_inicio_evento,
       fecha_fin_evento : fecha_fin_evento,
@@ -330,7 +359,6 @@ export class ApiService {
   }
 
   getIngresosAforo( idArea: number, weekday: string): Observable<IngresosMonitor[]> {
-    
     return this.http.get<IngresosMonitor[]>(`/api/ExportarAforo?Id=${idArea}&Date=${weekday}`);
   }
 
@@ -353,10 +381,78 @@ export class ApiService {
       id: id
     });
   }
+  
 
   cancelarReservaAsesor(id: number){
     return this.http.post('/api/cancelarReservaAsesor', {
       id: id
+    });
+  }
+
+  //Obtener las reservas activas del alumno para el calendario
+  getEventos(matricula: string): Observable<Eventos[]>{
+    return this.http.post<Eventos[]>('/api/getEventos', {
+      usuario: matricula
+    });
+  }
+
+  //Obtener las reseñas de un area deportiva
+  getReseniasArea(idArea: number): Observable<ReseñaArea[]>{
+    return this.http.post<ReseñaArea[]>('/api/obtenerCalifArea', {
+      idArea: idArea
+    });
+  }
+
+  //Obtener el numero total de registros de un rubro que se pase como parametro
+  getNumRegistrosArea(idArea: number, rubro: string): Observable<number>{
+    return this.http.post<number>('/api/obtenerNumeroRegistrosRubro', {
+      idArea : idArea,
+      rubro : rubro
+    });
+  }
+
+  // Crear reseña de un area deportiva
+  calificarArea(idArea: number, calif1: number,calif2: number,calif3: number, rubro1:string, rubro2:string, rubro3:string, ) {
+    return this.http.post('/api/calificarArea', {
+      idArea: idArea,
+      calif1 : calif1,
+      calif2 : calif2,
+      calif3 : calif3,
+      rubro1 : rubro1,
+      rubro2 : rubro2,
+      rubro3 : rubro3
+    })
+  }
+
+
+  //Service que sirve para crear Area
+  createArea(
+    nombre: string | null,
+    descrip: string | null,
+    lugDisp: number,
+    lugTotales: number,
+    ubicacion: string | null,
+    matDisp: string | null,
+    estatus: boolean,
+    fechaCierre: string | null,
+    fechaApertura: string | null,
+    imag: string | null,
+    hCierre: string | null,
+    hApertura: string | null
+  ){
+    return this.http.post('/api/CrearArea', {
+      nombre : nombre,
+      descrip : descrip,
+      lugDisp :lugDisp,
+      lugTotales :lugTotales ,
+      ubicacion : ubicacion,
+      matDisp : matDisp,
+      estatus : estatus,
+      fechaCierre :fechaCierre,
+      fechaApertura : fechaApertura,
+      imag : imag,
+      hCierre : hCierre,
+      hApertura : hApertura
     });
   }
   

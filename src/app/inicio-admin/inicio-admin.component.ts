@@ -15,6 +15,10 @@ export class InicioAdminComponent implements OnInit {
   
   constructor(private modalService: NgbModal, private apiService: ApiService) {}
   
+  updateUrl(event: any) {
+    event.target.src = '../assets/img/fondo.jpeg';
+  }
+
   ngOnInit(): void {
     this.apiService.getTodasAreasInformacion().subscribe((areas: Area[]) => {
       this.areas = areas;

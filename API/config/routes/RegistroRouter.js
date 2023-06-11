@@ -67,6 +67,35 @@ router.post('/api/marcarLlegadaAsesor', async(req, res, next)=>{
     }
 });
 
+//Saber si existe un alumno en la base de datos
+router.post('/api/existeAlumno', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();
+        var result = await request.query(`EXEC [dbo].[existeAlumno] '${req.body.matricula}';`);
+        res.json(result.recordset);
+    }
+    catch(error){
+        console.log(error);
+        res.send(error);
+    }
+});
+
+
+//Marcar la llegada de un alumno al gimansio de forma manual
+router.post('/api/marcarLlegadaAlumnoManual', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();
+        var result = await request.query(`EXEC [dbo].[marcarEntredaAlumnoManual] '${req.body.matricula}', '${req.body.dia}', '${req.body.hora}';`);
+        res.json(result.recordset);
+    }
+    catch(error){
+        console.log(error);
+        res.send(error);
+    }
+});
+
+
+
 // Marcar Salida de un alumno con su asesor
 router.post('/api/marcarSalidaAsesor', async(req, res, next)=>{
     try{

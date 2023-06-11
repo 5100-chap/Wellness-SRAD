@@ -1,4 +1,6 @@
 
+ 
+ <!-- Titulo de la pantalla -->
  <div class="row">
     <div class=" col-md-6 mt-4">
       <h3> &nbsp; &nbsp; <strong> Monitor de ingresos </strong> </h3>
@@ -60,7 +62,6 @@
 
   </div>
 
-
   <br>
   <br>
   <br>
@@ -71,7 +72,7 @@
 
 <!--Modal de añadir registro-->
 
-  <ng-template #mymodal let-modal>
+<ng-template #mymodal let-modal>
   <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Añadir registro </h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -79,16 +80,43 @@
       </button>
   </div>
   <div class="modal-body">
-    <div class="input-group flex-nowrap">
-        <span class="input-group-text" id="addon-wrapping">Matricula</span>
-        <input type="text" class="form-control" placeholder="A0xxxxxxx" aria-label="Username" aria-describedby="addon-wrapping">
+  <!--Formulario de creación de un nuevo ingreso-->
+    <form class="row mb-1"[formGroup]="NuevoIngresoForm"   name="NuevoIngresoForm" id="NuevoIngresoForm"
+    acceptcharset="utf-8" role="form" >
+      <div class="input-group flex-nowrap">
+          <span class="input-group-text" id="addon-wrapping">Matricula</span>
+          <input type="text" class="form-control" formControlName="matricula" placeholder="A0xxxxxxx" aria-label="Username" aria-describedby="addon-wrapping" #matricula>
       </div>
+
+       <!--Validar si el campo matricula está vacia -->
+       <span *ngIf="this.NuevoIngresoForm.get('matricula')?.errors?.['required']"  style= "color: rgba(203, 23, 10, 0.913); margin-left: 1.5%; margin-top: 1.8%;">
+        La matricula no puede estar vacía
+      </span>
+
+      <!--Validar si la matricula ingresada sea de 9 caracteres -->
+      <span *ngIf="this.NuevoIngresoForm.get('matricula')?.errors?.['pattern']"  style= "color: rgba(203, 23, 10, 0.913); margin-left: 1.5%; margin-top: 1.8%;">
+        La matricula debe de empezar con A0 ó a0
+      </span>
+
+      <!--Validar si la matricula ingresada sea de 9 caracteres -->
+      <span *ngIf="this.NuevoIngresoForm.get('matricula')?.errors?.['maxlength']"  style= "color: rgba(203, 23, 10, 0.913); margin-left: 1.5%; margin-top: 1.8%;">
+        La matricula solamente debe de tener 9 caracteres
+      </span>
+
+
+      <!--Botones -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger"  id ="btn2"aria-label="Close" (click)="modal.dismiss('Cross click')"> Cancelar</button>
+        <button type="button" class="btn btn-primary" [disabled]="NuevoIngresoForm.invalid"  id = "btn"(click)="open(modalSalida)" (click)="marcarLlegada(matricula.value)">Agregar</button>
+      </div>
+
+
+    </form>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-danger"  id ="btn2"aria-label="Close" (click)="modal.dismiss('Cross click')"> Cancelar</button>
-    <button type="button" class="btn btn-primary" id = "btn" (click)="modal.close('Save click')">Crear</button>
-      
-  </div>
+  
+
+  
+
   </ng-template>
 
 
@@ -97,16 +125,16 @@
     <!--Modal marcar salida -->
     <ng-template #modalSalida let-modal>
       <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title"> Marcar salida </h4>
+        <h4 class="modal-title" id="modal-basic-title"> Aviso </h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span  aria-hidden="true">×</span>
         </button>
       </div>
       <div class="modal-body">
-        <p> Salida registrada correctamente! </p>
+        <p> {{modalBody}} </p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger"  id ="btn" aria-label="Close" (click)="refresh()" > OK </button>
+        <button type="button" class="btn btn-danger"  id ="btn" aria-label="Close" (click)="modal.dismiss('okay')" (click)="this.refresh()" > OK </button>
       </div>
     </ng-template>
   

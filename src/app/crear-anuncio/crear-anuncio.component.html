@@ -1,195 +1,222 @@
 <!--Encabezado de la página-->
-<div class="img-fluid" class = "opacity-30"  >
+<div class="img-fluid" class="opacity-30">
     <div class=" text-white">
-      <img src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="130" class="card-img" alt="...">
-      <div class="card-img-overlay">
-        <h5 class="card-title">&nbsp;</h5>
-        <h5 class="card-title">&nbsp;</h5>
-        <h5 class="card-title">&nbsp;</h5>
-        <h5 class="card-title">&nbsp;</h5>
-  
-        <h1 class="card-title" class = "text-center"> Crear anuncio</h1>
-      </div>
+        <img src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80"
+            height="130" class="card-img" alt="...">
+        <div class="card-img-overlay">
+            <h5 class="card-title">&nbsp;</h5>
+            <h5 class="card-title">&nbsp;</h5>
+            <h5 class="card-title">&nbsp;</h5>
+            <h5 class="card-title">&nbsp;</h5>
+
+            <h1 class="card-title" class="text-center"> Crear anuncio</h1>
+        </div>
     </div>
-  </div>
+</div>
 
 
-  <h3 style="margin-left: 1%;" class="mt-4"> &nbsp; &nbsp; <strong> Datos del anuncio </strong> </h3>
+<h3 style="margin-left: 1%;" class="mt-4"> &nbsp; &nbsp; <strong> Datos del anuncio </strong> </h3>
 
-  <!--Formulario de creación de un nuevo anuncio-->
+<!--Formulario de creación de un nuevo anuncio-->
 
-  <form class="row mb-1" style="margin-left: 2.5%;" [formGroup]="NuevoAnuncioForm"   name="NuevoAnuncioForm" id="NuevoAnuncioForm"
-  acceptcharset="utf-8" role="form" >
+<form class="row mb-1" style="margin-left: 2.5%;" [formGroup]="NuevoAnuncioForm" name="NuevoAnuncioForm"
+    id="NuevoAnuncioForm" acceptcharset="utf-8" role="form">
 
-  <!--Primera fila-->
-    
+    <!--Primera fila-->
+
     <div class="row mb-4">
-      <div class="col">
-        <div class="form-outline">
-            <div class="card col-md-12 mt-4" style="margin-left: 1.5%;">
-                <h5 class="card-header text-center" id="title" > Título </h5>
-                <input type="text" formControlName="titulo" tabindex="1" required autocomplete="off" style="font-size: 1.4rem; margin-left: 1%;" placeholder="Título del anuncio" #titulo>
-            </div>
-            
-            <!--Validar si el campo nombre está vacio -->
-            <span *ngIf="this.NuevoAnuncioForm.get('titulo')?.errors?.['required']"  style= "color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
-                El nombre no puede quedar vacío
-            </span>          
-            
-          
-        </div>
-      </div>
-      <div class="col">
-        <div class="form-outline">
+        <div class="col">
+            <div class="form-outline">
+                <div class="card col-md-12 mt-4" style="margin-left: 1.5%;">
+                    <h5 class="card-header text-center" id="title"> Título </h5>
+                    <input type="text" formControlName="titulo" tabindex="1" required autocomplete="off"
+                        style="font-size: 1.4rem; margin-left: 1%;" placeholder="Título del anuncio" #titulo>
+                </div>
 
-            <div class="card col-md-12 mt-4" style="margin-left: 1.5%;">
-                <h5 class="card-header text-center" id="title">Fecha del evento</h5>
-            
-                <div class="row">
-            
-                    <div class=" col-md-6 mt-2 mb-2" style="margin-left:3%;">
-                        <h5 style="font-size: 1.2rem ">Fecha de inicio</h5>
-                        <input style="font-size: 1.3rem;" formControlName="fechaEventoInicio" tabindex="2" required autocomplete="off" type="date" id="start" name="trip-start" value={{diaMin()}} min = {{diaMin()}}  #fechaEventoInicio>
+                <!--Validar si el campo nombre está vacio -->
+                <span *ngIf="this.NuevoAnuncioForm.get('titulo')?.errors?.['required']"
+                    style="color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
+                    El nombre no puede quedar vacío
+                </span>
 
-                        <br>
-                        <!--Validar que el campo fecha no este vacio -->
-                        <span *ngIf="this.NuevoAnuncioForm.get('fechaEventoInicio')?.errors?.['required']"  style= "color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
-                            La fecha no puede quedar vacía
-                        </span>          
-            
-                    </div>
 
-            
-                    <div class=" col-md-5 mt-2 mb-2" style="margin-left:5%;">
-                        <h5 style="font-size: 1.2rem">Fecha de final</h5>
-                        
-                        <input style="font-size: 1.3rem" formControlName="fechaEventoFin" tabindex="3" required autocomplete="off" type="date" id="start" name="trip-start" value={{diaMin()}} min = {{diaMin()}}  #fechaEventoFin>
-                        <br>
-
-                        <!--Validar que el campo fecha no este vacio -->
-                        <span *ngIf="this.NuevoAnuncioForm.get('fechaEventoFin')?.errors?.['required']"  style= "color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
-                            La fecha no puede quedar vacía
-                        </span> 
-
-                    </div>
-            
-                </div>    
             </div>
         </div>
-      </div>
+        <div class="col">
+            <div class="form-outline">
+
+                <div class="card col-md-12 mt-4" style="margin-left: 1.5%;">
+                    <h5 class="card-header text-center" id="title">Fecha del evento</h5>
+
+                    <div class="row">
+
+                        <div class=" col-md-6 mt-2 mb-2" style="margin-left:3%;">
+                            <h5 style="font-size: 1.2rem ">Fecha de inicio</h5>
+                            <input style="font-size: 1.3rem;" formControlName="fechaEventoInicio" tabindex="2" required
+                                autocomplete="off" type="date" id="start" name="trip-start" value={{diaMin()}}
+                                min={{diaMin()}} #fechaEventoInicio>
+
+                            <br>
+                            <!--Validar que el campo fecha no este vacio -->
+                            <span *ngIf="this.NuevoAnuncioForm.get('fechaEventoInicio')?.errors?.['required']"
+                                style="color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
+                                La fecha no puede quedar vacía
+                            </span>
+
+                        </div>
+
+
+                        <div class=" col-md-5 mt-2 mb-2" style="margin-left:5%;">
+                            <h5 style="font-size: 1.2rem">Fecha de final</h5>
+
+                            <input style="font-size: 1.3rem" formControlName="fechaEventoFin" tabindex="3" required
+                                autocomplete="off" type="date" id="start" name="trip-start" value={{diaMin()}}
+                                min={{diaMin()}} #fechaEventoFin>
+                            <br>
+
+                            <!--Validar que el campo fecha no este vacio -->
+                            <span *ngIf="this.NuevoAnuncioForm.get('fechaEventoFin')?.errors?.['required']"
+                                style="color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
+                                La fecha no puede quedar vacía
+                            </span>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!--Segunda fila-->
     <div class="row mb-4">
-      <div class="col">
-        <div class="form-outline">
-            <div class="card col-md-12 mt-2" style="margin-left: 1.5%;">
-                <h5 class="card-header text-center mb-2" id="title"> Ubicación </h5>
-                <input type="text"  formControlName="ubicacion" tabindex="4" required autocomplete="off"  id = "nuevoAforo"  style="font-size: 1.4rem; margin-left: 1%;" placeholder="Ubicación del evento" #ubicacion>
-                    
-            </div>     
-            <!--Validar que el campo ubicación no este vacio -->
-            <span *ngIf="this.NuevoAnuncioForm.get('ubicacion')?.errors?.['required']"  style= "color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
-                La ubicación no puede quedar vacía
-            </span>      
-          
-        </div>
-      </div>
-      <div class="col">
-        <div class="form-outline">
+        <div class="col">
+            <div class="form-outline">
+                <div class="card col-md-12 mt-2" style="margin-left: 1.5%;">
+                    <h5 class="card-header text-center mb-2" id="title"> Ubicación </h5>
+                    <input type="text" formControlName="ubicacion" tabindex="4" required autocomplete="off"
+                        id="nuevoAforo" style="font-size: 1.4rem; margin-left: 1%;" placeholder="Ubicación del evento"
+                        #ubicacion>
 
-            <div class="card col-md-12 mt-2" style="margin-left: 1.5%;">
-                <h5 class="card-header text-center" id="title">Imágen </h5>
-            
-                <div name="subida-imagenes"  style="margin-left: 1.5%; margin-bottom: 1.5%;" class="mt-2" >
-                    <input type="file" formControlName="imagen" accept="image/*"  tabindex="5" required autocomplete="off" class="mt-2 mb-2" name="imagen" #imagen />
-                </div> 
+                </div>
+                <!--Validar que el campo ubicación no este vacio -->
+                <span *ngIf="this.NuevoAnuncioForm.get('ubicacion')?.errors?.['required']"
+                    style="color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
+                    La ubicación no puede quedar vacía
+                </span>
 
             </div>
-
-             <!--Validar que el campo imagen no este vacio -->
-            <span *ngIf="this.NuevoAnuncioForm.get('imagen')?.errors?.['required']"  style= "color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
-                Una imagen debe de ser seleccionada
-            </span>
-            
-            <!--Validar que el campo imagen no no tenga más de 30 caracteres -->
-            <span *ngIf="this.NuevoAnuncioForm.get('imagen')?.errors?.['maxlength']"  style= "color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
-                El nombre de la imagen no debe de tener más de 15 caracteres
-            </span>
-        
-            
         </div>
-      </div>
+        <div class="col">
+            <div class="form-outline">
+
+                <div class="card col-md-12 mt-2" style="margin-left: 1.5%;">
+                    <h5 class="card-header text-center" id="title">Imágen </h5>
+
+                    <div name="subida-imagenes" style="margin-left: 1.5%; margin-bottom: 1.5%;" class="mt-2">
+                        <!-- Aquí se coloca el ImageUploadComponent -->
+                        <app-image-upload #imageUploadComponent name="subida-imagenes" formControlName="imagen"
+                            tabindex="5" class="mt-2 mb-2" style="margin-left: 1.5%; margin-bottom: 1.5%;"
+                            [uploadId]="1" [uploadType]="'anuncio'"></app-image-upload>
+                    </div>
+
+                </div>
+
+                <!--Validar que el campo imagen no este vacio -->
+                <span *ngIf="this.imageUploadComponent.getValidation() != true"
+                    style="color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
+                    Una imagen debe de ser seleccionada
+                </span>
+
+                <!--Validar que el campo imagen no no tenga más de 30 caracteres -->
+                <span *ngIf="this.imageUploadComponent.getFileLenght() > 15"
+                    style="color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
+                    El nombre de la imagen no debe de tener más de 15 caracteres
+                </span>
+
+
+            </div>
+        </div>
 
     </div>
 
     <div class="row mb-4">
-      <div class="col">
-        <div class="form-outline">
-            <div class="card col-md-12 mt-2" style="margin-left: 1.5%; margin-left: 1.5%;">
-                <h5 class="card-header text-center mb-2" id="title"> Descripción </h5>
-                
-                <input type="text" id = "nuevoAforo"  formControlName="descripcion" tabindex="6" required autocomplete="off" style="font-size: 1.4rem; margin-left: 1%;" placeholder="Descripción del evento" #descripcion>
-            
-            </div>
-            
-             <!--Validar que el campo descripcion no este vacio -->
-             <span *ngIf="this.NuevoAnuncioForm.get('descripcion')?.errors?.['required']"  style= "color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
-                La descripción no puede quedar vacía
-            </span>   
-          
-        </div>
-      </div>
-      <div class="col">
-        <div class="form-outline">
+        <div class="col">
+            <div class="form-outline">
+                <div class="card col-md-12 mt-2" style="margin-left: 1.5%; margin-left: 1.5%;">
+                    <h5 class="card-header text-center mb-2" id="title"> Descripción </h5>
 
-            <div class="col">
-                <div class="form-outline">
-        
-                    <div class="card col-md-12 mt-2" style="margin-left: 1.5%;">
-                        <h5 class="card-header text-center" id="title">Duración del anuncio</h5>
-                    
-                        <div class="row">
-                    
-                            <div class=" col-md-6 mt-2 mb-2" style="margin-left:3%;">
-                                <h5 style="font-size: 1.2rem ">Fecha de inicio</h5>
+                    <input type="text" id="nuevoAforo" formControlName="descripcion" tabindex="6" required
+                        autocomplete="off" style="font-size: 1.4rem; margin-left: 1%;"
+                        placeholder="Descripción del evento" #descripcion>
 
-                                <input style="font-size: 1.3rem" formControlName="DuracionAnuncioInicio" tabindex="3" required autocomplete="off" type="date" id="start" name="trip-start" value={{diaMin()}} min = {{diaMin()}}  #DuracionAnuncioInicio>
-                                <br>
-        
-                                <!--Validar que el campo fecha no este vacio -->
-                                <span *ngIf="this.NuevoAnuncioForm.get('DuracionAnuncioInicio')?.errors?.['required']"  style= "color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
-                                    La fecha no puede quedar vacía
-                                </span> 
-                    
-                            </div>
-        
-                    
-                            <div class=" col-md-5 mt-2 mb-2" >
-                                <h5 style="font-size: 1.2rem">Fecha de final</h5>
-                                <input style="font-size: 1.3rem" formControlName="DuracionAnuncioFin" tabindex="3" required autocomplete="off" type="date" id="start" name="trip-start"  value={{diaMin()}} min = {{diaMin()}}  #DuracionAnuncioFin>
-                                <br>
-        
-                                <!--Validar que el campo fecha no este vacio -->
-                                <span *ngIf="this.NuevoAnuncioForm.get('DuracionAnuncioFin')?.errors?.['required']"  style= "color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
-                                    La fecha no puede quedar vacía
-                                </span> 
-                            </div>
-                    
-                        </div> 
-                        
-                    </div>
-
-                    <small style = "margin-left: 3%;" class="text-body-secondary">Hasta un maximo de 14 días</small>
-                        <br>
-                
-                    
                 </div>
-              </div>
-        
-            
+
+                <!--Validar que el campo descripcion no este vacio -->
+                <span *ngIf="this.NuevoAnuncioForm.get('descripcion')?.errors?.['required']"
+                    style="color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
+                    La descripción no puede quedar vacía
+                </span>
+
+            </div>
         </div>
-      </div>
+        <div class="col">
+            <div class="form-outline">
+
+                <div class="col">
+                    <div class="form-outline">
+
+                        <div class="card col-md-12 mt-2" style="margin-left: 1.5%;">
+                            <h5 class="card-header text-center" id="title">Duración del anuncio</h5>
+
+                            <div class="row">
+
+                                <div class=" col-md-6 mt-2 mb-2" style="margin-left:3%;">
+                                    <h5 style="font-size: 1.2rem ">Fecha de inicio</h5>
+
+                                    <input style="font-size: 1.3rem" formControlName="DuracionAnuncioInicio"
+                                        tabindex="3" required autocomplete="off" type="date" id="start"
+                                        name="trip-start" value={{diaMin()}} min={{diaMin()}} #DuracionAnuncioInicio>
+                                    <br>
+
+                                    <!--Validar que el campo fecha no este vacio -->
+                                    <span
+                                        *ngIf="this.NuevoAnuncioForm.get('DuracionAnuncioInicio')?.errors?.['required']"
+                                        style="color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
+                                        La fecha no puede quedar vacía
+                                    </span>
+
+                                </div>
+
+
+                                <div class=" col-md-5 mt-2 mb-2">
+                                    <h5 style="font-size: 1.2rem">Fecha de final</h5>
+                                    <input style="font-size: 1.3rem" formControlName="DuracionAnuncioFin" tabindex="3"
+                                        required autocomplete="off" type="date" id="start" name="trip-start"
+                                        value={{diaMin()}} min={{diaMin()}} #DuracionAnuncioFin>
+                                    <br>
+
+                                    <!--Validar que el campo fecha no este vacio -->
+                                    <span *ngIf="this.NuevoAnuncioForm.get('DuracionAnuncioFin')?.errors?.['required']"
+                                        style="color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
+                                        La fecha no puede quedar vacía
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <small style="margin-left: 3%;" class="text-body-secondary">Hasta un maximo de 14 días</small>
+                        <br>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
 
     </div>
 </form>
@@ -198,46 +225,66 @@
 
 <div class="row">
 
-    <div  class="col-md-3 mt-2" id="align"></div>
-    <div  class="col-md-3 mt-2" id="align">
+    <div class="col-md-3 mt-2" id="align"></div>
+    <div class="col-md-3 mt-2" id="align">
         <div class="input-group">
-            <button class="btn btn-danger btn-lg " id="btn2" style="font-size: 1.7rem;" routerLink="/inicioAdmin"> Cancelar  </button>
+            <button class="btn btn-danger btn-lg " id="btn2" style="font-size: 1.7rem;" routerLink="/inicioAdmin">
+                Cancelar </button>
         </div>
     </div>
 
-    <div  class="col-md-1 mt-2" id="align"></div>
-    
+    <div class="col-md-1 mt-2" id="align"></div>
 
-    <div  class="col-md-3 mt-2 " id="align">
+
+    <div class="col-md-3 mt-2 " id="align">
 
         <div class="input-group">
 
-        <button class="btn btn-success btn-lg" id="btn" style="font-size: 1.7rem;" [disabled]="NuevoAnuncioForm.invalid" (click)="open(mymodal)" (click)="enviar(fechaEventoInicio.value, fechaEventoFin.value, ubicacion.value, descripcion.value, DuracionAnuncioInicio.value, DuracionAnuncioFin.value, imagen.value, titulo.value)">Guardar </button>
-               
-
-        <ng-template #mymodal let-modal>
-        <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
-            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span  aria-hidden="true">×</span>
+            <button class="btn btn-success btn-lg" id="btn" style="font-size: 1.7rem;"
+                [disabled]="NuevoAnuncioForm.invalid" (click)="open(mymodal)"
+                (click)="enviar(fechaEventoInicio.value, fechaEventoFin.value, ubicacion.value, descripcion.value, DuracionAnuncioInicio.value, DuracionAnuncioFin.value, titulo.value)">Guardar
             </button>
-        </div>
-        <div class="modal-body">
-            Anuncio creado correctamente!
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="this.refresh()">OK</button>
-        </div>
-        </ng-template>
 
-    </div>
 
-    <div style="color: #aa730d" *ngIf="NuevoAnuncioForm.invalid">
-        Favor de ingresar todos los datos
+            <ng-template #mymodal let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Anuncio creado correctamente!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="modal.close('Save click')"
+                        (click)="this.refresh()">OK</button>
+                </div>
+            </ng-template>
+
+        </div>
+
+        <div style="color: #aa730d" *ngIf="NuevoAnuncioForm.invalid">
+            Favor de ingresar todos los datos
+        </div> 
+
     </div> 
 
-        
+</div>
+
+
+<ng-template #mymodal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span  aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Anuncio creado correctamente!
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="this.refresh()">OK</button>
     </div>
     
-
-</div>
+</ng-template>
