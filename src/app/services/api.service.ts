@@ -422,4 +422,26 @@ export class ApiService {
     });
   }
   
+  //Sirve para modificar el area
+  editArea(
+    id: number,
+    nombre: string | null,
+    descrip: string | null,
+    ubicacion: string | null,
+    matDisp: string | null,
+    imag: string | null,
+    hCierre: string | null,
+    hApertura: string | null
+  ){
+    return this.http.post('/api/EditarArea',{
+      id: id,
+      nombre : nombre,
+      descrip : descrip,
+      ubicacion : ubicacion,
+      matDisp : matDisp,
+      imag : imag,
+      hCierre : hCierre,
+      hApertura : hApertura
+    });
+  }
 }
