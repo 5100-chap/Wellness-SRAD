@@ -19,6 +19,15 @@
 	
 }
 
+
+#resenia {
+	
+	background: transparent;
+    color: rgb(0, 0, 0);
+	border-color: transparent;
+	font-size: 1.2rem;
+	
+}
 #confirmar {
 	
 	background: #ffffff;
@@ -79,6 +88,7 @@ button:hover {
     background: #003399;
     border-color: transparent;
     color: white;
+	border-radius: 0.3rem;
 }
 
 #btn-disabled{

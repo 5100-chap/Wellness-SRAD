@@ -19,6 +19,7 @@ import { Subscription } from 'rxjs';
 import { HorarioReserva } from '../models/horario-reserva';
 import { ChartService } from '../services/chart.service';
 import { DatePipe } from '@angular/common';
+import { ReseñaArea } from '../models/reseña-area';
 
 declare var window: any;
 
@@ -28,16 +29,47 @@ declare var window: any;
   styleUrls: ['./gimnasio.component.css'],
 })
 export class GimnasioComponent implements OnInit {
+
+  //Definición de variables y arreglos a utilizar
   meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
   now!: Date;
+  today = new Date();
+  areaId: number = 0;
+  semanaSeleccionada!: number;
+  dateControl = new FormControl();
+  private subscription: Subscription | undefined;
+  seleReserva: Reservas = new Reservas();
+  public chart: any;
+  aforoData: String = '';
+  alumnoStatus: number = -1;
+  actuales!: number;
+  totales!: number;
+  closeResult: string = '';
+
+  resenias : ReseñaArea[] = [];
+
+  Limpieza !: number;
+  Calidad !: number;
+  Ambiente !: number;
+
   
 
-  today = new Date();
-  pipe = new DatePipe('es');
+  //Definición del constructor
+  constructor(
+    private modalService: NgbModal,
+    private apiService: ApiService,
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef,
+    private chartService: ChartService,
+  ) {}
 
+  //Pipe para darle formato a la fecha y hora
+  pipe = new DatePipe('es');
   changedDate = this.pipe.transform(this.today, 'longDate');
 
+
+  //Metodo para obtener el rango semanal para las reservas
   getSemanaRange(l: number, r: number): String {
     const now = new Date();
     let res = '';
@@ -69,10 +101,7 @@ export class GimnasioComponent implements OnInit {
     return res;
   }
 
-  areaId: number = 0;
-  semanaSeleccionada!: number;
-  dateControl = new FormControl();
-  private subscription: Subscription | undefined;
+
 
   reservaArray: Reservas[] = [
     {
@@ -158,37 +187,20 @@ export class GimnasioComponent implements OnInit {
   ];
   
   
-  seleReserva: Reservas = new Reservas();
-  addOrEdit() {
-    if (this.seleReserva.id == 0) {
-      this.seleReserva.id = this.reservaArray.length + 1;
-      this.reservaArray.push(this.seleReserva);
-    }
-    this.seleReserva = new Reservas();
-  }
 
+  //Metodo para actualizar el dia y horario
   openForEdit(reserve: Reservas) {
     this.seleReserva = reserve;
   }
 
-  delete() {
-    if (confirm('Deseas realmente eliminar la reservación?')) {
-      this.reservaArray = this.reservaArray.filter(
-        (x) => x != this.seleReserva
-      );
-      this.seleReserva = new Reservas();
-    }
-  }
-
-  public chart: any;
-  aforoData: String = '';
-  alumnoStatus: number = -1;
-  actuales!: number;
-  totales!: number;
-
   
 
   ngOnInit(): void {
+    this.obtenerReseñas();
+    this.obtenerNumeroCalifRubro("Limpieza")
+    this.obtenerNumeroCalifRubro("Calidad del equipo")
+    this.obtenerNumeroCalifRubro("Ambiente")
+  
     this.apiService.getAreaByName('gimnasio').subscribe((response) => {
       this.now = new Date();
       this.areaId = response[0].AreaId;
@@ -229,13 +241,13 @@ export class GimnasioComponent implements OnInit {
   diaSeleccionado!: string;
   crearReserva(){
     if(this.diaSeleccionado!=undefined && this.horaSeleccionada!=undefined){
-      console.log(`${this.diaSeleccionado} || ${this.horaSeleccionada}`);
       this.apiService.crearReserva(this.authService.currentUserValue['username'], this.diaSeleccionado, this.horaSeleccionada, '', this.areaId).subscribe(error=>{
         console.log(error);
       });
     }
   }
-
+  
+  // Metodo para recargar la pagina
   reload(){
     window.location.reload();
   }
@@ -313,23 +325,22 @@ export class GimnasioComponent implements OnInit {
       }
     );
   }
-
+   
+  //Método para aumentar un +1 al aforo del gimansio
   aumentarAforo(): void {
     this.apiService.aumentarAforo(this.areaId).subscribe((error) => {
       console.error('Error fetching area id status: ', error);
     });
   }
 
+  //Método para desminuit un -1 al aforo del gimansio
   disminuirAforo(): void {
     this.apiService.disminuirAforo(this.areaId).subscribe((error) => {
       console.error('Error fetching area id status', error);
     });
   }
-
-  getCalif(calif:any ){
-    console.log(calif)
-  }
-
+  
+  //Método para obtener el aforo actual y total del area deportiva
   getAforoArea(): void {
     this.apiService.consultarAforo(this.areaId).subscribe(
       (data: any) => {
@@ -349,25 +360,7 @@ export class GimnasioComponent implements OnInit {
     );
   }
 
-  getStatus(): void {
-    console.log(this.alumnoStatus);
-  }
 
-  title = 'appBootstrap';
-
-  closeResult: string = '';
-  /*------------------------------------------
-  --------------------------------------------
-  Created constructor
-  --------------------------------------------
-  --------------------------------------------*/
-  constructor(
-    private modalService: NgbModal,
-    private apiService: ApiService,
-    private authService: AuthService,
-    private cdr: ChangeDetectorRef,
-    private chartService: ChartService,
-  ) {}
 
   /**
    * Write code on Method
@@ -405,6 +398,8 @@ export class GimnasioComponent implements OnInit {
     }
   }
 
+  
+//Método para marcar la salida o entrada al gimansio del alumno, dependiendo en el estado que se encuentre
   marcarLlegadaOSalida() {
     this.apiService
       .marcar(this.authService.currentUserValue['username'], this.areaId)
@@ -414,6 +409,7 @@ export class GimnasioComponent implements OnInit {
     window.location.reload();
   }
 
+//Modal para la sección de reseñas
   abrir(content: any) {
     this.modalService
       .open(content, { ariaLabelledBy: 'modal-resena' })
@@ -426,7 +422,8 @@ export class GimnasioComponent implements OnInit {
         }
       );
   }
-  
+
+  //Metodo para crear la reseña del alumno 
   confirmarReview(limpieza: string, calidad: string, ambiente: string){
     var selectLimpieza = Number(limpieza);
     var selectCalidad = Number(calidad);
@@ -435,10 +432,57 @@ export class GimnasioComponent implements OnInit {
     this.apiService.calificarArea(this.areaId, selectLimpieza, selectCalidad, selectAmbiente, 'Limpieza', 'Calidad del equipo', 'Ambiente').subscribe(error=>{
       console.log(error);
     });
-    
-   
+  }
+
+  //Metodo para obtener las reseñas del gimnasio
+  obtenerReseñas(){
+    this.apiService.getReseniasArea(1).subscribe((data: ReseñaArea[]) => {
+      this.resenias = data;
+    } ,
+    error=>{
+      console.error(error);
+    });
+  }
+
+  //Metodo para obtener el numero total de registros de un rubro que se pase como parametro
+  obtenerNumeroCalifRubro(rubro: string){
+
+    if(rubro == "Limpieza"){
+      this.apiService.getNumRegistrosArea(1, rubro).subscribe((data: number) => {
+        this.Limpieza = data[0].NumeroRegistros;
+  
+      } ,
+      error=>{
+        console.error(error);
+      });
+
+    } else if (rubro == "Calidad del equipo") {
+      this.apiService.getNumRegistrosArea(1, rubro).subscribe((data: number) => {
+        this.Calidad = data[0].NumeroRegistros;
+  
+      } ,
+      error=>{
+        console.error(error);
+      });
+
+    } else {
+      this.apiService.getNumRegistrosArea(1, rubro).subscribe((data: number) => {
+        this.Ambiente = data[0].NumeroRegistros;
+  
+      } ,
+      error=>{
+        console.error(error);
+      });
+
+    }
 
   }
 
+
+  //Metodo para calcular el promedio de las reseñas de cada rubro
+  calcularPromedio(calif: number, numRegistros: number){
+    let res = (calif/numRegistros).toFixed(1);
+    return(res)
+  }
 
 }

@@ -207,14 +207,34 @@ router.get("/api/tendencias_por_hora/:dia", async (req, res) => {
     }
 });
 
-router.post("/api/obtenerReseñasArea/", async(req, res) => {
+// Obtener las reseñas de un area deportiva
+router.post("/api/obtenerCalifArea", async(req, res) => {
     try{
         var request = new sql.Request();
-        await request.query(`EXEC [dbo].[obtenerReseñasArea] ${req.body.idArea};`);
+        var result = await request.query(`EXEC [dbo].[obtenerCalifArea] ${req.body.idArea} ;`);
+        res.json(result.recordset);
+
+    }
+    catch(error){
+        console.error(error)
+        res.json(error);
+    }
+})
+
+
+//Obtener el numero total de registros de un rubro que se pase como parametro
+router.post("/api/obtenerNumeroRegistrosRubro", async(req, res) => {
+    try{
+        var request = new sql.Request();
+        var result = await request.query(`EXEC [dbo].[obtenerNumeroRegistrosRubro] ${req.body.idArea}, \'${req.body.rubro}\' ;`);
+        res.json(result.recordset);
     }
     catch(error){
         res.json(error);
     }
 })
+
+
+
 
 module.exports = router;

@@ -7,9 +7,10 @@
   </div>
 </div>
 
+
+
+<!--Tarjeta con la grafica y el marcador de aforo-->
 <h3 style="margin-left: 4%; margin-top: 2%; margin-bottom: 2%;"> <strong>Aforo en tiempo real </strong> </h3>
-
-
 
 <div class="vstack gap-4 col-md-9 mx-auto">
 
@@ -50,12 +51,8 @@
 
 
 
-
-
-
+<!--Calendario con los hrarios disponibles para la reservación-->
 <h3 style="margin-left: 4%; margin-top: 3%; margin-bottom: 2%;"> <strong> Reservación </strong> </h3>
-
-
 
 <div class="vstack gap-4 col-md-9 mx-auto">
 
@@ -65,24 +62,23 @@
     <div class="col card-header">
 
      
-        <div class="row">
+        <div class="row mt-4">
 
-          <div class="mt-1" id="circulo"> </div>
+          <div id="circulo"> </div>
 
-          <div class=" col-md-2 mt-1">
+          <div class="col-md-2">
 
             <h4>Estado: <small class="text-success">Abierto</small></h4>
 
           </div>
 
-          <div class="col-md-4 mt-1">
-            <div class="col-md-3 mt-3" style="margin-left: 2%;">
+          <div class="col-md-4 mb-2">
+            <div class="col-md-5" style="margin-left: 2%;">
               <label for="weekPicker">Elige la semana:</label>
-              <input type="week" id="weekPicker" [formControl]="dateControl">
+              <input type="week" id="btn" [formControl]="dateControl">
             </div>
           </div>
         </div>
-   
     </div>
     
     <br>
@@ -136,7 +132,6 @@
 
         </tr>
 
-
       </tbody>
     </table>
 
@@ -146,7 +141,7 @@
 
 
 
-
+<!--Resumen del dia y horarios seleccionados-->
 
 <div class="vstack gap-4 col-md-9 mx-auto mt-2">
 
@@ -182,13 +177,11 @@
           <button *ngIf="horaSeleccionada===undefined || diaSeleccionado===undefined" id="confirmar" class="btn" disabled> Reservar </button>
         </div>
       </div>
-
-
-
       <br>
-
     </div>
   </div>
+
+  <!--Tarjetas con información de la ubicación y reseñas del área deportiva-->
 
   <div class="row">
 
@@ -200,20 +193,17 @@
       </div>
     </div>
 
-    <div class="col-md-7 mt-4">
+    <div class="col-md-7 mt-4 ">
       <h3> <strong>Reseñas</strong> </h3>
       <div class="card border border-black border border-1">
-        <button style = "font-size: 1rem; margin-bottom: 1%;" id="btn3" class="btn" (click)="abrir(resenamodal)"> Calificar </button>
-
         <div class="row">
 
           <div class="col-md-9 mt-2">
             <h5> &nbsp; Limpieza</h5>
           </div>
 
-          <div class="col-md-3 mt-2">
-            <h4>★★★★☆ 4 </h4>
-
+          <div class="col-md-3 mt-2" >
+            <input disabled type="text" [value]="  '★' + ' ' + calcularPromedio(this.resenias[2].PuntajeTotal, this.Limpieza)  + ' / 5'"  id="resenia">
           </div>
         </div>
 
@@ -224,7 +214,8 @@
           </div>
 
           <div class="col-md-3 mt-2">
-            <h4>★★★★★ 5</h4>
+            
+            <input disabled type="text" [value]=" '★' + ' ' + calcularPromedio(this.resenias[1].PuntajeTotal, this.Calidad)  + ' / 5' "  id="resenia">
 
           </div>
         </div>
@@ -235,15 +226,18 @@
             <h5> &nbsp; Ambiente</h5>
           </div>
           <div class="col-md-3 mt-2">
-            <h4>★★★☆☆ 3</h4>
-
+            <input disabled type="text" [value]=" '★' + ' ' + calcularPromedio(this.resenias[0].PuntajeTotal, this.Ambiente) + ' / 5'"  id="resenia">
           </div>
         </div>
+      </div>
 
+      <div class="text-center" style="margin-top: 2%;">
+        <button style = "font-size: 1rem; margin-bottom: 1%;" id="btn3" class="btn text" (click)="abrir(resenamodal)"> Calificar área</button>
       </div>
 
     </div>
-  
+
+    <!--Modal para la calificación del area deportiva-->
     <ng-template #resenamodal let-modal>
       <div class="modal-header">
         <h4 class="modal-title" id="modal-resena">Reseñas</h4>
@@ -252,12 +246,14 @@
         </button>
       </div>
       <div class="modal-body">
-        La calificación es de 1 a 5 (de peor a mejor).
-        <br/>
-        <strong>Limpieza</strong>
-        <br/>
 
-        <select name="ReviewLimpieza" id="ReviewLimpieza" #limpieza>
+        Selecciona una calificación de 1 a 5 para cada uno de los siguientes rubros (1 es deporable y 5 es excelente).        
+
+        <br>
+        <br>
+        <strong>Limpieza</strong>
+        <br>
+        <select name="ReviewLimpieza" id="ReviewLimpieza" #limpieza >
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -265,6 +261,7 @@
           <option value="5">5</option>
         </select>
 
+        <br>
         <br/>
         <strong>Calidad del equipo</strong>
         <br/>
@@ -275,7 +272,7 @@
           <option value="4">4</option>
           <option value="5">5</option>
         </select>
-
+        <br>
         <br/>
         <strong>Ambiente</strong>
         <br/>
@@ -290,7 +287,7 @@
         <br/>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="confirmarReview(limpieza.value, calidad.value, Ambiente.value)">OK</button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="confirmarReview(limpieza.value, calidad.value, Ambiente.value)" id="btn"> Enviar </button>
       </div>
     </ng-template>
 

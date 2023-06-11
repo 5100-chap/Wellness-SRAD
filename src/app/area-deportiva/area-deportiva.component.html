@@ -205,46 +205,155 @@
       </div>
     </div>
 
-    <!-- Tarjeta con la información de las reseñas del area deportiva-->
+   
 
-    <div class="col-md-7 mt-4">
-      <h3> <strong>Reseñas</strong> </h3>
-      <div class="card border border-grey border border-1">
-        <div class="row">
+    <div class="col-md-7 mt-4" >
+      <!-- Tarjeta con la información de las reseñas del area deportiva (Cuando ya hay reseñas)-->
+      <div *ngIf="resenias.length != 0">
+      
+        <h3> <strong>Reseñas</strong> </h3>
+        <div class="card border border-grey border border-1">
+          <div class="row">
 
-          <div class="col-md-9 mt-2">
-            <h5> &nbsp; Limpieza</h5>
+            <div class="col-md-9 mt-2">
+              <h5> &nbsp; Limpieza</h5>
+            </div>
+
+            <div class="col-md-3 mt-2" >
+              <input disabled type="text" [value]="  '★' + ' ' + calcularPromedio(this.resenias[2].PuntajeTotal, this.Limpieza)  + ' / 5'"  id="resenia">
+            </div>
           </div>
 
-          <div class="col-md-3 mt-2">
-            <h4>★★★★☆ 4 </h4>
+          <div class="row">
+
+            <div class="col-md-9 mt-2">
+              <h5> &nbsp; Calidad del equipo</h5>
+            </div>
+
+            <div class="col-md-3 mt-2">
+              
+              <input disabled type="text" [value]=" '★' + ' ' + calcularPromedio(this.resenias[1].PuntajeTotal, this.Calidad)  + ' / 5' "  id="resenia">
+
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-9 mt-2">
+              <h5> &nbsp; Ambiente</h5>
+            </div>
+            <div class="col-md-3 mt-2">
+              <input disabled type="text" [value]=" '★' + ' ' + calcularPromedio(this.resenias[0].PuntajeTotal, this.Ambiente) + ' / 5'"  id="resenia">
+            </div>
           </div>
         </div>
+      </div>
 
-        <div class="row">
 
-          <div class="col-md-9 mt-2">
-            <h5> &nbsp; Calidad del equipo</h5>
+       <!-- Tarjeta con la información de las reseñas del area deportiva (Cuando no hay reseñas)-->
+      <div *ngIf="resenias.length == 0">
+      
+        <h3> <strong>Reseñas</strong> </h3>
+        <div class="card border border-grey border border-1">
+          <div class="row">
+
+            <div class="col-md-9 mt-2">
+              <h5> &nbsp; Limpieza</h5>
+            </div>
+
+            <div class="col-md-3 mt-2" >
+              <input disabled type="text" value="Aún no hay reseñas"  id="resenia">
+            </div>
           </div>
 
-          <div class="col-md-3 mt-2">
-            <h4>★★★★★ 5</h4>
+          <div class="row">
+
+            <div class="col-md-9 mt-2">
+              <h5> &nbsp; Calidad del equipo</h5>
+            </div>
+
+            <div class="col-md-3 mt-2">
+              
+              <input disabled type="text" value="Aún no hay reseñas "  id="resenia">
+
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-9 mt-2">
+              <h5> &nbsp; Ambiente</h5>
+            </div>
+            <div class="col-md-3 mt-2">
+              <input disabled type="text" value="Aún no hay reseñas "  id="resenia">
+            </div>
           </div>
         </div>
+      </div>
 
-        <div class="row">
-
-          <div class="col-md-9 mt-2">
-            <h5> &nbsp; Ambiente</h5>
-          </div>
-          <div class="col-md-3 mt-2">
-            <h4>★★★☆☆ 3</h4>
-
-          </div>
-        </div>
-
+      <div class="text-center" style="margin-top: 2%;">
+        <button style = "font-size: 1rem; margin-bottom: 1%;" id="btn3" class="btn text" (click)="abrir(resenamodal)"> Calificar área</button>
       </div>
 
     </div>
+
+
+
+    <!--Modal para la calificación del area deportiva-->
+    <ng-template #resenamodal let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-resena">Reseñas</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        Selecciona una calificación de 1 a 5 para cada uno de los siguientes rubros (1 es deporable y 5 es excelente).        
+
+        <br>
+        <br>
+        <strong>Limpieza</strong>
+        <br>
+        <select name="ReviewLimpieza" id="ReviewLimpieza" #limpieza >
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+
+        <br>
+        <br/>
+        <strong>Calidad del equipo</strong>
+        <br/>
+        <select name="ReviewCalidad" id="ReviewCalidad" #calidad>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <br>
+        <br/>
+        <strong>Ambiente</strong>
+        <br/>
+        <select name="ReviewAmbiente" id="ReviewAmbiente" #Ambiente>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+
+        <br/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="confirmarReview(limpieza.value, calidad.value, Ambiente.value)" id="btn"> Enviar </button>
+      </div>
+    </ng-template>
+
+
+
   </div>
 </div>
