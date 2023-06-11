@@ -34,7 +34,7 @@
         <form style=" margin-top: 6%;" (ngSubmit)="marcarLlegadaOSalida()">
           <a href="http://localhost:4200/tendencias" class="btn btn-primary text-center" id="btn"
             style="font-size: 1.3rem;">Estadísticas </a>
-          <button type="submit" class="btn btn-primary text-center" id="marcarLlegada" style="font-size: 1.3rem; margin-left: 0.7%;" *ngIf="!alumnoStatus" (click)="aumentarAforo()">Marcar llegada
+          <button type="submit" class="btn btn-primary text-center" id="marcarLlegada" style="font-size: 1.3rem; margin-left: 0.7%;" *ngIf="!alumnoStatus && lleno()" (click)="aumentarAforo()">Marcar llegada
           </button>
           <button type="submit" class="btn btn-warning text-center" id="marcarSalida" style="font-size: 1.3rem; margin-left: 0.7%;" *ngIf="alumnoStatus" (click)="disminuirAforo()">Marcar salida
           </button>

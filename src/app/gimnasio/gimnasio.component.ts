@@ -181,7 +181,10 @@ export class GimnasioComponent implements OnInit {
   actuales!: number;
   totales!: number;
 
-  
+  // Revisa si el aforo del lugar ya está lleno
+  lleno(): boolean{
+    return this.totales >= this.actuales;
+  }
 
   ngOnInit(): void {
     this.apiService.getAreaByName('gimnasio').subscribe((response) => {
