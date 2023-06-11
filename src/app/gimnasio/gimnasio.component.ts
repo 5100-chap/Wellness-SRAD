@@ -55,8 +55,6 @@ export class GimnasioComponent implements OnInit {
 
   horario !: boolean;
   
-
-
   
 
   //Definición del constructor
