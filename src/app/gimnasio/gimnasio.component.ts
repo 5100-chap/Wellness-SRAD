@@ -29,7 +29,9 @@ export class GimnasioComponent implements OnInit {
   meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
   now!: Date;
+  horario!: Boolean; // true: escolar, false: vacacional
 
+  // Obtiene una descripcion del numero de la semana y el mes
   getSemanaRange(l: number, r: number): String {
     const now = new Date();
     let res = '';
@@ -66,6 +68,7 @@ export class GimnasioComponent implements OnInit {
   dateControl = new FormControl();
   private subscription: Subscription | undefined;
 
+  // Horarios de reserva 
   reservaArray: Reservas[] = [
     {
       id: 1,
@@ -191,6 +194,11 @@ export class GimnasioComponent implements OnInit {
         this.getDiasSemana();
         this.apiService.getTodasReservas(this.listaDias[0], this.listaDias[6], this.areaId).subscribe((data: HorarioReserva[])=>{
           this.listaDeHorariosReservados = data;
+          this.apiService.getDiasEscolares(this.listaDias[0]).subscribe(
+            (data: any)=>{
+              this.horario = data;
+            }
+          );
         }, error=>{
           console.log(error);
         });
@@ -228,6 +236,7 @@ export class GimnasioComponent implements OnInit {
     }
   }
 
+  // Recarga la página desde el HTML
   reload(){
     window.location.reload();
   }
@@ -247,7 +256,10 @@ export class GimnasioComponent implements OnInit {
 
   // Revisa si el horario del botón está ocupado
   ocupado(dia: number, hora: string): boolean{
-    if(this.diaPasado(dia, hora) || this.semanaSeleccionada===undefined){
+    if(!this.horario){
+      return false;
+    }
+    else if(this.diaPasado(dia, hora) || this.semanaSeleccionada===undefined){
       return false;
     }
     else if(dia>4 && this.finesDeSemana(hora)){
@@ -306,18 +318,21 @@ export class GimnasioComponent implements OnInit {
     );
   }
 
+  // Aumenta el numero del aforo del gimnasio
   aumentarAforo(): void {
     this.apiService.aumentarAforo(this.areaId).subscribe((error) => {
       console.error('Error fetching area id status: ', error);
     });
   }
 
+  // Dsiminuye el numero del aforo del gimnasio
   disminuirAforo(): void {
     this.apiService.disminuirAforo(this.areaId).subscribe((error) => {
       console.error('Error fetching area id status', error);
     });
   }
 
+  // Obtiene el aforo total y actual del gimnasio
   getAforoArea(): void {
     this.apiService.consultarAforo(this.areaId).subscribe(
       (data: any) => {
@@ -335,10 +350,6 @@ export class GimnasioComponent implements OnInit {
         console.log('Error fetching aforo status:', error);
       }
     );
-  }
-
-  getStatus(): void {
-    console.log(this.alumnoStatus);
   }
 
   title = 'appBootstrap';
@@ -393,6 +404,7 @@ export class GimnasioComponent implements OnInit {
     }
   }
 
+  // Dependiendo si esta afuera o adentro del gimnasio, crea un registro o marca la salida del registro ya existente
   marcarLlegadaOSalida() {
     this.apiService
       .marcar(this.authService.currentUserValue['username'], this.areaId)

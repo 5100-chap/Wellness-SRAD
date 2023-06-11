@@ -43,6 +43,7 @@ export class AreaDeportivaComponent implements OnInit {
   diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
   now!: Date;
   totales!: number;
+  horario!: boolean;
 
   getFormattedNombreArea(): string {
     return this.nombreArea
@@ -257,7 +258,10 @@ export class AreaDeportivaComponent implements OnInit {
   
   // Revisa si el horario del botón está ocupado
   ocupado(dia: number, hora: string): boolean{
-    if(this.diaPasado(dia, hora) || this.semanaSeleccionada===undefined){
+    if(!this.horario){
+      return false;
+    }
+    else if(this.diaPasado(dia, hora) || this.semanaSeleccionada===undefined){
       return false;
     }
     else if(!this.diaPasado(dia, hora) && this.listaDeHorariosReservados.length===0){
@@ -356,7 +360,11 @@ export class AreaDeportivaComponent implements OnInit {
             this.getDiasSemana();
             this.apiService.getTodasReservas(this.listaDias[0], this.listaDias[6], this.areaActual.AreaId).subscribe((data: HorarioReserva[])=>{
               this.listaDeHorariosReservados = data;
-              
+              this.apiService.getDiasEscolares(this.listaDias[0]).subscribe(
+                (data: any)=>{
+                  this.horario = data;
+                }
+              );
             }, error=>{
               console.log(error);
             });

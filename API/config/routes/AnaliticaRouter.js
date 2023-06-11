@@ -186,7 +186,6 @@ async function obtenerTendenciasPorHora(dia) {
 
         return tendenciasPorHora;
     } catch (err) {
-        console.log(err);
         throw new Error("Error al obtener las tendencias por hora");
     }
 }
@@ -204,6 +203,84 @@ router.get("/api/tendencias_por_hora/:dia", async (req, res) => {
         res
             .status(500)
             .json({ error: "Ocurrió un error al procesar la solicitud" });
+    }
+});
+
+// Retorna los días escolares dependiendo del semestre en el que se está cursando
+function getDiasEscolares(hoy){
+    let year = moment().year();
+
+    fechaInicioInv = moment()
+        .year(year)
+        .startOf("year")
+        .startOf("isoWeek")
+        .add(1, "week")
+    fechaFinalInv = moment(fechaInicioInv)
+        .add(5, "weeks")
+
+    fechaInicioInv = new Date(fechaInicioInv.format("YYYY-MM-DD"));
+    fechaFinalInv = new Date(fechaFinalInv.format("YYYY-MM-DD"));
+        
+    fechaInicioPrimer = moment()
+        .year(year)
+        .month("February")
+        .startOf("month")
+        .startOf("isoWeek")
+        .add(2, "weeks")
+    fechaFinalPrimer = moment(fechaInicioPrimer)
+        .add(19, "weeks")
+
+    fechaInicioPrimer = new Date(fechaInicioPrimer.format("YYYY-MM-DD"));
+    fechaFinalPrimer = new Date(fechaFinalPrimer.format("YYYY-MM-DD"))
+
+    fechaInicioSegundo = moment()
+        .year(year)
+        .month("August")
+        .startOf("month")
+        .startOf("isoWeek")
+        .add(1, "weeks")
+    fechaFinalSegundo = moment(fechaInicioSegundo)
+        .add(18, "weeks")   
+    
+    fechaInicioSegundo = new Date(fechaInicioSegundo.format("YYYY-MM-DD"));
+    fechaFinalSegundo = new Date(fechaFinalSegundo.format("YYYY-MM-DD"));
+
+    fechaInicioVerano = moment()
+        .year(year)
+        .month("June")
+        .endOf("month")
+        .startOf("isoWeek")
+    fechaFinalVerano = moment(fechaInicioVerano)
+        .add(5, "weeks")
+
+    fechaInicioVerano = new Date(fechaInicioVerano.format("YYYY-MM-DD"));
+    fechaFinalVerano = new Date(fechaFinalVerano.format("YYYY-MM-DD"));
+
+    if(fechaInicioInv<=hoy && fechaFinalInv>hoy){
+        return true;
+    }
+    else if(fechaInicioPrimer<=hoy && fechaFinalPrimer>hoy){
+        return true;
+    }
+    else if(fechaInicioSegundo<=hoy && fechaFinalSegundo>hoy){
+        return true;
+    }
+    else if(fechaInicioVerano<=hoy && fechaFinalVerano>hoy){
+        return true;
+    }
+    return false;
+}
+
+// Obtener los datos de dias escolares
+// En base al lunes de la semana seleccionada
+// Se revisará si está en periodo escolar
+router.get('/api/getDiasEscolares/:lunes/', async(req, res, next)=>{
+    try{
+        res.json(getDiasEscolares(new Date(req.params.lunes)));
+    }
+    catch(err){
+        throw new Error("Error al obtener los datos");
+        res.json(err);
     }
 });
 

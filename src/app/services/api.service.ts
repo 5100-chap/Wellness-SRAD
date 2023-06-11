@@ -241,6 +241,11 @@ export class ApiService {
     );
   }
 
+  // Método para verificar si la semana es de vacaciones o días escolares
+  getDiasEscolares(dia: string): Observable<any>{
+    return this.http.get<any>(`/api/getDiasEscolares/${dia}/`);
+  }
+
   modificarAforoMaximo(
     area_id: number,
     nuevo_limite: number,
