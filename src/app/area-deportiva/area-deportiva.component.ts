@@ -43,6 +43,7 @@ export class AreaDeportivaComponent implements OnInit {
   diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
   now!: Date;
   totales!: number;
+  actuales!: number;
   horario!: boolean;
 
   getFormattedNombreArea(): string {
@@ -255,10 +256,18 @@ export class AreaDeportivaComponent implements OnInit {
       this.horaSeleccionada = this.reservaArray[index].hora;
       this.reservaArray[index].fecha = this.listaDias[dia] + " - " + this.reservaArray[index].hora.slice(0, 5) + " --> " + ((+this.reservaArray[index].hora.slice(0, 2)) + 2) + ":00";
     }
+
+  // Revisa si el aforo del lugar ya está lleno
+  lleno(): boolean{
+    return this.totales > this.actuales;
+  }
   
   // Revisa si el horario del botón está ocupado
   ocupado(dia: number, hora: string): boolean{
     if(!this.horario){
+      return false;
+    }
+    else if(!this.lleno()){
       return false;
     }
     else if(this.diaPasado(dia, hora) || this.semanaSeleccionada===undefined){
@@ -382,6 +391,7 @@ export class AreaDeportivaComponent implements OnInit {
         const ocupados = totales - actuales;
         
         this.totales = totales;
+        this.actuales = actuales;
         this.aforoData = actuales + '/' + totales;
         // Use service method to create chart
         this.chart = this.chartService.createPieChart('MyChart', ['Libre: ' + actuales, 'Ocupado: ' + ocupados], [ocupados, actuales]);

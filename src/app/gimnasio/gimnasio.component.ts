@@ -183,7 +183,7 @@ export class GimnasioComponent implements OnInit {
 
   // Revisa si el aforo del lugar ya está lleno
   lleno(): boolean{
-    return this.totales >= this.actuales;
+    return this.totales > this.actuales;
   }
 
   ngOnInit(): void {
@@ -260,6 +260,9 @@ export class GimnasioComponent implements OnInit {
   // Revisa si el horario del botón está ocupado
   ocupado(dia: number, hora: string): boolean{
     if(!this.horario){
+      return false;
+    }
+    else if(!this.lleno()){
       return false;
     }
     else if(this.diaPasado(dia, hora) || this.semanaSeleccionada===undefined){
