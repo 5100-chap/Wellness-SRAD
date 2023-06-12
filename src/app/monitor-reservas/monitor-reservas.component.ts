@@ -135,7 +135,7 @@ export class MonitorReservasComponent {
 
   //Función que cancela la reservación seleccionada
   cancelarReserva(idReserva: number, matricula: string) {
-    this.apiservice.cancelarReservaAlumno(matricula, idReserva).subscribe(
+    this.apiservice.cancelarReservaAlumno(matricula, idReserva, 3).subscribe(
       () => {},
       (error) => {
         console.log(error);
