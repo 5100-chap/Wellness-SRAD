@@ -48,6 +48,15 @@
 	font-size: 1.3rem;
 }
 
+#resenia {
+	
+	background: transparent;
+    color: rgb(0, 0, 0);
+	border-color: transparent;
+	font-size: 1.2rem;
+	
+}
+
 #badge {
 	font-size: 1.3rem;
 }
@@ -85,6 +94,13 @@ button:hover {
 	place-items: center;
 	font-weight: 600;
 	font-size: 20px;
+}
+#btn3 {
+    background: #003399;
+    border-color: #ffffff;
+    color: #ffffff;
+	position:relative;
+	width: 8rem;
 }
 
 #btn2 {

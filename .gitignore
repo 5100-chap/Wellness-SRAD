@@ -43,3 +43,4 @@ Thumbs.db
 .env
 
 /uploads
+.vscode/settings.json

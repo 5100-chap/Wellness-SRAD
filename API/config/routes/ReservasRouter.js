@@ -154,7 +154,7 @@ router.get("/api/getReservasCasilleros", async (req,res, next) =>{
 router.delete('/api/cancelReservacionArea', async(req, res, next)=>{
     try{
         var request = new sql.Request();
-        var result = await request.query(`EXEC [dbo].[CancelReservacionArea] \'${req.body.usuario}\', ${req.body.id};`);
+        var result = await request.query(`EXEC [dbo].[CancelReservacionArea] \'${req.body.usuario}\', ${req.body.id}, ${req.body.quien};`);
         res.json({'status': 'ok'});
     }
     catch(error){
@@ -197,7 +197,6 @@ router.post('/api/getDataMonitorReservas',async(req,res,next)=>{
         res.sendStatus(404);
     }
 })
-
 
 
 
@@ -293,6 +292,7 @@ router.post('/api/getReservasAsesorDeAlumno', async(req, res, next)=>{
     }
 });
 
+//Obtener las reservas activas del alumno para el calendario
 router.post('/api/getEventos', async(req, res, next)=>{
     try{
         var request = new sql.Request();
@@ -306,17 +306,5 @@ router.post('/api/getEventos', async(req, res, next)=>{
     }
 
 })
-// Cancelar todas las reservas en caso de cierre de un área
-router.put('/api/cancelarTodasDeArea', async(req, res, next)=>{
-    try{
-        var request = new sql.Request();
-        await request.query(``);
-        res.json('ok');
-    }
-    catch(error){
-        console.log(error);
-        res.json(error);
-    }
-});
 
 module.exports = router;
