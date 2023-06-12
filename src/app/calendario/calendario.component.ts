@@ -40,13 +40,10 @@ export class CalendarioComponent implements OnInit{
   ngOnInit() {
     this.getTodasReservasAlumno();
 
-
-
-
-
   }
 
   calendarOptions: CalendarOptions = {
+    timeZone: 'America/Mexico_City',
     locale: esLocale,
     initialView: 'dayGridMonth',
     firstDay: 0,
@@ -78,15 +75,15 @@ export class CalendarioComponent implements OnInit{
     }
   };
 
-  Reservas!: ReservasAlumno[];
-  slices: number[] = [];
+
+  
 
   getTodasReservasAlumno(){
     const usuario = this.authService.currentUserValue['username'];
     this.apiService.getEventos(usuario).subscribe((data: Eventos[])=>{
       this.events = data;
-     // this.events = data;
-      console.log(this.Reservas);
+      console.log(data)
+   
     });
 
     error=>{

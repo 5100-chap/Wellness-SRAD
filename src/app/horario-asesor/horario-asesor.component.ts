@@ -32,6 +32,7 @@ export class HorarioAsesorComponent {
   listaReservasConAsesor!: ReservaAsesor[];
   activateButton: boolean = false;
   horarioSeleccionadoInput: string = "";
+  horario!: boolean;
     
   form = new FormGroup({  
     website: new FormControl('', Validators.required)  
@@ -111,6 +112,11 @@ export class HorarioAsesorComponent {
       this.apiService.getReservasAsesor(this.listaDias[0], this.listaDias[6], this.asesorInfo.asesor).subscribe(
         (data: ReservaAsesor[])=>{
           this.listaReservasConAsesor = data;
+          this.apiService.getDiasEscolares(this.listaDias[0]).subscribe(
+            (data: any)=>{
+              this.horario = data;
+            }
+          );
         });
     });
   }
@@ -141,7 +147,10 @@ export class HorarioAsesorComponent {
 
   // Checar si un horario esta ocupado
   ocupado(hora: string, dia: number): boolean{
-    if(this.diaPasado(dia, hora) || this.listaReservasConAsesor === undefined){
+    if(!this.horario){
+      return false;
+    }
+    else if(this.diaPasado(dia, hora) || this.listaReservasConAsesor === undefined){
       return false;
     }
     // Falta que cheque si ya hay reservas en este horario

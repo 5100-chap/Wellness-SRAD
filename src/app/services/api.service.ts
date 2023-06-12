@@ -25,6 +25,7 @@ import { ReservaAsesorAlumno } from '../models/reserva-asesor-alumno';
 import { ExisteAlumno } from '../models/existe-alumno';
 import { Eventos } from '../models/event.model';
 import { Time } from '@angular/common';
+import { ReseñaArea } from '../models/reseña-area';
 
 
 @Injectable({
@@ -237,16 +238,17 @@ export class ApiService {
       id: id,
     });
   }
+
   getTodasAreasInformacion(): Observable<Area[]> {
     return this.http.get<Area[]>('/api/TodasAreasInformacion');
   }
+
   updateAreaStatus(areaId: number, status: boolean): Observable<Area> {
     const body = { status: status };
     return this.http.put<Area>(`/api/AreaUpdateStatus?areaId=${areaId}`, body);
   }
 
   crearReserva(usuario: string, fecha: string, hora: string, asesor: string, area_id: number){
-    
     return this.http.put('/api/createReservacionArea', {
       usuario: usuario,
       fecha: fecha,
@@ -276,6 +278,11 @@ export class ApiService {
     return this.http.get<any>(
       `/api/tendencias/${segmento}/${bloque}/${semana}`
     );
+  }
+
+  // Método para verificar si la semana es de vacaciones o días escolares
+  getDiasEscolares(dia: string): Observable<any>{
+    return this.http.get<any>(`/api/getDiasEscolares/${dia}/`);
   }
 
   modificarAforoMaximo(
@@ -339,16 +346,6 @@ export class ApiService {
   }
 
   crearAnuncio(fecha_inicio_evento:string, fecha_fin_evento:string, ubicacion:string, descripcion:string, duracionIni:string, duracionFin:string, imagen:string, titulo:string){
-    console.log({
-      fecha_inicio_evento :fecha_inicio_evento,
-      fecha_fin_evento : fecha_fin_evento,
-      ubicacion : ubicacion,
-      descripcion : descripcion,
-      duracionIni: duracionIni,
-      duracionFin: duracionFin,
-      imagen: imagen,
-      titulo: titulo
-    });
     return this.http.put('/api/CrearAnuncio', {
       fecha_inicio_evento :fecha_inicio_evento,
       fecha_fin_evento : fecha_fin_evento,
@@ -362,7 +359,6 @@ export class ApiService {
   }
 
   getIngresosAforo( idArea: number, weekday: string): Observable<IngresosMonitor[]> {
-    
     return this.http.get<IngresosMonitor[]>(`/api/ExportarAforo?Id=${idArea}&Date=${weekday}`);
   }
 
@@ -385,6 +381,7 @@ export class ApiService {
       id: id
     });
   }
+  
 
   cancelarReservaAsesor(id: number){
     return this.http.post('/api/cancelarReservaAsesor', {
@@ -392,11 +389,39 @@ export class ApiService {
     });
   }
 
+  //Obtener las reservas activas del alumno para el calendario
   getEventos(matricula: string): Observable<Eventos[]>{
     return this.http.post<Eventos[]>('/api/getEventos', {
       usuario: matricula
     });
+  }
 
+  //Obtener las reseñas de un area deportiva
+  getReseniasArea(idArea: number): Observable<ReseñaArea[]>{
+    return this.http.post<ReseñaArea[]>('/api/obtenerCalifArea', {
+      idArea: idArea
+    });
+  }
+
+  //Obtener el numero total de registros de un rubro que se pase como parametro
+  getNumRegistrosArea(idArea: number, rubro: string): Observable<number>{
+    return this.http.post<number>('/api/obtenerNumeroRegistrosRubro', {
+      idArea : idArea,
+      rubro : rubro
+    });
+  }
+
+  // Crear reseña de un area deportiva
+  calificarArea(idArea: number, calif1: number,calif2: number,calif3: number, rubro1:string, rubro2:string, rubro3:string, ) {
+    return this.http.post('/api/calificarArea', {
+      idArea: idArea,
+      calif1 : calif1,
+      calif2 : calif2,
+      calif3 : calif3,
+      rubro1 : rubro1,
+      rubro2 : rubro2,
+      rubro3 : rubro3
+    })
   }
 
 

@@ -200,7 +200,6 @@ router.post('/api/getDataMonitorReservas',async(req,res,next)=>{
 
 
 
-
 //Marcar la salida de un alumno de forma manual
 router.post('/api/marcarSalidaAlumno',async(req,res,next)=>{
     try{
@@ -293,6 +292,7 @@ router.post('/api/getReservasAsesorDeAlumno', async(req, res, next)=>{
     }
 });
 
+//Obtener las reservas activas del alumno para el calendario
 router.post('/api/getEventos', async(req, res, next)=>{
     try{
         var request = new sql.Request();
