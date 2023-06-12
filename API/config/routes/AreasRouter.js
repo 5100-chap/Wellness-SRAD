@@ -3,6 +3,7 @@ const router = express.Router();
 const sql = require("mssql");
 const queries = require("../database/queries");
 const { execute } = require("@angular-devkit/build-angular/src/builders/extract-i18n");
+const { async } = require("rxjs");
 
 
 //Obtener la información de todas la areas deportivas
@@ -115,5 +116,27 @@ router.post('/api/CrearArea', async(req,res,next) =>{
     }
 });
 
+// Modificar el área 
+router.post('/api/EditarArea', async(req,res,next) => {
+    try{
+        let request = new sql.Request();
+
+        let hCierre = new Date(`1970-01-01T${req.body.hCierre}Z`);
+        let hApertura = new Date(`1970-01-01T${req.body.hApertura}Z`);        
+        
+        request.input('id',sql.Int,req.body.id);
+        request.input('nombre',sql.VarChar(50),req.body.nombre);
+        request.input('descrip',sql.VarChar(300),req.body.descrip);
+        request.input('ubicacion',sql.VarChar(200),req.body.ubicacion);
+        request.input('matDisp',sql.VarChar(200),req.body.matDisp);
+        request.input('imag',sql.VarChar(8000),req.body.imag);
+        request.input('hCierre',sql.Time(7), hCierre);
+        request.input('hApertura',sql.Time(7), hApertura);
+        let result = await request.execute('[dbo].[EditarArea]');
+        res.status(200).json({message: 'Area editada con éxito'});        
+    }catch(err){
+        next(err)
+    }
+});
 
 module.exports = router;

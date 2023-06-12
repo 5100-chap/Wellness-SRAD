@@ -11,6 +11,9 @@ export class Area {
         public Estatus: boolean = false,
         public FechaCierre: Date = new Date(),
         public FechaApertura: Date = new Date(),
-        public Imagen: string = ''
+        public Imagen: string = '',
+
+        public horaApertura: string = '',
+        public horaCierre: string = ''    
     ) { }
 }
