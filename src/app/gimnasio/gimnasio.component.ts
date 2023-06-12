@@ -53,7 +53,7 @@ export class GimnasioComponent implements OnInit {
   Calidad !: number;
   Ambiente !: number;
 
-  
+  horario!: boolean;
 
   //Definición del constructor
   constructor(

@@ -188,9 +188,9 @@ export class ApiService {
     return this.http.post<HorarioReserva[]>('/api/getReservasSemanales', {lunes, domingo, area_id});
   }
 
-  cancelarReservaAlumno(usuario: String, id: number) {
+  cancelarReservaAlumno(usuario: String, id: number, quien: number) {
     return this.http.delete('/api/cancelReservacionArea', {
-      body: { usuario: usuario, id: id },
+      body: { usuario: usuario, id: id, quien: quien },
     });
   }
   getIngresosPorHora(
@@ -382,7 +382,7 @@ export class ApiService {
     });
   }
   
-
+  // Cancelar la reserva con un asesor
   cancelarReservaAsesor(id: number){
     return this.http.post('/api/cancelarReservaAsesor', {
       id: id
