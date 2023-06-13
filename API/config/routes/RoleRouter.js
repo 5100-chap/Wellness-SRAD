@@ -2,31 +2,41 @@ const express = require("express");
 const router = express.Router();
 const sql = require("mssql");
 const queries = require("../database/queries");
+const jwt = require("jsonwebtoken");
+const secretKey = process.env.JWT_SECRET;
 
-router.get("/api/getXCredentials", async (req, res, next) => {
+router.post("/api/login", async (req, res, next) => {
     try {
-        // Consigue el header de autentificacion
-        const authHeader = req.headers.authorization;
-
-        // Checa si el header tiene autentificación basica
-        if (!authHeader || !authHeader.startsWith('Basic ')) {
-            res.status(401).send('Unauthorized');
-            return;
-        }
-
-        // Decodifica las crendenciales
-        const encodedCredentials = authHeader.slice('Basic '.length);
-        const decodedCredentials = Buffer.from(encodedCredentials, 'base64').toString();
-
         // Almacena el usuario y contraseña
-        const [username, password] = decodedCredentials.split(':');
+        const { username, password } = req.body;
+
         // Creacion de variables de query para buscar
         var result;
         const roles = [
-            { role: 'Alumno', IdForm: "Matricula", param: 'matricula', type: sql.Char(9) },
-            { role: 'Director', IdForm: "Nomina", param: 'numero_nomina', type: sql.VarChar(30) },
-            { role: 'Administrador', IdForm: "Nomina", param: 'numero_nomina', type: sql.VarChar(30) },
-            { role: 'Instructor', IdForm: "Nomina", param: 'numero_nomina', type: sql.VarChar(30) },
+            {
+                role: "Alumno",
+                IdForm: "Matricula",
+                param: "matricula",
+                type: sql.Char(9),
+            },
+            {
+                role: "Director",
+                IdForm: "Nomina",
+                param: "numero_nomina",
+                type: sql.VarChar(30),
+            },
+            {
+                role: "Administrador",
+                IdForm: "Nomina",
+                param: "numero_nomina",
+                type: sql.VarChar(30),
+            },
+            {
+                role: "Instructor",
+                IdForm: "Nomina",
+                param: "numero_nomina",
+                type: sql.VarChar(30),
+            },
         ];
 
         for (const { role, param, type, IdForm } of roles) {
@@ -40,7 +50,7 @@ router.get("/api/getXCredentials", async (req, res, next) => {
                 if (result.recordset[0].contrasena !== password) {
                     console.log("Triggered password error");
                     result.recordset = null;
-                    res.status(401).send('Unauthorized');
+                    res.status(401).send("Unauthorized");
                     return;
                 }
                 break;
@@ -50,11 +60,18 @@ router.get("/api/getXCredentials", async (req, res, next) => {
         if (result.recordset.length !== 1) {
             console.log("Triggered illegal instruction");
             result.recordset = null;
-            res.status(401).send('Unauthorized');
+            res.status(401).send("Unauthorized");
             return;
         }
 
-        res.send(result.recordset);
+        // Genera un token JWT
+        const token = jwt.sign(
+            { username: username, role: result.recordset[0].role },
+            secretKey,
+            { expiresIn: "1h" }
+        );
+
+        res.send({ token: token, user: result.recordset });
     } catch (err) {
         next(err);
     }

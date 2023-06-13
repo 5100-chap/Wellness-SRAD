@@ -23,6 +23,7 @@ import { ReservaAsesor } from '../models/reserva-asesor';
 import { AsesorInfo } from '../models/asesor-info';
 import { ReservaAsesorAlumno } from '../models/reserva-asesor-alumno';
 import { ExisteAlumno } from '../models/existe-alumno';
+import { LoginResponse } from '../models/loginResponse.model';
 import { Time } from '@angular/common';
 
 @Injectable({
@@ -31,12 +32,12 @@ import { Time } from '@angular/common';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  getXCredentials(username: string, password: string) {
-    const authHeader = 'Basic ' + window.btoa(`${username}:${password}`);
-    const headers = {
-      Authorization: authHeader,
+  login(username: string, password: string) {
+    const body = {
+      username: username,
+      password: password
     };
-    return this.http.get('/api/getXCredentials', { headers });
+    return this.http.post<LoginResponse>('/api/login', body);
   }
 
   //Obtener la información de los casilleros disponibles

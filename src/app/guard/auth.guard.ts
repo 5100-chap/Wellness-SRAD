@@ -9,7 +9,7 @@ export function authGuard(allowedRoles: string[]) {
         const router = inject(Router);
         const currentUser = authService.currentUserValue;
 
-        if (currentUser && allowedRoles.includes(currentUser.role)) {
+        if (currentUser && allowedRoles.includes(currentUser.user.role)) {
             return true;
         }
 
