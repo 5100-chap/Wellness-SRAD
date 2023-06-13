@@ -287,7 +287,7 @@
         <br/>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="confirmarReview(limpieza.value, calidad.value, Ambiente.value)" id="btn"> Enviar </button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="confirmarReview(limpieza.value, calidad.value, Ambiente.value)" (click)="reload()" id="btn"> Enviar </button>
       </div>
     </ng-template>
 

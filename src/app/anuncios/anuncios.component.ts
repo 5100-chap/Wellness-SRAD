@@ -41,6 +41,30 @@ export class AnunciosComponent {
     return changedDate;
   }
 
+  //Función para saber si un anuncio debe de aparecer
+  validarAparicion(fechaAnuncio: Date){
+    let changedM = Number(this.pipe.transform(fechaAnuncio, 'M'));
+    let changedD = Number(this.pipe.transform(fechaAnuncio, 'd'));
+    let todayM = this.today.getMonth() + 1
+    let todayD = this.today.getDate()
+
+
+    if(changedM > todayM){
+      return false
+    } else if(changedM == todayM){
+      if(changedD > todayD){
+        return false
+      } else {
+        return true
+      }
+    }
+
+    return(true)
+
+    
+
+  }
+
   // Función para obtener los casilleros disponibles de la base de datos
   getAnuncios() {
     this.apiService.getAnuncios().subscribe((data: Anuncio[]) => {

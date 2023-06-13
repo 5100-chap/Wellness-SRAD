@@ -135,7 +135,6 @@ router.post('/api/descartaReservaLocker', async(req, res, next)=>{
 });
 
 
-
 //Obtiene todas las reservaciones de los casilleros
 router.get("/api/getReservasCasilleros", async (req,res, next) =>{
     const request = new sql.Request();
@@ -197,7 +196,6 @@ router.post('/api/getDataMonitorReservas',async(req,res,next)=>{
         res.sendStatus(404);
     }
 })
-
 
 
 //Marcar la salida de un alumno de forma manual

@@ -82,8 +82,21 @@ export class ApiService {
       id: id,
       idCasillero: idCasillero
     });
+  }
 
-
+  //Descartar la reserva de un casillero
+  descartarReservaCasillero(id: number){
+    return this.http.post('/api/descartaReservaLocker',{
+      id: id
+    });
+  }
+  
+  //Método para actualizar el estado de un casillero
+  actualizarEstadoCasillero(casillero: number, estado: number) {
+    return this.http.post('/api/actualizarEstadoLocker', {
+      id_casillero: casillero,
+      estado: estado
+    });
   }
 
   // Obtener todos los anuncios
@@ -217,12 +230,6 @@ export class ApiService {
 
   }
 
-  actualizarEstadoCasillero(casillero: number, estado: number) {
-    return this.http.post('/api/actualizarEstadoLocker', {
-      id_casillero: casillero,
-      estado: estado
-    });
-  }
   
   marcarLlegadaReserva(usuario: String, area_id: number, id_reservacion: number){
     return this.http.post('/api/marcarLlegadaReserva', {
@@ -285,6 +292,8 @@ export class ApiService {
     return this.http.get<any>(`/api/getDiasEscolares/${dia}/`);
   }
 
+
+ // Método para modificar el aforo máximo de un area deportiva
   modificarAforoMaximo(
     area_id: number,
     nuevo_limite: number,

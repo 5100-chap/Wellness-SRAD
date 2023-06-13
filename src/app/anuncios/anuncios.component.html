@@ -12,9 +12,8 @@
 <div class="vstack gap-3 col-md-11 mx-auto">
 
   <div *ngFor="let anuncio of anuncios">
-    <div class="card" id="card">
+    <div class="card" id="card" *ngIf="validarAparicion(anuncio.duracion_inicio)">
       <div class = "row">
-
         <!-- Imagen del anuncio -->
 
         <div class=" col-md-2 ">
