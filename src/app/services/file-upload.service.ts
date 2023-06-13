@@ -3,14 +3,17 @@ import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FileUploadService {
-  private baseUrl = 'http://localhost:8080';
-
   constructor(private http: HttpClient) {}
 
-  upload(file: File, id_reserva?: number, id_anuncio?: number, id_area?: number): Observable<HttpEvent<any>> {
+  upload(
+    file: File,
+    id_reserva?: number,
+    id_anuncio?: number,
+    id_area?: number
+  ): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
     formData.append('image', file);
     if (id_reserva) formData.append('id_reserva', id_reserva.toString());
@@ -24,5 +27,32 @@ export class FileUploadService {
 
     return this.http.request(req);
   }
+  //Elimina una imagen
+  delete(blobUrl: string): Observable<HttpEvent<any>> {
+    const req = new HttpRequest(
+      'DELETE',
+      `/api/deleteImagen?blobUrl=${encodeURIComponent(blobUrl)}`,
+      {
+        responseType: 'json',
+      }
+    );
 
+    return this.http.request(req);
+  }
+  //Checa si la URL no esta rota
+  checkBlobUrl(url: string): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      fetch(url)
+        .then((response) => {
+          if (response.ok) {
+            resolve(true); // La URL se carga correctamente
+          } else {
+            resolve(false); // La URL devuelve un estado de error
+          }
+        })
+        .catch(() => {
+          resolve(false); // Error al cargar la URL
+        });
+    });
+  }
 }

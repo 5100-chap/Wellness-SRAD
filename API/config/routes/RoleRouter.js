@@ -3,22 +3,6 @@ const router = express.Router();
 const sql = require("mssql");
 const queries = require("../database/queries");
 
-//Test GET
-router.get("/api", function (req, res) {
-    res.send("api works!");
-});
-
-//Consigue la lista de todos los alumnos
-router.get("/api/getAllAlumni", async (req, res, next) => {
-    try {
-        const request = new sql.Request();
-        const result = await request.query(queries.getAllAlumni);
-        res.send(result.recordset);
-    } catch (err) {
-        next(err);
-    }
-});
-
 router.get("/api/getXCredentials", async (req, res, next) => {
     try {
         // Consigue el header de autentificacion

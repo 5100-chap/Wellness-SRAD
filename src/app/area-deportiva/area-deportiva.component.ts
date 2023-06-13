@@ -375,8 +375,8 @@ export class AreaDeportivaComponent implements OnInit {
         
         this.totales = totales;
         this.aforoData = actuales + '/' + totales;
-        // Use service method to create chart
-        this.chart = this.chartService.createPieChart('MyChart', ['Libre: ' + actuales, 'Ocupado: ' + ocupados], [ocupados, actuales]);
+        // Usa este metodo para crear la grafica mediante un servicio
+        this.chart = this.chartService.createPieChart('MyChart', ['Libre: ' + ocupados, 'Ocupado: ' + actuales], [ocupados, actuales]);
       },
       (error) => {
         console.log('Error fetching aforo status:', error);

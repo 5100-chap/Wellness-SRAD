@@ -71,6 +71,7 @@ router.put("/api/AreaUpdateStatus", async (req, res, next) => {
     }
 });
 
+//Actualizar un area a cerrada
 router.post("/api/AreaUpdateClose", async (req, res, next) => {
     const areaId = req.body.areaId;
     const fechaCierre = req.body.fechaCierre;
@@ -136,6 +137,20 @@ router.post('/api/EditarArea', async(req,res,next) => {
         res.status(200).json({message: 'Area editada con éxito'});        
     }catch(err){
         next(err)
+    }
+});
+
+// Eliminar un área por su ID
+router.delete("/api/EliminarArea/:id", async (req, res, next) => {
+    const idArea = req.params.id;
+    const request = new sql.Request();
+    try {
+        const result = await request
+            .input('idArea', sql.Int, idArea)
+            .execute('EliminarArea');
+        res.json({ success: true });
+    } catch (err) {
+        next(err);
     }
 });
 

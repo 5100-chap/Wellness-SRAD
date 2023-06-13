@@ -12,7 +12,7 @@ router.post('/api/upload', upload.single('image'), async (req, res, next) => {
     try {
         // Sube el archivo a Blob Storage
         const blobName = Date.now() + req.file.originalname;
-        const containerClient = blobServiceClient.getContainerClient('wellness-files'); // reemplaza 'mycontainer' con el nombre de tu contenedor
+        const containerClient = blobServiceClient.getContainerClient('wellness-files');
         const blockBlobClient = containerClient.getBlockBlobClient(blobName);
         const uploadBlobResponse = await blockBlobClient.uploadStream(fs.createReadStream(req.file.path));
 
@@ -30,6 +30,20 @@ router.post('/api/upload', upload.single('image'), async (req, res, next) => {
         await request.execute('UpdateImageUrls');
         //Regresa un json que registra que se ha realizado el registro con exito
         res.status(200).json({ message: 'Imagen subida con éxito y URL registrada en la base de datos.', blobUrl: blobUrl });
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.delete('/api/deleteImagen', async (req, res, next) => {
+    try {
+        // Elimina el archivo de Blob Storage
+        const blobUrl = req.query.blobUrl; // Obtén la URL del blob del query de la solicitud
+        const blobName = blobUrl.substring(blobUrl.lastIndexOf("/") + 1); // Extrae el nombre del blob de la URL
+        const containerClient = blobServiceClient.getContainerClient('wellness-files'); 
+        const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+        const deleteBlobResponse = await blockBlobClient.delete();
+        res.status(200).json({ message: 'Imagen eliminada con éxito' });
     } catch (err) {
         next(err);
     }
