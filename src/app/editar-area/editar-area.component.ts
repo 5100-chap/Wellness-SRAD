@@ -121,7 +121,6 @@ export class EditarAreaComponent implements OnInit {
                 horaInicioF
             )
             .subscribe((error) => {
-                console.log(error);
             });
         this.imageUploadComponent.upload();
     }
@@ -148,7 +147,6 @@ export class EditarAreaComponent implements OnInit {
                                 this.router.navigate(['/inicioAdmin']); // Redirige a inicioAdmin después de la eliminación
                             },
                             (error) => {
-                                console.log(error);
                             }
                         );
                 } else {
@@ -158,13 +156,11 @@ export class EditarAreaComponent implements OnInit {
                             this.router.navigate(['/inicioAdmin']); // Redirige a inicioAdmin después de la eliminación
                         },
                         (error) => {
-                            console.log(error);
                         }
                     );
                 }
             })
             .catch((error) => {
-                console.log('Error al comprobar la URL: ', error);
             });
     }
 

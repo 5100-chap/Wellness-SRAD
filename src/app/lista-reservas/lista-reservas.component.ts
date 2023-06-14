@@ -77,7 +77,6 @@ export class ListaReservasComponent {
 
   // Marcar Salida Asesor
   marcarSalidaAsesor(id: number){
-    console.log(`${this.generateHoraActualString()} - ${id}`);
     this.apiService.marcarSalidaAsesor(this.generateHoraActualString(), id).subscribe();
   }
 

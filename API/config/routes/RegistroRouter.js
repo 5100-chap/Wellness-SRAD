@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const sql = require("mssql");
-const queries = require("../database/queries");
+
 
 const { verifyJWT } = require("../middleware/jwtSecurity");
 
@@ -30,7 +30,6 @@ router.post("/api/verificarAlumnoLlegada", verifyJWT, async (req, res, next)=>{
 router.post("/api/marcarLlegada", verifyJWT, async (req, res, next) => {
     try{
         if(req.body===undefined){
-            console.log('Cuerpo vacio');
             res.send("Failure");
             return;
         }
@@ -40,11 +39,9 @@ router.post("/api/marcarLlegada", verifyJWT, async (req, res, next) => {
         var hora = currentTime.getHours()+":"+currentTime.getMinutes()+":"+currentTime.getSeconds();
         var result = await request.query(`EXEC [dbo].[VerificarRegistro] \'${req.body.usuario}\'`);
         if(!result.recordset[0][""]){
-            console.log("No ha entrado, entonces entra");
             request.query(`EXEC [dbo].[InsertarRegistro] \'${req.body.usuario}\', \'${hora}\', \'${fecha}\', ${req.body.area_id};`);
         }
         else{
-            console.log("ya había entrado, entonces sale");
             currentTime = new Date();
             hora = currentTime.getHours()+":"+currentTime.getMinutes()+":"+currentTime.getSeconds();
             request.query(`EXEC [dbo].[MarcarSalida] \'${hora}\', \'${req.body.usuario}\';`);
@@ -64,7 +61,6 @@ router.post('/api/marcarLlegadaAsesor', verifyJWT, async(req, res, next)=>{
         res.json();
     }
     catch(error){
-        console.log(error);
         res.send(error);
     }
 });
@@ -77,7 +73,6 @@ router.post('/api/existeAlumno', verifyJWT, async(req, res, next)=>{
         res.json(result.recordset);
     }
     catch(error){
-        console.log(error);
         res.send(error);
     }
 });
@@ -91,7 +86,6 @@ router.post('/api/marcarLlegadaAlumnoManual', verifyJWT, async(req, res, next)=>
         res.json(result.recordset);
     }
     catch(error){
-        console.log(error);
         res.send(error);
     }
 });

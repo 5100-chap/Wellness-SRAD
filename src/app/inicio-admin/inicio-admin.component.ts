@@ -45,7 +45,6 @@ export class InicioAdminComponent implements OnInit {
     this.apiService.getTodasAreasInformacion().subscribe((areas: Area[]) => {
       this.areas = areas;
     }, (error) => {
-      console.log(error);
     });
   }
 
@@ -55,7 +54,6 @@ export class InicioAdminComponent implements OnInit {
       // Actualiza la lista de áreas después de cambiar el estado
       this.ngOnInit();
     }, (error) => {
-      console.log(error);
     });
     
     // Abre el modal después de hacer la llamada a la API

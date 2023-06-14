@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const sql = require("mssql");
-const queries = require("../database/queries");
+
 const { execute } = require("@angular-devkit/build-angular/src/builders/extract-i18n");
 const { async } = require("rxjs");
 

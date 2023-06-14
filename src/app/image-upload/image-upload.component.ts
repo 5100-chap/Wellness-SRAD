@@ -62,7 +62,6 @@ export class ImageUploadComponent implements OnInit {
           );
           break;
         default:
-          console.log('Tipo de carga no reconocido');
       }
     }
   }
@@ -94,7 +93,6 @@ export class ImageUploadComponent implements OnInit {
         }
       },
       error: (err: any) => {
-        console.log(err);
         this.progress = 0;
 
         if (err.error && err.error.message) {
