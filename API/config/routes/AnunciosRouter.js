@@ -32,7 +32,6 @@ router.put("/api/CrearAnuncio", verifyJWT, async (req,res,next) => {
 //Crear un nuevo anuncio
 router.post('/api/createAnuncio', verifyJWT, async(req, res, next)=>{
     try{
-        console.log(req.body.fechaInicio);
         let request = new sql.Request(); 
         request.input('fechaInicio', sql.Date, req.body.fechaInicio);
         request.input('fechaFin', sql.Date, req.body.fechaFin);

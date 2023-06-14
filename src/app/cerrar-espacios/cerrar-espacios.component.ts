@@ -132,7 +132,6 @@ export class CerrarEspaciosComponent implements OnInit {
       titulo
     )
     .subscribe((error) => {
-      console.log(error);
     });
 
     return new Promise((resolve, reject) => {

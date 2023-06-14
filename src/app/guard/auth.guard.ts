@@ -27,7 +27,6 @@ export function authGuard(allowedRoles: string[]) {
         const decodedToken = jwtDecode<DecodedToken>(currentToken);
         const currentTime = Date.now() / 1000;
         if (decodedToken.exp < currentTime) {
-            console.log('Token expired');
             tokenService.clearToken();
             return router.parseUrl('/login');
         }

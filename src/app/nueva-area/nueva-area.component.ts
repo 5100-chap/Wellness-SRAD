@@ -53,7 +53,7 @@ export class NuevaAreaComponent {
     function esStringVacio(valor: string): boolean {
       return valor.trim() === '';
     }
-    //console.log(nombre,aforo,ubicacion,matDisp,horaFinal,horaInicio,imag);
+
     //Convertir aforo a numero
     var numAforo: number = parseInt(aforo);
     //Revisamos si el usuario agrego información a los materiales
@@ -73,36 +73,39 @@ export class NuevaAreaComponent {
 
     // Llamar a la función createArea del ApiService con los valores actualizados
     this.apiService
-    .createArea(
-      nombreFinal,
-      null,
-      0,
-      numAforo,
-      ubicacionFinal,
-      matDispFinal,
-      true,
-      null,
-      null,
-      imagFinal,
-      horaFinalFinal,
-      horaInicioFinal
-    )
-    .pipe(
-      switchMap(() => this.apiService.getTodasAreasInformacion())
-    )
-    .subscribe((data: Area[]) => {
-      for (let area of data) {
-        if (area.AreaId > this.ultimoId && nombreFinal?.toLowerCase() == area.NombreArea.toLowerCase()) {
-          this.ultimoId = area.AreaId;
-          this.imageUploadComponent.uploadId = this.ultimoId;
+      .createArea(
+        nombreFinal,
+        null,
+        0,
+        numAforo,
+        ubicacionFinal,
+        matDispFinal,
+        true,
+        null,
+        null,
+        imagFinal,
+        horaFinalFinal,
+        horaInicioFinal
+      )
+      .pipe(switchMap(() => this.apiService.getTodasAreasInformacion()))
+      .subscribe(
+        (data: Area[]) => {
+          for (let area of data) {
+            if (
+              area.AreaId > this.ultimoId &&
+              nombreFinal?.toLowerCase() == area.NombreArea.toLowerCase()
+            ) {
+              this.ultimoId = area.AreaId;
+              this.imageUploadComponent.uploadId = this.ultimoId;
+            }
+          }
+          if (this.ultimoId > -1) {
+            this.imageUploadComponent.upload();
+          }
+        },
+        (error) => {
         }
-      }
-      if(this.ultimoId > -1){
-        this.imageUploadComponent.upload();
-      }
-    }, (error) => {
-      console.log(error);
-    });  
+      );
   }
 
   /* Validar si todos los campos han sido llenados */

@@ -140,7 +140,6 @@ export class EditarAforoComponent implements OnInit {
         titulo
       )
       .subscribe((error) => {
-        console.log(error);
       });
 
     } else if(values.esIndefinido == 1){
@@ -156,7 +155,6 @@ export class EditarAforoComponent implements OnInit {
         titulo
       )
       .subscribe((error) => {
-        console.log(error);
       });
     }
 

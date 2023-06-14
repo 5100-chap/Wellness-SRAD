@@ -44,17 +44,14 @@ export class InicioAdminComponent implements OnInit {
     this.apiService.getTodasAreasInformacion().subscribe((areas: Area[]) => {
       this.areas = areas;
     }, (error) => {
-      console.log(error);
     });
   }
   
   openArea(areaId: number, content:any) {
     this.apiService.updateAreaStatus(areaId, true).subscribe((area: Area) => {
-      console.log(area);
       // Actualiza la lista de áreas después de cambiar el estado
       this.ngOnInit();
     }, (error) => {
-      console.log(error);
     });
     
     // Abre el modal después de hacer la llamada a la API

@@ -13,30 +13,23 @@ import { Anuncio } from '../models/anuncio';
 import { ReservasAlumno } from '../models/reservas-alumno.model';
 import { ReservaAsesorAlumno } from '../models/reserva-asesor-alumno';
 
-
-
-
 @Component({
   selector: 'app-calendario',
   templateUrl: './calendario.component.html',
-  styleUrls: ['./calendario.component.css']
+  styleUrls: ['./calendario.component.css'],
 })
-
-
-export class CalendarioComponent implements OnInit{
-  public event : Event[];
+export class CalendarioComponent implements OnInit {
+  public event: Event[];
   public events: any[];
   public options: any;
 
-  
-
-  constructor(private apiService: ApiService, private authService: AuthService) {
-   
-  }
+  constructor(
+    private apiService: ApiService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
     this.getTodasReservasAlumno();
-
   }
 
   calendarOptions: CalendarOptions = {
@@ -48,46 +41,38 @@ export class CalendarioComponent implements OnInit{
       hour: '2-digit',
       minute: '2-digit',
       omitZeroMinute: true,
-      meridiem: 'short'
+      meridiem: 'short',
     },
     nowIndicator: true,
     plugins: [dayGridPlugin, timeGridPlugin, bootstrap5Plugin],
     headerToolbar: {
       left: 'title',
       center: '',
-      right: 'prev,today,next dayGridMonth'
+      right: 'prev,today,next dayGridMonth',
     },
     themeSystem: 'bootstrap5',
     eventTimeFormat: {
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
     },
     displayEventTime: false,
-    dayHeaderFormat:{
-      weekday:'long'
+    dayHeaderFormat: {
+      weekday: 'long',
     },
     buttonText: {
       prev: '<',
-      next: '>'
-    }
+      next: '>',
+    },
   };
 
-
-  
-
-  getTodasReservasAlumno(){
+  getTodasReservasAlumno() {
     const usuario = this.authService.currentUserValue['username'];
-    this.apiService.getEventos(usuario).subscribe((data: Eventos[])=>{
+    this.apiService.getEventos(usuario).subscribe((data: Eventos[]) => {
       this.events = data;
-      console.log(data)
-   
     });
 
-    error=>{
+    (error) => {
       console.error('Error fetching all reservas from alumno --> ', error);
     };
   }
-
-
-  
 }

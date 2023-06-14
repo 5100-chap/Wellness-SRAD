@@ -142,7 +142,6 @@ router.get("/api/tendencias/:segmento/:bloque/:semana", verifyJWT,async (req, re
 
         res.json({ tendencias });
     } catch (err) {
-        console.log(err);
         res
             .status(500)
             .json({ error: "Ocurrió un error al procesar la solicitud" });
@@ -186,7 +185,6 @@ async function obtenerTendenciasPorHora(dia) {
 
         return tendenciasPorHora;
     } catch (err) {
-        console.log(err);
         throw new Error("Error al obtener las tendencias por hora");
     }
 }
@@ -200,7 +198,6 @@ router.get("/api/tendencias_por_hora/:dia", verifyJWT, async (req, res) => {
 
         res.json(tendencias);
     } catch (err) {
-        console.log(err);
         res
             .status(500)
             .json({ error: "Ocurrió un error al procesar la solicitud" });
@@ -241,47 +238,47 @@ router.post("/api/obtenerNumeroRegistrosRubro", async(req, res) => {
 function getDiasEscolares(hoy){
     let year = moment().year();
 
-    fechaInicioInv = moment()
+    let fechaInicioInv = moment()
         .year(year)
         .startOf("year")
         .startOf("isoWeek")
         .add(1, "week")
-    fechaFinalInv = moment(fechaInicioInv)
+    let fechaFinalInv = moment(fechaInicioInv)
         .add(5, "weeks")
 
     fechaInicioInv = new Date(fechaInicioInv.format("YYYY-MM-DD"));
     fechaFinalInv = new Date(fechaFinalInv.format("YYYY-MM-DD"));
         
-    fechaInicioPrimer = moment()
+    let fechaInicioPrimer = moment()
         .year(year)
         .month("February")
         .startOf("month")
         .startOf("isoWeek")
         .add(2, "weeks")
-    fechaFinalPrimer = moment(fechaInicioPrimer)
+    let fechaFinalPrimer = moment(fechaInicioPrimer)
         .add(19, "weeks")
 
     fechaInicioPrimer = new Date(fechaInicioPrimer.format("YYYY-MM-DD"));
     fechaFinalPrimer = new Date(fechaFinalPrimer.format("YYYY-MM-DD"))
 
-    fechaInicioSegundo = moment()
+    let fechaInicioSegundo = moment()
         .year(year)
         .month("August")
         .startOf("month")
         .startOf("isoWeek")
         .add(1, "weeks")
-    fechaFinalSegundo = moment(fechaInicioSegundo)
+    let fechaFinalSegundo = moment(fechaInicioSegundo)
         .add(18, "weeks")   
     
     fechaInicioSegundo = new Date(fechaInicioSegundo.format("YYYY-MM-DD"));
     fechaFinalSegundo = new Date(fechaFinalSegundo.format("YYYY-MM-DD"));
 
-    fechaInicioVerano = moment()
+    let fechaInicioVerano = moment()
         .year(year)
         .month("June")
         .endOf("month")
         .startOf("isoWeek")
-    fechaFinalVerano = moment(fechaInicioVerano)
+    let fechaFinalVerano = moment(fechaInicioVerano)
         .add(5, "weeks")
 
     fechaInicioVerano = new Date(fechaInicioVerano.format("YYYY-MM-DD"));

@@ -62,7 +62,6 @@ export class LockersComponent {
     const matricula = this.authService.currentUserValue['username']; // Obtener la matricula del alumno
     this.apiService.consultarReservaCasillero(matricula).subscribe((data: ReservaCasillero) => {
       this.CasilleroReservado = data;
-      console.log(data)
     });
   }
 

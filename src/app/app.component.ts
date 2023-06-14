@@ -2,9 +2,13 @@ import { NgClass } from '@angular/common';
 import { Component, NgModule, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Reservas } from './models/reservas.model';
-import { FormBuilder, FormGroup, Validators,ReactiveFormsModule, FormControl} from '@angular/forms';
-
-
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+  FormControl,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -12,23 +16,18 @@ import { FormBuilder, FormGroup, Validators,ReactiveFormsModule, FormControl} fr
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
+  websiteList: any = ['Javatpoint.com', 'HDTuto.com', 'Tutorialandexample.com'];
 
-  websiteList: any = ['Javatpoint.com', 'HDTuto.com', 'Tutorialandexample.com']  
-    
-  form = new FormGroup({  
-    website: new FormControl('', Validators.required)  
-  });  
-    
-  get f(){  
-    return this.form.controls;  
-  }  
-    
-  submit(){  
-    console.log(this.form.value);  
-  }  
-  
+  form = new FormGroup({
+    website: new FormControl('', Validators.required),
+  });
 
-  
+  get f() {
+    return this.form.controls;
+  }
+
+  submit() { }
+
   progress: number = 0;
   noOfFiles: number = 13;
   completed: boolean = false;
@@ -47,11 +46,9 @@ export class AppComponent implements OnInit {
     for (let i = 0; i <= this.noOfFiles; i++) {
       await this.delay(500);
       this.progress = Math.round(i * n);
-      
     }
     this.completed = true;
   }
-
 
   title = 'Wellness-SRAD';
 
@@ -61,5 +58,3 @@ export class AppComponent implements OnInit {
     this.router = _router.url;
   }
 }
-
-

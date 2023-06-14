@@ -104,7 +104,6 @@ export class CrearAnuncioComponent {
                 titulo
               )
               .subscribe((error) => {
-                console.log(error);
               });
             this.imageUploadComponent.upload();
             this.resultado = "Anuncio creado exitosamente!"

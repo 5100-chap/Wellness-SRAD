@@ -50,7 +50,6 @@ router.post("/api/login", async (req, res, next) => {
             if (result.recordset.length === 1) {
                 result.recordset[0].role = role;
                 if (result.recordset[0].contrasena !== password) {
-                    console.log("Triggered password error");
                     result.recordset = null;
                     res.status(401).send("Unauthorized");
                     return;
@@ -60,7 +59,6 @@ router.post("/api/login", async (req, res, next) => {
         }
 
         if (result.recordset.length !== 1) {
-            console.log("Triggered illegal instruction");
             result.recordset = null;
             res.status(401).send("Unauthorized");
             return;
