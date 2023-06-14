@@ -71,6 +71,9 @@ router.post("/api/login", async (req, res, next) => {
             { expiresIn: "1h" }
         );
 
+        // Elimina la contraseña del objeto antes de enviarlo
+        delete result.recordset[0].contrasena;
+
         res.send({ token: token, user: result.recordset });
     } catch (err) {
         next(err);

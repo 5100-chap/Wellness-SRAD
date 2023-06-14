@@ -31,10 +31,7 @@ export class AuthService {
   public login(username: string, password: string): Observable<any> {
     return new Observable(observer => {
       this.apiService.login(username, password).subscribe((response: LoginResponse) => {
-        const authenticatedUser = {
-          token: response.token,
-          user: response.user
-        };
+        const authenticatedUser = new LoginResponse(response.token, response.user);
         sessionStorage.setItem('currentUser', JSON.stringify(authenticatedUser));
         this.currentUserSubject.next(authenticatedUser);
         this.loggedIn = true;

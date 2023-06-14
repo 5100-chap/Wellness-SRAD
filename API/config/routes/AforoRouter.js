@@ -3,6 +3,8 @@ const router = express.Router();
 const sql = require("mssql");
 const queries = require("../database/queries");
 
+
+
 //Consigue el número de casilleros disponibles
 router.get("/api/getDisponibilidadCasilleros", async (req, res, next) => {
     const request = new sql.Request();
