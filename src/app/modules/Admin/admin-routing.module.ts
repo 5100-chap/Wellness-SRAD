@@ -12,6 +12,7 @@ import { StatsGymAdminComponent } from '../../stats-gym-admin/stats-gym-admin.co
 import { MonitorIngresosComponent } from '../../monitor-ingresos/monitor-ingresos.component';
 import { ExportarDatosComponent } from '../../exportar-datos/exportar-datos.component';
 import { MonitorReservasComponent } from '../../monitor-reservas/monitor-reservas.component';
+import { EditarAreaComponent  } from 'src/app/editar-area/editar-area.component';
 import { authGuard } from '../../guard/auth.guard';
 
 const routesAdmin: Routes = [
@@ -37,6 +38,14 @@ const routesAdmin: Routes = [
         canActivate: [authGuard(['Director', 'Administrador'])],
         data: {
             allowedRoles: ['Director', 'Administrador'],
+        },
+    },
+    {
+        path: 'editarArea/:nombreArea',
+        component: EditarAreaComponent,
+        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])],
+        data: {
+            allowedRoles: ['Director', 'Administrador', 'Instructor'],
         },
     },
     {
