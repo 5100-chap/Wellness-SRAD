@@ -10,7 +10,7 @@ import {
 import { catchError, retry, switchMap } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 //Serivicios a usar
-import { AuthService } from './auth.service';
+import { TokenService } from './token.service';
 //Importar clases para Api services
 import { ReservasAlumno } from './../models/reservas-alumno.model';
 import { Area } from '../models/area.model';
@@ -37,26 +37,19 @@ import { LoginResponse } from '../models/loginResponse.model';
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   private apiUrl = 'http://localhost:8080';
 
   refreshToken() {
     // Consigue el token actual del usuario
-    const currentUser = this.authService.currentUserValue;
+    const currentUser = this.tokenService.currentTokenValue || "";
     // Define el header de la petición
     const headers = new HttpHeaders().set(
-      'Authorization',
-      'Bearer ' + currentUser.token
+      'x-access-token',
+      currentUser
     );
-    // Llama al endpoint de refresco
-    return this.http.get('/api/refresh', { headers: headers }).pipe(
-      switchMap((response: any) => {
-        // Actualiza el token del usuario en la sesión
-        this.authService.updateCurrentUserToken(response.token);
-        return response;
-      })
-    );
+    return this.http.get('/api/refresh', { headers: headers });
   }
 
   login(username: string, password: string) {
@@ -69,11 +62,11 @@ export class ApiService {
 
   getAuthHeaders() {
     // Consigue el token actual del usuario
-    const currentUser = this.authService.currentUserValue;
+    const currentUser = this.tokenService.currentTokenValue || "";
     // Define el header de la petición
     const headers = new HttpHeaders().set(
-      'Authorization',
-      'Bearer ' + currentUser.token
+      'x-access-token',
+      currentUser
     );
     return headers;
   }

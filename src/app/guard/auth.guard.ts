@@ -3,6 +3,7 @@ import { Router, UrlTree } from '@angular/router';
 import jwtDecode from 'jwt-decode';
 
 import { AuthService } from '../services/auth.service';
+import { TokenService } from '../services/token.service';
 
 interface DecodedToken {
     username: string;
@@ -14,21 +15,27 @@ interface DecodedToken {
 export function authGuard(allowedRoles: string[]) {
     return () => {
         const authService = inject(AuthService);
+        const tokenService = inject(TokenService);
         const router = inject(Router);
+        const currentToken = tokenService.currentTokenValue;
         const currentUser = authService.currentUserValue;
 
-        
-        const decodedToken = jwtDecode<DecodedToken>(currentUser.token);
-        const currentTime = Date.now() / 1000;
-        if (decodedToken.exp < currentTime) {
-            console.log('Token expired');
-            authService.logout();
+        if (!currentToken) {
             return router.parseUrl('/login');
         }
 
-        if (currentUser && allowedRoles.includes(currentUser.user.role)) {
+        const decodedToken = jwtDecode<DecodedToken>(currentToken);
+        const currentTime = Date.now() / 1000;
+        if (decodedToken.exp < currentTime) {
+            console.log('Token expired');
+            tokenService.clearToken();
+            return router.parseUrl('/login');
+        }
+        
+        if (currentUser && currentUser.user && allowedRoles.includes(currentUser.user.role)) {
             return true;
         }
+        
 
         return router.parseUrl('/login');
     };
