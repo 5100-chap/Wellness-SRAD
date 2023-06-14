@@ -45,8 +45,7 @@ export class AuthService {
           const authenticatedUser = {
             username: username,
             role: preAuth.user.role,
-            user: preAuth.user,
-            properties: preAuth.user,
+            user: preAuth.user
           };
           // Cuando recibes el token del backend, lo almacenas así:
           this.tokenService.updateToken(preAuth.token);
