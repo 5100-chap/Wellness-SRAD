@@ -36,6 +36,7 @@ export class InicioAdminComponent implements OnInit {
     return obj.role === 'Director' ;
   }
   
+  //Método para utilizar una imagen default en caso de no tener una asignada.
   updateUrl(event: any) {
     event.target.src = '../assets/img/fondo.jpeg';
   }
@@ -47,10 +48,10 @@ export class InicioAdminComponent implements OnInit {
       console.log(error);
     });
   }
-  
+
+  //Método para abrir el area  en caso de estar cerrada
   openArea(areaId: number, content:any) {
     this.apiService.updateAreaStatus(areaId, true).subscribe((area: Area) => {
-      console.log(area);
       // Actualiza la lista de áreas después de cambiar el estado
       this.ngOnInit();
     }, (error) => {
@@ -61,6 +62,8 @@ export class InicioAdminComponent implements OnInit {
     this.open(content);
   }
 
+
+  //Metodo para abrir el modal
   open(content:any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -68,7 +71,8 @@ export class InicioAdminComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
-  
+
+  //Metodo para cerrar el modal
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';

@@ -28,15 +28,16 @@
 
 <ng-container *ngFor="let area of areas">
 
+
     <!--Tarjetas con la información del area deportivas del wellness center *Exclusivo administrador*-->
-    <div class="vstack gap-3 col-md-9 mx-auto mt-3" *ngIf="area.Estatus == true && isAdmin() || isDirector()">
+    <div class="vstack gap-3 col-md-10 mx-auto mt-3" *ngIf="area.Estatus == true && isAdmin()">
         <div class="card" id="card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-2 mt-2">
                         <img [src]="area.Imagen" (error)="updateUrl($event)" height="90%" class="card-img" alt="..." />
                     </div>
-                    <div class="col-md-1 mt-2">
+                    <div class="col-md-2 mt-2">
                         <div class="text-center" id="abierto">
                             Abierto <br />
                             Aforo: {{ area.LugaresDisponibles }}/{{ area.LugaresTotales }}
@@ -69,6 +70,56 @@
                         </button>
                     </div>
 
+                    <div class="col-md-1" id="align">
+                        <button id="btn2" class="btn btn-primary btn-lg"
+                            [routerLink]="['/editarAforo', area.NombreArea.toLowerCase()]">
+                            Editar aforo
+                        </button>
+                    </div>
+                    <div class="col-md-1" id="align">
+                        <button id="btn2" class="btn btn-primary btn-lg"
+                            [routerLink]="['/cerrarEspacios', area.NombreArea.toLowerCase()]">
+                            Cerrar área
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Tarjetas con la información del area deportivas del wellness center *Exclusivo director* -->
+    <div class="vstack gap-3 col-md-9 mx-auto mt-3" *ngIf="area.Estatus == true && isDirector()">
+        <div class="card" id="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2 mt-2">
+                        <img [src]="area.Imagen" (error)="updateUrl($event)" height="90%" class="card-img" alt="..." />
+                    </div>
+                    <div class="col-md-2 mt-2">
+                        <div class="text-center" id="abierto">
+                            Abierto <br />
+                            Aforo: {{ area.LugaresDisponibles }}/{{ area.LugaresTotales }}
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div id="text">
+                            <i><strong>{{ area.NombreArea }}</strong></i>
+                        </div>
+                    </div>
+                    <div class="col-md-2" id="align">
+                        <button id="btn2" class="btn btn-primary btn-lg"
+                            *ngIf="area.NombreArea.toLowerCase() === 'gimnasio'"
+                            [routerLink]="['/estadisticasGimnasio']">
+                            Estadísticas
+                        </button>
+
+                        <button id="btn2" class="btn btn-primary btn-lg"
+                            *ngIf="area.NombreArea.toLowerCase() !== 'gimnasio'"
+                            [routerLink]="['/estadisticas', area.NombreArea.toLowerCase()]">
+                            Estadísticas
+                        </button>
+                    </div>
+
                     <div class="col-md-2" id="align">
                         <button id="btn2" class="btn btn-primary btn-lg"
                             [routerLink]="['/editarAforo', area.NombreArea.toLowerCase()]">
@@ -87,58 +138,52 @@
     </div>
 
 
-        <!--Tarjetas con la información del area deportivas del wellness center *Exclusivo Asesor*-->
-        <div class="vstack gap-3 col-md-7 mx-auto mt-3" *ngIf=" area.Estatus == true && isInstructor()"  >
-            <div class="card" id="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-3 mt-2">
-                            <img [src]="area.Imagen" (error)="updateUrl($event)" height="90%" class="card-img" alt="..." />
+    <!--Tarjetas con la información del area deportivas del wellness center *Exclusivo Asesor*-->
+    <div class="vstack gap-3 col-md-7 mx-auto mt-3" *ngIf=" area.Estatus == true && isInstructor()"  >
+        <div class="card" id="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 mt-2">
+                        <img [src]="area.Imagen" (error)="updateUrl($event)" height="90%" class="card-img" alt="..." />
+                    </div>
+                    <div class="col-md-3 mt-2">
+                        <div class="text-center" id="abierto" *ngIf="area.Estatus == true">
+                            Abierto <br />
+                            Aforo: {{ area.LugaresDisponibles }}/{{ area.LugaresTotales }}
                         </div>
-                        <div class="col-md-3 mt-2">
-                            <div class="text-center" id="abierto" *ngIf="area.Estatus == true">
-                                Abierto <br />
-                                Aforo: {{ area.LugaresDisponibles }}/{{ area.LugaresTotales }}
-                            </div>
-
-
+                    </div>
+                    <div class="col-md-3">
+                        <div id="text">
+                            <i><strong>{{ area.NombreArea }}</strong></i>
                         </div>
-                        <div class="col-md-3">
-                            <div id="text">
-                                <i><strong>{{ area.NombreArea }}</strong></i>
-                            </div>
-                        </div>
-                        <div class="col-md-3" id="align">
-                            <button id="btn2" class="btn btn-primary btn-lg"
-                                *ngIf="area.NombreArea.toLowerCase() === 'gimnasio'"
-                                [routerLink]="['/estadisticasGimnasio']">
-                                Estadísticas
-                            </button>
-
-                            <button id="btn2" class="btn btn-primary btn-lg"
-                                *ngIf="area.NombreArea.toLowerCase() !== 'gimnasio'"
-                                [routerLink]="['/estadisticas', area.NombreArea.toLowerCase()]">
-                                Estadísticas
-                            </button>
-                        </div>
-                    
+                    </div>
+                    <div class="col-md-3" id="align">
+                        <button id="btn2" class="btn btn-primary btn-lg"
+                        *ngIf="area.NombreArea.toLowerCase() === 'gimnasio'"
+                        [routerLink]="['/estadisticasGimnasio']">
+                        Estadísticas
+                        </button>
+                        <button id="btn2" class="btn btn-primary btn-lg"
+                        *ngIf="area.NombreArea.toLowerCase() !== 'gimnasio'"
+                        [routerLink]="['/estadisticas', area.NombreArea.toLowerCase()]">
+                        Estadísticas
+                       </button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
 
-
-
-    <!--Tarjetas con la información del area deportivas si esta se encuentra cerrada-->
-    <div class="vstack gap-3 col-md-9 mx-auto mt-4" *ngIf="area.Estatus == false && !isInstructor() ">
+    <!--Tarjetas con la información del area deportivas si esta se encuentra cerrada *Exclusivo admin* -->
+    <div class="vstack gap-3 col-md-10 mx-auto mt-4" *ngIf="area.Estatus == false && isAdmin() ">
         <div class="card" id="card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-2 mt-2">
                         <img [src]="area.Imagen" (error)="updateUrl($event)" height="90%" class="card-img" alt="..." />
                     </div>
-                    <div class="col-md-1 mt-2">
+                    <div class="col-md-2 mt-2">
                         <div class="text-center" id="cerrado">Cerrado</div>
                     </div>
                     <div class="col-md-2">
@@ -167,6 +212,53 @@
                             Editar area
                         </button>
                     </div>
+
+                    <div class="col-md-1" id="align">
+                        <button id="btn2" class="btn btn-primary btn-lg"
+                            [routerLink]="['/editarAforo', area.NombreArea.toLowerCase()]">
+                            Editar aforo
+                        </button>
+                    </div>
+                    <div class="col-md-1" id="align">
+                        <button id="btn2" class="btn btn-primary btn-lg" (click)="openArea(area.AreaId, mymodal)">
+                            Abrir área
+                        </button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Tarjetas con la información del area deportivas si esta se encuentra cerrada *Exclusivo director* -->
+    <div class="vstack gap-3 col-md-9 mx-auto mt-4" *ngIf="area.Estatus == false && isDirector() ">
+        <div class="card" id="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2 mt-2">
+                        <img [src]="area.Imagen" (error)="updateUrl($event)" height="90%" class="card-img" alt="..." />
+                    </div>
+                    <div class="col-md-2 mt-2">
+                        <div class="text-center" id="cerrado">Cerrado</div>
+                    </div>
+                    <div class="col-md-2">
+                        <div id="text">
+                            <i><strong>{{ area.NombreArea }}</strong></i>
+                        </div>
+                    </div>
+                    <div class="col-md-2" id="align">
+                        <button id="btn2" class="btn btn-primary btn-lg"
+                            *ngIf="area.NombreArea.toLowerCase() === 'gimnasio'"
+                            [routerLink]="['/estadisticasGimnasio']">
+                            Estadísticas
+                        </button>
+
+                        <button id="btn2" class="btn btn-primary btn-lg"
+                            *ngIf="area.NombreArea.toLowerCase() !== 'gimnasio'"
+                            [routerLink]="['/estadisticas', area.NombreArea.toLowerCase()]">
+                            Estadísticas
+                        </button>
+                    </div>
                     
                     <div class="col-md-2" id="align">
                         <button id="btn2" class="btn btn-primary btn-lg"
@@ -184,6 +276,7 @@
             </div>
         </div>
     </div>
+
 
 
 
