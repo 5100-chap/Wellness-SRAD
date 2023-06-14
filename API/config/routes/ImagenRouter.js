@@ -8,6 +8,7 @@ const upload = multer({ dest: 'uploads/' }); // sube los archivos a la carpeta '
 
 const blobServiceClient = require('../credentials/blobStorage'); // asegúrate de que esta ruta es correcta
 
+//Metodo para subir imagenes a la base de datos
 router.post('/api/upload', upload.single('image'), async (req, res, next) => {
     try {
         // Sube el archivo a Blob Storage
@@ -32,6 +33,21 @@ router.post('/api/upload', upload.single('image'), async (req, res, next) => {
         res.status(200).json({ message: 'Imagen subida con éxito y URL registrada en la base de datos.', blobUrl: blobUrl });
     } catch (err) {
         next(err);
+    }
+});
+
+
+
+//obtener la imagen de un asesor
+router.post('/api/getImagenAsesor', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();
+        var result = await request.query(`EXEC [dbo].[getImagenAsesor] '${req.body.id}';`);
+        res.json(result.recordset);
+    }
+    catch(error){
+        console.log(error);
+        res.send(error);
     }
 });
 

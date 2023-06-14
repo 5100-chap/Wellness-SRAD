@@ -41,6 +41,13 @@ export class AnunciosComponent {
     return changedDate;
   }
 
+   // Función para cambiar el formato de la fecha que se pase como parametro para su validación 
+   cambiarFormatoValidar(fecha: Date) {
+    let changedDate = this.pipe.transform(fecha, 'YYYY-MM-dd');
+    return changedDate;
+  }
+
+
   //Función para saber si un anuncio debe de aparecer
   validarAparicion(fechaAnuncio: Date){
     let changedM = Number(this.pipe.transform(fechaAnuncio, 'M'));

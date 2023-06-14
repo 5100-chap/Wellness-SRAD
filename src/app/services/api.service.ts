@@ -62,7 +62,6 @@ export class ApiService {
 
   //Crear reserva de un casillero
   crearReservaCasillero(alumno: String, casillero: number){
-    
     return this.http.post('/api/createReservacionLocker',{
       matricula: alumno,
       id_casillero: casillero
@@ -160,6 +159,7 @@ export class ApiService {
     });
   }
 
+  //Método para verificar la llegada de un alumno al gimansio
   verificarLlegada(usuario: String): Observable<AlumnoStatusResponse> {
     return this.http.post<AlumnoStatusResponse>('/api/verificarAlumnoLlegada', {
       usuario,
@@ -327,13 +327,20 @@ export class ApiService {
       fechaApertura: fechaApertura.toISOString(),
     });
   }
-
+  
+  //Método para obtener la información del asesor mediante su rol
   getAsesoresPorRol(rol: string): Observable<AsesorInfo[]>{
     return this.http.post<AsesorInfo[]>('/api/getAsesoresPorRol', {
       rol: rol
     });
   }
-
+  //Método para obtener la imagen del asesor al recibir su numero de nomina como parametro
+  getImagenAsesor(id: string): Observable<string>{
+    return this.http.post<string>('/api/getImagenAsesor', {
+      id: id
+    });
+  }
+  //Método para obtener las reservas de un asesor
   getReservasAsesor(lunes: string, domingo: string, asesor: string): Observable<ReservaAsesor[]>{
     return this.http.post<ReservaAsesor[]>('/api/getReservasAsesores', {
       lunes: lunes,
