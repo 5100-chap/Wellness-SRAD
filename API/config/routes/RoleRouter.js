@@ -84,14 +84,26 @@ router.post("/api/login", async (req, res, next) => {
 
 router.get("/api/refresh", verifyJWT, async (req, res, next) => {
     try {
-        // Genera un nuevo token JWT
-        const newToken = jwt.sign(
-            { username: req.username, role: req.role },
-            secretKey,
-            { expiresIn: "1h" }
-        );
+        // Decodifica el token
+        const decodedToken = jwt.decode(req.token);
+        
+        // Calcula la diferencia entre el tiempo actual y la emisión del token
+        const now = Date.now() / 1000; // Convertir a segundos
+        const age = now - decodedToken.iat;
 
-        res.send({ token: newToken });
+        // Si el token fue emitido hace menos de 15 minutos, genera uno nuevo
+        if (age < 15 * 60) {
+            // Genera un nuevo token JWT
+            const newToken = jwt.sign(
+                { username: req.username, role: req.role },
+                secretKey,
+                { expiresIn: "1h" }
+            );
+
+            res.send({ token: newToken });
+        } else {
+            res.status(400).send({ error: "Token demasiado antiguo" });
+        }
     } catch (err) {
         next(err);
     }

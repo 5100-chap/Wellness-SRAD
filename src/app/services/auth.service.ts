@@ -19,10 +19,16 @@ export class AuthService {
     private tokenService: TokenService
   ) {
     // Inyecta el servicio API
-    const userJson = sessionStorage.getItem('currentUser');
+    const userJson = localStorage.getItem('currentUser');
     if (userJson) {
-      this.currentUserSubject.next(JSON.parse(userJson));
-      this.loggedIn = true;
+      const currentUser = JSON.parse(userJson);
+      const currentToken = this.tokenService.currentTokenValue;
+      if (currentToken && !this.tokenService.isTokenExpired(currentToken)) {
+        this.currentUserSubject.next(currentUser);
+        this.loggedIn = true;
+      } else {
+        this.logout();
+      }
     }
   }
 
@@ -40,11 +46,11 @@ export class AuthService {
             username: username,
             role: preAuth.user.role,
             user: preAuth.user,
-            properties: preAuth.user
+            properties: preAuth.user,
           };
           // Cuando recibes el token del backend, lo almacenas así:
           this.tokenService.updateToken(preAuth.token);
-          sessionStorage.setItem(
+          localStorage.setItem(
             'currentUser',
             JSON.stringify(authenticatedUser)
           );
@@ -62,7 +68,7 @@ export class AuthService {
   }
 
   public logout() {
-    sessionStorage.removeItem('currentUser');
+    localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
     this.loggedIn = false;
     this.tokenService.clearToken();
@@ -77,7 +83,7 @@ export class AuthService {
     const currentUser = this.currentUserValue;
     if (currentUser) {
       currentUser.token = newToken;
-      sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
       this.currentUserSubject.next(currentUser);
     }
   }
