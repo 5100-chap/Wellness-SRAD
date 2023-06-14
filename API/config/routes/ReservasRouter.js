@@ -3,7 +3,6 @@ const express = require("express");
 const router = express.Router();
 const sql = require("mssql");
 
-
 const { verifyJWT } = require("../middleware/jwtSecurity");
 
 // Obtener las reservas de un alumno
@@ -136,7 +135,7 @@ router.post(
             var result = await request.query(
                 `EXEC [dbo].[confirmarReservaCasillero] \ ${req.body.id};`
             );
-        } catch (error) {
+        } catch (err) {
             next(err);
             res.json({ status: "error" });
         }
@@ -151,7 +150,7 @@ router.post("/api/cancelarReservaLocker", verifyJWT, async (req, res, next) => {
         var result = await request.query(
             `EXEC [dbo].[cancelarReservaCasillero] \ ${req.body.id}, ${req.body.idCasillero};`
         );
-    } catch (error) {
+    } catch (err) {
         next(err);
         res.json({ status: "error" });
     }
@@ -164,7 +163,7 @@ router.post("/api/descartaReservaLocker", verifyJWT, async (req, res, next) => {
         var result = await request.query(
             `EXEC [dbo].[descartarReservaCasillero] \ ${req.body.id};`
         );
-    } catch (error) {
+    } catch (err) {
         next(err);
         res.json({ status: "error" });
     }
