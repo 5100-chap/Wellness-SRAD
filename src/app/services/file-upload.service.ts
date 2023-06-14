@@ -1,12 +1,51 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
+import {
+  HttpClient,
+  HttpRequest,
+  HttpEvent,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
+import { catchError, retry, switchMap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+//Serivicios a usar
+import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root',
 })
 export class FileUploadService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
+
+  private apiUrl = 'http://localhost:8080';
+
+  refreshToken() {
+    // Consigue el token actual del usuario
+    const currentUser = this.authService.currentUserValue;
+    // Define el header de la petición
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      'Bearer ' + currentUser.token
+    );
+    // Llama al endpoint de refresco
+    return this.http.get('/api/refresh', { headers: headers }).pipe(
+      switchMap((response: any) => {
+        // Actualiza el token del usuario en la sesión
+        this.authService.updateCurrentUserToken(response.token);
+        return response;
+      })
+    );
+  }
+
+  getAuthHeaders() {
+    // Consigue el token actual del usuario
+    const currentUser = this.authService.currentUserValue;
+    // Define el header de la petición
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      'Bearer ' + currentUser.token
+    );
+    return headers;
+  }
 
   upload(
     file: File,
@@ -23,9 +62,31 @@ export class FileUploadService {
     const req = new HttpRequest('POST', '/api/upload', formData, {
       reportProgress: true,
       responseType: 'json',
+      headers: this.getAuthHeaders(),
     });
 
-    return this.http.request(req);
+    return this.http.request(req).pipe(
+      catchError((error) => {
+        if (error.status === 403) {
+          return this.refreshToken().pipe(
+            switchMap(() => {
+              const reqWithToken = new HttpRequest(
+                'POST',
+                '/api/upload',
+                formData,
+                {
+                  reportProgress: true,
+                  responseType: 'json',
+                  headers: this.getAuthHeaders(),
+                }
+              );
+              return this.http.request(reqWithToken);
+            })
+          );
+        }
+        throw error;
+      })
+    );
   }
   //Elimina una imagen
   delete(blobUrl: string): Observable<HttpEvent<any>> {
@@ -34,11 +95,32 @@ export class FileUploadService {
       `/api/deleteImagen?blobUrl=${encodeURIComponent(blobUrl)}`,
       {
         responseType: 'json',
+        headers: this.getAuthHeaders(),
       }
     );
 
-    return this.http.request(req);
+    return this.http.request(req).pipe(
+      catchError((error) => {
+        if (error.status === 403) {
+          return this.refreshToken().pipe(
+            switchMap(() => {
+              const reqWithToken = new HttpRequest(
+                'DELETE',
+                `/api/deleteImagen?blobUrl=${encodeURIComponent(blobUrl)}`,
+                {
+                  responseType: 'json',
+                  headers: this.getAuthHeaders(),
+                }
+              );
+              return this.http.request(reqWithToken);
+            })
+          );
+        }
+        throw error;
+      })
+    );
   }
+
   //Checa si la URL no esta rota
   checkBlobUrl(url: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {

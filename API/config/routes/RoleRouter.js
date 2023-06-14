@@ -5,6 +5,8 @@ const queries = require("../database/queries");
 const jwt = require("jsonwebtoken");
 const secretKey = process.env.JWT_SECRET;
 
+const { verifyJWT } = require("../middleware/jwtSecurity");
+
 router.post("/api/login", async (req, res, next) => {
     try {
         // Almacena el usuario y contraseña
@@ -79,5 +81,21 @@ router.post("/api/login", async (req, res, next) => {
         next(err);
     }
 });
+
+router.get("/api/refresh", verifyJWT, async (req, res, next) => {
+    try {
+        // Genera un nuevo token JWT
+        const newToken = jwt.sign(
+            { username: req.username, role: req.role },
+            secretKey,
+            { expiresIn: "1h" }
+        );
+
+        res.send({ token: newToken });
+    } catch (err) {
+        next(err);
+    }
+});
+
 
 module.exports = router;

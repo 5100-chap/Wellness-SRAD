@@ -5,6 +5,8 @@ const sql = require("mssql");
 const express = require("express");
 const router = express.Router();
 
+const { verifyJWT } = require("../middleware/jwtSecurity");
+
 // Esta función genera la consulta SQL para un segmento y bloque específico
 /* Funciones de Tendencia por día de la semana */
 // Esta función genera la consulta SQL para un segmento y bloque específico
@@ -108,8 +110,6 @@ async function obtenerTendencias(segmento, bloque, semana, metricas) {
     }
 }
 
-// Resto del código sigue sin cambios...
-
 //Funcion para calcular la mediana
 function mediana(array) {
     array.sort((a, b) => a - b);
@@ -120,7 +120,7 @@ function mediana(array) {
 }
 
 // Aquí utilizamos las funciones en un endpoint de la API
-router.get("/api/tendencias/:segmento/:bloque/:semana", async (req, res) => {
+router.get("/api/tendencias/:segmento/:bloque/:semana", verifyJWT,async (req, res) => {
     try {
         let segmento = req.params.segmento;
         let bloque = parseInt(req.params.bloque);
@@ -192,7 +192,7 @@ async function obtenerTendenciasPorHora(dia) {
 }
 
 // Aquí utilizamos las funciones en un endpoint de la API
-router.get("/api/tendencias_por_hora/:dia", async (req, res) => {
+router.get("/api/tendencias_por_hora/:dia", verifyJWT, async (req, res) => {
     try {
         let dia = req.params.dia;
 

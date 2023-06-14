@@ -8,7 +8,9 @@ const upload = multer({ dest: 'uploads/' }); // sube los archivos a la carpeta '
 
 const blobServiceClient = require('../credentials/blobStorage'); // asegúrate de que esta ruta es correcta
 
-router.post('/api/upload', upload.single('image'), async (req, res, next) => {
+const { verifyJWT } = require("../middleware/jwtSecurity");
+
+router.post('/api/upload', verifyJWT, upload.single('image'), async (req, res, next) => {
     try {
         // Sube el archivo a Blob Storage
         const blobName = Date.now() + req.file.originalname;
@@ -35,7 +37,7 @@ router.post('/api/upload', upload.single('image'), async (req, res, next) => {
     }
 });
 
-router.delete('/api/deleteImagen', async (req, res, next) => {
+router.delete('/api/deleteImagen', verifyJWT, async (req, res, next) => {
     try {
         // Elimina el archivo de Blob Storage
         const blobUrl = req.query.blobUrl; // Obtén la URL del blob del query de la solicitud

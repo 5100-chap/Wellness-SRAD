@@ -3,8 +3,10 @@ const router = express.Router();
 const sql = require("mssql");
 const queries = require("../database/queries");
 
+const { verifyJWT } = require("../middleware/jwtSecurity");
+
 // Verificar si alumno ya entró
-router.post("/api/verificarAlumnoLlegada", async (req, res, next)=>{
+router.post("/api/verificarAlumnoLlegada", verifyJWT, async (req, res, next)=>{
     try{
         if(req.body===undefined){
             res.send("Failure");
@@ -25,7 +27,7 @@ router.post("/api/verificarAlumnoLlegada", async (req, res, next)=>{
 });
 
 // Manda un registro a la base de datos
-router.post("/api/marcarLlegada", async (req, res, next) => {
+router.post("/api/marcarLlegada", verifyJWT, async (req, res, next) => {
     try{
         if(req.body===undefined){
             console.log('Cuerpo vacio');
@@ -55,7 +57,7 @@ router.post("/api/marcarLlegada", async (req, res, next) => {
 });
 
 // Marcar llegada de un alumno pero con su asesor
-router.post('/api/marcarLlegadaAsesor', async(req, res, next)=>{
+router.post('/api/marcarLlegadaAsesor', verifyJWT, async(req, res, next)=>{
     try{
         var request = new sql.Request();
         await request.query(`EXEC [dbo].[MarcarLlegadaAsesor] '${req.body.hora}', ${req.body.id};`);
@@ -68,7 +70,7 @@ router.post('/api/marcarLlegadaAsesor', async(req, res, next)=>{
 });
 
 //Saber si existe un alumno en la base de datos
-router.post('/api/existeAlumno', async(req, res, next)=>{
+router.post('/api/existeAlumno', verifyJWT, async(req, res, next)=>{
     try{
         var request = new sql.Request();
         var result = await request.query(`EXEC [dbo].[existeAlumno] '${req.body.matricula}';`);
@@ -82,7 +84,7 @@ router.post('/api/existeAlumno', async(req, res, next)=>{
 
 
 //Marcar la llegada de un alumno al gimansio de forma manual
-router.post('/api/marcarLlegadaAlumnoManual', async(req, res, next)=>{
+router.post('/api/marcarLlegadaAlumnoManual', verifyJWT, async(req, res, next)=>{
     try{
         var request = new sql.Request();
         var result = await request.query(`EXEC [dbo].[marcarEntredaAlumnoManual] '${req.body.matricula}', '${req.body.dia}', '${req.body.hora}';`);
@@ -97,7 +99,7 @@ router.post('/api/marcarLlegadaAlumnoManual', async(req, res, next)=>{
 
 
 // Marcar Salida de un alumno con su asesor
-router.post('/api/marcarSalidaAsesor', async(req, res, next)=>{
+router.post('/api/marcarSalidaAsesor', verifyJWT, async(req, res, next)=>{
     try{
         var request = new sql.Request();
         await request.query(`EXEC [dbo].[MarcarSalidaAsesor] '${req.body.hora}', ${req.body.id};`);
@@ -109,7 +111,7 @@ router.post('/api/marcarSalidaAsesor', async(req, res, next)=>{
 });
 
 // Cancelar Reserva Con Asesor
-router.post('/api/cancelarReservaAsesor', async(req, res, next)=>{
+router.post('/api/cancelarReservaAsesor', verifyJWT, async(req, res, next)=>{
     try{
         var request = new sql.Request();
         await request.query(`EXEC [dbo].[CancelarReservaAsesor] ${req.body.id};`);

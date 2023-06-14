@@ -5,9 +5,11 @@ const queries = require("../database/queries");
 const { execute } = require("@angular-devkit/build-angular/src/builders/extract-i18n");
 const { async } = require("rxjs");
 
+const { verifyJWT } = require("../middleware/jwtSecurity");
+
 
 //Obtener la información de todas la areas deportivas
-router.get("/api/AreaInformacion", async (req, res, next) => {
+router.get("/api/AreaInformacion", verifyJWT, async (req, res, next) => {
     const nombreArea = req.query.nombreArea;
     const request = new sql.Request();
     try {
@@ -21,7 +23,7 @@ router.get("/api/AreaInformacion", async (req, res, next) => {
 });
 
 //Obtiene el nombre de todas las areas deportivas
-router.get("/api/getNombresAreas", async (req,res, next) =>{
+router.get("/api/getNombresAreas", verifyJWT, async (req,res, next) =>{
     const request = new sql.Request();
     try{
         const result = await request.execute('GetNombreAreasDeportivas');
@@ -34,7 +36,7 @@ router.get("/api/getNombresAreas", async (req,res, next) =>{
 });
 
 //Consigue la lista de todos los casilleros disponibles
-router.get("/api/getCasillerosDisponibles", async (req,res, next) =>{
+router.get("/api/getCasillerosDisponibles", verifyJWT, async (req,res, next) =>{
     const request = new sql.Request();
     try{
         const result = await request.execute('getCasillerosDisponibles');
@@ -47,7 +49,7 @@ router.get("/api/getCasillerosDisponibles", async (req,res, next) =>{
 });
 
 //Obtiene la información de todas las areas deportivas
-router.get("/api/TodasAreasInformacion", async (req, res, next) => {
+router.get("/api/TodasAreasInformacion", verifyJWT, async (req, res, next) => {
     const request = new sql.Request();
     try {
         const result = await request.execute('TodasAreasInformacion');
@@ -58,7 +60,7 @@ router.get("/api/TodasAreasInformacion", async (req, res, next) => {
 });
 
 //Actualizar el estado de un area deportiva
-router.put("/api/AreaUpdateStatus", async (req, res, next) => {
+router.put("/api/AreaUpdateStatus", verifyJWT, async (req, res, next) => {
     const areaId = req.query.areaId;
     const request = new sql.Request();
     try {
@@ -72,7 +74,7 @@ router.put("/api/AreaUpdateStatus", async (req, res, next) => {
 });
 
 //Actualizar un area a cerrada
-router.post("/api/AreaUpdateClose", async (req, res, next) => {
+router.post("/api/AreaUpdateClose", verifyJWT, async (req, res, next) => {
     const areaId = req.body.areaId;
     const fechaCierre = req.body.fechaCierre;
     const fechaApertura = req.body.fechaApertura;
@@ -92,7 +94,7 @@ router.post("/api/AreaUpdateClose", async (req, res, next) => {
 });
 
 // Crear Area 
-router.post('/api/CrearArea', async(req,res,next) =>{
+router.post('/api/CrearArea', verifyJWT, async(req,res,next) =>{
     try{
         let hCierre = new Date(`1970-01-01T${req.body.hCierre}Z`);
         let hApertura = new Date(`1970-01-01T${req.body.hApertura}Z`);        
@@ -118,7 +120,7 @@ router.post('/api/CrearArea', async(req,res,next) =>{
 });
 
 // Modificar el área 
-router.post('/api/EditarArea', async(req,res,next) => {
+router.post('/api/EditarArea', verifyJWT, async(req,res,next) => {
     try{
         let request = new sql.Request();
 
@@ -141,7 +143,7 @@ router.post('/api/EditarArea', async(req,res,next) => {
 });
 
 // Eliminar un área por su ID
-router.delete("/api/EliminarArea/:id", async (req, res, next) => {
+router.delete("/api/EliminarArea/:id", verifyJWT, async (req, res, next) => {
     const idArea = req.params.id;
     const request = new sql.Request();
     try {

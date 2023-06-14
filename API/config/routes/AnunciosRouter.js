@@ -4,8 +4,10 @@ const sql = require("mssql");
 const queries = require("../database/queries");
 const { async } = require("rxjs");
 
+const { verifyJWT } = require("../middleware/jwtSecurity");
+
 //Consigue la lista de todos los casilleros disponibles
-router.get("/api/getAnuncios", async (req,res, next) =>{
+router.get("/api/getAnuncios", verifyJWT, async (req,res, next) =>{
     const request = new sql.Request();
     try{
         const result = await request.execute('GetAnuncios');
@@ -17,7 +19,7 @@ router.get("/api/getAnuncios", async (req,res, next) =>{
 });
 
 //Consigue insertar un nuevo registro de anuncio (PENDIENTE!!!)
-router.put("/api/CrearAnuncio", async (req,res,next) => {
+router.put("/api/CrearAnuncio", verifyJWT, async (req,res,next) => {
     const request = new sql.Request();
     try{
         const result = await request.query(`EXEC [dbo].[CrearAnuncio] \'${req.body.fecha_inicio_evento}\', \'${req.body.fecha_fin_evento}\',\'${req.body.ubicacion}\',\'${req.body.descripcion}\',\'${req.body.duracion_inicio}\', \'${req.body.duracion_fin}\', \'${req.body.imagen}\', \'${req.body.titulo}\';`);
@@ -28,7 +30,7 @@ router.put("/api/CrearAnuncio", async (req,res,next) => {
 });
 
 //Crear un nuevo anuncio
-router.post('/api/createAnuncio', async(req, res, next)=>{
+router.post('/api/createAnuncio', verifyJWT, async(req, res, next)=>{
     try{
         console.log(req.body.fechaInicio);
         let request = new sql.Request(); 

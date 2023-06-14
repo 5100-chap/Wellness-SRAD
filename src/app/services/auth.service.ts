@@ -52,4 +52,14 @@ export class AuthService {
   public isLoggedIn(){
     return this.loggedIn;
   }
+
+    // Actualizar el token del usuario actual
+    public updateCurrentUserToken(newToken: string) {
+      const currentUser = this.currentUserValue;
+      if (currentUser) {
+        currentUser.token = newToken;
+        sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+        this.currentUserSubject.next(currentUser);
+      }
+    }
 }
