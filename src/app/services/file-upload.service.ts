@@ -9,28 +9,28 @@ import {
 import { catchError, retry, switchMap } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 //Serivicios a usar
-import { AuthService } from './auth.service';
+import { TokenService } from './token.service';
 @Injectable({
   providedIn: 'root',
 })
 export class FileUploadService {
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private tokenService:TokenService) {}
 
   private apiUrl = 'http://localhost:8080';
 
   refreshToken() {
     // Consigue el token actual del usuario
-    const currentUser = this.authService.currentUserValue;
+    const currentUser = this.tokenService.currentTokenValue || "";
     // Define el header de la petición
     const headers = new HttpHeaders().set(
-      'Authorization',
-      'Bearer ' + currentUser.token
+      'x-access-token',
+      currentUser
     );
     // Llama al endpoint de refresco
     return this.http.get('/api/refresh', { headers: headers }).pipe(
       switchMap((response: any) => {
         // Actualiza el token del usuario en la sesión
-        this.authService.updateCurrentUserToken(response.token);
+        this.tokenService.updateToken(response.token);
         return response;
       })
     );
@@ -38,12 +38,9 @@ export class FileUploadService {
 
   getAuthHeaders() {
     // Consigue el token actual del usuario
-    const currentUser = this.authService.currentUserValue;
+    const currentUser = this.tokenService.currentTokenValue || '';
     // Define el header de la petición
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      'Bearer ' + currentUser.token
-    );
+    const headers = new HttpHeaders().set('x-access-token', currentUser);
     return headers;
   }
 

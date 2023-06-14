@@ -37,21 +37,25 @@ import { LoginResponse } from '../models/loginResponse.model';
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(private http: HttpClient, private tokenService: TokenService) {}
+  constructor(private http: HttpClient, private tokenService: TokenService) { }
 
   private apiUrl = 'http://localhost:8080';
 
   refreshToken() {
     // Consigue el token actual del usuario
-    const currentUser = this.tokenService.currentTokenValue || "";
+    const currentUser = this.tokenService.currentTokenValue || '';
     // Define el header de la petición
-    const headers = new HttpHeaders().set(
-      'x-access-token',
-      currentUser
+    const headers = new HttpHeaders().set('x-access-token', currentUser);
+    // Llama al endpoint de refresco
+    return this.http.get('/api/refresh', { headers: headers }).pipe(
+      switchMap((response: any) => {
+        // Actualiza el token del usuario en la sesión
+        this.tokenService.updateToken(response.token);
+        return response;
+      })
     );
-    return this.http.get('/api/refresh', { headers: headers });
   }
-
+  
   login(username: string, password: string) {
     const body = {
       username: username,
@@ -62,12 +66,9 @@ export class ApiService {
 
   getAuthHeaders() {
     // Consigue el token actual del usuario
-    const currentUser = this.tokenService.currentTokenValue || "";
+    const currentUser = this.tokenService.currentTokenValue || '';
     // Define el header de la petición
-    const headers = new HttpHeaders().set(
-      'x-access-token',
-      currentUser
-    );
+    const headers = new HttpHeaders().set('x-access-token', currentUser);
     return headers;
   }
 
