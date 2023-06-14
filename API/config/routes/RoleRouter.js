@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const sql = require("mssql");
-const queries = require("../database/queries");
+
 const jwt = require("jsonwebtoken");
 const secretKey = process.env.JWT_SECRET;
 

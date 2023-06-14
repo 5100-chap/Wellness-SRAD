@@ -1,33 +1,34 @@
 const express = require("express");
 const router = express.Router();
 const sql = require("mssql");
-const queries = require("../database/queries");
 
 const { verifyJWT } = require("../middleware/jwtSecurity");
 
 //Consigue el número de casilleros disponibles
-router.get("/api/getDisponibilidadCasilleros", verifyJWT, async (req, res, next) => {
-    const request = new sql.Request();
-    try {
-        const result = await request.execute("GetDisponibilidadCasilleros");
-        res.json(result.recordset);
-    } catch (err) {
-        next(err);
+router.get(
+    "/api/getDisponibilidadCasilleros",
+    verifyJWT,
+    async (req, res, next) => {
+        const request = new sql.Request();
+        try {
+            const result = await request.execute("GetDisponibilidadCasilleros");
+            res.json(result.recordset);
+        } catch (err) {
+            next(err);
+        }
     }
-});
+);
 
 // Estadisticas
 router.get("/api/llamarAforo", verifyJWT, async (req, res, next) => {
     try {
         var request = new sql.Request();
-        // var search = queries.llamarTodoElAforo.replace('@matricula_alumno', req.body.usuario);
         var result = await request.query("EXEC [dbo].[LlamarTodoElAforo];");
         res.send(result.recordset);
     } catch (err) {
         next(err);
     }
 });
-
 
 // Consultar el aforo de un área deportiva
 router.post("/api/consultarAforo", verifyJWT, async (req, res, next) => {
@@ -39,7 +40,6 @@ router.post("/api/consultarAforo", verifyJWT, async (req, res, next) => {
         var request = new sql.Request();
         var search = `EXEC [dbo].[ConsultarAforoActualYTotal] ${req.body.area_id};`;
 
-        // var search = queries.consultarAforoActualYTotal.replace('@area_id', req.body.area_id);
         var result = await request.query(search);
         res.send(result.recordset[0]);
     } catch (err) {
@@ -57,8 +57,6 @@ router.post("/api/aumentarAforo", verifyJWT, async (req, res, next) => {
         var request = new sql.Request();
         var search = `EXEC [dbo].[AumentoAforo] ${req.body.area_id}`;
 
-        // var search = queries.aumentoAforo.replace('@area_id', req.body.area_id);
-        // search = search.replace('@area_id', req.body.area_id);
         var result = await request.query(search);
         res.send(200);
     } catch (err) {
@@ -77,9 +75,6 @@ router.post("/api/disminuirAforo", verifyJWT, async (req, res, next) => {
         var newSearch = `EXEC [dbo].[disminuirAforo] ${req.body.area_id}`;
         var result = await request.query(newSearch);
 
-        // var search = queries.disminuirAforo.replace('@area_id', req.body.area_id);
-        // search = search.replace('@area_id', req.body.area_id);
-        // var result = await request.query(search);
         res.send(200);
     } catch (err) {
         next(err);
@@ -117,20 +112,20 @@ router.get("/api/ingresosPorHora/", verifyJWT, async (req, res, next) => {
 });
 
 // Obtener los ingresos por id del area en base a un intervalo semanal
-router.get('/api/ExportarAforo', verifyJWT, async(req,res,next) => {
+router.get("/api/ExportarAforo", verifyJWT, async (req, res, next) => {
     const id = req.query.Id;
     const date = req.query.Date;
     const request = new sql.Request();
-    try{
+    try {
         const result = await request
-            .input('Id',sql.Int, id)
-            .input('Date',sql.Date, date)
-            .execute('ExportarAforo');
+            .input("Id", sql.Int, id)
+            .input("Date", sql.Date, date)
+            .execute("ExportarAforo");
         res.json(result.recordset);
-    } catch(err){
+    } catch (err) {
         next(err);
     }
-})
+});
 // Modificar el aforo máximo
 router.post("/api/modificarAforoMaximo", verifyJWT, async (req, res, next) => {
     try {
@@ -149,7 +144,7 @@ router.post("/api/modificarAforoMaximo", verifyJWT, async (req, res, next) => {
             .input("descripcion", sql.VarChar(200), req.body.descripcion || null)
             .input("fechaActual", sql.DateTime, fechaActual)
             .execute("[dbo].[ModificarAforoMaximo]");
-            res.status(200).json({ success: true });
+        res.status(200).json({ success: true });
     } catch (err) {
         next(err);
     }

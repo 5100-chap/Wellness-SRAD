@@ -2,7 +2,7 @@ const { request } = require("express");
 const express = require("express");
 const router = express.Router();
 const sql = require("mssql");
-const queries = require("../database/queries");
+
 
 const { verifyJWT } = require("../middleware/jwtSecurity");
 
