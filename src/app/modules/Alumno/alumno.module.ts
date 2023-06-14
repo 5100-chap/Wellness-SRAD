@@ -5,6 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { QRCodeModule } from 'angularx-qrcode';
 
+import { FullCalendarModule } from '@fullcalendar/angular';
+
+
 //Alumno components
 import { ListaAreasComponent } from '../../lista-areas/lista-areas.component';
 import { ListaReservasComponent } from '../../lista-reservas/lista-reservas.component';
@@ -23,6 +26,8 @@ import { AreaDeportivaComponent } from 'src/app/area-deportiva/area-deportiva.co
 
 import { AlumnoRoutingModule } from './alumno-routing.module';
 import { SharedModule } from '../Shared/shared.module';
+
+
 
 @NgModule({
     declarations: [
@@ -49,7 +54,8 @@ import { SharedModule } from '../Shared/shared.module';
         QRCodeModule,
         AlumnoRoutingModule,
         NgbModule,
-        SharedModule
+        SharedModule,
+        FullCalendarModule
     ]
 })
 export class AlumnoModule { }

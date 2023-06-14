@@ -14,7 +14,7 @@
 <h3 style="margin-left: 4%; margin-top: 2%; margin-bottom: 2%;"> <strong> Información  de la sala de {{ getFormattedNombreArea() }}  </strong> </h3>
 
 <!-- Tarjeta de información del área deportiva -->
-<div class="container">
+<div class="vstack gap-4 col-md-10 mx-auto">
   <div class="card p-4" style="border-width: 0.1rem;">
     <div class="row">
 
@@ -49,39 +49,21 @@
 </div>
 
 
-<!-- Calendario de reservación-->
 
-<h3 style="margin-left: 4%; margin-top: 3%; margin-bottom: 2%;"> <strong> Reservación </strong> </h3>
+<!--Calendario con los horarios disponibles para la reservación-->
+<h3 style="margin-left: 5%; margin-top: 3%; margin-bottom: 2%;"> <strong> Reservación </strong> </h3>
 
 <div class="vstack gap-4 col-md-10 mx-auto">
-
-  <div class="card w-100 ">
-
-     <!-- Encabezado de la tabla de reservación-->
-
-    <div class="col card-header">
-      <div class="row">
-
-        <!-- Estado del area deportiva-->
-        <div style="margin-top: 0.8rem; margin-left: 0.8rem;" id="circulo"> </div>
-        <div class=" col-md-2 mt-3">
-          <h4>Estado: <small class="text-success">Abierto</small></h4>
-        </div>
-
-        <!-- Elección en la semana en la que desea hacer la reservación-->
-        <div class="col-md-4 mt-1">
-          <div class="col-md-5 " style="margin-left: 2%;">
-            <label for="weekPicker">Elige una semana:</label>
-            <input type="week" id="btn" [formControl]="dateControl">
-          </div>
-        </div>
+  <div class="row mt-4">
+    <div class="col-md-4 mb-2">
+      <div class="col-md-6 input-group" style="margin-left: 2%; font-size: 1.4rem;">
+        <label for="weekPicker" >Elige una semana: &nbsp;</label>
+        <input type="week" id="btn" [formControl]="dateControl">
       </div>
     </div>
+  </div>
 
-    <br>
-
-    <!--Cuerpo de la tabla con la información de los horarios disponibles para reservar-->
-
+  <div class="card w-100 table-wrapper">
     <table class="table">
       <thead>
         <tr>
@@ -97,47 +79,38 @@
       </thead>
       <tbody>
 
-
         <tr *ngFor="let al of reservaArray; let i= index;" (click)="openForEdit(al)" [class.active]="al == seleReserva">
 
-          <td class="text-center">
-            <button *ngIf="ocupado(0, al.hora)" (click)="imprimirFechaCorrecta(i, 0)" class="btn btn-primary" id="btn">
-              {{al.rangoDeHora}} </button>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(0, al.hora)" (click)="imprimirFechaCorrecta(i, 0)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
             <button *ngIf="!ocupado(0, al.hora)" class="btn btn-primary" id="btn-disabled" disabled> {{al.rangoDeHora}} </button>
           </td>
-          <td class="text-center">
-            <button *ngIf="ocupado(1, al.hora)" (click)="imprimirFechaCorrecta(i, 1)" class="btn btn-primary" id="btn">
-              {{al.rangoDeHora}} </button>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(1, al.hora)" (click)="imprimirFechaCorrecta(i, 1)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
             <button *ngIf="!ocupado(1, al.hora)" class="btn btn-primary" id="btn-disabled" disabled> {{al.rangoDeHora}} </button>
           </td>
-          <td class="text-center">
-            <button *ngIf="ocupado(2, al.hora)" (click)="imprimirFechaCorrecta(i, 2)" class="btn btn-primary" id="btn">
-              {{al.rangoDeHora}} </button>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(2, al.hora)" (click)="imprimirFechaCorrecta(i, 2)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
             <button *ngIf="!ocupado(2, al.hora)" class="btn btn-primary" id="btn-disabled" disabled> {{al.rangoDeHora}} </button>
           </td>
-          <td class="text-center">
-            <button *ngIf="ocupado(3, al.hora)" (click)="imprimirFechaCorrecta(i, 3)" class="btn btn-primary" id="btn">
-              {{al.rangoDeHora}} </button>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(3, al.hora)" (click)="imprimirFechaCorrecta(i, 3)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
             <button *ngIf="!ocupado(3, al.hora)" class="btn btn-primary" id="btn-disabled" disabled> {{al.rangoDeHora}} </button>
           </td>
-          <td class="text-center">
-            <button *ngIf="ocupado(4, al.hora)" (click)="imprimirFechaCorrecta(i, 4)" class="btn btn-primary" id="btn">
-              {{al.rangoDeHora}} </button>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(4, al.hora)" (click)="imprimirFechaCorrecta(i, 4)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
             <button *ngIf="!ocupado(4, al.hora)" class="btn btn-primary" id="btn-disabled" disabled> {{al.rangoDeHora}} </button>
           </td>
-          <td class="text-center">
-            <button *ngIf="ocupado(5, al.hora)" (click)="imprimirFechaCorrecta(i, 5)" class="btn btn-primary" id="btn">
-              {{al.rangoDeHora}} </button>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(5, al.hora)" (click)="imprimirFechaCorrecta(i, 5)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
             <button *ngIf="!ocupado(5, al.hora)" class="btn btn-primary" id="btn-disabled" disabled> {{al.rangoDeHora}} </button>
           </td>
-          <td class="text-center">
-            <button *ngIf="ocupado(6, al.hora)" (click)="imprimirFechaCorrecta(i, 6)" class="btn btn-primary" id="btn">
-              {{al.rangoDeHora}} </button>
+          <td class="text-center"> 
+            <button *ngIf="ocupado(6, al.hora)" (click)="imprimirFechaCorrecta(i, 6)" class="btn btn-primary" id="btn"> {{al.rangoDeHora}} </button>
             <button *ngIf="!ocupado(6, al.hora)" class="btn btn-primary" id="btn-disabled" disabled> {{al.rangoDeHora}} </button>
           </td>
 
         </tr>
-
 
       </tbody>
     </table>
@@ -147,8 +120,7 @@
 
 
 
-
-
+<!--Resumen del dia y horarios seleccionados-->
 
 <div class="vstack gap-4 col-md-10 mx-auto mt-2">
 
@@ -205,46 +177,155 @@
       </div>
     </div>
 
-    <!-- Tarjeta con la información de las reseñas del area deportiva-->
+   
 
-    <div class="col-md-7 mt-4">
-      <h3> <strong>Reseñas</strong> </h3>
-      <div class="card border border-grey border border-1">
-        <div class="row">
+    <div class="col-md-7 mt-4" >
+      <!-- Tarjeta con la información de las reseñas del area deportiva (Cuando ya hay reseñas)-->
+      <div *ngIf="resenias.length != 0">
+      
+        <h3> <strong>Reseñas</strong> </h3>
+        <div class="card border border-grey border border-1">
+          <div class="row">
 
-          <div class="col-md-9 mt-2">
-            <h5> &nbsp; Limpieza</h5>
+            <div class="col-md-9 mt-2">
+              <h5> &nbsp; Limpieza</h5>
+            </div>
+
+            <div class="col-md-3 mt-2" >
+              <input disabled type="text" [value]="  '★' + ' ' + calcularPromedio(this.resenias[2].PuntajeTotal, this.Limpieza)  + ' / 5'"  id="resenia">
+            </div>
           </div>
 
-          <div class="col-md-3 mt-2">
-            <h4>★★★★☆ 4 </h4>
+          <div class="row">
+
+            <div class="col-md-9 mt-2">
+              <h5> &nbsp; Calidad del equipo</h5>
+            </div>
+
+            <div class="col-md-3 mt-2">
+              
+              <input disabled type="text" [value]=" '★' + ' ' + calcularPromedio(this.resenias[1].PuntajeTotal, this.Calidad)  + ' / 5' "  id="resenia">
+
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-9 mt-2">
+              <h5> &nbsp; Ambiente</h5>
+            </div>
+            <div class="col-md-3 mt-2">
+              <input disabled type="text" [value]=" '★' + ' ' + calcularPromedio(this.resenias[0].PuntajeTotal, this.Ambiente) + ' / 5'"  id="resenia">
+            </div>
           </div>
         </div>
+      </div>
 
-        <div class="row">
 
-          <div class="col-md-9 mt-2">
-            <h5> &nbsp; Calidad del equipo</h5>
+       <!-- Tarjeta con la información de las reseñas del area deportiva (Cuando no hay reseñas)-->
+      <div *ngIf="resenias.length == 0">
+      
+        <h3> <strong>Reseñas</strong> </h3>
+        <div class="card border border-grey border border-1">
+          <div class="row">
+
+            <div class="col-md-9 mt-2">
+              <h5> &nbsp; Limpieza</h5>
+            </div>
+
+            <div class="col-md-3 mt-2" >
+              <input disabled type="text" value="Aún no hay reseñas"  id="resenia">
+            </div>
           </div>
 
-          <div class="col-md-3 mt-2">
-            <h4>★★★★★ 5</h4>
+          <div class="row">
+
+            <div class="col-md-9 mt-2">
+              <h5> &nbsp; Calidad del equipo</h5>
+            </div>
+
+            <div class="col-md-3 mt-2">
+              
+              <input disabled type="text" value="Aún no hay reseñas "  id="resenia">
+
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-9 mt-2">
+              <h5> &nbsp; Ambiente</h5>
+            </div>
+            <div class="col-md-3 mt-2">
+              <input disabled type="text" value="Aún no hay reseñas "  id="resenia">
+            </div>
           </div>
         </div>
+      </div>
 
-        <div class="row">
-
-          <div class="col-md-9 mt-2">
-            <h5> &nbsp; Ambiente</h5>
-          </div>
-          <div class="col-md-3 mt-2">
-            <h4>★★★☆☆ 3</h4>
-
-          </div>
-        </div>
-
+      <div class="text-center" style="margin-top: 2%;">
+        <button style = "font-size: 1rem; margin-bottom: 1%;" id="btn3" class="btn text" (click)="abrir(resenamodal)"> Calificar área</button>
       </div>
 
     </div>
+
+
+
+    <!--Modal para la calificación del area deportiva-->
+    <ng-template #resenamodal let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-resena">Reseñas</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        Selecciona una calificación de 1 a 5 para cada uno de los siguientes rubros (1 es deporable y 5 es excelente).        
+
+        <br>
+        <br>
+        <strong>Limpieza</strong>
+        <br>
+        <select name="ReviewLimpieza" id="ReviewLimpieza" #limpieza >
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+
+        <br>
+        <br/>
+        <strong>Calidad del equipo</strong>
+        <br/>
+        <select name="ReviewCalidad" id="ReviewCalidad" #calidad>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <br>
+        <br/>
+        <strong>Ambiente</strong>
+        <br/>
+        <select name="ReviewAmbiente" id="ReviewAmbiente" #Ambiente>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+
+        <br/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="confirmarReview(limpieza.value, calidad.value, Ambiente.value)" id="btn"> Enviar </button>
+      </div>
+    </ng-template>
+
+
+
   </div>
 </div>

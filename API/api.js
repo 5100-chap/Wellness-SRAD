@@ -13,6 +13,7 @@ const database = require("./config/credentials/database");
 
 const routes = require("./config/routes/router"); 
 const cancelAuto = require("./config/routines/cancelacionAutomatica");
+const cancelReservaAsesorAuto = require("./config/routines/cancelarReservasAsesor");
 const AforoTotalAutomatico = require("./config/routines/AforoTotalAutomatico");
 const AbrirCerrarAreas = require("./config/routines/AbrirCerrarAreas");
 const eliminarAnuncios = require("./config/routines/EliminarAnuncio")
@@ -60,9 +61,11 @@ app.listen(port, function () {
     (async () => {
         await connectToDatabase();
         cancelAuto();
+        cancelReservaAsesorAuto();
         AbrirCerrarAreas();
         AforoTotalAutomatico();
         eliminarAnuncios();
         setInterval(cancelAuto, 5*60*1000);
+        setInterval(cancelReservaAsesorAuto, 5*60*1000);
     })();
 });

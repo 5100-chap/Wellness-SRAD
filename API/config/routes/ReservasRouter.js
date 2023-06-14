@@ -136,7 +136,6 @@ router.post('/api/descartaReservaLocker', verifyJWT, async(req, res, next)=>{
 });
 
 
-
 //Obtiene todas las reservaciones de los casilleros
 router.get("/api/getReservasCasilleros", verifyJWT, async (req,res, next) =>{
     const request = new sql.Request();
@@ -198,8 +197,6 @@ router.post('/api/getDataMonitorReservas', verifyJWT,async(req,res,next)=>{
         res.sendStatus(404);
     }
 })
-
-
 
 
 //Marcar la salida de un alumno de forma manual
@@ -287,6 +284,33 @@ router.post('/api/getReservasAsesorDeAlumno', verifyJWT, async(req, res, next)=>
         const hoy = new Date();
         const result = await request.query(`EXEC [dbo].[GetReservasAsesorDeAlumno] '${req.body.usuario}', '${hoy.getFullYear()}-${(hoy.getMonth+1>9)?hoy.getMonth()+1:`0${hoy.getMonth()+1}`}-${(hoy.getDate()>9)?hoy.getDate():`0${hoy.getDate()}`}';`);
         res.json(result.recordset);
+    }
+    catch(error){
+        console.log(error);
+        res.json(error);
+    }
+});
+
+//Obtener las reservas activas del alumno para el calendario
+router.post('/api/getEventos', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();
+        var hoy = new Date();
+        var result = await request.query(`EXEC [dbo].[GetEventos] \'${req.body.usuario}\';`);
+        res.json(result.recordset);
+    }
+    catch(error){
+        console.log(error);
+        res.sendStatus(404);
+    }
+
+})
+// Cancelar todas las reservas en caso de cierre de un área
+router.put('/api/cancelarTodasDeArea', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();
+        await request.query(``);
+        res.json('ok');
     }
     catch(error){
         console.log(error);

@@ -2,19 +2,19 @@
 
 <!--Encabezado de la página-->
 <div class="img-fluid" class = "opacity-30"  >
-    <div class=" text-white">
-      <img src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="130" class="card-img" alt="...">
-      <div class="card-img-overlay">
-        <h5 class="card-title">&nbsp;</h5>
-        <h5 class="card-title">&nbsp;</h5>
-        <h5 class="card-title">&nbsp;</h5>
-        <h5 class="card-title">&nbsp;</h5>
-    
-        <h1 class="card-title" class = "text-center"> Mis Reservaciones </h1>
-      </div>
+  <div class=" text-white">
+    <img src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="130" class="card-img" alt="...">
+    <div class="card-img-overlay">
+      <h5 class="card-title">&nbsp;</h5>
+      <h5 class="card-title">&nbsp;</h5>
+      <h5 class="card-title">&nbsp;</h5>
+      <h5 class="card-title">&nbsp;</h5>
+  
+      <h1 class="card-title" class = "text-center"> Mis Reservaciones </h1>
     </div>
   </div>
-  <br>
+</div>
+<br>
 
   <!-- Conectado a la base de datos -->
   <div class="vstack gap-4 col-md-8 mx-auto" *ngFor="let item of slices.slice(1); let eachSlice = index;">
@@ -37,20 +37,20 @@
                     <small class="text-muted"> {{each['hora'].slice(11, 16)}} </small>
                   </h4>
 
-                  <h4 *ngIf="each['estado']=='Activa'">
-                    Estado:
-                    <small class="text-success" id="estado-html"> {{each['estado']}} </small>
-                  </h4>
+                <h4 *ngIf="each['estado']=='Activa'">
+                  Estado:
+                  <small class="text-success" id="estado-html"> {{each['estado']}} </small>
+                </h4>
 
-                  <h4 *ngIf="each['estado']=='Cancelada'">
-                    Estado:
-                    <small class="text-danger" id="estado-html"> {{each['estado']}} </small>
-                  </h4>
+                <h4 *ngIf="each['estado']=='Cancelada'">
+                  Estado:
+                  <small class="text-danger" id="estado-html"> {{each['estado']}} </small>
+                </h4>
 
-                  <h4 *ngIf="each['estado']=='En curso'">
-                    Estado:
-                    <small class="text-primary" id="estado-html"> {{each['estado']}} </small>
-                  </h4>
+                <h4 *ngIf="each['estado']=='En curso'">
+                  Estado:
+                  <small class="text-primary" id="estado-html"> {{each['estado']}} </small>
+                </h4>
 
                   <!-- Botones -->
                   <div class="btn-group me-2" role="group" aria-label="First group" *ngIf="marcarLlegadaBtn(i+slices[eachSlice]);">
@@ -58,7 +58,7 @@
                         <ng-template #mymodal let-modal>
                           <div class="modal-header">
                             <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
-                            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="reload()">
+                            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="marcarLlegada(i+slices[eachSlice])">
                               <span  aria-hidden="true">×</span>
                             </button>
                           </div>
@@ -66,7 +66,7 @@
                             Tu llegada ha sido registrada exitosamente!
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="reload()">OK</button>
+                            <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="marcarLlegada(i+slices[eachSlice])">OK</button>
                           </div>
                         </ng-template>
                   </div>
@@ -74,11 +74,11 @@
                     <button type="button" class="btn btn-warning" href="#">Reagendar</button>
                   </div>   -->
                   <div class="btn-group me-2" role="group" aria-label="Second group" *ngIf="cancelarReservaBtn(i+slices[eachSlice]);">
-                    <button id = "confirmar" class="btn btn-danger" (click)="open(cancel)" (click)="cancelarReserva(i+slices[eachSlice])"> Cancelar reserva</button>
+                    <button id = "confirmar" class="btn btn-danger" (click)="open(cancel)"> Cancelar reserva</button>
                     <ng-template #cancel let-modal>
                       <div class="modal-header">
                         <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
-                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="reload()">
+                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="cancelarReserva(i+slices[eachSlice])">
                           <span  aria-hidden="true">×</span>
                         </button>
                       </div>
@@ -86,17 +86,17 @@
                         Se ha cancelado tu reservación exitosamente!
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="reload()">OK</button>
+                        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')"  (click)="cancelarReserva(i+slices[eachSlice])">OK</button>
                       </div>
                     </ng-template>
                   </div>
                   <div class="btn-group me-2" role="group" aria-label="Second group" *ngIf="marcarSalidaBtn(i+slices[eachSlice]);">
                     
-                    <button id = "confirmar" class="btn btn-primary" (click)="open(salida)" (click)="marcarSalida(i+slices[eachSlice])"> Marcar salida</button>
+                    <button id = "confirmar" class="btn btn-primary" (click)="open(salida)"> Marcar salida</button>
                     <ng-template #salida let-modal>
                       <div class="modal-header">
                         <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
-                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="reload()">
+                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="marcarSalida(i+slices[eachSlice])">
                           <span  aria-hidden="true">×</span>
                         </button>
                       </div>
@@ -104,7 +104,7 @@
                         Se ha registrado su salida exitosamente!
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="reload()">OK</button>
+                        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="marcarSalida(i+slices[eachSlice])">OK</button>
                       </div>
                     </ng-template>
                   </div>  
@@ -233,13 +233,29 @@
     </div>
 
   <!-- No haya reservas que mostrar -->
-  <div class="vstack gap-4 col-md-8 mx-auto" *ngIf="ReservasAsesor.length===0 && Reservas.length===0">
-    <div class="card w-100">
-      <div class="card">
-        <h1 class="card-header">No hay reservas que mostrar</h1>
-      </div>
-    </div>
+  <div class="text-center" style="margin-top: 2%;" *ngIf="ReservasAsesor.length === 0 && Reservas.length === 0">
+        <h1>No cuentas con ninguna reservación activa</h1>
   </div>
+
+
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+
 
 
 

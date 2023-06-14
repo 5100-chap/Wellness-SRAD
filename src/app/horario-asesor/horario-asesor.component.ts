@@ -32,6 +32,10 @@ export class HorarioAsesorComponent {
   listaReservasConAsesor!: ReservaAsesor[];
   activateButton: boolean = false;
   horarioSeleccionadoInput: string = "";
+  horario!: boolean;
+  seleReserva: Reservas = new Reservas();
+
+  img !: string;
     
   form = new FormGroup({  
     website: new FormControl('', Validators.required)  
@@ -64,28 +68,22 @@ export class HorarioAsesorComponent {
     {id:5, id_matricula_alumno: "A00773407", id_area_deportiva:8, fecha: "" , rangoDeHora: "20:00 - 22:00", hora: "20:00:00", estado: "", id_instructor: ""}
   ];
   
-  seleReserva: Reservas = new Reservas();
-  addOrEdit(){
-    if(this.seleReserva.id == 0){
-      this.seleReserva.id = this.reservaArray.length + 1
-      this.reservaArray.push(this.seleReserva)
-    }
-    this.seleReserva = new Reservas();
-  }
+ 
+
 
   openForEdit(reserve: Reservas){
     this.seleReserva = reserve;
   }
-
-  delete(){
-    if(confirm("Deseas realmente eliminar la reservación?")){
-      this.reservaArray = this.reservaArray.filter (x => x != this.seleReserva);
-      this.seleReserva = new Reservas();
-    }
-
+  // Imprimir en 'horario seleccionado' la fecha correcta
+  imprimirFechaCorrecta(index: number, dia: number){
+    this.diaSeleccionado = this.listaDias[dia];
+    this.horaSeleccionada = this.reservaArray[index].hora;
+    this.reservaArray[index].fecha = this.listaDias[dia] + " - " + this.reservaArray[index].hora.slice(0, 5) + " --> " + ((+this.reservaArray[index].hora.slice(0, 2)) + 2) + ":00";
   }
-
- 
+  
+  
+  
+ //Función para obtener los días de la semana
   getDiasSemana(){
     this.listaDias = [];
     const primerDiaAnio = new Date(this.now.getFullYear(), 0, 1);
@@ -102,17 +100,34 @@ export class HorarioAsesorComponent {
   }
 
   ngOnInit(): void {
+    
+    //Se obtiene la información del asesor
     const data: any = this.route.snapshot.paramMap.get('asesor');
     this.asesorInfo= JSON.parse(data);
     this.now = new Date();
+
+    
+    //Se obtiene los horarios disponibles del asesor
     this.subscription = this.dateControl.valueChanges.subscribe(()=>{
       this.semanaSeleccionada = +this.dateControl.value.slice(6);
       this.getDiasSemana();
       this.apiService.getReservasAsesor(this.listaDias[0], this.listaDias[6], this.asesorInfo.asesor).subscribe(
         (data: ReservaAsesor[])=>{
           this.listaReservasConAsesor = data;
+          this.apiService.getDiasEscolares(this.listaDias[0]).subscribe(
+            (data: any)=>{
+              this.horario = data;
+            }
+          );
         });
     });
+
+    setTimeout(() => {
+      this.getImagen(this.asesorInfo.numero_nomina)
+
+        
+      }, 500);
+
   }
 
   // Al picarle al boton del dia y hora, se colocarán como los dia y hora seleccionados
@@ -141,7 +156,10 @@ export class HorarioAsesorComponent {
 
   // Checar si un horario esta ocupado
   ocupado(hora: string, dia: number): boolean{
-    if(this.diaPasado(dia, hora) || this.listaReservasConAsesor === undefined){
+    if(!this.horario){
+      return false;
+    }
+    else if(this.diaPasado(dia, hora) || this.listaReservasConAsesor === undefined){
       return false;
     }
     // Falta que cheque si ya hay reservas en este horario
@@ -168,16 +186,23 @@ export class HorarioAsesorComponent {
     }
   }
 
+  //En caso de haber un error manda una foto predeterminada
+  updateUrl(event: any) {
+    event.target.src = 'https://miro.medium.com/v2/resize:fit:1024/1*fNLMb7DHUQfn18w8YvyLQA.png';
+  }
 
-  title = 'appBootstrap';
+  //Metodo para obtener la foto del asesor
+  getImagen(id : string){
+    this.apiService.getImagenAsesor(id).subscribe(
+      (data: string)=>{
+        this.img = data[0]["imagen"]
+    });
+  }
+
     
   closeResult: string = '';
      
-  /*------------------------------------------
-  --------------------------------------------
-  Created constructor
-  --------------------------------------------
-  --------------------------------------------*/
+
   constructor(private modalService: NgbModal, 
     private route: ActivatedRoute,
     private apiService: ApiService,

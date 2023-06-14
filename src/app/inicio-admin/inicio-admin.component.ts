@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../services/api.service'; // actualiza esta ruta al path correcto
 import { Area } from '../models/area.model'; // actualiza esta ruta al path correcto
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-inicio-admin',
@@ -12,8 +13,28 @@ export class InicioAdminComponent implements OnInit {
   title = 'appBootstrap';
   closeResult: string = '';
   areas: Area[] = []; // variable para guardar las áreas
+  tipoUsuario = this.authService.currentUserValue //Obtener el tipo de usuario
   
-  constructor(private modalService: NgbModal, private apiService: ApiService) {}
+  constructor(private modalService: NgbModal, private apiService: ApiService, private authService: AuthService) {}
+  
+
+   //Función para saber si el usuario es un administrador 
+   isAdmin(){
+    const obj = this.authService.currentUserValue;
+    return obj.role === 'Administrador' ;
+  }
+
+  //Función para saber si el usuario es un asesor
+  isInstructor(){
+    const obj = this.authService.currentUserValue;
+    return obj.role === 'Instructor' ;
+  }
+
+   //Función para saber si el usuario es un asesor
+   isDirector(){
+    const obj = this.authService.currentUserValue;
+    return obj.role === 'Director' ;
+  }
   
   updateUrl(event: any) {
     event.target.src = '../assets/img/fondo.jpeg';

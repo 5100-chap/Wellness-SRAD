@@ -31,7 +31,9 @@ import { ReservaAsesor } from '../models/reserva-asesor';
 import { AsesorInfo } from '../models/asesor-info';
 import { ReservaAsesorAlumno } from '../models/reserva-asesor-alumno';
 import { ExisteAlumno } from '../models/existe-alumno';
-import { LoginResponse } from '../models/loginResponse.model';
+import { Eventos } from '../models/event.model';
+import { LoginResponse } from '../models/loginResponse.model';import { ReseñaArea } from '../models/reseña-area';
+
 
 @Injectable({
   providedIn: 'root',
@@ -215,36 +217,20 @@ export class ApiService {
   }
 
   //Cancelar la reserva de un casillero
-  cancelarReservaCasillero(id: number, idCasillero: number) {
-    return this.http
-      .post(
-        '/api/cancelarReservaLocker',
-        {
-          id: id,
-          idCasillero: idCasillero,
-        },
-        { headers: this.getAuthHeaders() }
-      )
-      .pipe(
-        catchError((error) => {
-          if (error.status === 403) {
-            return this.refreshToken().pipe(
-              switchMap(() => {
-                return this.http.post(
-                  '/api/cancelarReservaLocker',
-                  {
-                    id: id,
-                    idCasillero: idCasillero,
-                  },
-                  { headers: this.getAuthHeaders() }
-                );
-              })
-            );
-          }
-          throw error;
-        })
-      );
+  cancelarReservaCasillero(id:number, idCasillero:number){
+    return this.http.post('/api/cancelarReservaLocker',{
+      id: id,
+      idCasillero: idCasillero
+    });
   }
+
+  //Descartar la reserva de un casillero
+  descartarReservaCasillero(id: number){
+    return this.http.post('/api/descartaReservaLocker',{
+      id: id
+    });
+  }
+  
 
   // Obtener todos los anuncios
   getAnuncios(): Observable<Anuncio[]> {
@@ -492,6 +478,7 @@ export class ApiService {
       );
   }
 
+  //Método para verificar la llegada de un alumno al gimansio
   verificarLlegada(usuario: String): Observable<AlumnoStatusResponse> {
     return this.http
       .post<AlumnoStatusResponse>(
@@ -1082,6 +1069,13 @@ export class ApiService {
       );
   }
 
+  // Método para verificar si la semana es de vacaciones o días escolares
+  getDiasEscolares(dia: string): Observable<any>{
+    return this.http.get<any>(`/api/getDiasEscolares/${dia}/`);
+  }
+
+
+ // Método para modificar el aforo máximo de un area deportiva
   modificarAforoMaximo(
     area_id: number,
     nuevo_limite: number,
@@ -1158,6 +1152,7 @@ export class ApiService {
       );
   }
 
+  //Método para obtener la información del asesor mediante su rol
   getAsesoresPorRol(rol: string): Observable<AsesorInfo[]> {
     return this.http
       .post<AsesorInfo[]>(
@@ -1187,6 +1182,13 @@ export class ApiService {
       );
   }
 
+   //Método para obtener la imagen del asesor al recibir su numero de nomina como parametro
+   getImagenAsesor(id: string): Observable<string>{
+    return this.http.post<string>('/api/getImagenAsesor', {
+      id: id
+    });
+  }
+  //Método para obtener las reservas de un asesor
   getReservasAsesor(
     lunes: string,
     domingo: string,
@@ -1440,6 +1442,7 @@ export class ApiService {
         })
       );
   }
+  
 
   cancelarReservaAsesor(id: number) {
     return this.http
@@ -1469,6 +1472,42 @@ export class ApiService {
         })
       );
   }
+
+  //Obtener las reservas activas del alumno para el calendario
+  getEventos(matricula: string): Observable<Eventos[]>{
+    return this.http.post<Eventos[]>('/api/getEventos', {
+      usuario: matricula
+    });
+  }
+
+  //Obtener las reseñas de un area deportiva
+  getReseniasArea(idArea: number): Observable<ReseñaArea[]>{
+    return this.http.post<ReseñaArea[]>('/api/obtenerCalifArea', {
+      idArea: idArea
+    });
+  }
+
+  //Obtener el numero total de registros de un rubro que se pase como parametro
+  getNumRegistrosArea(idArea: number, rubro: string): Observable<number>{
+    return this.http.post<number>('/api/obtenerNumeroRegistrosRubro', {
+      idArea : idArea,
+      rubro : rubro
+    });
+  }
+
+  // Crear reseña de un area deportiva
+  calificarArea(idArea: number, calif1: number,calif2: number,calif3: number, rubro1:string, rubro2:string, rubro3:string, ) {
+    return this.http.post('/api/calificarArea', {
+      idArea: idArea,
+      calif1 : calif1,
+      calif2 : calif2,
+      calif3 : calif3,
+      rubro1 : rubro1,
+      rubro2 : rubro2,
+      rubro3 : rubro3
+    })
+  }
+
 
   //Service que sirve para crear Area
   createArea(

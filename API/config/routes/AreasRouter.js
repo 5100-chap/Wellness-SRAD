@@ -155,5 +155,17 @@ router.delete("/api/EliminarArea/:id", verifyJWT, async (req, res, next) => {
         next(err);
     }
 });
+// Crear una reseña de un area deportiva
+router.post('/api/calificarArea', async(req,res,next) => {
+    try{
+        var request = new sql.Request();
+        await request.query(`EXEC [dbo].[calificarArea] ${req.body.idArea}, \'${req.body.rubro1}\', \'${req.body.rubro2}\', \'${req.body.rubro3}\',${req.body.calif1},${req.body.calif2},${req.body.calif3};`);
+    }
+    catch(error){
+        res.json(error);
+    }
+    
+})
+
 
 module.exports = router;

@@ -43,7 +43,7 @@
 
 <!-- Tabla con la información de las reservas de los lockers -->
 
-<div *ngIf="area.value == 'Lockers' " class="card mt-5" style="width:75%; margin-left: 13%;">
+<div *ngIf="area.value == 'Lockers' " class="card mt-5 table-wrapper" style="width:75%; margin-left: 13%;">
 
   <table class="table table-striped">
     <thead>
@@ -82,7 +82,7 @@
 
 <!-- Tabla con la información del area deportiva seleccionada-->
 
-<div *ngIf="area.value != 'Lockers' " class="card mt-5" style="width:75%; margin-left: 13%;">
+<div *ngIf="area.value != 'Lockers' " class="card mt-5 table-wrapper" style="width:75%; margin-left: 13%;">
   <table class="table table-striped">
     <thead>
       <tr class="text-center">
@@ -97,20 +97,22 @@
       </tr>
     </thead>
     <tbody class="text-center" *ngFor="let r of reservasArea">
-      <tr class="text-center">
-        <td>{{r.matriculaAlumno}}</td>
-        <td>{{r.nombreAlumno}}</td>
-        <td>{{this.formatHora(r.hora)}}</td>
-        <td>{{this.formatDia(r.fecha)}}</td>
-        <td>{{r.estado}}</td>
-        <td>{{r.AreaNombre}}</td>
-        <td *ngIf="r.asesorNombre == null"> No asignado</td>
-        <td *ngIf="r.asesorNombre != null"> {{r.asesorNombre}}</td>
-        <td *ngIf="r.estado == 'Cancelada'">NA</td>
-        <td *ngIf="r.estado != 'Cancelada'"><button style="margin-top: 1%;" id="btn2" class="btn btn-danger"
-            (click)="open(modalcancelar)" (click)="cancelarReserva(r.id, r.matriculaAlumno)">Cancelar Reserva</button>
-        </td>
-      </tr>
+      
+        <tr class="text-center" >
+          <td>{{r.matriculaAlumno}}</td>
+          <td>{{r.nombreAlumno}}</td>
+          <td>{{this.formatHora(r.hora)}}</td>
+          <td>{{this.formatDia(r.fecha)}}</td>
+          <td>{{r.estado}}</td>
+          <td>{{r.AreaNombre}}</td>
+          <td *ngIf="r.asesorNombre == null"> No asignado</td>
+          <td *ngIf="r.asesorNombre != null"> {{r.asesorNombre}}</td>
+          <td *ngIf="r.estado == 'Cancelada' || r.estado == 'Completada' ">NA</td>
+          <td *ngIf="r.estado != 'Cancelada' && r.estado != 'Completada'"><button style="margin-top: 1%;" id="btn2" class="btn btn-danger"
+              (click)="open(modalcancelar)" (click)="cancelarReserva(r.id, r.matriculaAlumno)">Cancelar Reserva</button>
+          </td>
+        </tr>
+
     </tbody>
   </table>
 </div>
@@ -120,7 +122,7 @@
 <!--Botones-->
 <div class="row" style="margin-left: 35%; margin-top: 2.5%;">
 
-  <div class="col-md-2">
+  <div class="col-md-2" style="margin-left: 13%;">
     <button *ngIf="this.AreaSeleccionada == 'Lockers'" class="btn btn-primary btn-lg" id="btn"
       style="font-size: 1.3rem;" (click)="exportarCSVCasilleros()"> Exportar
       <img src="../assets/img/descargas.png" height="25" width="25" class="card-img" alt="...">
@@ -130,14 +132,24 @@
       style="font-size: 1.3rem;" (click)="exportarCSVAreas()"> Exportar
       <img src="../assets/img/descargas.png" height="25" width="25" class="card-img" alt="...">
     </button>
-  </div>
-  <div class="col-md-3">
-    <button class="btn btn-primary btn-lg" id="btn" style="font-size: 1.3rem;  " (click)="open(mymodal) "> + Añadir
-      Reserva </button>
-  </div>
 
+  </div>
 </div>
 
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
@@ -150,46 +162,6 @@
 
 
 
-<ng-template #mymodal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Añadir reserva </h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">×</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="input-group flex-nowrap">
-      <span class="input-group-text" id="addon-wrapping">Matricula</span>
-      <input type="text" class="form-control" placeholder="A0xxxxxxx" aria-label="Username"
-        aria-describedby="addon-wrapping">
-    </div>
-    <br>
-    <div class="input-group flex-nowrap">
-      <span class="input-group-text" id="addon-wrapping">Área deportiva</span>
-      <input type="text" class="form-control" placeholder="Ingrese el área deportiva" aria-label="Username"
-        aria-describedby="addon-wrapping">
-    </div>
-    <br>
-    <div class="input-group flex-nowrap">
-      <span class="input-group-text" id="addon-wrapping">Fecha</span>
-      <input type="date" class="form-control" placeholder="Ingrese la fecha" aria-label="Username"
-        aria-describedby="addon-wrapping">
-    </div>
-    <br>
-    <div class="input-group flex-nowrap">
-      <span class="input-group-text" id="addon-wrapping">Hora</span>
-      <input type="time" class="form-control" placeholder="Ingrese la hora" aria-label="Username"
-        aria-describedby="addon-wrapping">
-    </div>
-
-
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-danger" id="btn2" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      Cancelar</button>
-    <button type="button" class="btn btn-primary" id="btn" (click)="open(modalConfirmar)">Crear</button>
-  </div>
-</ng-template>
 
 <!--Modal del comprobante de pago-->
 <ng-template #modalcomprobante let-modal>
@@ -240,21 +212,3 @@
   </div>
 </ng-template>
 
-
-
-
-<!--Modal confirmación de reserva-->
-<ng-template #modalConfirmar let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Confirmación </h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">×</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <p> Reserva añadida correctamente! </p>
-
-
-  </div>
-
-</ng-template>

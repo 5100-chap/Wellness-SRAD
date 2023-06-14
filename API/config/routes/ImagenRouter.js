@@ -10,6 +10,7 @@ const blobServiceClient = require('../credentials/blobStorage'); // asegúrate d
 
 const { verifyJWT } = require("../middleware/jwtSecurity");
 
+//Metodo para subir imagenes a la base de datos
 router.post('/api/upload', verifyJWT, upload.single('image'), async (req, res, next) => {
     try {
         // Sube el archivo a Blob Storage
@@ -48,6 +49,21 @@ router.delete('/api/deleteImagen', verifyJWT, async (req, res, next) => {
         res.status(200).json({ message: 'Imagen eliminada con éxito' });
     } catch (err) {
         next(err);
+    }
+});
+
+
+
+//obtener la imagen de un asesor
+router.post('/api/getImagenAsesor', async(req, res, next)=>{
+    try{
+        var request = new sql.Request();
+        var result = await request.query(`EXEC [dbo].[getImagenAsesor] '${req.body.id}';`);
+        res.json(result.recordset);
+    }
+    catch(error){
+        console.log(error);
+        res.send(error);
     }
 });
 

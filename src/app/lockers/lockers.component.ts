@@ -40,6 +40,8 @@ export class LockersComponent {
     this.getDisponibilidad();
     this.getCasilleroReservado();
   }
+
+  //Método para obtener la información de los casilleros disponibles
   getCasillerosDis(){
     this.apiService.getCasillerosDisponibles().subscribe((data: Casilleros[]) => {
       this.casilleros = data;
@@ -47,7 +49,7 @@ export class LockersComponent {
     });
   }
 
-
+  //Método para obtener el número de casilleros disponibles
   getDisponibilidad(){
     this.apiService.getDisponibilidadCasillero().subscribe((data: NumCasillerosDisponibles[]) => {
       this.CasillerosDisponibles = data;
@@ -55,20 +57,21 @@ export class LockersComponent {
 
   }
 
+  //Método para obtener la información del casillero que ya tiene reservado el alumno
   getCasilleroReservado(){
     const matricula = this.authService.currentUserValue['username']; // Obtener la matricula del alumno
-
     this.apiService.consultarReservaCasillero(matricula).subscribe((data: ReservaCasillero) => {
       this.CasilleroReservado = data;
-      
+      console.log(data)
     });
-
   }
 
+  //Actualizar el casillero selectado
   actulizarCasilleroSelecccionado(seleccionado : Casilleros){
     this.seleReserva = seleccionado;
   }
 
+  //Método para checar la imagen/pdf subido por el alumno
   checarImagenSubida(){
     if(this.CasilleroReservado.estado === "Confirmada"){
       if (this.CasilleroReservado.comprobante.length > 0){
@@ -79,42 +82,39 @@ export class LockersComponent {
     else return true;
   }
 
+  //Método para registrar la reserva casillero en la base de datos 
   crearReservaCasillero(){
     const alumno = this.authService.currentUserValue['username']; // Obtener la matricula del alumno
     const casillero = this.seleReserva.id
-
     
     this.apiService.crearReservaCasillero(alumno,casillero).subscribe(error => {
       console.error('Error fetching area id status', error);
     });
   }
 
+  //Método para actualizar el estado del casillero a ocupado
   actualizarEstadoCasillero(){
     const casillero = this.seleReserva.id
-    
-
     this.apiService.actualizarEstadoCasillero(casillero, 1).subscribe(error => {
-      console.error('Error fetching area id status', error);
-  });
+      console.error(error);
+     });
   }
 
+  //Método para descartar la reserva del casillero cancelada
+  descartarReservaCasillero(idReserva: number){
+    this.apiService.descartarReservaCasillero(idReserva).subscribe(error => {
+      console.error(error);
+     });
+  } 
 
+  //Método para refrescar la página
   refresh(){
     window.location.reload();
   }
   
-
-
 /* Creación del modal*/
 
   closeResult: string = '';
-
-  /*------------------------------------------
-  --------------------------------------------
-  Created constructor
-  --------------------------------------------
-  --------------------------------------------*/
-  
 
   /**
    * Write code on Method

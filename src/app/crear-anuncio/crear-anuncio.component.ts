@@ -59,17 +59,6 @@ export class CrearAnuncioComponent {
     return String(changedDate);
   }
 
-  // Función para obtener el dia que será dentro de 14 días
-  diaMAX() {
-    let temp = new Date();
-
-    temp.setDate(temp.getDate() + 14);
-
-    let changedDate = this.pipe.transform(temp, 'YYYY-MM-dd');
-
-    return String(changedDate);
-  }
-
   ngOnInit(): void { }
 
   /* Validar si todos los campos han sido llenados */
@@ -82,26 +71,58 @@ export class CrearAnuncioComponent {
     duracionFin: string,
     titulo: string
   ) {
+
+    //Validación de la fechas de inicio y fin de duración del anuncio
+    const fecha1: Date = new Date(duracionIni);
+    const fecha2: Date = new Date(duracionFin);
+
+    const diferenciaEnMilisegundos: number = fecha2.getTime() - fecha1.getTime();
+    const diferenciaEnDias: number = Math.floor(diferenciaEnMilisegundos / (1000 * 60 * 60 * 24));
+
+
+    //Validación de la fechas de inicio y fin de duración del evento
+    const fecha1D: Date = new Date(fechaInicio);
+    const fecha2D: Date = new Date(fechaFin);
+    const diferenciaEnMilisegundosD: number = fecha2D.getTime() - fecha1D.getTime();
+    const diferenciaEnDiasD: number = Math.floor(diferenciaEnMilisegundosD / (1000 * 60 * 60 * 24));
+
+
+    
     if (this.NuevoAnuncioForm.valid) {
-      if (this.imageUploadComponent) {
-        this.apiService
-          .createAnuncio(
-            fechaInicio,
-            fechaFin,
-            ubicacion,
-            descripcion,
-            duracionIni,
-            duracionFin,
-            'https://tec.mx/sites/default/files/styles/share/public/2020-09/logotipo-borregos-tec-de-monterrey_0.jpg?itok=_VNOFmiK',
-            titulo
-          )
-          .subscribe((error) => {
-            console.log(error);
-          });
-        this.imageUploadComponent.upload();
+      if(diferenciaEnDias <= 14 && diferenciaEnDias > 0 ){
+        if(diferenciaEnDiasD > 0){
+          if (this.imageUploadComponent) {
+            this.apiService
+              .createAnuncio(
+                fechaInicio,
+                fechaFin,
+                ubicacion,
+                descripcion,
+                duracionIni,
+                duracionFin,
+                'https://tec.mx/sites/default/files/styles/share/public/2020-09/logotipo-borregos-tec-de-monterrey_0.jpg?itok=_VNOFmiK',
+                titulo
+              )
+              .subscribe((error) => {
+                console.log(error);
+              });
+            this.imageUploadComponent.upload();
+            this.resultado = "Anuncio creado exitosamente!"
+          }
+
+        } else {
+          this.resultado = "Las fechas de duración del evento no son válidas. \n Ingrese nuevas fechas";
+
+        }
+        
+
+      } else{
+        this.resultado = "Las fechas de duración del anuncio tienen una diferencia mayor a 14 dias. \n Ingrese nuevas fechas";
       }
+
     } else {
       this.resultado = 'Hay datos inválidos en el formulario';
+      
     }
   }
 
@@ -123,9 +144,18 @@ export class CrearAnuncioComponent {
       .result.then(
         (result) => {
           this.closeResult = `Closed with: ${result}`;
+
+          if(this.resultado == "Anuncio creado exitosamente!"){
+            this.refresh()
+          }
+         
         },
         (reason) => {
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+          if(this.resultado == "Anuncio creado exitosamente!"){
+            this.refresh()
+          }
+         
         }
       );
   }

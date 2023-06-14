@@ -10,7 +10,7 @@
             <h5 class="card-title">&nbsp;</h5>
             <h5 class="card-title">&nbsp;</h5>
 
-            <h1 class="card-title" class="text-center">Bienvenido administrador</h1>
+            <h1 class="card-title" class="text-center">Bienvenido {{tipoUsuario.role}}</h1>
         </div>
     </div>
 </div>
@@ -25,10 +25,11 @@
 <br>
 
 
-<!--Tarjetas con la información del area deportivas del wellness center-->
 
 <ng-container *ngFor="let area of areas">
-    <div class="vstack gap-3 col-md-11 mx-auto mt-3" *ngIf="area.Estatus == true">
+
+    <!--Tarjetas con la información del area deportivas del wellness center *Exclusivo administrador*-->
+    <div class="vstack gap-3 col-md-9 mx-auto mt-3" *ngIf="area.Estatus == true && isAdmin() || isDirector()">
         <div class="card" id="card">
             <div class="card-body">
                 <div class="row">
@@ -85,7 +86,52 @@
         </div>
     </div>
 
-    <div class="vstack gap-3 col-md-11 mx-auto mt-4" *ngIf="area.Estatus == false">
+
+        <!--Tarjetas con la información del area deportivas del wellness center *Exclusivo Asesor*-->
+        <div class="vstack gap-3 col-md-7 mx-auto mt-3" *ngIf=" area.Estatus == true && isInstructor()"  >
+            <div class="card" id="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mt-2">
+                            <img [src]="area.Imagen" (error)="updateUrl($event)" height="90%" class="card-img" alt="..." />
+                        </div>
+                        <div class="col-md-3 mt-2">
+                            <div class="text-center" id="abierto" *ngIf="area.Estatus == true">
+                                Abierto <br />
+                                Aforo: {{ area.LugaresDisponibles }}/{{ area.LugaresTotales }}
+                            </div>
+
+
+                        </div>
+                        <div class="col-md-3">
+                            <div id="text">
+                                <i><strong>{{ area.NombreArea }}</strong></i>
+                            </div>
+                        </div>
+                        <div class="col-md-3" id="align">
+                            <button id="btn2" class="btn btn-primary btn-lg"
+                                *ngIf="area.NombreArea.toLowerCase() === 'gimnasio'"
+                                [routerLink]="['/estadisticasGimnasio']">
+                                Estadísticas
+                            </button>
+
+                            <button id="btn2" class="btn btn-primary btn-lg"
+                                *ngIf="area.NombreArea.toLowerCase() !== 'gimnasio'"
+                                [routerLink]="['/estadisticas', area.NombreArea.toLowerCase()]">
+                                Estadísticas
+                            </button>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    <!--Tarjetas con la información del area deportivas si esta se encuentra cerrada-->
+    <div class="vstack gap-3 col-md-9 mx-auto mt-4" *ngIf="area.Estatus == false && !isInstructor() ">
         <div class="card" id="card">
             <div class="card-body">
                 <div class="row">
@@ -132,24 +178,69 @@
                         <button id="btn2" class="btn btn-primary btn-lg" (click)="openArea(area.AreaId, mymodal)">
                             Abrir área
                         </button>
-                        <ng-template #mymodal let-modal>
-                            <div class="modal-header">
-                                <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
-                                <button type="button" class="close" aria-label="Close"
-                                    (click)="modal.dismiss('Cross click')">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">Área abierta correctamente!</div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">
-                                    OK
-                                </button>
-                            </div>
-                        </ng-template>
+                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+
+       <!--Tarjetas con la información del area deportivas del wellness center en caso de estar cerrada *Exclusivo Asesor*-->
+       <div class="vstack gap-3 col-md-7 mx-auto mt-3" *ngIf=" area.Estatus == false && isInstructor()"  >
+        <div class="card" id="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 mt-2">
+                        <img [src]="area.Imagen" (error)="updateUrl($event)" height="90%" class="card-img" alt="..." />
+                    </div>
+                    <div class="col-md-3 mt-2">
+                        
+                            <div class="text-center" id="cerrado">Cerrado</div>
+                        
+                    </div>
+                    <div class="col-md-3">
+                        <div id="text">
+                            <i><strong>{{ area.NombreArea }}</strong></i>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="align">
+                        <button id="btn2" class="btn btn-primary btn-lg"
+                            *ngIf="area.NombreArea.toLowerCase() === 'gimnasio'"
+                            [routerLink]="['/estadisticasGimnasio']">
+                            Estadísticas
+                        </button>
+
+                        <button id="btn2" class="btn btn-primary btn-lg"
+                            *ngIf="area.NombreArea.toLowerCase() !== 'gimnasio'"
+                            [routerLink]="['/estadisticas', area.NombreArea.toLowerCase()]">
+                            Estadísticas
+                        </button>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </ng-container>
+
+
+<!--Modal para abrir el area deportiva en caso de destar cerrada-->
+<ng-template #mymodal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+        <button type="button" class="close" aria-label="Close"
+            (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">Área abierta correctamente!</div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">
+            OK
+        </button>
+    </div>
+</ng-template>
