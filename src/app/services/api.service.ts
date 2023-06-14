@@ -32,14 +32,14 @@ import { AsesorInfo } from '../models/asesor-info';
 import { ReservaAsesorAlumno } from '../models/reserva-asesor-alumno';
 import { ExisteAlumno } from '../models/existe-alumno';
 import { Eventos } from '../models/event.model';
-import { LoginResponse } from '../models/loginResponse.model';import { ReseñaArea } from '../models/reseña-area';
-
+import { LoginResponse } from '../models/loginResponse.model';
+import { ReseñaArea } from '../models/reseña-area';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(private http: HttpClient, private tokenService: TokenService) { }
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   private apiUrl = 'http://localhost:8080';
 
@@ -57,7 +57,7 @@ export class ApiService {
       })
     );
   }
-  
+
   login(username: string, password: string) {
     const body = {
       username: username,
@@ -217,20 +217,56 @@ export class ApiService {
   }
 
   //Cancelar la reserva de un casillero
-  cancelarReservaCasillero(id:number, idCasillero:number){
-    return this.http.post('/api/cancelarReservaLocker',{
-      id: id,
-      idCasillero: idCasillero
-    });
+  cancelarReservaCasillero(id: number, idCasillero: number) {
+    const body = { id, idCasillero };
+    return this.http
+      .post('/api/cancelarReservaLocker', body, {
+        headers: this.getAuthHeaders(),
+      })
+      .pipe(
+        catchError((error) => {
+          // Si el error es un 403, intenta refrescar el token
+          if (error.status === 403) {
+            return this.refreshToken().pipe(
+              switchMap(() => {
+                // Si el refresco del token es exitoso, reintentar la petición original
+                return this.http.post('/api/cancelarReservaLocker', body, {
+                  headers: this.getAuthHeaders(),
+                });
+              })
+            );
+          }
+          // Si el error es distinto a un 403, simplemente lanza el error
+          throw error;
+        })
+      );
   }
 
   //Descartar la reserva de un casillero
-  descartarReservaCasillero(id: number){
-    return this.http.post('/api/descartaReservaLocker',{
-      id: id
-    });
+  descartarReservaCasillero(id: number) {
+    const body = { id };
+    return this.http
+      .post('/api/descartaReservaLocker', body, {
+        headers: this.getAuthHeaders(),
+      })
+      .pipe(
+        catchError((error) => {
+          // Si el error es un 403, intenta refrescar el token
+          if (error.status === 403) {
+            return this.refreshToken().pipe(
+              switchMap(() => {
+                // Si el refresco del token es exitoso, reintentar la petición original
+                return this.http.post('/api/descartaReservaLocker', body, {
+                  headers: this.getAuthHeaders(),
+                });
+              })
+            );
+          }
+          // Si el error es distinto a un 403, simplemente lanza el error
+          throw error;
+        })
+      );
   }
-  
 
   // Obtener todos los anuncios
   getAnuncios(): Observable<Anuncio[]> {
@@ -1070,12 +1106,11 @@ export class ApiService {
   }
 
   // Método para verificar si la semana es de vacaciones o días escolares
-  getDiasEscolares(dia: string): Observable<any>{
+  getDiasEscolares(dia: string): Observable<any> {
     return this.http.get<any>(`/api/getDiasEscolares/${dia}/`);
   }
 
-
- // Método para modificar el aforo máximo de un area deportiva
+  // Método para modificar el aforo máximo de un area deportiva
   modificarAforoMaximo(
     area_id: number,
     nuevo_limite: number,
@@ -1182,10 +1217,10 @@ export class ApiService {
       );
   }
 
-   //Método para obtener la imagen del asesor al recibir su numero de nomina como parametro
-   getImagenAsesor(id: string): Observable<string>{
+  //Método para obtener la imagen del asesor al recibir su numero de nomina como parametro
+  getImagenAsesor(id: string): Observable<string> {
     return this.http.post<string>('/api/getImagenAsesor', {
-      id: id
+      id: id,
     });
   }
   //Método para obtener las reservas de un asesor
@@ -1442,7 +1477,6 @@ export class ApiService {
         })
       );
   }
-  
 
   cancelarReservaAsesor(id: number) {
     return this.http
@@ -1474,40 +1508,47 @@ export class ApiService {
   }
 
   //Obtener las reservas activas del alumno para el calendario
-  getEventos(matricula: string): Observable<Eventos[]>{
+  getEventos(matricula: string): Observable<Eventos[]> {
     return this.http.post<Eventos[]>('/api/getEventos', {
-      usuario: matricula
+      usuario: matricula,
     });
   }
 
   //Obtener las reseñas de un area deportiva
-  getReseniasArea(idArea: number): Observable<ReseñaArea[]>{
+  getReseniasArea(idArea: number): Observable<ReseñaArea[]> {
     return this.http.post<ReseñaArea[]>('/api/obtenerCalifArea', {
-      idArea: idArea
+      idArea: idArea,
     });
   }
 
   //Obtener el numero total de registros de un rubro que se pase como parametro
-  getNumRegistrosArea(idArea: number, rubro: string): Observable<number>{
+  getNumRegistrosArea(idArea: number, rubro: string): Observable<number> {
     return this.http.post<number>('/api/obtenerNumeroRegistrosRubro', {
-      idArea : idArea,
-      rubro : rubro
+      idArea: idArea,
+      rubro: rubro,
     });
   }
 
   // Crear reseña de un area deportiva
-  calificarArea(idArea: number, calif1: number,calif2: number,calif3: number, rubro1:string, rubro2:string, rubro3:string, ) {
+  calificarArea(
+    idArea: number,
+    calif1: number,
+    calif2: number,
+    calif3: number,
+    rubro1: string,
+    rubro2: string,
+    rubro3: string
+  ) {
     return this.http.post('/api/calificarArea', {
       idArea: idArea,
-      calif1 : calif1,
-      calif2 : calif2,
-      calif3 : calif3,
-      rubro1 : rubro1,
-      rubro2 : rubro2,
-      rubro3 : rubro3
-    })
+      calif1: calif1,
+      calif2: calif2,
+      calif3: calif3,
+      rubro1: rubro1,
+      rubro2: rubro2,
+      rubro3: rubro3,
+    });
   }
-
 
   //Service que sirve para crear Area
   createArea(
