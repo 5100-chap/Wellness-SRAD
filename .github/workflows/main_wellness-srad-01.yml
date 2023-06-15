@@ -28,7 +28,7 @@ jobs:
 
       - name: Archive production artifacts
         run: |
-          tar -cvf artifact.tar ./API
+          tar --exclude='./src' --exclude='./.angular' --exclude='./.github' --exclude='./.vscode' --exclude='./node_modules' -cvf artifact.tar ./
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -60,4 +60,4 @@ jobs:
           app-name: 'Wellness-SRAD-01'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3DABF66C91F3462196CA878F218A0EA4 }}
-          package: './API'
+          package: '.'
