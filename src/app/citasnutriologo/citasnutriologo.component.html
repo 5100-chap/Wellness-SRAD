@@ -8,7 +8,7 @@
 
 <!--Serie de tarjetas con la información de los entrenadores diponibles-->
 
-<div class="vstack gap-4 col-md-8 mx-auto mt-5">
+<div class="vstack gap-4 col-md-8 mx-auto mt-5" id="seperacion">
     <div *ngFor="let each of listaAsesores;">
         <div class="card w-100" >
             <div class="card">
@@ -32,28 +32,8 @@
     
     <!--Este mensaje aparece cuando no hay ningun entrenador disponible-->
     
-    <div  class="text-center" *ngIf="listaAsesores.length===0">
+    <div  class="text-center" *ngIf="listaAsesores.length===0" id="seperacion">
         <h1>No hay nutriólogos disponibles</h1>
     </div>
 
     <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>

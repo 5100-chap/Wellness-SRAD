@@ -1,22 +1,22 @@
 <!--Encabezado de la pantalla de anuncios-->
 
 <div class="row">
-    <div class=" col-md-6 mt-4" style="margin-left: 1%;">
-      <h3> <strong> Anuncios </strong> </h3>
+    <div class=" col-md-6 mt-4" style="margin-left: 3%;">
+      <h2> <strong> Anuncios </strong> </h2>
     </div>
   </div>
 <br>
 
 <!--Tarjetas con la información de los anuncios -->
 
-<div class="vstack gap-3 col-md-11 mx-auto">
+<div class="vstack gap-3 col-md-10 mx-auto" id="seperacion">
 
   <div *ngFor="let anuncio of anuncios">
     <div class="card" id="card" *ngIf="validarAparicion(anuncio.duracion_inicio)">
       <div class = "row">
         <!-- Imagen del anuncio -->
 
-        <div class=" col-md-2 ">
+        <div class=" col-md-3 ">
           <img src={{anuncio.imagen}} (error)="updateUrl($event)" width="100%" height="100%" class="card-img" alt="...">
         </div>
 
@@ -31,7 +31,7 @@
         </div>
 
          <!-- fecha del anuncio -->
-       <div  class="col-md-3" id="align" >              
+       <div  class="col-md-2" id="align" >              
           <div class="card" style="border-color: transparent;" >
             <div class="card-body">
               <strong style="color: #003399; font-size: 1.3rem;">Fecha:&nbsp; </strong> 
@@ -66,10 +66,3 @@
  </div>
 </div>
 
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
