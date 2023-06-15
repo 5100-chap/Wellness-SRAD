@@ -1,3 +1,28 @@
+@media (max-width: 768px) {
+  .fc-event-title {
+    font-size: 0.8em;
+  }
+  .fc .fc-col-header-cell-cushion {
+    font-size: 0.8em;
+    white-space: nowrap;
+  }
+  .fc .fc-daygrid-day-frame {
+    font-size: 0.8em;
+  }
+}
+
+@media (min-width: 769px) {
+  .fc .fc-col-header-cell-cushion {
+    font-size: 1em;
+  }
+  .fc .fc-daygrid-day-frame {
+    font-size: 1em;
+  }
+  .fc .fc-event-title {
+    font-size: 1em;
+  }
+}
+
 full-calendar {
   padding-left: 1rem;
   padding-right: 1rem;
