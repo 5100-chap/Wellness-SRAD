@@ -20,23 +20,23 @@
             <a class="nav-link active" aria-current="page" [routerLink]="'inicio'">Inicio</a>
           </li>
 
-          <li class="nav-item" *ngIf="isAdmin()">
+          <li class="nav-item" *ngIf="isAdmin() || isDirector() || isInstructor()">
             <a class="nav-link active" aria-current="page" [routerLink]="'inicioAdmin'">Inicio</a>
           </li>
 
-          <li class="nav-item" *ngIf="isAdmin()">
+          <li class="nav-item" *ngIf="isAdmin() || isDirector()">
             <a class="nav-link active" aria-current="page" [routerLink]="'exportarDatos'">Exportar aforo</a>
           </li>
 
-          <li class="nav-item" *ngIf="isAdmin()">
+          <li class="nav-item" *ngIf="isAdmin() || isDirector()">
             <a class="nav-link active" aria-current="page" [routerLink]="'crearAnuncio'">Crear anuncio</a>
           </li>
 
-          <li class="nav-item" *ngIf="isAdmin()">
+          <li class="nav-item" *ngIf="isAdmin() || isDirector() || isInstructor()">
             <a class="nav-link active" aria-current="page" [routerLink]="'monitorIngresos'">Monitor de ingresos</a>
           </li>
 
-          <li class="nav-item" *ngIf="isAdmin()">
+          <li class="nav-item" *ngIf="isAdmin() || isDirector() || isInstructor()">
             <a class="nav-link active" aria-current="page" [routerLink]="'monitorReservas'">Reservas</a>
           </li>
 

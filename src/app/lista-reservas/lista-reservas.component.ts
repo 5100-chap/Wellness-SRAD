@@ -77,12 +77,12 @@ export class ListaReservasComponent {
 
   // Marcar Salida Asesor
   marcarSalidaAsesor(id: number){
-    this.apiService.marcarSalidaAsesor(this.generateHoraActualString(), id);
+    this.apiService.marcarSalidaAsesor(this.generateHoraActualString(), id).subscribe();
   }
 
   // Cancelar Reserva Asesor
   cancelarReservaAsesor(id: number){
-    this.apiService.cancelarReservaAsesor(id).subscribe(error=>{});
+    this.apiService.cancelarReservaAsesor(id).subscribe();
   }
 
   getEstadoAsesor(index: number): string{
@@ -122,7 +122,7 @@ export class ListaReservasComponent {
 
   cancelarReserva(index: number){
     const usuario = this.authService.currentUserValue['username'];
-    this.apiService.cancelarReservaAlumno(usuario, this.Reservas[index]['id']).subscribe(()=>{
+    this.apiService.cancelarReservaAlumno(usuario, this.Reservas[index]['id'], 1).subscribe(()=>{
     });
   }
 

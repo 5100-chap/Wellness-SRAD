@@ -5,6 +5,8 @@ const sql = require("mssql");
 const express = require("express");
 const router = express.Router();
 
+const { verifyJWT } = require("../middleware/jwtSecurity");
+
 // Esta función genera la consulta SQL para un segmento y bloque específico
 /* Funciones de Tendencia por día de la semana */
 // Esta función genera la consulta SQL para un segmento y bloque específico
@@ -108,8 +110,6 @@ async function obtenerTendencias(segmento, bloque, semana, metricas) {
     }
 }
 
-// Resto del código sigue sin cambios...
-
 //Funcion para calcular la mediana
 function mediana(array) {
     array.sort((a, b) => a - b);
@@ -120,7 +120,7 @@ function mediana(array) {
 }
 
 // Aquí utilizamos las funciones en un endpoint de la API
-router.get("/api/tendencias/:segmento/:bloque/:semana", async (req, res) => {
+router.get("/api/tendencias/:segmento/:bloque/:semana", verifyJWT,async (req, res) => {
     try {
         let segmento = req.params.segmento;
         let bloque = parseInt(req.params.bloque);
@@ -142,7 +142,6 @@ router.get("/api/tendencias/:segmento/:bloque/:semana", async (req, res) => {
 
         res.json({ tendencias });
     } catch (err) {
-        console.log(err);
         res
             .status(500)
             .json({ error: "Ocurrió un error al procesar la solicitud" });
@@ -186,13 +185,12 @@ async function obtenerTendenciasPorHora(dia) {
 
         return tendenciasPorHora;
     } catch (err) {
-        console.log(err);
         throw new Error("Error al obtener las tendencias por hora");
     }
 }
 
 // Aquí utilizamos las funciones en un endpoint de la API
-router.get("/api/tendencias_por_hora/:dia", async (req, res) => {
+router.get("/api/tendencias_por_hora/:dia", verifyJWT, async (req, res) => {
     try {
         let dia = req.params.dia;
 
@@ -200,10 +198,117 @@ router.get("/api/tendencias_por_hora/:dia", async (req, res) => {
 
         res.json(tendencias);
     } catch (err) {
-        console.log(err);
         res
             .status(500)
             .json({ error: "Ocurrió un error al procesar la solicitud" });
+    }
+});
+
+// Obtener las reseñas de un area deportiva
+router.post("/api/obtenerCalifArea", async(req, res) => {
+    try{
+        var request = new sql.Request();
+        var result = await request.query(`EXEC [dbo].[obtenerCalifArea] ${req.body.idArea} ;`);
+        res.json(result.recordset);
+
+    }
+    catch(error){
+        console.error(error)
+        res.json(error);
+    }
+})
+
+
+//Obtener el numero total de registros de un rubro que se pase como parametro
+router.post("/api/obtenerNumeroRegistrosRubro", async(req, res) => {
+    try{
+        var request = new sql.Request();
+        var result = await request.query(`EXEC [dbo].[obtenerNumeroRegistrosRubro] ${req.body.idArea}, \'${req.body.rubro}\' ;`);
+        res.json(result.recordset);
+    }
+    catch(error){
+        res.json(error);
+    }
+})
+
+
+
+
+// Retorna los días escolares dependiendo del semestre en el que se está cursando
+function getDiasEscolares(hoy){
+    let year = moment().year();
+
+    let fechaInicioInv = moment()
+        .year(year)
+        .startOf("year")
+        .startOf("isoWeek")
+        .add(1, "week")
+    let fechaFinalInv = moment(fechaInicioInv)
+        .add(5, "weeks")
+
+    fechaInicioInv = new Date(fechaInicioInv.format("YYYY-MM-DD"));
+    fechaFinalInv = new Date(fechaFinalInv.format("YYYY-MM-DD"));
+        
+    let fechaInicioPrimer = moment()
+        .year(year)
+        .month("February")
+        .startOf("month")
+        .startOf("isoWeek")
+        .add(2, "weeks")
+    let fechaFinalPrimer = moment(fechaInicioPrimer)
+        .add(19, "weeks")
+
+    fechaInicioPrimer = new Date(fechaInicioPrimer.format("YYYY-MM-DD"));
+    fechaFinalPrimer = new Date(fechaFinalPrimer.format("YYYY-MM-DD"))
+
+    let fechaInicioSegundo = moment()
+        .year(year)
+        .month("August")
+        .startOf("month")
+        .startOf("isoWeek")
+        .add(1, "weeks")
+    let fechaFinalSegundo = moment(fechaInicioSegundo)
+        .add(18, "weeks")   
+    
+    fechaInicioSegundo = new Date(fechaInicioSegundo.format("YYYY-MM-DD"));
+    fechaFinalSegundo = new Date(fechaFinalSegundo.format("YYYY-MM-DD"));
+
+    let fechaInicioVerano = moment()
+        .year(year)
+        .month("June")
+        .endOf("month")
+        .startOf("isoWeek")
+    let fechaFinalVerano = moment(fechaInicioVerano)
+        .add(5, "weeks")
+
+    fechaInicioVerano = new Date(fechaInicioVerano.format("YYYY-MM-DD"));
+    fechaFinalVerano = new Date(fechaFinalVerano.format("YYYY-MM-DD"));
+
+    if(fechaInicioInv<=hoy && fechaFinalInv>hoy){
+        return true;
+    }
+    else if(fechaInicioPrimer<=hoy && fechaFinalPrimer>hoy){
+        return true;
+    }
+    else if(fechaInicioSegundo<=hoy && fechaFinalSegundo>hoy){
+        return true;
+    }
+    else if(fechaInicioVerano<=hoy && fechaFinalVerano>hoy){
+        return true;
+    }
+    return false;
+}
+
+// Obtener los datos de dias escolares
+// En base al lunes de la semana seleccionada
+// Se revisará si está en periodo escolar
+router.get('/api/getDiasEscolares/:lunes/', async(req, res, next)=>{
+    try{
+        res.json(getDiasEscolares(new Date(req.params.lunes)));
+    }
+    catch(err){
+        throw new Error("Error al obtener los datos");
+        res.json(err);
     }
 });
 

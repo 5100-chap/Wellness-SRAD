@@ -13,6 +13,7 @@ const database = require("./config/credentials/database");
 
 const routes = require("./config/routes/router"); 
 const cancelAuto = require("./config/routines/cancelacionAutomatica");
+const cancelReservaAsesorAuto = require("./config/routines/cancelarReservasAsesor");
 const AforoTotalAutomatico = require("./config/routines/AforoTotalAutomatico");
 const AbrirCerrarAreas = require("./config/routines/AbrirCerrarAreas");
 const eliminarAnuncios = require("./config/routines/EliminarAnuncio")
@@ -20,12 +21,10 @@ const eliminarAnuncios = require("./config/routines/EliminarAnuncio")
 const port = process.env.PORT || 8080;
 
 const handleDatabaseErrors = (err, req, res, next) => {
-    console.log("Error en la base de datos:", err);
     res.status(500).send("Error en la base de datos: " + err.message);
 };
 
 const handleGeneralErrors = (err, req, res, next) => {
-    console.log("Error:", err);
     res.status(500).send("Error general, favor de checar API: " + err.message);
 };
 
@@ -43,10 +42,9 @@ app.use(routes);
 const connectToDatabase = async () => {
     try {
         await sql.connect(database.config);
-        console.log("Conectado a la base de datos");
     } catch (err) {
-        console.log(
-            "Error al conectar a la base de datos:" + err.message + "\n",
+        console.error(
+            "Error al conectar a la base de datos:" + "\n",
             err
         );
     }
@@ -55,14 +53,14 @@ const connectToDatabase = async () => {
 //Iniciar el servidor
 app.set("port", port);
 app.listen(port, function () {
-    console.log(`Servidor iniciado en el puerto ${port}`);
-    console.log(database.config);
     (async () => {
         await connectToDatabase();
         cancelAuto();
+        cancelReservaAsesorAuto();
         AbrirCerrarAreas();
         AforoTotalAutomatico();
         eliminarAnuncios();
         setInterval(cancelAuto, 5*60*1000);
+        setInterval(cancelReservaAsesorAuto, 5*60*1000);
     })();
 });
