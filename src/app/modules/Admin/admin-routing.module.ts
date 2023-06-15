@@ -27,17 +27,17 @@ const routesAdmin: Routes = [
     {
         path: 'crearArea',
         component: NuevaAreaComponent,
-        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])],
+        canActivate: [authGuard([ 'Administrador'])],
         data: {
-            allowedRoles: ['Director', 'Administrador', 'Instructor'],
+            allowedRoles: ['Administrador'],
         },
     },
     {
         path: 'editarAforo/:nombreArea',
         component: EditarAforoComponent,
-        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])],
+        canActivate: [authGuard(['Director', 'Administrador'])],
         data: {
-            allowedRoles: ['Director', 'Administrador', 'Instructor'],
+            allowedRoles: ['Director', 'Administrador'],
         },
     },
     {
@@ -51,17 +51,17 @@ const routesAdmin: Routes = [
     {
         path: 'cerrarEspacios/:nombreArea',
         component: CerrarEspaciosComponent,
-        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])],
+        canActivate: [authGuard(['Director', 'Administrador'])],
         data: {
-            allowedRoles: ['Director', 'Administrador', 'Instructor'],
+            allowedRoles: ['Director', 'Administrador'],
         },
     },
     {
         path: 'crearAnuncio',
         component: CrearAnuncioComponent,
-        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])],
+        canActivate: [authGuard(['Director', 'Administrador'])],
         data: {
-            allowedRoles: ['Director', 'Administrador', 'Instructor'],
+            allowedRoles: ['Director', 'Administrador'],
         },
     },
     {
@@ -91,9 +91,9 @@ const routesAdmin: Routes = [
     {
         path: 'exportarDatos',
         component: ExportarDatosComponent,
-        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])],
+        canActivate: [authGuard(['Director', 'Administrador'])],
         data: {
-            allowedRoles: ['Director', 'Administrador', 'Instructor'],
+            allowedRoles: ['Director', 'Administrador'],
         },
     },
     {

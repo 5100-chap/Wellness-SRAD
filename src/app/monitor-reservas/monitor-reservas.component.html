@@ -43,7 +43,7 @@
 
 <!-- Tabla con la información de las reservas de los lockers -->
 
-<div *ngIf="area.value == 'Lockers' " class="card mt-5" style="width:75%; margin-left: 13%;">
+<div *ngIf="area.value == 'Lockers' " class="card mt-5 table-wrapper" style="width:75%; margin-left: 13%;">
 
   <table class="table table-striped">
     <thead>
@@ -82,7 +82,7 @@
 
 <!-- Tabla con la información del area deportiva seleccionada-->
 
-<div *ngIf="area.value != 'Lockers' " class="card mt-5" style="width:75%; margin-left: 13%;">
+<div *ngIf="area.value != 'Lockers' " class="card mt-5 table-wrapper" style="width:75%; margin-left: 13%;">
   <table class="table table-striped">
     <thead>
       <tr class="text-center">
@@ -97,20 +97,22 @@
       </tr>
     </thead>
     <tbody class="text-center" *ngFor="let r of reservasArea">
-      <tr class="text-center">
-        <td>{{r.matriculaAlumno}}</td>
-        <td>{{r.nombreAlumno}}</td>
-        <td>{{this.formatHora(r.hora)}}</td>
-        <td>{{this.formatDia(r.fecha)}}</td>
-        <td>{{r.estado}}</td>
-        <td>{{r.AreaNombre}}</td>
-        <td *ngIf="r.asesorNombre == null"> No asignado</td>
-        <td *ngIf="r.asesorNombre != null"> {{r.asesorNombre}}</td>
-        <td *ngIf="r.estado == 'Cancelada' || r.estado == 'Completada' ">NA</td>
-        <td *ngIf="r.estado != 'Cancelada' && r.estado != 'Completada'"><button style="margin-top: 1%;" id="btn2" class="btn btn-danger"
-            (click)="open(modalcancelar)" (click)="cancelarReserva(r.id, r.matriculaAlumno)">Cancelar Reserva</button>
-        </td>
-      </tr>
+      
+        <tr class="text-center" >
+          <td>{{r.matriculaAlumno}}</td>
+          <td>{{r.nombreAlumno}}</td>
+          <td>{{this.formatHora(r.hora)}}</td>
+          <td>{{this.formatDia(r.fecha)}}</td>
+          <td>{{r.estado}}</td>
+          <td>{{r.AreaNombre}}</td>
+          <td *ngIf="r.asesorNombre == null"> No asignado</td>
+          <td *ngIf="r.asesorNombre != null"> {{r.asesorNombre}}</td>
+          <td *ngIf="r.estado == 'Cancelada' || r.estado == 'Completada' ">NA</td>
+          <td *ngIf="r.estado != 'Cancelada' && r.estado != 'Completada'"><button style="margin-top: 1%;" id="btn2" class="btn btn-danger"
+              (click)="open(modalcancelar)" (click)="cancelarReserva(r.id, r.matriculaAlumno)">Cancelar Reserva</button>
+          </td>
+        </tr>
+
     </tbody>
   </table>
 </div>
@@ -138,6 +140,16 @@
 
 
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>

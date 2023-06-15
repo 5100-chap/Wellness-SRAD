@@ -110,13 +110,7 @@
 
     <div class="row" style="margin-left: 1.5%">
         <div class="col-md-11 mt-2">
-            <!-- <div class="form-check input-group mb-2">
-      <input type="checkbox" name="rad2" (change)="true" #checkBox1> &nbsp; ¿El nuevo espacio requiere materiales?
-    </div> -->
-
-            <!--Si el check-box ha sido activado-->
-
-            <!-- <div *ngIf="checkBox1.checked" class="input-group mb-3"> -->
+    
             <div class="input-group mb-3">
                 <span class="input-group-text" id="title">Material disponible</span>
                 <input type="text" formControlName="material" tabindex="4" autocomplete="off" class="form-control"
@@ -147,11 +141,11 @@
 
     <!--Botones-->
 
-    <div class="row justify-content-center p-3">
-        <div class="col-12 col-md-6 mb-2">
+    <div class="row text-center p-3 input-group">
+        <div class="col-8 col-md-3 mb-2">
             <button class="btn btn-primary btn-lg w-100" id="btn2" routerLink="/inicioAdmin">Cancelar</button>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-8 col-md-3">
             <button class="btn btn-primary btn-lg w-100" type="submit" [disabled]="NuevaAreaForm.invalid"
                 (click)="open(mymodal)" (click)="
             editarArea(
@@ -171,8 +165,17 @@
                 Favor de ingresar todos los datos
             </div>
         </div>
+
+        <div class="col-12 col-md-6">
+            <button class="btn btn-danger btn-lg w-100" type="button" *ngIf="areaActual.NombreArea.toLowerCase() !== 'gimnasio'"
+                (click)="open(confirmacionEliminar)">
+                Eliminar área
+            </button>
+        </div>
     </div>
 </form>
+
+
 
 <!--Modal de confirmación de creación de área-->
 
@@ -188,5 +191,21 @@
         <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">
             OK
         </button>
+    </div>
+</ng-template>
+
+<!--Modal de confirmacion para la eliminacion de un area-->
+<ng-template #confirmacionEliminar let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">¿Estás seguro de que quieres eliminar esta área deportiva?</div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss('cancel click')">Cancelar</button>
+        <button type="button" class="btn btn-danger"
+            (click)="eliminarArea(areaActual.AreaId); modal.close('delete click')">Eliminar</button>
     </div>
 </ng-template>

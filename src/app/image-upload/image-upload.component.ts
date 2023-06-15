@@ -3,6 +3,7 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-image-upload',
   templateUrl: './image-upload.component.html',
@@ -23,7 +24,8 @@ export class ImageUploadComponent implements OnInit {
 
   constructor(
     private uploadService: FileUploadService,
-    private __router: Router
+    private __router: Router,
+    private http: HttpClient
   ) {
     this.router = __router.url;
   }
@@ -60,24 +62,21 @@ export class ImageUploadComponent implements OnInit {
           );
           break;
         default:
-          console.log('Tipo de carga no reconocido');
       }
     }
   }
 
   //Regresa un booleano dependiendo si hay una imagen seleccionada
-  getValidation(){
+  getValidation() {
     return this.isImageSelected;
   }
 
   //Regresa el numero de caracteres del nombre del archivo seleccionado
-  getFileLenght(): number{
-    if(this.currentFile){
-      return this.currentFile.name.length
-    }
-    else return -999;
+  getFileLenght(): number {
+    if (this.currentFile) {
+      return this.currentFile.name.length;
+    } else return -999;
   }
-
 
   uploadFile(
     file: File,
@@ -94,7 +93,6 @@ export class ImageUploadComponent implements OnInit {
         }
       },
       error: (err: any) => {
-        console.log(err);
         this.progress = 0;
 
         if (err.error && err.error.message) {

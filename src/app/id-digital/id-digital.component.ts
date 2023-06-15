@@ -18,7 +18,7 @@ export class IdDigitalComponent {
 
   get Currentproperties() {
     const obj = this.authService.currentUserValue;
-    return obj.properties || {};
+    return obj.user || {};
   }
 
   ngAfterViewInit() {

@@ -234,7 +234,6 @@ export class GimnasioComponent implements OnInit {
             }
           );
         }, error=>{
-          console.log(error);
         });
       });
     });
@@ -264,7 +263,6 @@ export class GimnasioComponent implements OnInit {
   crearReserva(){
     if(this.diaSeleccionado!=undefined && this.horaSeleccionada!=undefined){
       this.apiService.crearReserva(this.authService.currentUserValue['username'], this.diaSeleccionado, this.horaSeleccionada, '', this.areaId).subscribe(error=>{
-        console.log(error);
       });
     }
   }
@@ -379,11 +377,11 @@ export class GimnasioComponent implements OnInit {
         this.actuales = actuales;
 
         this.aforoData = actuales + '/' + totales;
-        this.chart = this.chartService.createPieChart('MyChart', ['Libre: ' + actuales, 'Ocupado: ' + ocupados], [ocupados, actuales]);
-      
+        // Usa este metodo para crear la grafica mediante un servicio
+        this.chart = this.chartService.createPieChart('MyChart', ['Libre: ' + ocupados, 'Ocupado: ' + actuales], [ocupados, actuales]);
+        
       },
       (error) => {
-        console.log('Error fetching aforo status:', error);
       }
     );
   }
@@ -457,7 +455,6 @@ export class GimnasioComponent implements OnInit {
     var selectAmbiente = Number(ambiente);
   
     this.apiService.calificarArea(this.areaId, selectLimpieza, selectCalidad, selectAmbiente, 'Limpieza', 'Calidad del equipo', 'Ambiente').subscribe(error=>{
-      console.log(error);
     });
   }
 

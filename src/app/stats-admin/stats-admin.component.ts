@@ -106,7 +106,6 @@ export class StatsAdminComponent {
         );
       },
       (error) => {
-        console.log('Error fetching aforo status:', error);
       }
     );
   }
@@ -172,7 +171,6 @@ export class StatsAdminComponent {
             const dataPoints = Object.values(attendanceByDay);
 
             this.createChart(labels, dataPoints);
-            console.log(data);
           });
       }
     );
