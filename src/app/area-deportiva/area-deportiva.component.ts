@@ -35,7 +35,6 @@ import { ReseñaArea } from '../models/reseña-area';
   styleUrls: ['./area-deportiva.component.css'],
 })
 export class AreaDeportivaComponent implements OnInit {
-
   //Defenición del constructor
   constructor(
     private chartService: ChartService,
@@ -44,22 +43,42 @@ export class AreaDeportivaComponent implements OnInit {
     private router: Router,
     private apiService: ApiService,
     private authService: AuthService
-  ) {}
-
+  ) { }
 
   // Declaramos las variables y arrays que vamos a utilizar
-  areaActual : Area = new Area;
+  areaActual: Area = new Area();
   public nombreArea: string = '';
   aforoData: string = '';
-  meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-  diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+  meses = [
+    'Enero',
+    'Febrero',
+    'Marzo',
+    'Abril',
+    'Mayo',
+    'Junio',
+    'Julio',
+    'Agosto',
+    'Septiembre',
+    'Octubre',
+    'Noviembre',
+    'Diciembre',
+  ];
+  diasSemana = [
+    'Lunes',
+    'Martes',
+    'Miércoles',
+    'Jueves',
+    'Viernes',
+    'Sábado',
+    'Domingo',
+  ];
   now!: Date;
   totales!: number;
   actuales!: number;
   semanaSeleccionada!: number;
   dateControl = new FormControl();
   private subscription: Subscription | undefined;
-  private updateReservaArray : Subscription | undefined;
+  private updateReservaArray: Subscription | undefined;
   seleReserva: Reservas = new Reservas();
   public chart: any;
   alumnoStatus: number = -1;
@@ -67,14 +86,13 @@ export class AreaDeportivaComponent implements OnInit {
   horaSeleccionada!: string;
   diaSeleccionado!: string;
 
-  resenias : ReseñaArea[] = [];
-  Limpieza !: number;
-  Calidad !: number;
-  Ambiente !: number;
+  resenias: ReseñaArea[] = [];
+  Limpieza!: number;
+  Calidad!: number;
+  Ambiente!: number;
 
   horario!: boolean;
-
-
+  
   reservaArray: Reservas[] = [
     {
       id: 1,
@@ -158,7 +176,6 @@ export class AreaDeportivaComponent implements OnInit {
     },
   ];
 
-
   // Método para obtener la información del area deportiva formateada
   getFormattedNombreArea(): string {
     return this.nombreArea
@@ -205,130 +222,184 @@ export class AreaDeportivaComponent implements OnInit {
     this.seleReserva = reserve;
   }
 
-
   // Obtener el rango de días de la semana, desde lunes hasta domingo, en base a la semana que seleccionó
   listaDeHorariosReservados: HorarioReserva[] = [];
   listaDias: string[] = [];
-  getDiasSemana(){
+  getDiasSemana() {
     this.listaDias = [];
     const primerDiaAnio = new Date(this.now.getFullYear(), 0, 1);
-    const diasParaLunes = (primerDiaAnio.getDay()+6)%7;
-    const primerLunesDelAnio = new Date(this.now.getFullYear(), 0, 1 + (7 - diasParaLunes));
-    const diasSuma = (this.semanaSeleccionada-1)*7;
+    const diasParaLunes = (primerDiaAnio.getDay() + 6) % 7;
+    const primerLunesDelAnio = new Date(
+      this.now.getFullYear(),
+      0,
+      1 + (7 - diasParaLunes)
+    );
+    const diasSuma = (this.semanaSeleccionada - 1) * 7;
     const lunes = new Date(primerLunesDelAnio.getTime() + diasSuma * 86400000); // a partir del primer lunes del año, le suma los días que faltan para este lunes en millisegundos
     const week = new Date(70, 0, 7); // una semana completa
     const cont = new Date(70, 0, 1, 18, 0, 0); // un dia completo
-    const domingo = new Date(lunes.getTime()+week.getTime());
-    for(let i=lunes; i<=domingo; i=new Date(i.getTime() + cont.getTime())){
-      this.listaDias.push(`${i.getFullYear()}-${(i.getMonth()+1>9)?i.getMonth()+1:`0${i.getMonth()+1}`}-${(i.getDate()>9)?i.getDate():`0${i.getDate()}`}`);
+    const domingo = new Date(lunes.getTime() + week.getTime());
+    for (
+      let i = lunes;
+      i <= domingo;
+      i = new Date(i.getTime() + cont.getTime())
+    ) {
+      this.listaDias.push(
+        `${i.getFullYear()}-${i.getMonth() + 1 > 9 ? i.getMonth() + 1 : `0${i.getMonth() + 1}`
+        }-${i.getDate() > 9 ? i.getDate() : `0${i.getDate()}`}`
+      );
     }
   }
-  
-    // Crea la reserva dependiendo del día y hora seleccionados
-    crearReserva(){
-      if(this.diaSeleccionado!=undefined && this.horaSeleccionada!=undefined){
-        this.apiService.crearReserva(this.authService.currentUserValue['username'], this.diaSeleccionado, this.horaSeleccionada, '', this.areaActual.AreaId).subscribe(error=>{
-          console.log(error);
-        });
-      }
-    }
 
-    // Metodo para recargar la pagina
-    reload(){
-      window.location.reload();
+  // Crea la reserva dependiendo del día y hora seleccionados
+  crearReserva() {
+    if (
+      this.diaSeleccionado != undefined &&
+      this.horaSeleccionada != undefined
+    ) {
+      this.apiService
+        .crearReserva(
+          this.authService.currentUserValue['username'],
+          this.diaSeleccionado,
+          this.horaSeleccionada,
+          '',
+          this.areaActual.AreaId
+        )
+        .subscribe((error) => {
+          
+        });
     }
-    
-    // Imprimir en 'horario seleccionado' la fecha correcta
-    imprimirFechaCorrecta(index: number, dia: number){
-      this.diaSeleccionado = this.listaDias[dia];
-      this.horaSeleccionada = this.reservaArray[index].hora;
-      this.reservaArray[index].fecha = this.listaDias[dia] + " - " + this.reservaArray[index].hora.slice(0, 5) + " --> " + ((+this.reservaArray[index].hora.slice(0, 2)) + 2) + ":00";
-    }
+  }
+
+  // Metodo para recargar la pagina
+  reload() {
+    window.location.reload();
+  }
+
+  // Imprimir en 'horario seleccionado' la fecha correcta
+  imprimirFechaCorrecta(index: number, dia: number) {
+    this.diaSeleccionado = this.listaDias[dia];
+    this.horaSeleccionada = this.reservaArray[index].hora;
+    this.reservaArray[index].fecha =
+      this.listaDias[dia] +
+      ' - ' +
+      this.reservaArray[index].hora.slice(0, 5) +
+      ' --> ' +
+      (+this.reservaArray[index].hora.slice(0, 2) + 2) +
+      ':00';
+  }
 
   // Revisa si el aforo del lugar ya está lleno
-  lleno(): boolean{
+  lleno(): boolean {
     return this.totales > this.actuales;
   }
-  
+
   // Revisa si el horario del botón está ocupado
-  ocupado(dia: number, hora: string): boolean{
-    if(!this.horario){
+  ocupado(dia: number, hora: string): boolean {
+    if (!this.horario) {
       return false;
-    }
-    else if(!this.lleno()){
+    } else if (!this.lleno()) {
       return false;
-    }
-    else if(this.diaPasado(dia, hora) || this.semanaSeleccionada===undefined){
+    } else if (
+      this.diaPasado(dia, hora) ||
+      this.semanaSeleccionada === undefined
+    ) {
       return false;
-    }
-    else if(!this.diaPasado(dia, hora) && this.listaDeHorariosReservados.length===0){
+    } else if (
+      !this.diaPasado(dia, hora) &&
+      this.listaDeHorariosReservados.length === 0
+    ) {
       return true;
     }
     let yaExistenEseDia = 0;
-    for(let each of this.listaDeHorariosReservados){
-      if(each.dia.slice(0, 10) === this.listaDias[dia] && each.hora.slice(11, 19) === hora){
+    for (let each of this.listaDeHorariosReservados) {
+      if (
+        each.dia.slice(0, 10) === this.listaDias[dia] &&
+        each.hora.slice(11, 19) === hora
+      ) {
         yaExistenEseDia++;
       }
     }
-    if(yaExistenEseDia/this.listaDeHorariosReservados.length <= this.listaDeHorariosReservados.length){
+    if (
+      yaExistenEseDia / this.listaDeHorariosReservados.length <=
+      this.listaDeHorariosReservados.length
+    ) {
       // Esta condicion solo aplica a aquellas reservas hechas por el mismo usuario
-      for(let i=0; i<this.listaDeHorariosReservados.length; i++){
-        if(this.listaDeHorariosReservados[i].dia.slice(0, 10) === this.listaDias[dia] && this.listaDeHorariosReservados[i].hora.slice(11, 19) === hora && this.listaDeHorariosReservados[i].usuario === this.authService.currentUserValue['username']){
+      for (let i = 0; i < this.listaDeHorariosReservados.length; i++) {
+        if (
+          this.listaDeHorariosReservados[i].dia.slice(0, 10) ===
+          this.listaDias[dia] &&
+          this.listaDeHorariosReservados[i].hora.slice(11, 19) === hora &&
+          this.listaDeHorariosReservados[i].usuario ===
+          this.authService.currentUserValue['username']
+        ) {
           return false;
         }
       }
       // Ahora falta verificar si ya ha reservado mucho en el mismo día, por el usuario que use la app
       let reservasPorDia = 0;
-      for(let each of this.listaDeHorariosReservados){
-        if(each.dia.slice(0, 10) === this.listaDias[dia] && each.usuario === this.authService.currentUserValue['username']){
+      for (let each of this.listaDeHorariosReservados) {
+        if (
+          each.dia.slice(0, 10) === this.listaDias[dia] &&
+          each.usuario === this.authService.currentUserValue['username']
+        ) {
           reservasPorDia++;
         }
       }
-      if(reservasPorDia>this.totales){
+      if (reservasPorDia > this.totales) {
         return false;
       }
       return true;
     }
     return false;
   }
-  
-    // Revisa si ese horario ya pasó de fecha
-    diaPasado(dia: number, hora: string): boolean{
-      if(this.listaDias.length === 0){
-        return false;
-      }
-      const ant = new Date(+this.listaDias[dia].slice(0, 4), +this.listaDias[dia].slice(5, 7)-1, +this.listaDias[dia].slice(8), +hora.slice(0, 2), +hora.slice(3, 5), +hora.slice(6));
-      return ant < this.now;
-    }
-  
-    // Recibe el estado del alumno, si esta adentro o afuera del area
-    getAlumnoStatus(): void {
-      const usuario = this.authService.currentUserValue['username']; // Replace with the actual user value you want to send
-      this.apiService.verificarLlegada(usuario).subscribe(
-        (data: AlumnoStatusResponse) => {
-          this.alumnoStatus = data.status;
-        },
-        (error) => {
-          console.error('Error fetching alumno status:', error);
-        }
-      );
-    }
-    //Método para aumentar un +1 al aforo del area deportiva
-    aumentarAforo(): void {
-      this.apiService.aumentarAforo(this.areaActual.AreaId).subscribe((error) => {
-        console.error('Error fetching area id status: ', error);
-      });
-    }
 
-    //Método para desminuit un -1 al aforo del area deportiva
-    disminuirAforo(): void {
-      this.apiService.disminuirAforo(this.areaActual.AreaId).subscribe((error) => {
+  // Revisa si ese horario ya pasó de fecha
+  diaPasado(dia: number, hora: string): boolean {
+    if (this.listaDias.length === 0) {
+      return false;
+    }
+    const ant = new Date(
+      +this.listaDias[dia].slice(0, 4),
+      +this.listaDias[dia].slice(5, 7) - 1,
+      +this.listaDias[dia].slice(8),
+      +hora.slice(0, 2),
+      +hora.slice(3, 5),
+      +hora.slice(6)
+    );
+    return ant < this.now;
+  }
+
+  // Recibe el estado del alumno, si esta adentro o afuera del area
+  getAlumnoStatus(): void {
+    const usuario = this.authService.currentUserValue['username']; // Replace with the actual user value you want to send
+    this.apiService.verificarLlegada(usuario).subscribe(
+      (data: AlumnoStatusResponse) => {
+        this.alumnoStatus = data.status;
+      },
+      (error) => {
+        console.error('Error fetching alumno status:', error);
+      }
+    );
+  }
+  //Método para aumentar un +1 al aforo del area deportiva
+  aumentarAforo(): void {
+    this.apiService.aumentarAforo(this.areaActual.AreaId).subscribe((error) => {
+      console.error('Error fetching area id status: ', error);
+    });
+  }
+
+  //Método para desminuit un -1 al aforo del area deportiva
+  disminuirAforo(): void {
+    this.apiService
+      .disminuirAforo(this.areaActual.AreaId)
+      .subscribe((error) => {
         console.error('Error fetching area id status', error);
       });
-    }
+  }
 
-   //Metodo para obtener la información del area deportiva seleccionada
-   obtenerAreaDeportiva(){
+  //Metodo para obtener la información del area deportiva seleccionada
+  obtenerAreaDeportiva() {
     const nombreAreaParam = this.route.snapshot.paramMap.get('nombreArea');
     if (nombreAreaParam === null) {
       this.router.navigate(['/']);
@@ -336,39 +407,47 @@ export class AreaDeportivaComponent implements OnInit {
       this.nombreArea = nombreAreaParam;
       this.apiService.getAreaByName(this.nombreArea).subscribe((response) => {
         this.areaActual = response[0];
-        
+
         if (this.areaActual.NombreArea === null) {
           this.router.navigate(['/404']);
         }
-        if(!this.areaActual.Estatus) {
-          this.router.navigate(["/error-" + this.areaActual.NombreArea + "-cerrado"]);
-        }
-        else{
-          this.reservaArray = this.reservaArray.map(reserva => {
+        if (!this.areaActual.Estatus) {
+          this.router.navigate([
+            '/error-' + this.areaActual.NombreArea + '-cerrado',
+          ]);
+        } else {
+          this.reservaArray = this.reservaArray.map((reserva) => {
             return { ...reserva, id_area_deportiva: this.areaActual.AreaId };
-          });          
+          });
           this.getAforoArea();
           this.now = new Date();
-          this.subscription = this.dateControl.valueChanges.subscribe(()=>{
+          this.subscription = this.dateControl.valueChanges.subscribe(() => {
             this.semanaSeleccionada = +this.dateControl.value.slice(6);
             this.getDiasSemana();
-            this.apiService.getTodasReservas(this.listaDias[0], this.listaDias[6], this.areaActual.AreaId).subscribe((data: HorarioReserva[])=>{
-              this.listaDeHorariosReservados = data;
-              this.apiService.getDiasEscolares(this.listaDias[0]).subscribe(
-                (data: any)=>{
-                  this.horario = data;
-                }
+            this.apiService
+              .getTodasReservas(
+                this.listaDias[0],
+                this.listaDias[6],
+                this.areaActual.AreaId
+              )
+              .subscribe(
+                (data: HorarioReserva[]) => {
+                  this.listaDeHorariosReservados = data;
+                  this.apiService
+                    .getDiasEscolares(this.listaDias[0])
+                    .subscribe((data: any) => {
+                      this.horario = data;
+                    });
+                },
+                (error) => { }
               );
-            }, error=>{
-              console.log(error);
-            });
-          })
+          });
         }
-      }); 
+      });
     }
-   } 
+  }
 
-   //Modal para la sección de reseñas
+  //Modal para la sección de reseñas
   abrir(content: any) {
     this.modalService
       .open(content, { ariaLabelledBy: 'modal-resena' })
@@ -382,84 +461,94 @@ export class AreaDeportivaComponent implements OnInit {
       );
   }
 
-  //Metodo para crear la reseña del alumno 
-  confirmarReview(limpieza: string, calidad: string, ambiente: string){
+  //Metodo para crear la reseña del alumno
+  confirmarReview(limpieza: string, calidad: string, ambiente: string) {
     var selectLimpieza = Number(limpieza);
     var selectCalidad = Number(calidad);
     var selectAmbiente = Number(ambiente);
-  
-    this.apiService.calificarArea(this.areaActual.AreaId, selectLimpieza, selectCalidad, selectAmbiente, 'Limpieza', 'Calidad del equipo', 'Ambiente').subscribe(error=>{
-      console.log(error);
-    });
+
+    this.apiService
+      .calificarArea(
+        this.areaActual.AreaId,
+        selectLimpieza,
+        selectCalidad,
+        selectAmbiente,
+        'Limpieza',
+        'Calidad del equipo',
+        'Ambiente'
+      )
+      .subscribe((error) => {
+        
+      });
   }
 
   //Metodo para obtener las reseñas del gimnasio
-  obtenerReseñas(){
-    this.apiService.getReseniasArea(this.areaActual.AreaId).subscribe((data: ReseñaArea[]) => {
-      this.resenias = data;
-      console.log(data)
-    } ,
-    error=>{
-      console.error(error);
-    });
+  obtenerReseñas() {
+    this.apiService.getReseniasArea(this.areaActual.AreaId).subscribe(
+      (data: ReseñaArea[]) => {
+        this.resenias = data;
+        
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 
   //Metodo para obtener el numero total de registros de un rubro que se pase como parametro
-  obtenerNumeroCalifRubro(rubro: string){
-
-    if(rubro == "Limpieza"){
-      this.apiService.getNumRegistrosArea(this.areaActual.AreaId, rubro).subscribe((data: number) => {
-        this.Limpieza = data[0].NumeroRegistros;
-  
-      } ,
-      error=>{
-        console.error(error);
-      });
-
-    } else if (rubro == "Calidad del equipo") {
-      this.apiService.getNumRegistrosArea(this.areaActual.AreaId, rubro).subscribe((data: number) => {
-        this.Calidad = data[0].NumeroRegistros;
-  
-      } ,
-      error=>{
-        console.error(error);
-      });
-
+  obtenerNumeroCalifRubro(rubro: string) {
+    if (rubro == 'Limpieza') {
+      this.apiService
+        .getNumRegistrosArea(this.areaActual.AreaId, rubro)
+        .subscribe(
+          (data: number) => {
+            this.Limpieza = data[0].NumeroRegistros;
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
+    } else if (rubro == 'Calidad del equipo') {
+      this.apiService
+        .getNumRegistrosArea(this.areaActual.AreaId, rubro)
+        .subscribe(
+          (data: number) => {
+            this.Calidad = data[0].NumeroRegistros;
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
     } else {
-      this.apiService.getNumRegistrosArea(this.areaActual.AreaId, rubro).subscribe((data: number) => {
-        this.Ambiente = data[0].NumeroRegistros;
-  
-      } ,
-      error=>{
-        console.error(error);
-      });
-
+      this.apiService
+        .getNumRegistrosArea(this.areaActual.AreaId, rubro)
+        .subscribe(
+          (data: number) => {
+            this.Ambiente = data[0].NumeroRegistros;
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
     }
-
   }
 
   //Metodo para calcular el promedio de las reseñas de cada rubro
-  calcularPromedio(calif: number, numRegistros: number){
-    let res = (calif/numRegistros).toFixed(1);
-    return(res)
+  calcularPromedio(calif: number, numRegistros: number) {
+    let res = (calif / numRegistros).toFixed(1);
+    return res;
   }
-
-
 
   ngOnInit(): void {
-    this.obtenerAreaDeportiva()
+    this.obtenerAreaDeportiva();
 
     setTimeout(() => {
-    this.obtenerReseñas();
-    this.obtenerNumeroCalifRubro("Limpieza")
-    this.obtenerNumeroCalifRubro("Calidad del equipo")
-    this.obtenerNumeroCalifRubro("Ambiente")
-      
+      this.obtenerReseñas();
+      this.obtenerNumeroCalifRubro('Limpieza');
+      this.obtenerNumeroCalifRubro('Calidad del equipo');
+      this.obtenerNumeroCalifRubro('Ambiente');
     }, 500);
-    
-   
   }
-
 
   //Método para obtener el aforo actual y total del area deportiva
   getAforoArea(): void {
@@ -468,20 +557,22 @@ export class AreaDeportivaComponent implements OnInit {
         const actuales = Number(data['actuales']);
         const totales = Number(data['totales']);
         const ocupados = totales - actuales;
-        
+
         this.totales = totales;
         this.actuales = actuales;
         this.aforoData = actuales + '/' + totales;
-        // Use service method to create chart
-        this.chart = this.chartService.createPieChart('MyChart', ['Libre: ' + actuales, 'Ocupado: ' + ocupados], [ocupados, actuales]);
+        // Usa este metodo para crear la grafica mediante un servicio
+        this.chart = this.chartService.createPieChart(
+          'MyChart',
+          ['Libre: ' + ocupados, 'Ocupado: ' + actuales],
+          [ocupados, actuales]
+        );
       },
       (error) => {
-        console.log('Error fetching aforo status:', error);
+        
       }
     );
   }
-  
-  
 
   /**
    * Write code on Method

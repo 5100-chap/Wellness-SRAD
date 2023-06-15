@@ -13,20 +13,33 @@ import { RouterLink, Router } from '@angular/router';
   styleUrls: ['./citasentrenador.component.css']
 })
 export class CitasentrenadorComponent {
+
+  //Definición de las variables a utilizar
   listaAsesores: AsesorInfo[] = [];
   rol: string = "Entrenador";
-
+ 
+  //Definición del constructor
   constructor(private apiService: ApiService, private authService: AuthService, private router: Router){}
 
-  ngOnInit(){
+  //Redirige al alumno al calendario de reservación del entrenador seleccionado
+  mandarCalendario(asesor: AsesorInfo){
+    this.router.navigate([`horario-asesor/${JSON.stringify(asesor)}`]);
+  }
+
+  // Método para obtener la información de los entrenadores disponibles
+  obtnerInfoEntrenadores(){
     this.apiService.getAsesoresPorRol(this.rol).subscribe(
       (data: AsesorInfo[])=>{
       this.listaAsesores = data;
     });
   }
+  
 
-  mandarCalendario(asesor: AsesorInfo){
-    // this.router.navigate(['horario-asesor/' JSON.stringify(asesor)]);
-    this.router.navigate([`horario-asesor/${JSON.stringify(asesor)}`]);
+
+  ngOnInit(){
+    this.obtnerInfoEntrenadores()
+
   }
+
+  
 }

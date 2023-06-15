@@ -5,6 +5,8 @@ const sql = require("mssql");
 const express = require("express");
 const router = express.Router();
 
+const { verifyJWT } = require("../middleware/jwtSecurity");
+
 // Esta función genera la consulta SQL para un segmento y bloque específico
 /* Funciones de Tendencia por día de la semana */
 // Esta función genera la consulta SQL para un segmento y bloque específico
@@ -108,8 +110,6 @@ async function obtenerTendencias(segmento, bloque, semana, metricas) {
     }
 }
 
-// Resto del código sigue sin cambios...
-
 //Funcion para calcular la mediana
 function mediana(array) {
     array.sort((a, b) => a - b);
@@ -120,7 +120,7 @@ function mediana(array) {
 }
 
 // Aquí utilizamos las funciones en un endpoint de la API
-router.get("/api/tendencias/:segmento/:bloque/:semana", async (req, res) => {
+router.get("/api/tendencias/:segmento/:bloque/:semana", verifyJWT,async (req, res) => {
     try {
         let segmento = req.params.segmento;
         let bloque = parseInt(req.params.bloque);
@@ -142,7 +142,6 @@ router.get("/api/tendencias/:segmento/:bloque/:semana", async (req, res) => {
 
         res.json({ tendencias });
     } catch (err) {
-        console.log(err);
         res
             .status(500)
             .json({ error: "Ocurrió un error al procesar la solicitud" });
@@ -186,13 +185,12 @@ async function obtenerTendenciasPorHora(dia) {
 
         return tendenciasPorHora;
     } catch (err) {
-        console.log(err);
         throw new Error("Error al obtener las tendencias por hora");
     }
 }
 
 // Aquí utilizamos las funciones en un endpoint de la API
-router.get("/api/tendencias_por_hora/:dia", async (req, res) => {
+router.get("/api/tendencias_por_hora/:dia", verifyJWT, async (req, res) => {
     try {
         let dia = req.params.dia;
 
@@ -200,7 +198,6 @@ router.get("/api/tendencias_por_hora/:dia", async (req, res) => {
 
         res.json(tendencias);
     } catch (err) {
-        console.log(err);
         res
             .status(500)
             .json({ error: "Ocurrió un error al procesar la solicitud" });
@@ -241,47 +238,47 @@ router.post("/api/obtenerNumeroRegistrosRubro", async(req, res) => {
 function getDiasEscolares(hoy){
     let year = moment().year();
 
-    fechaInicioInv = moment()
+    let fechaInicioInv = moment()
         .year(year)
         .startOf("year")
         .startOf("isoWeek")
         .add(1, "week")
-    fechaFinalInv = moment(fechaInicioInv)
+    let fechaFinalInv = moment(fechaInicioInv)
         .add(5, "weeks")
 
     fechaInicioInv = new Date(fechaInicioInv.format("YYYY-MM-DD"));
     fechaFinalInv = new Date(fechaFinalInv.format("YYYY-MM-DD"));
         
-    fechaInicioPrimer = moment()
+    let fechaInicioPrimer = moment()
         .year(year)
         .month("February")
         .startOf("month")
         .startOf("isoWeek")
         .add(2, "weeks")
-    fechaFinalPrimer = moment(fechaInicioPrimer)
+    let fechaFinalPrimer = moment(fechaInicioPrimer)
         .add(19, "weeks")
 
     fechaInicioPrimer = new Date(fechaInicioPrimer.format("YYYY-MM-DD"));
     fechaFinalPrimer = new Date(fechaFinalPrimer.format("YYYY-MM-DD"))
 
-    fechaInicioSegundo = moment()
+    let fechaInicioSegundo = moment()
         .year(year)
         .month("August")
         .startOf("month")
         .startOf("isoWeek")
         .add(1, "weeks")
-    fechaFinalSegundo = moment(fechaInicioSegundo)
+    let fechaFinalSegundo = moment(fechaInicioSegundo)
         .add(18, "weeks")   
     
     fechaInicioSegundo = new Date(fechaInicioSegundo.format("YYYY-MM-DD"));
     fechaFinalSegundo = new Date(fechaFinalSegundo.format("YYYY-MM-DD"));
 
-    fechaInicioVerano = moment()
+    let fechaInicioVerano = moment()
         .year(year)
         .month("June")
         .endOf("month")
         .startOf("isoWeek")
-    fechaFinalVerano = moment(fechaInicioVerano)
+    let fechaFinalVerano = moment(fechaInicioVerano)
         .add(5, "weeks")
 
     fechaInicioVerano = new Date(fechaInicioVerano.format("YYYY-MM-DD"));

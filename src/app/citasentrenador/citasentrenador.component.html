@@ -1,22 +1,22 @@
 
 <!--Reservar-->
 <h3 class="mt-4" style="text-align: left;"> &nbsp; &nbsp; <strong>Escoge un Entrenador</strong> </h3>  
-<!--meterle imagen-->
-<div class="vstack gap-4 col-md-8 mx-auto mt-5">
 
+
+<!--Serie de tarjetas con la información de los entrenadores diponibles-->
+
+<div class="vstack gap-4 col-md-8 mx-auto mt-5">
 <div *ngFor="let each of listaAsesores;">
     <div class="card w-100" >
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-2"> 
-                        <img src="https://i.redd.it/qm2eo6qvlot51.jpg"  class="rounded-circle" height="150px" alt=""loading="lazy" />
-                    </div>
-                    <div class="col-md-7" style="margin-left: 2%; margin-top: 3%;">
+        
+                    <div class="col-md-9" style="margin-left: 2%; margin-top: 1%;">
                         <strong style="font-size: 1.5rem ;"> {{each.nombre}}</strong> <br>
                         <small class="text-muted" style="font-size: 1.4rem ;">   Especialidad: {{each.especialidad}} </small>
                     </div>
-                    <div class="col-md-2" style="margin-top: 4%;">
+                    <div class="col-md-2" style="margin-top: 2%;">
                         <button (click)="mandarCalendario(each)" routerLink="/horarioAsesor" type="button" class="btn btn-primary" id="btn">
                             <strong style="font-size: 1.25rem ;"> Reservar </strong> 
                         </button>
@@ -27,7 +27,9 @@
     </div>
 </div>
 
-<div *ngIf="listaAsesores.length===0">
+<!--Este mensaje aparece cuando no hay ningun entrenador disponible-->
+
+<div  class="text-center" *ngIf="listaAsesores.length===0">
     <h1>No hay entrenadores disponibles</h1>
 </div>
 
@@ -39,6 +41,15 @@
 <br>
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
 <br>
 <br>
 <br>
