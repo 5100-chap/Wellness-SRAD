@@ -52,6 +52,14 @@
                   <small class="text-primary" id="estado-html"> {{each['estado']}} </small>
                 </h4>
 
+                <h4 *ngIf="each['estado']=='Cancelada'">
+                  Motivo: 
+                  <small class="text-primary" id="estado-html" *ngIf="each['motivo']===0"> Por haber faltado </small>
+                  <small class="text-primary" id="estado-html" *ngIf="each['motivo']===1"> El alumnado la canceló </small>
+                  <small class="text-primary" id="estado-html" *ngIf="each['motivo']===2"> El área se cerró </small>
+                  <small class="text-primary" id="estado-html" *ngIf="each['motivo']===3"> El administrador la canceló </small>
+                </h4>
+
                   <!-- Botones -->
                   <div class="btn-group me-2" role="group" aria-label="First group" *ngIf="marcarLlegadaBtn(i+slices[eachSlice]);">
                     <button *ngIf="fechaPretty(each.fecha) == fechaPretty(this.tdy)" id = "confirmar" class="btn btn-primary" (click)="open(mymodal)" (click)="marcarLlegada(i+slices[eachSlice])"> Marcar llegada </button>
@@ -78,7 +86,7 @@
                     <ng-template #cancel let-modal>
                       <div class="modal-header">
                         <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
-                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="cancelarReserva(i+slices[eachSlice])">
+                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="cancelarReserva(i+slices[eachSlice])" (click)="reload()">
                           <span  aria-hidden="true">×</span>
                         </button>
                       </div>
@@ -86,7 +94,7 @@
                         Se ha cancelado tu reservación exitosamente!
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')"  (click)="cancelarReserva(i+slices[eachSlice])">OK</button>
+                        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')"  (click)="cancelarReserva(i+slices[eachSlice])" (click)="reload()">OK</button>
                       </div>
                     </ng-template>
                   </div>
@@ -162,7 +170,14 @@
                   <h4 *ngIf="getEstadoAsesor(i)==='Cancelada'">
                     Estado:
                     <small class="text-danger"> Cancelada </small>
-                  </h4>
+                  </h4>         
+                  <h4 *ngIf="getEstadoAsesor(i)==='Cancelada'">
+                    Motivo: 
+                    <small class="text-primary" id="estado-html" *ngIf="each.motivo===0"> Por haber faltado </small>
+                    <small class="text-primary" id="estado-html" *ngIf="each.motivo===1"> El alumnado la canceló </small>
+                    <small class="text-primary" id="estado-html" *ngIf="each.motivo===2"> El área se cerró </small>
+                    <small class="text-primary" id="estado-html" *ngIf="each.motivo===3"> El administrador la canceló </small>
+                  </h4>                         
 
                   <!-- Botones -->
                   <!-- Marcar Llegada -->
@@ -233,13 +248,29 @@
     </div>
 
   <!-- No haya reservas que mostrar -->
-  <div class="vstack gap-4 col-md-8 mx-auto" *ngIf="ReservasAsesor.length===0 && Reservas.length===0">
-    <div class="card w-100">
-      <div class="card">
-        <h1 class="card-header">No hay reservas que mostrar</h1>
-      </div>
-    </div>
+  <div class="text-center" style="margin-top: 2%;" *ngIf="ReservasAsesor.length === 0 && Reservas.length === 0">
+        <h1>No cuentas con ninguna reservación activa</h1>
   </div>
+
+
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+
 
 
 

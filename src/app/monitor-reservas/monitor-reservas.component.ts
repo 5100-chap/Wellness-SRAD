@@ -79,7 +79,6 @@ export class MonitorReservasComponent {
     this.apiservice.confirmarReservaCasillero(id).subscribe(
       () => {},
       (error) => {
-        console.log(error);
       }
     );
   }
@@ -89,14 +88,12 @@ export class MonitorReservasComponent {
     this.apiservice.cancelarReservaCasillero(id, idCasillero).subscribe(
       () => {},
       (error) => {
-        console.log(error);
       }
     );
 
     this.apiservice
       .actualizarEstadoCasillero(idCasillero, 0)
       .subscribe((error) => {
-        console.error('Error fetching area id status', error);
       });
   }
 
@@ -135,10 +132,9 @@ export class MonitorReservasComponent {
 
   //Función que cancela la reservación seleccionada
   cancelarReserva(idReserva: number, matricula: string) {
-    this.apiservice.cancelarReservaAlumno(matricula, idReserva).subscribe(
+    this.apiservice.cancelarReservaAlumno(matricula, idReserva, 3).subscribe(
       () => {},
       (error) => {
-        console.log(error);
       }
     );
   }

@@ -14,6 +14,7 @@ import { StatsGymAdminComponent } from '../../stats-gym-admin/stats-gym-admin.co
 import { MonitorIngresosComponent } from '../../monitor-ingresos/monitor-ingresos.component';
 import { ExportarDatosComponent } from '../../exportar-datos/exportar-datos.component';
 import { MonitorReservasComponent } from '../../monitor-reservas/monitor-reservas.component';
+import { EditarAreaComponent } from 'src/app/editar-area/editar-area.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '../Shared/shared.module';
 
@@ -22,6 +23,7 @@ import { SharedModule } from '../Shared/shared.module';
         InicioAdminComponent,
         NuevaAreaComponent,
         EditarAforoComponent,
+        EditarAreaComponent,
         CerrarEspaciosComponent,
         CrearAnuncioComponent,
         StatsAdminComponent,

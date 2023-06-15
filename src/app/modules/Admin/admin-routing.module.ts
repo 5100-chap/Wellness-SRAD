@@ -12,6 +12,7 @@ import { StatsGymAdminComponent } from '../../stats-gym-admin/stats-gym-admin.co
 import { MonitorIngresosComponent } from '../../monitor-ingresos/monitor-ingresos.component';
 import { ExportarDatosComponent } from '../../exportar-datos/exportar-datos.component';
 import { MonitorReservasComponent } from '../../monitor-reservas/monitor-reservas.component';
+import { EditarAreaComponent  } from 'src/app/editar-area/editar-area.component';
 import { authGuard } from '../../guard/auth.guard';
 
 const routesAdmin: Routes = [
@@ -26,14 +27,22 @@ const routesAdmin: Routes = [
     {
         path: 'crearArea',
         component: NuevaAreaComponent,
-        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])],
+        canActivate: [authGuard([ 'Administrador'])],
         data: {
-            allowedRoles: ['Director', 'Administrador', 'Instructor'],
+            allowedRoles: ['Administrador'],
         },
     },
     {
         path: 'editarAforo/:nombreArea',
         component: EditarAforoComponent,
+        canActivate: [authGuard(['Director', 'Administrador'])],
+        data: {
+            allowedRoles: ['Director', 'Administrador'],
+        },
+    },
+    {
+        path: 'editarArea/:nombreArea',
+        component: EditarAreaComponent,
         canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])],
         data: {
             allowedRoles: ['Director', 'Administrador', 'Instructor'],
@@ -42,17 +51,17 @@ const routesAdmin: Routes = [
     {
         path: 'cerrarEspacios/:nombreArea',
         component: CerrarEspaciosComponent,
-        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])],
+        canActivate: [authGuard(['Director', 'Administrador'])],
         data: {
-            allowedRoles: ['Director', 'Administrador', 'Instructor'],
+            allowedRoles: ['Director', 'Administrador'],
         },
     },
     {
         path: 'crearAnuncio',
         component: CrearAnuncioComponent,
-        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])],
+        canActivate: [authGuard(['Director', 'Administrador'])],
         data: {
-            allowedRoles: ['Director', 'Administrador', 'Instructor'],
+            allowedRoles: ['Director', 'Administrador'],
         },
     },
     {
@@ -82,9 +91,9 @@ const routesAdmin: Routes = [
     {
         path: 'exportarDatos',
         component: ExportarDatosComponent,
-        canActivate: [authGuard(['Director', 'Administrador', 'Instructor'])],
+        canActivate: [authGuard(['Director', 'Administrador'])],
         data: {
-            allowedRoles: ['Director', 'Administrador', 'Instructor'],
+            allowedRoles: ['Director', 'Administrador'],
         },
     },
     {

@@ -12,9 +12,8 @@
 <div class="vstack gap-3 col-md-11 mx-auto">
 
   <div *ngFor="let anuncio of anuncios">
-    <div class="card" id="card">
+    <div class="card" id="card" *ngIf="validarAparicion(anuncio.duracion_inicio)">
       <div class = "row">
-
         <!-- Imagen del anuncio -->
 
         <div class=" col-md-2 ">
@@ -24,9 +23,9 @@
          <!-- titulo del anuncio -->
 
         <div  class="col-md-2 mt-2" id="align">
-          <div class="card" style="border-color: transparent;" >
+          <div class="card w-100"  style="border-color: transparent;" >
               <div class="card-body"> 
-                <strong> <p style="color: #003399; font-size: 1.3rem; text-align: center;"> {{anuncio.titulo}} </p> </strong>
+                <strong> <p style="color: #003399; font-size: 1.3rem; text-align: center;"> {{anuncio.titulo}}</p> </strong>
               </div>
           </div>
         </div>
@@ -36,7 +35,8 @@
           <div class="card" style="border-color: transparent;" >
             <div class="card-body">
               <strong style="color: #003399; font-size: 1.3rem;">Fecha:&nbsp; </strong> 
-              <p style=" font-size: 1.3rem;"> {{this.cambiarFormato(anuncio.fecha_inicio_evento)}} al {{this.cambiarFormato(anuncio.fecha_fin_evento)}}</p>
+              <p *ngIf="cambiarFormatoValidar(anuncio.fecha_fin_evento) != '2099-12-31' " style=" font-size: 1.3rem;"> {{this.cambiarFormato(anuncio.fecha_inicio_evento)}} al {{this.cambiarFormato(anuncio.fecha_fin_evento)}}</p>
+              <p *ngIf="cambiarFormatoValidar(anuncio.fecha_fin_evento) == '2099-12-31' " style=" font-size: 1.3rem;"> A partir del {{this.cambiarFormato(anuncio.fecha_inicio_evento)}} </p>
             </div>
           </div>
        </div>
