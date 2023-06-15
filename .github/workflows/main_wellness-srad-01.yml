@@ -26,11 +26,15 @@ jobs:
           npm install --force
           npm run build --if-present
 
+      - name: Archive production artifacts
+        run: |
+          tar -cvf artifact.tar ./API
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: .
+          path: ./artifact.tar
 
   deploy:
     runs-on: ubuntu-latest
@@ -44,6 +48,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: node-app
+
+      - name: Unarchive production artifacts
+        run: |
+          tar -xvf artifact.tar
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
