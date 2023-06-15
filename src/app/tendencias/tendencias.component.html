@@ -45,15 +45,17 @@
       <option value="verano">Verano</option>
       <option value="segundo_semestre">2do Semestre Anual</option>
     </select>
+    <br>
 
-    <label for="bloque">Seleccione un bloque: &nbsp;</label>
+    <label for="bloque" style="margin-top: 3%;">Seleccione un bloque: &nbsp;</label>
     <select id="btn" name="bloque" [formControl]="bloqueControl" value="Seleccione un bloque" >
       <option value="1">Bloque 1</option>
       <option value="2">Bloque 2</option>
       <option value="3">Bloque 3</option>
     </select>
+    <br>
 
-    <label for="semana">Seleccione una semana: &nbsp;</label>
+    <label for="semana" style="margin-top: 3%;">Seleccione una semana: &nbsp;</label>
     <select id="btn" name="semana" [formControl]="semanaControl">
       <option value="1">Semana 1</option>
       <option value="2">Semana 2</option>
@@ -64,6 +66,7 @@
     </select>
   </div>
 
+
   <div class="row">
     <div class="col-md-1 mt-4"></div>
     <div class="col-md-10 mt-5">
@@ -72,4 +75,6 @@
       </div>
     </div>
   </div>
+
+
 </div>

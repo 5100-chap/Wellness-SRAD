@@ -19,19 +19,21 @@
 <!--Se muestra el area de reservación en caso de no contar con un casillero reservado -->
 
 <div *ngIf="this.CasilleroReservado == null">
-  <div class="vstack gap-4 col-md-11 mx-auto">
+  <div class="vstack gap-4 col-md-11 mx-auto" id="seperacion">
 
-    <div class="card w-100 border border-gray border border-2">
-      <div class="row">
-
-        <div class="col-md-5 mt-5">
-          <h2 class="text-body-secondary" class="text-center" id="cantidadLocker"> &nbsp; <strong> Casilleros
+    <div class="card w-100 border border-gray border border-2" >
+  
+        <div class="col-md-5 mt-4 text-center" style="margin-left: 28%; margin-bottom: 2%; margin-right: 28%;">
+          <h2 class="text-body-secondary"><strong> Casilleros
               disponibles</strong> </h2>
-          <h2 class="text-body-secondary" class="text-center" id="cantidadLocker" style="color: grey;"> &nbsp;
+          <h2 class="text-body-secondary text-center" style="color: grey;"> &nbsp;
             {{CasillerosDisponibles[0].disponibles}}</h2>
 
         </div>
-      </div>
+
+   
+
+      
     </div>
   </div>
 
@@ -41,7 +43,7 @@
 
     <h2 style="margin-left: 4%; margin-top: 2%; margin-bottom: 0.5%;"> <strong> Reservación </strong> </h2>
 
-    <div class="vstack gap-4 col-md-11 mx-auto" style="margin-top: 2%;">
+    <div class="vstack gap-4 col-md-11 mx-auto" style="margin-top: 2%;" id="seperacion">
   
       <div class="card w-100 border border-gray border border-2">
   
@@ -85,7 +87,7 @@
   
     <br>
   
-    <div class="vstack gap-4 col-md-11 mx-auto">
+    <div class="vstack gap-4 col-md-11 mx-auto" id="seperacion">
   
       <div id="reserve" class="card w-100 border border-gray border border-2">
   
@@ -102,7 +104,7 @@
           </div>
   
           <div *ngIf="this.seleReserva.id != 0" class=" col-md-2 mt-3">
-            <button style="font-size: 1.5rem; margin-top: 8%;" id="btn2" class="btn" (click)="open(mymodal)"
+            <button style="font-size: 1.5rem; margin-top: 7.5%; margin-bottom: 7.5%; margin-left: 7.5%;" id="btn2" class="btn" (click)="open(mymodal)"
               (click)=" crearReservaCasillero()" (click)=" actualizarEstadoCasillero()"> Reservar </button>
           </div>
         </div>
@@ -123,7 +125,7 @@
 
 
 
-<div class="vstack gap-4 col-md-11 mx-auto">
+<div class="vstack gap-4 col-md-11 mx-auto" id="seperacion">
   <div class="row">
 
   <!-- Información del casillero reservado -->
@@ -280,28 +282,7 @@
 </ng-template>
 
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
 
 
 

@@ -1,3 +1,8 @@
+#seperacion{
+	padding-left: 2rem;
+	padding-right: 2rem;
+}
+
 .img-banner{
     background: #000000;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #003399, #000000);  /* Chrome 10-25, Safari 5.1-6 */
