@@ -9,4 +9,5 @@ export class ReservaAsesorAlumno {
     llegada!: string;
     salida!: string;
     tipo!: string;
+    motivo!: number;
 }

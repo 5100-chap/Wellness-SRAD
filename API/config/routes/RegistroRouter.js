@@ -109,6 +109,7 @@ router.post('/api/cancelarReservaAsesor', verifyJWT, async(req, res, next)=>{
     try{
         var request = new sql.Request();
         await request.query(`EXEC [dbo].[CancelarReservaAsesor] ${req.body.id};`);
+        res.json('ok');
     }
     catch(error){
         res.json(error);

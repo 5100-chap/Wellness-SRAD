@@ -733,10 +733,10 @@ export class ApiService {
       );
   }
 
-  cancelarReservaAlumno(usuario: String, id: number) {
+  cancelarReservaAlumno(usuario: String, id: number, quien: number) {
     return this.http
       .delete('/api/cancelReservacionArea', {
-        body: { usuario: usuario, id: id },
+        body: { usuario: usuario, id: id, quien: quien },
         headers: this.getAuthHeaders(),
       })
       .pipe(
@@ -745,7 +745,7 @@ export class ApiService {
             return this.refreshToken().pipe(
               switchMap(() => {
                 return this.http.delete('/api/cancelReservacionArea', {
-                  body: { usuario: usuario, id: id },
+                  body: { usuario: usuario, id: id, quien: quien },
                   headers: this.getAuthHeaders(),
                 });
               })

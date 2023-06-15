@@ -187,9 +187,7 @@ router.delete(
     async (req, res, next) => {
         try {
             var request = new sql.Request();
-            var result = await request.query(
-                `EXEC [dbo].[CancelReservacionArea] \'${req.body.usuario}\', ${req.body.id};`
-            );
+            var result = await request.query(`EXEC [dbo].[CancelReservacionArea] \'${req.body.usuario}\', ${req.body.id}, ${req.body.quien};`);
             res.json({ status: "ok" });
         } catch (error) {
             res.json({ status: "failed" });
