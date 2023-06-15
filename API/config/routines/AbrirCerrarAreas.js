@@ -1,6 +1,7 @@
 const sql = require("mssql");
 const cron = require("node-cron");
 
+// Actualizar datos cuando un área se cierra o abre
 module.exports = function () {
     cron.schedule("* * * * *", async function () {
         try {
@@ -14,7 +15,8 @@ module.exports = function () {
             const formattedDate = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 
             var request = new sql.Request();
-            const result = await request.query(`SELECT * FROM Area WHERE fecha_cierre IS NOT NULL AND fecha_apertura IS NOT NULL; UPDATE Reservacion SET estado = 'Cancelada' WHERE estado = 'Activa' AND id_area_deportiva IN (SELECT id FROM Area WHERE estatus = 0);`
+            // Cancelar reservas cuando un área se cierra
+            const result = await request.query(`SELECT * FROM Area WHERE fecha_cierre IS NOT NULL AND fecha_apertura IS NOT NULL; UPDATE Reservacion SET Razon = 2 WHERE estado = 'Activa' AND id_area_deportiva IN (SELECT id FROM Area WHERE estatus = 0); UPDATE Reservacion SET estado = 'Cancelada' WHERE estado = 'Activa' AND id_area_deportiva IN (SELECT id FROM Area WHERE estatus = 0);`
             );
             const areas = result.recordset;
 

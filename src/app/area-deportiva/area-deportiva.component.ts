@@ -74,6 +74,7 @@ export class AreaDeportivaComponent implements OnInit {
   ];
   now!: Date;
   totales!: number;
+  actuales!: number;
   semanaSeleccionada!: number;
   dateControl = new FormControl();
   private subscription: Subscription | undefined;
@@ -91,8 +92,7 @@ export class AreaDeportivaComponent implements OnInit {
   Ambiente!: number;
 
   horario!: boolean;
-  actuales!: number;
-
+  
   reservaArray: Reservas[] = [
     {
       id: 1,
