@@ -19,8 +19,8 @@
 <div class="card mt-4" style="width: 70%; margin-left: 15%">
   <h4 class="card-header">Tendencias de ingreso al gimnasio por hora</h4>
   <div class="col-md-3 mt-3" style="margin-left: 2%">
-    <label for="fecha">Seleccione un día:</label>
-    <input type="date" id="fecha" name="fecha" [formControl]="fechaControl" />
+    <label for="fecha">Seleccione un día: &nbsp;</label>
+    <input type="date" id="btn" name="fecha" [formControl]="fechaControl" />
   </div>
 
   <div class="row">
@@ -37,24 +37,24 @@
 
 <div class="card mt-4" style="width: 70%; margin-left: 15%">
   <h4 class="card-header">Monitor de ingresos diarios</h4>
-  <div class="col-md-3 mt-3" style="margin-left: 2%">
-    <label for="segmento">Seleccione un segmento:</label>
-    <select id="segmento" name="segmento" [formControl]="segmentoControl">
+  <div class="col-md-4 mt-3" style="margin-left: 2%">
+    <label for="segmento">Seleccione un segmento: &nbsp;</label>
+    <select id="btn" name="segmento" [formControl]="segmentoControl">
       <option value="invierno">Invierno</option>
       <option value="primer_semestre">1er Semestre Anual</option>
       <option value="verano">Verano</option>
       <option value="segundo_semestre">2do Semestre Anual</option>
     </select>
 
-    <label for="bloque">Seleccione un bloque:</label>
-    <select id="bloque" name="bloque" [formControl]="bloqueControl">
+    <label for="bloque">Seleccione un bloque: &nbsp;</label>
+    <select id="btn" name="bloque" [formControl]="bloqueControl" value="Seleccione un bloque" >
       <option value="1">Bloque 1</option>
       <option value="2">Bloque 2</option>
       <option value="3">Bloque 3</option>
     </select>
 
-    <label for="semana">Seleccione una semana:</label>
-    <select id="semana" name="semana" [formControl]="semanaControl">
+    <label for="semana">Seleccione una semana: &nbsp;</label>
+    <select id="btn" name="semana" [formControl]="semanaControl">
       <option value="1">Semana 1</option>
       <option value="2">Semana 2</option>
       <option value="3">Semana 3</option>

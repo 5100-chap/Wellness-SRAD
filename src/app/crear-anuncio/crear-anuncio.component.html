@@ -121,20 +121,6 @@
                     </div>
 
                 </div>
-
-                <!--Validar que el campo imagen no este vacio -->
-                <span *ngIf="this.imageUploadComponent.getValidation() != true"
-                    style="color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
-                    Una imagen debe de ser seleccionada
-                </span>
-
-                <!--Validar que el campo imagen no no tenga más de 30 caracteres -->
-                <span *ngIf="this.imageUploadComponent.getFileLenght() > 15"
-                    style="color: rgba(203, 23, 10, 0.913); margin-left: 1.5%;">
-                    El nombre de la imagen no debe de tener más de 15 caracteres
-                </span>
-
-
             </div>
         </div>
 
@@ -245,23 +231,6 @@
                 (click)="enviar(fechaEventoInicio.value, fechaEventoFin.value, ubicacion.value, descripcion.value, DuracionAnuncioInicio.value, DuracionAnuncioFin.value, titulo.value)">Guardar
             </button>
 
-
-            <ng-template #mymodal let-modal>
-                <div class="modal-header">
-                    <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
-                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Anuncio creado correctamente!
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" (click)="modal.close('Save click')"
-                        (click)="this.refresh()">OK</button>
-                </div>
-            </ng-template>
-
         </div>
 
         <div style="color: #aa730d" *ngIf="NuevoAnuncioForm.invalid">
@@ -275,16 +244,16 @@
 
 <ng-template #mymodal let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+        <h4 class="modal-title" id="modal-basic-title">Aviso</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span  aria-hidden="true">×</span>
         </button>
     </div>
     <div class="modal-body">
-        Anuncio creado correctamente!
+        {{resultado}}
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" (click)="this.refresh()">OK</button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('Save click')" >OK</button>
     </div>
     
 </ng-template>

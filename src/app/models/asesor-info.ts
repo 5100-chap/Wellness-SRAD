@@ -3,4 +3,5 @@ export class AsesorInfo {
     nombre!: string;
     especialidad!: string;
     rol!: string;
+    numero_nomina !: string;
 }

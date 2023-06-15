@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
     FormGroup,
     FormControl,
@@ -8,9 +8,11 @@ import {
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../services/api.service';
 import { DatePipe } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Area } from '../models/area.model';
 import { ImageUploadComponent } from '../image-upload/image-upload.component';
+import { FileUploadService } from '../services/file-upload.service';
+import { pipe, switchMap, Observable } from 'rxjs';
 
 @Component({
     selector: 'app-editar-area',
@@ -118,12 +120,9 @@ export class EditarAreaComponent implements OnInit {
                 horaFinalF,
                 horaInicioF
             )
-            .subscribe(
-                (error) => {
-                console.log(error);
-            }
-            );
-            this.imageUploadComponent.upload();
+            .subscribe((error) => {
+            });
+        this.imageUploadComponent.upload();
     }
 
     /* Validar si todos los campos han sido llenados */
@@ -131,6 +130,38 @@ export class EditarAreaComponent implements OnInit {
         if (this.NuevaAreaForm.valid)
             this.resultado = 'Todos los datos son válidos';
         else this.resultado = 'Hay datos inválidos en el formulario';
+    }
+    //Elimina un area
+    eliminarArea(id: number): void {
+        // Checa si la URL no está rota
+        this.uploadService
+            .checkBlobUrl(this.areaActual.Imagen)
+            .then((isValidUrl) => {
+                if (isValidUrl) {
+                    // Si es una URL válida, intentar eliminar la imagen
+                    this.uploadService
+                        .delete(this.areaActual.Imagen)
+                        .pipe(switchMap(() => this.apiService.EliminarArea(id)))
+                        .subscribe(
+                            () => {
+                                this.router.navigate(['/inicioAdmin']); // Redirige a inicioAdmin después de la eliminación
+                            },
+                            (error) => {
+                            }
+                        );
+                } else {
+                    // Si no es una URL válida, eliminar directamente el área
+                    this.apiService.EliminarArea(id).subscribe(
+                        () => {
+                            this.router.navigate(['/inicioAdmin']); // Redirige a inicioAdmin después de la eliminación
+                        },
+                        (error) => {
+                        }
+                    );
+                }
+            })
+            .catch((error) => {
+            });
     }
 
     /* Creación del modal*/
@@ -141,7 +172,8 @@ export class EditarAreaComponent implements OnInit {
         private modalService: NgbModal,
         private apiService: ApiService,
         private route: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private uploadService: FileUploadService
     ) { }
 
     ngOnInit() {
