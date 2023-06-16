@@ -41,7 +41,6 @@ import { ReseñaArea } from '../models/reseña-area';
 export class ApiService {
   constructor(private http: HttpClient, private tokenService: TokenService) {}
 
-  private apiUrl = 'http://localhost:8080';
 
   refreshToken() {
     // Consigue el token actual del usuario

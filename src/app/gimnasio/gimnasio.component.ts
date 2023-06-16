@@ -20,6 +20,7 @@ import { HorarioReserva } from '../models/horario-reserva';
 import { ChartService } from '../services/chart.service';
 import { DatePipe } from '@angular/common';
 import { ReseñaArea } from '../models/reseña-area';
+import { Router } from '@angular/router';
 
 declare var window: any;
 
@@ -62,6 +63,7 @@ export class GimnasioComponent implements OnInit {
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
     private chartService: ChartService,
+    private router: Router,
   ) {}
 
   //Pipe para darle formato a la fecha y hora
@@ -219,6 +221,11 @@ export class GimnasioComponent implements OnInit {
     this.apiService.getAreaByName('gimnasio').subscribe((response) => {
       this.now = new Date();
       this.areaId = response[0].AreaId;
+      if (!response[0].Estatus) {
+        this.router.navigate([
+          '/error-gimnasio-cerrado',
+        ]);
+      }
       this.getAforoArea();
       this.getAlumnoStatus();
       this.subscription = this.dateControl.valueChanges.subscribe(()=>{

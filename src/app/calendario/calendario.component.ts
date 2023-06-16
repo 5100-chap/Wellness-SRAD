@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { AuthService } from '../services/auth.service';
 
@@ -9,9 +9,7 @@ import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 
 import esLocale from '@fullcalendar/core/locales/es';
 import { Eventos } from '../models/event.model';
-import { Anuncio } from '../models/anuncio';
-import { ReservasAlumno } from '../models/reservas-alumno.model';
-import { ReservaAsesorAlumno } from '../models/reserva-asesor-alumno';
+
 
 @Component({
   selector: 'app-calendario',
@@ -30,12 +28,26 @@ export class CalendarioComponent implements OnInit {
 
   ngOnInit() {
     this.getTodasReservasAlumno();
+    this.updateDayHeaderFormat();
   }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.updateDayHeaderFormat();
+  }
+
+  updateDayHeaderFormat() {
+    if (window.innerWidth < 768) {
+      this.calendarOptions.dayHeaderFormat = { weekday: 'short' };
+    } else {
+      this.calendarOptions.dayHeaderFormat = { weekday: 'long' };
+    }
+  }
+
 
   calendarOptions: CalendarOptions = {
     timeZone: 'America/Mexico_City',
     locale: esLocale,
-    initialView: 'dayGridMonth',
     firstDay: 0,
     slotLabelFormat: {
       hour: '2-digit',
@@ -48,7 +60,7 @@ export class CalendarioComponent implements OnInit {
     headerToolbar: {
       left: 'title',
       center: '',
-      right: 'prev,today,next dayGridMonth',
+      right: 'prev,today,next',
     },
     themeSystem: 'bootstrap5',
     eventTimeFormat: {
@@ -56,9 +68,6 @@ export class CalendarioComponent implements OnInit {
       minute: '2-digit',
     },
     displayEventTime: false,
-    dayHeaderFormat: {
-      weekday: 'long',
-    },
     buttonText: {
       prev: '<',
       next: '>',
