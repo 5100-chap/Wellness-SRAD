@@ -290,7 +290,7 @@ export class GimnasioComponent implements OnInit {
     return (horaDate < new Date(0, 0, 0, 9, 0, 0) || horaDate > new Date(0, 0, 0, 17, 0, 0))
   }
 
-  // Revisa si el horario del botón está ocupado
+  // Revisa si el horario del botón está ocupado/deshabilitado
   ocupado(dia: number, hora: string): boolean{
     if(!this.horario){
       return false;

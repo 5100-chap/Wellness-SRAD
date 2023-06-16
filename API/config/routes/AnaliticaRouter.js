@@ -120,7 +120,7 @@ function mediana(array) {
 }
 
 // Aquí utilizamos las funciones en un endpoint de la API
-router.get("/api/tendencias/:segmento/:bloque/:semana", verifyJWT,async (req, res) => {
+router.get("/api/tendencias/:segmento/:bloque/:semana", verifyJWT, async (req, res) => {
     try {
         let segmento = req.params.segmento;
         let bloque = parseInt(req.params.bloque);
@@ -205,14 +205,14 @@ router.get("/api/tendencias_por_hora/:dia", verifyJWT, async (req, res) => {
 });
 
 // Obtener las reseñas de un area deportiva
-router.post("/api/obtenerCalifArea", async(req, res) => {
-    try{
+router.post("/api/obtenerCalifArea", async (req, res) => {
+    try {
         var request = new sql.Request();
         var result = await request.query(`EXEC [dbo].[obtenerCalifArea] ${req.body.idArea} ;`);
         res.json(result.recordset);
 
     }
-    catch(error){
+    catch (error) {
         console.error(error)
         res.json(error);
     }
@@ -220,13 +220,13 @@ router.post("/api/obtenerCalifArea", async(req, res) => {
 
 
 //Obtener el numero total de registros de un rubro que se pase como parametro
-router.post("/api/obtenerNumeroRegistrosRubro", async(req, res) => {
-    try{
+router.post("/api/obtenerNumeroRegistrosRubro", async (req, res) => {
+    try {
         var request = new sql.Request();
         var result = await request.query(`EXEC [dbo].[obtenerNumeroRegistrosRubro] ${req.body.idArea}, \'${req.body.rubro}\' ;`);
         res.json(result.recordset);
     }
-    catch(error){
+    catch (error) {
         res.json(error);
     }
 })
@@ -235,7 +235,7 @@ router.post("/api/obtenerNumeroRegistrosRubro", async(req, res) => {
 
 
 // Retorna los días escolares dependiendo del semestre en el que se está cursando
-function getDiasEscolares(hoy){
+function getDiasEscolares(fechaSeleccionada) {
     let year = moment().year();
 
     let fechaInicioInv = moment()
@@ -248,7 +248,7 @@ function getDiasEscolares(hoy){
 
     fechaInicioInv = new Date(fechaInicioInv.format("YYYY-MM-DD"));
     fechaFinalInv = new Date(fechaFinalInv.format("YYYY-MM-DD"));
-        
+
     let fechaInicioPrimer = moment()
         .year(year)
         .month("February")
@@ -268,8 +268,8 @@ function getDiasEscolares(hoy){
         .startOf("isoWeek")
         .add(1, "weeks")
     let fechaFinalSegundo = moment(fechaInicioSegundo)
-        .add(18, "weeks")   
-    
+        .add(18, "weeks")
+
     fechaInicioSegundo = new Date(fechaInicioSegundo.format("YYYY-MM-DD"));
     fechaFinalSegundo = new Date(fechaFinalSegundo.format("YYYY-MM-DD"));
 
@@ -283,30 +283,51 @@ function getDiasEscolares(hoy){
 
     fechaInicioVerano = new Date(fechaInicioVerano.format("YYYY-MM-DD"));
     fechaFinalVerano = new Date(fechaFinalVerano.format("YYYY-MM-DD"));
+    // Recibe el lunes de la semana "fechaSeleccionada"
+    var res = false;
 
-    if(fechaInicioInv<=hoy && fechaFinalInv>hoy){
-        return true;
+    if (fechaInicioInv <= fechaSeleccionada && fechaFinalInv > fechaSeleccionada) {
+        res = true;
     }
-    else if(fechaInicioPrimer<=hoy && fechaFinalPrimer>hoy){
-        return true;
+    else if (fechaInicioPrimer <= fechaSeleccionada && fechaFinalPrimer > fechaSeleccionada) {
+        res = true;
     }
-    else if(fechaInicioSegundo<=hoy && fechaFinalSegundo>hoy){
-        return true;
+    else if (fechaInicioSegundo <= fechaSeleccionada && fechaFinalSegundo > fechaSeleccionada) {
+        res = true;
     }
-    else if(fechaInicioVerano<=hoy && fechaFinalVerano>hoy){
-        return true;
+    else if (fechaInicioVerano <= fechaSeleccionada && fechaFinalVerano > fechaSeleccionada) {
+        res = true;
     }
-    return false;
+
+    if (res) {
+        // Obtener la fecha actual
+        var fechaActual = new Date();
+
+        // Sumar 14 días a la fecha actual
+        fechaActual.setDate(fechaActual.getDate() + 14);
+
+        // Comparar las fechas
+        if (fechaActual > fechaSeleccionada) {
+            res = true
+        }
+        else {
+            res = false
+        }
+
+
+    }
+
+    return res;
 }
 
 // Obtener los datos de dias escolares
 // En base al lunes de la semana seleccionada
 // Se revisará si está en periodo escolar
-router.get('/api/getDiasEscolares/:lunes/', async(req, res, next)=>{
-    try{
+router.get('/api/getDiasEscolares/:lunes/', async (req, res, next) => {
+    try {
         res.json(getDiasEscolares(new Date(req.params.lunes)));
     }
-    catch(err){
+    catch (err) {
         throw new Error("Error al obtener los datos");
         res.json(err);
     }
