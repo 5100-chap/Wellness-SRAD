@@ -50,6 +50,15 @@ const connectToDatabase = async () => {
     }
 };
 
+// Use the /dist directory
+app.use(express.static(__dirname + '/dist/wellness-srad'));
+
+// Catch all other invalid routes
+app.all('*', function(req,res){
+    res.status(200).sendFile(__dirname + '/dist/wellness-srad/index.html');
+});
+
+
 //Iniciar el servidor
 app.set("port", port);
 app.listen(port, function () {

@@ -2,11 +2,12 @@
   "name": "wellness-srad",
   "version": "1.0.0",
   "scripts": {
-    "backend_test": "echo 'Asegurese de haber creado el archivo .env para las credenciales, para mayor informacion cheque ./readme.txt' && nodemon ./API/api.js",
+    "backend_test": "nodemon ./API/api.js",
     "ng": "ng",
-    "start": "ng serve --open --proxy-config proxy.conf.json",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "frontend_test": "ng serve --open --proxy-config proxy.conf.json",
+    "start": "node server.js",
+    "build": "ng build --output-path=./API/dist/wellness-srad",
+    "watch": "ng build --watch --configuration development --output-path=./API/dist/wellness-srad",
     "test": "ng test"
   },
   "private": true,
