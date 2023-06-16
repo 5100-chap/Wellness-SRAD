@@ -41,7 +41,7 @@
         <h1 class="text-body-secondary" style="margin-left: 18%;" id="aforo_data">{{aforoData}}</h1>
 
         <form style=" margin-top: 6%;" (ngSubmit)="marcarLlegadaOSalida()">
-          <a href="http://localhost:4200/tendencias" class="btn btn-primary text-center" id="btn"
+          <a href="/tendencias" class="btn btn-primary text-center" id="btn"
             style="font-size: 1.3rem;">Estadísticas </a>
           <button type="submit" class="btn btn-primary text-center" id="marcarLlegada" style="font-size: 1.3rem; margin-left: 0.7%;" *ngIf="!alumnoStatus && lleno()" (click)="aumentarAforo()">Marcar llegada
           </button>

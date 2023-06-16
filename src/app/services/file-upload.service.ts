@@ -16,7 +16,6 @@ import { TokenService } from './token.service';
 export class FileUploadService {
   constructor(private http: HttpClient, private tokenService:TokenService) {}
 
-  private apiUrl = 'http://localhost:8080';
 
   refreshToken() {
     // Consigue el token actual del usuario
