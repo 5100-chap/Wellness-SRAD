@@ -306,7 +306,6 @@ function getDiasEscolares(fechaSeleccionada) {
         // Sumar 14 días a la fecha actual
         fechaActual.setDate(fechaActual.getDate() + 14);
 
-        console.log(fechaActual + "\n " + fechaSeleccionada)
         // Comparar las fechas
         if (fechaActual > fechaSeleccionada) {
             res = true
