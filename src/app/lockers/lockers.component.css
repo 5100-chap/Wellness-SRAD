@@ -19,6 +19,12 @@
 	
 }
 
+
+#seperacion{
+	padding-left: 2rem;
+	padding-right: 2rem;
+}
+
 #confirmar {
 	
 	background: #ffffff;
@@ -46,7 +52,6 @@
 }
 
 #cantidadLocker{
-	position:relative;
 	left:25rem;
 	bottom: 1rem;
 }
