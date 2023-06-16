@@ -12,6 +12,13 @@
 	
 }
 
+#seperacion{
+	padding-left: 2rem;
+	padding-right: 2rem;
+    align-items: center;
+}
+
+
 #cerrado {
 	
 	background: #bb0707;

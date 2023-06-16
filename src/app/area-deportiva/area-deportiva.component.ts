@@ -43,7 +43,7 @@ export class AreaDeportivaComponent implements OnInit {
     private router: Router,
     private apiService: ApiService,
     private authService: AuthService
-  ) { }
+  ) {}
 
   // Declaramos las variables y arrays que vamos a utilizar
   areaActual: Area = new Area();
@@ -92,7 +92,7 @@ export class AreaDeportivaComponent implements OnInit {
   Ambiente!: number;
 
   horario!: boolean;
-  
+
   reservaArray: Reservas[] = [
     {
       id: 1,
@@ -194,8 +194,9 @@ export class AreaDeportivaComponent implements OnInit {
     let firstDay = now.getDate() - now.getDay() + firstWeekNow.getDate();
     let lastDay = now.getDate() - now.getDay() + lastWeekNow.getDate();
     if (firstDay < 0) {
-      res += `Semana ${firstDay} de ${this.meses[now.getMonth() - 1 < 0 ? 11 : now.getMonth() - 1]
-        }`;
+      res += `Semana ${firstDay} de ${
+        this.meses[now.getMonth() - 1 < 0 ? 11 : now.getMonth() - 1]
+      }`;
     } else {
       res += `Semana ${firstDay}`;
     }
@@ -207,12 +208,15 @@ export class AreaDeportivaComponent implements OnInit {
     );
     const ultimoDiaDelMes = new Date(primerDiaMesSiguiente.getTime() - 1);
     if (lastDay > ultimoDiaDelMes.getDate()) {
-      res += ` de ${this.meses[now.getMonth()]} - ${lastDay - ultimoDiaDelMes.getDate()
-        } de ${this.meses[now.getMonth() + 1 > 11 ? 0 : now.getMonth() + 1]
-        } ${now.getFullYear()}`;
+      res += ` de ${this.meses[now.getMonth()]} - ${
+        lastDay - ultimoDiaDelMes.getDate()
+      } de ${
+        this.meses[now.getMonth() + 1 > 11 ? 0 : now.getMonth() + 1]
+      } ${now.getFullYear()}`;
     } else {
-      res += ` - ${lastDay} de ${this.meses[now.getMonth()]
-        } ${now.getFullYear()}`;
+      res += ` - ${lastDay} de ${
+        this.meses[now.getMonth()]
+      } ${now.getFullYear()}`;
     }
     return res;
   }
@@ -245,7 +249,8 @@ export class AreaDeportivaComponent implements OnInit {
       i = new Date(i.getTime() + cont.getTime())
     ) {
       this.listaDias.push(
-        `${i.getFullYear()}-${i.getMonth() + 1 > 9 ? i.getMonth() + 1 : `0${i.getMonth() + 1}`
+        `${i.getFullYear()}-${
+          i.getMonth() + 1 > 9 ? i.getMonth() + 1 : `0${i.getMonth() + 1}`
         }-${i.getDate() > 9 ? i.getDate() : `0${i.getDate()}`}`
       );
     }
@@ -265,9 +270,7 @@ export class AreaDeportivaComponent implements OnInit {
           '',
           this.areaActual.AreaId
         )
-        .subscribe((error) => {
-          
-        });
+        .subscribe((error) => {});
     }
   }
 
@@ -328,10 +331,10 @@ export class AreaDeportivaComponent implements OnInit {
       for (let i = 0; i < this.listaDeHorariosReservados.length; i++) {
         if (
           this.listaDeHorariosReservados[i].dia.slice(0, 10) ===
-          this.listaDias[dia] &&
+            this.listaDias[dia] &&
           this.listaDeHorariosReservados[i].hora.slice(11, 19) === hora &&
           this.listaDeHorariosReservados[i].usuario ===
-          this.authService.currentUserValue['username']
+            this.authService.currentUserValue['username']
         ) {
           return false;
         }
@@ -439,7 +442,7 @@ export class AreaDeportivaComponent implements OnInit {
                       this.horario = data;
                     });
                 },
-                (error) => { }
+                (error) => {}
               );
           });
         }
@@ -477,9 +480,7 @@ export class AreaDeportivaComponent implements OnInit {
         'Calidad del equipo',
         'Ambiente'
       )
-      .subscribe((error) => {
-        
-      });
+      .subscribe((error) => {});
   }
 
   //Metodo para obtener las reseñas del gimnasio
@@ -487,7 +488,6 @@ export class AreaDeportivaComponent implements OnInit {
     this.apiService.getReseniasArea(this.areaActual.AreaId).subscribe(
       (data: ReseñaArea[]) => {
         this.resenias = data;
-        
       },
       (error) => {
         console.error(error);
@@ -568,9 +568,7 @@ export class AreaDeportivaComponent implements OnInit {
           [ocupados, actuales]
         );
       },
-      (error) => {
-        
-      }
+      (error) => {}
     );
   }
 

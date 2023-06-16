@@ -4,6 +4,12 @@
     height: 200px;
 }
 
+#seperacion{
+	padding-left: 2rem;
+	padding-right: 2rem;
+}
+
+
 .lugar-disp{
     margin: 2cm;
     display: flex;

@@ -134,6 +134,12 @@ button:hover {
 	color: black;
 }
 
+#seperacion{
+	padding-left: 2rem;
+	padding-right: 2rem;
+}
+
+
 
 /*Clases para permitir hacer scroll down*/
 

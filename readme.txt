@@ -1,14 +1,16 @@
-Notas para el desarrollo version Alpha
+Notas para el desarrollo
 El .env debe de estar en el mismo lugar que packages.json, ya que ese archivo contiene las credenciales para conectarse a la BD.
 
 El .env debe de tener esta estructura de ejemplo como se muestra aqui abajo.
 
 ----------------------------------------------
-DB_SERVER=127.0.0.1
-DB_DATABASE=Nombre_DB
-DB_USER=Usuario
-DB_PASSWORD=Contraseña
-PORT=8080
+DB_SERVER = El servidor de la base de datos
+DB_DATABASE= El nombre de la base de datos 
+DB_USER= Nombre de usuario para el acceso a la Base de datos
+DB_PASSWORD= contraseña de usuario para el acceso a la base de datos 
+PORT= Puerto
+JWT_SECRET = LLave para el JWT
+AZURE_STORAGE_CONNECTION_STRING = Conexion para blob de azure
 -----------------------------------------------
 Fig. 1 estructura de .env
 

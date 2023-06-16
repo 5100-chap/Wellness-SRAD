@@ -1,4 +1,4 @@
-# WellnessSRAD (Beta)
+# WellnessSRAD
 
 Wellness SRAD es una aplicación web que se encarga de llevar a cabo el registro de contabilidad del aforo de personas que ingresan y salen del edificio Wellness Center, como también observar las estadísticas del registro de las entradas y salidas. La aplicación brinda a los usuarios la capacidad de conocer el aforo de las instalaciones del edificio en tiempo real, como también la capacidad de reservar las instalaciones y facilitar la organización dentro de las instalaciones de parte de los administradores. 
 

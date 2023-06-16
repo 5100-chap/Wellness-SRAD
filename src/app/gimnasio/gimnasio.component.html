@@ -1,18 +1,26 @@
-<div class="img-fluid" class="opacity-30">
-  <div class="text-white img-banner2">
-    <img src="../assets/img/gym.jpeg" height="250" class="card-img" style="opacity: 0.5;">
+
+
+<!--Encabezado de la página-->
+<div class="img-fluid" class = "opacity-30"  >
+  <div class=" text-white">
+    <img src="https://images.unsplash.com/photo-1589859762194-eaae75c61f64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1ZSUyMGNvbG9yfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="130" class="card-img" >
     <div class="card-img-overlay">
-      <h2 class="card-title text-center" style="margin-left: 2.3%; margin-top:10%; font-size: 3rem;" id="prueba"> <i> Gimnasio</i></h2>
+      <h5 class="card-title">&nbsp;</h5>
+      <h5 class="card-title">&nbsp;</h5>
+      <h5 class="card-title">&nbsp;</h5>
+      <h5 class="card-title">&nbsp;</h5>
+  
+      <h1 class="card-title" class = "text-center"> Gimnasio </h1>
     </div>
   </div>
 </div>
-
+<br>
 
 
 <!--Tarjeta con la grafica y el marcador de aforo-->
 <h3 style="margin-left: 5%; margin-top: 2%; margin-bottom: 2%;"> <strong>Aforo en tiempo real </strong> </h3>
 
-<div class="vstack gap-4 col-md-10 mx-auto">
+<div class="vstack gap-4 col-md-10 mx-auto" id="seperacion">
 
   <div class="card w-100 ">
     <h3 class="card-header">{{this.changedDate}}</h3>
@@ -33,7 +41,7 @@
         <h1 class="text-body-secondary" style="margin-left: 18%;" id="aforo_data">{{aforoData}}</h1>
 
         <form style=" margin-top: 6%;" (ngSubmit)="marcarLlegadaOSalida()">
-          <a href="http://localhost:4200/tendencias" class="btn btn-primary text-center" id="btn"
+          <a href="/tendencias" class="btn btn-primary text-center" id="btn"
             style="font-size: 1.3rem;">Estadísticas </a>
           <button type="submit" class="btn btn-primary text-center" id="marcarLlegada" style="font-size: 1.3rem; margin-left: 0.7%;" *ngIf="!alumnoStatus && lleno()" (click)="aumentarAforo()">Marcar llegada
           </button>
@@ -53,7 +61,7 @@
 <!--Calendario con los horarios disponibles para la reservación-->
 <h3 style="margin-left: 5%; margin-top: 3%; margin-bottom: 2%;"> <strong> Reservación </strong> </h3>
 
-<div class="vstack gap-4 col-md-10 mx-auto">
+<div class="vstack gap-4 col-md-10 mx-auto" id="seperacion">
   <div class="row mt-4">
     <div class="col-md-4 mb-2">
       <div class="col-md-6 input-group" style="margin-left: 2%; font-size: 1.4rem;">
@@ -121,7 +129,7 @@
 
 <!--Resumen del dia y horarios seleccionados-->
 
-<div class="vstack gap-4 col-md-10 mx-auto mt-2">
+<div class="vstack gap-4 col-md-10 mx-auto mt-2" id="seperacion">
 
   <div id="reserve" class="card w-100 border border-light border border-2">
     <br>
@@ -161,7 +169,7 @@
 
   <!--Tarjetas con información de la ubicación y reseñas del área deportiva-->
 
-  <div class="row">
+  <div class="row" id="seperacion">
 
     <div class="col-md-5 mt-4">
       <h3> <strong>Ubicación</strong> </h3>
