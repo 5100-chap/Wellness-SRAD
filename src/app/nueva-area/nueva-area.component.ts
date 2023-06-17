@@ -30,10 +30,12 @@ export class NuevaAreaComponent {
     horaInicio: new FormControl('', Validators.required),
     horaFinal: new FormControl('', Validators.required),
     material: new FormControl(''),
+    descripcion: new FormControl('', [Validators.required, Validators.maxLength(300)]) 
+   
   });
 
   resultado!: string;
-  value!: string;
+  value : string = "";
   today = new Date();
 
   /** Pipe para darle formato la fecha y hora*/
@@ -47,6 +49,7 @@ export class NuevaAreaComponent {
     matDisp: string,
     horaFinal: string,
     horaInicio: string,
+    descripcion: string,
     imag: string
   ) {
     // Función auxiliar para verificar si el valor es un string vacío con espacios en blanco
@@ -71,11 +74,15 @@ export class NuevaAreaComponent {
       : horaInicio;
     var imagFinal: string | null = esStringVacio(imag) ? null : imag;
 
+    var descripcionFinal: string | null = esStringVacio(descripcion)
+    ? null
+    : descripcion;
+
     // Llamar a la función createArea del ApiService con los valores actualizados
     this.apiService
       .createArea(
         nombreFinal,
-        null,
+        descripcionFinal,
         0,
         numAforo,
         ubicacionFinal,

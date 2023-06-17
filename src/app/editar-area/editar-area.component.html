@@ -21,6 +21,7 @@
 
 <!--Formulario para la creación de la nueva área-->
 
+
 <form [formGroup]="NuevaAreaForm" name="NuevaAreaForm" id="NuevaAreaForm" acceptcharset="utf-8" role="form">
     <div class="row" style="margin-left: 1.5%; margin-top: 2%">
         <div class="col-md-6">
@@ -28,7 +29,7 @@
                 <span class="input-group-text" id="title">Nombre del área deportiva
                 </span>
                 <input type="text" formControlName="nombre" tabindex="1" required autocomplete="off"
-                    class="form-control" placeholder="{{ areaActual.NombreArea }}" aria-label="Username"
+                    class="form-control" placeholder= "{{areaActual.NombreArea}}" [ngModel]="areaActual.NombreArea" aria-label="Username"
                     aria-describedby="basic-addon1" #nombre />
             </div>
 
@@ -43,7 +44,7 @@
             <div class="input-group mb-3">
                 <span class="input-group-text" id="title">Descripción</span>
                 <input type="text" formControlName="descrip" tabindex="2" required autocomplete="off"
-                    class="form-control" placeholder="{{ areaActual.Descripcion }}" aria-label="Username"
+                    class="form-control" placeholder="{{ areaActual.Descripcion }}" [ngModel]="areaActual.Descripcion" aria-label="Username"
                     aria-describedby="basic-addon1" min="1" #descrip />
             </div>
 
@@ -62,7 +63,7 @@
             <div class="input-group mb-3">
                 <span class="input-group-text" id="title">Hora de apertura</span>
                 <input formControlName="horaInicio" style="font-size: 1.5rem" type="time" id="start" name="trip-start"
-                    #horaInicio />
+                    #horaInicio value="{{formatHora(areaActual.horaApertura)}}"/>
             </div>
 
             <!--Validar si el campo ubicación está vacio -->
@@ -76,7 +77,7 @@
             <div class="input-group mb-3">
                 <span class="input-group-text" id="title">Hora de cierre</span>
                 <input formControlName="horaFinal" style="font-size: 1.5rem" type="time" id="start" name="trip-start"
-                    #horaFinal />
+                    #horaFinal value="{{formatHora(areaActual.horaCierre)}}" />
             </div>
 
             <!--Validar si el campo ubicación está vacio -->
@@ -94,7 +95,7 @@
             <div class="input-group mb-3">
                 <span class="input-group-text" id="title">Ubicación</span>
                 <input type="text" formControlName="ubicacion" tabindex="3" autocomplete="off" class="form-control"
-                    placeholder="{{ areaActual.Ubicacion }}" aria-label="Username" aria-describedby="basic-addon1"
+                placeholder="{{ areaActual.Ubicacion }}" [ngModel]="areaActual.Ubicacion" aria-label="Username" aria-describedby="basic-addon1"
                     #ubicacion />
             </div>
 
@@ -114,7 +115,7 @@
             <div class="input-group mb-3">
                 <span class="input-group-text" id="title">Material disponible</span>
                 <input type="text" formControlName="material" tabindex="4" autocomplete="off" class="form-control"
-                    placeholder="{{ areaActual.MaterialDisponible }}" aria-label="Username"
+                placeholder="{{ areaActual.MaterialDisponible }}" [ngModel]="areaActual.MaterialDisponible" aria-label="Username"
                     aria-describedby="basic-addon1" #material />
             </div>
         </div>
@@ -129,7 +130,10 @@
 
                 <app-image-upload #imageUploadComponent name="subida-imagenes" formControlName="imagen" tabindex="5"
                     class="mt-2 mb-2" style="margin-left: 1.5%; margin-bottom: 1.5%;" [uploadId]="areaActual.AreaId"
-                    [uploadType]="'area'"></app-image-upload>
+                    [uploadType]="'area'" ></app-image-upload>
+
+                    <img [src]="areaActual.Imagen" class="imagen-pequena" alt=""
+                    loading="lazy" style="margin-left: 2%; margin-top: 1%;"/>
             </div>
 
             <!--Validar si el campo imagen está vacio -->

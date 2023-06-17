@@ -12,7 +12,7 @@ export class Area {
         public FechaCierre: Date = new Date(),
         public FechaApertura: Date = new Date(),
         public Imagen: string = '',
-
+        
         public horaApertura: string = '',
         public horaCierre: string = ''    
     ) { }
