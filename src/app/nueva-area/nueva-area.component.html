@@ -103,18 +103,35 @@
 
   <div class="row" style="margin-left: 1.5%">
     <div class="col-md-11 mt-2">
-      <!-- <div class="form-check input-group mb-2">
-    <input type="checkbox" name="rad2" (change)="true" #checkBox1> &nbsp; ¿El nuevo espacio requiere materiales?
-  </div> -->
-
       <!--Si el check-box ha sido activado-->
-
-      <!-- <div *ngIf="checkBox1.checked" class="input-group mb-3"> -->
       <div class="input-group mb-3">
         <span class="input-group-text" id="title">Material disponible</span>
         <input type="text" formControlName="material" tabindex="4" autocomplete="off" class="form-control"
           placeholder="Insertar material aquí" aria-label="Username" aria-describedby="basic-addon1" #material />
       </div>
+    </div>
+  </div>
+
+  <div class="row" style="margin-left: 1.5%">
+    <div class="col-md-11 mt-2">
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="title">Descripción</span>
+        <input type="text" formControlName="descripcion" tabindex="4" autocomplete="off" class="form-control"
+          placeholder="Insertar la descripción del área" aria-label="Username" aria-describedby="basic-addon1" #descripcion />
+          <br>
+      </div>
+      <!--Validar si el campo descripción está vacio -->
+      <span *ngIf="this.NuevaAreaForm.get('descripcion')?.errors?.['required']" style="color: rgba(203, 23, 10, 0.913)">
+        La descripción no puede quedar vacía
+      </span>
+
+       <!--Validar si el campo imagen está vacio -->
+       <span *ngIf="this.NuevaAreaForm.get('descripcion')?.errors?.['maxlength']" style="color: rgba(203, 23, 10, 0.913)">
+        La descripción no puede tener más de 300 caracteres
+      </span>
+
+
+
     </div>
   </div>
 
@@ -135,8 +152,6 @@
       </span>
     </div>
   </div>
-
-  <!--Botones-->
 
   
 </form>
@@ -168,7 +183,9 @@
               material.value,
               horaFinal.value,
               horaInicio.value,
-              'none'
+              descripcion.value,
+              this.value
+              
             )
           ">
           Crear área deportiva

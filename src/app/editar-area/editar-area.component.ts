@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../services/api.service';
-import { DatePipe } from '@angular/common';
+import { DatePipe, Time } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Area } from '../models/area.model';
 import { ImageUploadComponent } from '../image-upload/image-upload.component';
@@ -72,6 +72,19 @@ export class EditarAreaComponent implements OnInit {
                 }
             });
     }
+
+
+  //Función para formatear la hora
+  formatHora(hora: string){
+    let horaFormateada = this.pipe.transform(hora, 'hh:mm');
+    return horaFormateada
+  }
+
+  //Obtenet nombre del area
+  getNombre(){
+    console.log(this.route.snapshot.paramMap.get('nombreArea'))
+    return( this.route.snapshot.paramMap.get('nombreArea'))
+  }
 
     editarArea(
         id: number,
